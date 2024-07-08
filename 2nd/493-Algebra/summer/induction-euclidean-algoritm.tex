@@ -1,0 +1,31 @@
+\subsection{Intro}
+
+\begin{theorem}(Division Algoritm)
+    Suppose \(a\),\(b\in\Z\) \s s.t. \s \(b>0\).
+    Then there are  unique \(q\),\(r \in\Z\) \s s.t. \s \(a=bq+r\) and \(0\leq r < b\)
+\end{theorem}
+\begin{proof}
+    Let \(a\), \(b\in\Z\) s.t. \(b>0\). Consider \(A = \{a-bx | x\in\Z\} \cap\N\)\\
+    By the Well Ordering Principle since A has all non-negative terms it has a minimum lets call this \(r\) and call the associated \(x\in\Z\), \(q\).\\
+    Thus, \(r=a-bq \implies a=bq+r\).\\
+    For contradiction, assume \(r\geq b\).\\
+    \(\implies r=b+m\) s.t. \(m\geq0\)\\
+    \(\implies b+m=a-bq \implies m=a-b(q+1)\in A \implies m < r = \) minimum \(\contr\)
+    Thus \(0 \leq r < b\)\\\\
+    Fix  \(q_1,q_2,r_1,r_2\in\Z\) s.t. \(a=bq_1+r_1=bq_2+r_2\) and \(0\leq r_1,r_2<b\).\s\s WLOG let \(r_1>=r_2\)\\
+    \(\implies bq_1+r_1=bq_2+r_2 \implies r_1-r_2=b(q_2-q_1) \implies r_1-r_2\) is a multiple of \(b\)\\
+    Since \(0\leq r_1,r_2<b \implies 0\leq r_1-r_2<b\)\\
+    Since \(r_1-r_2\) is strictly less than \(b\) the only multpiple of \(b\) it could be is \(0\) thus \(r_1=r_2\)\\
+    \(\implies q_1=q_2\)
+\end{proof}
+
+\begin{lemma}(Bezout's Lemma)
+    Suppose \(a\),\(b\in\Z\setminus\left\{ 0 \right\}\). Then there are \(x\),\(y\in\Z\) s.t. \(ax+by=\gcd\left( a,b \right)\).
+\end{lemma}
+\begin{proof}
+    Let \(a\),\(b\in\Z\setminus\left\{ 0 \right\}\). Consider \(A= \left\{ax+by \,|\, x,y\in\Z \right\}\cap\N\)\\
+    By the Well Ordering Principle since A has all non-negative terms it has a minimum lets call this \(d\) and call the associated \(x,y\in\Z\), \(u\) and \(v\).\\
+    By Theorem 0.1.1 \(\exists q,r \in\Z\) s.t. \(a=dq+r\) and \(0\leq r < d\)\\
+    Case 1: \(r=0 \implies d\mid a\)\\
+    Case 2:
+\end{proof}
