@@ -39,4 +39,320 @@
         x&=9n+8 &n\in\Z&
     \end{align*}
 \end{example}
+
 \subsection{Dihedral Groups}
+\subsubsection[Symmetry Group for an Equilateral Triangle]{Rigid Motions of an Equilateral Triangle}
+\begin{center}
+    \begin{tikzpicture}
+        % Draw the equilateral triangle
+        \node (A) at (90:2) {A};
+        \node (B) at (210:2) {B};
+        \node (C) at (330:2) {C};
+
+        \draw (A) -- (B) -- (C) -- (A);
+
+        % Draw symmetry axes
+        \draw[dashed, orange] (A) -- (270:1.7);
+        \node at (270:2) {S\textsubscript{A}};
+        \draw[dashed, red] (B) -- (45:2);
+        \node at (45:2.3) {S\textsubscript{B}};
+        \draw[dashed, green] (C) -- (135:2);
+        \node at (135:2.3) {S\textsubscript{C}};
+    \end{tikzpicture}
+\end{center}
+
+\subsection*{Rotations}
+\[
+\begin{aligned}
+    r &= 120^\circ \text{ rotation} \\
+    r^2 &= 240^\circ \text{ rotation} \\
+    r^3 &= 360^\circ \text{ rotation} = e = 0^\circ \text{ rotation}
+\end{aligned}
+\]
+
+\subsection*{Reflections}
+\[
+\begin{aligned}
+    S_A &: \triangle ABC \rightarrow \triangle ACB \\
+    S_B &: \triangle ABC \rightarrow \triangle CBA \\
+    S_C &: \triangle ABC \rightarrow \triangle BAC \\
+\end{aligned}
+\]
+
+\section*{Transformation Diagrams}
+\begin{center}
+    \begin{tikzpicture}
+        
+        % Reflected Triangle SA
+        \node (A2) at (2, 0) {C};
+        \node (B2) at (4, 0) {B};
+        \node (C2) at (3, 1.73) {A};
+        \draw (A2) -- (C2) -- (B2) -- (A2);
+        \node at (3, -0.5) {$S_A(\triangle ABC) = \triangle ACB$};
+
+        % Reflected Triangle SB
+        \node (A3) at (0, -3) {B};
+        \node (B3) at (2, -3) {A};
+        \node (C3) at (1, -1.27) {C};
+        \draw (B3) -- (C3) -- (A3) -- (B3);
+        \node at (1, -3.5) {$S_B(\triangle ABC) = \triangle CBA$};
+
+        % Reflected Triangle SC
+        \node (A4) at (4, -3) {A};
+        \node (B4) at (6, -3) {C};
+        \node (C4) at (5, -1.27) {B};
+        \draw (C4) -- (A4) -- (B4) -- (C4);
+        \node at (5, -3.5) {$S_C(\triangle ABC) = \triangle BAC$};
+    \end{tikzpicture}
+\end{center}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Identity
+        \node (A1) at (2, 0) {B};
+        \node (B1) at (4, 0) {C};
+        \node (C1) at (3, 1.73) {A};
+        \draw (A1) -- (B1) -- (C1) -- (A1);
+        \node at (3, -0.5) {$e(\triangle ABC) = \triangle ABC$};
+
+        % 120 Degree Rotation
+        \node (A2) at (0, -3) {A};
+        \node (B2) at (2, -3) {B};
+        \node (C2) at (1, -1.27) {C};
+        \draw (B2) -- (C2) -- (A2) -- (B2);
+        \node at (1, -3.5) {$r(\triangle ABC) = \triangle CAB$};
+
+        % 240 Degree Rotation
+        \node (A3) at (4, -3) {C};
+        \node (B3) at (6, -3) {A};
+        \node (C3) at (5, -1.27) {B};
+        \draw (C3) -- (B3) -- (A3) -- (C3);
+        \node at (5, -3.5) {$r^2(\triangle ABC) = \triangle CAB$};
+    \end{tikzpicture}
+\end{center}
+
+\subsubsection*{Operations}
+
+\begin{align*}
+    r \circ S_A(\triangle ABC) &=r(\triangle ACB)=\triangle BAC =S_C(\triangle ABC) & r \circ S_A = S_C\\
+    r^2 \circ S_A(\triangle ABC) &=r^2(\triangle ACB)=\triangle CBA = S_B(\triangle ABC) & r^2 \circ S_A = S_B
+\end{align*}
+Now we only need \(S_A\) so lets call this \(S\)\\
+Thus we only need \(S,rs,r^2S,r,r^2,e\)\\
+Also \(S^2=r^3=e\)
+
+\subsubsection*{How \(S,r,r^2\) Commute}
+\begin{align*}
+    r \circ S(\triangle ABC) &=r(\triangle ACB) =\triangle BAC = S\circ r^2\\
+    r^2 \circ S(\triangle ABC) &=r^2(\triangle ACB)=\triangle CBA = S \circ r
+\end{align*}
+
+\begin{definition}
+    The group of symmetries of an equilateral triangle is D\textsubscript{3}\(=\left\{ e,r,r^2,S,Sr,Sr^2 \right\}\), where  \(r^3=S^2=e\), \(rS=Sr^2\)
+
+    Dihedral group of order \(2\cdot3=6\)
+
+    \textbf{\large Compact Notation} \large D\textsubscript{3}\(=\langle r,s\footnotemark \mid  r^3=S^2=e \t{ , } rS=Sr^2 \rangle\)
+\end{definition}
+\footnotetext{The generators of D\textsubscript{3} meaning you can create all other operations from them}
+
+\newpage
+\subsubsection{Symmetry Group for a Square}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Top left square
+        \node (A1) at (0, 2) {B};
+        \node (B1) at (2, 2) {A};
+        \node (C1) at (2, 0) {D};
+        \node (D1) at (0, 0) {C};
+        \draw (A1) -- (B1) -- (C1) -- (D1) -- (A1);
+
+        % Top right square (rotated 90 degrees clockwise)
+        \node (A2) at (4, 2) {C};
+        \node (B2) at (4, 0) {D};
+        \node (C2) at (6, 0) {A};
+        \node (D2) at (6, 2) {B};
+        \draw (A2) -- (D2) -- (C2) -- (B2) -- (A2);
+
+        % Bottom left square (rotated 90 degrees counterclockwise)
+        \node (A3) at (0, -2) {A};
+        \node (B3) at (0, -4) {B};
+        \node (C3) at (2, -4) {C};
+        \node (D3) at (2, -2) {D};
+        \draw (A3) -- (D3) -- (C3) -- (B3) -- (A3);
+
+        % Bottom right square (rotated 180 degrees)
+        \node (A4) at (4, -2) {D};
+        \node (B4) at (6, -2) {C};
+        \node (C4) at (6, -4) {B};
+        \node (D4) at (4, -4) {A};
+        \draw (A4) -- (B4) -- (C4) -- (D4) -- (A4);
+
+        % Arrows between squares (orange) reflection
+        \draw[->, thick, orange] (3.8, 1) -- (2.2, 1);
+        \draw[->, thick, orange] (1, -0.2) -- (1, -1.8);
+        \draw[->, thick, orange] (5, -1.8) -- (5, -0.2);
+        \draw[<-, thick, orange] (3.8, -3) -- (2.2, -3);
+
+        % Top left square (reflection across middle)
+        \node (A12) at (-4, 3) {A};
+        \node (B12) at (-2, 3) {B};
+        \node (C12) at (-2, 1) {C};
+        \node (D12) at (-4, 1) {D};
+        \draw (A12) -- (B12) -- (C12) -- (D12) -- (A12);
+
+        % Top right square (reflection across middle)
+        \node (A22) at (8, 3) {B};
+        \node (B22) at (8, 1) {A};
+        \node (C22) at (10, 1) {D};
+        \node (D22) at (10, 3) {C};
+        \draw (A22) -- (D22) -- (C22) -- (B22) -- (A22);
+
+        % Bottom left square (reflection across middle)
+        \node (A32) at (-4, -3) {D};
+        \node (B32) at (-4, -5) {C};
+        \node (C32) at (-2, -5) {B};
+        \node (D32) at (-2, -3) {A};
+        \draw (A32) -- (D32) -- (C32) -- (B32) -- (A32);
+
+        % Bottom right square (reflection across middle)
+        \node (A42) at (8, -3) {C};
+        \node (B42) at (10, -3) {D};
+        \node (C42) at (10, -5) {A};
+        \node (D42) at (8, -5) {B};
+        \draw (A42) -- (B42) -- (C42) -- (D42) -- (A42);
+
+        % Arrows between squares (blue) rotation
+        \draw[<->, thick, blue] (A1) -- (B12);
+        \draw[<->, thick, blue] (D2) -- (A22);
+        \draw[<->, thick, blue] (A3) -- (D32);
+        \draw[<->, thick, blue] (D2) -- (A22);
+        \draw[<->, thick, blue] (B4) -- (A42);
+
+        % Rotation
+        \draw[->, thick, orange] (B12) -- (A22);
+        \draw[->, thick, orange] (C22) -- (B42);
+        \draw[->, thick, orange] (D42) -- (C32);
+        \draw[->, thick, orange] (A32) -- (D12);
+
+    
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \node[draw, rectangle, fill=white] at (8, 0) {
+                \begin{tabular}{ll}
+                    \textcolor{orange}{$\rightarrow$} & Rotation across middle \\
+                    \textcolor{blue}{$\rightarrow$} & \(90^\circ \) counterclockwise rotation \\
+                    A, B, C, D & Vertices \\
+                \end{tabular}
+            };
+    \end{tikzpicture}
+\end{center}
+
+\subsubsection*{Rotations}
+\[
+\begin{aligned}
+    r &= 90^\circ \text{ rotation} \\
+    r^2 &= 180^\circ \text{ rotation}\\
+    r^3 &= 270^\circ \text{ rotation} \\
+    r^4 &= 360^\circ \text{ rotation} = e = 0^\circ \text{ rotation}
+\end{aligned}
+\]
+
+\subsubsection*{Reflections}
+\[
+\begin{aligned}
+    s &: \Square ABCD \rightarrow \Square BCDA \\
+\end{aligned}
+\]
+
+\subsubsection*{How does \(s,r\) Commute}
+
+From the diagram we see that \(sr=r^3s\implies rs=sr^3\)
+
+\begin{definition}
+    The group of symmetries of a square is D\textsubscript{4}\(=\left\{ e,r,r^2,r^3,s,sr,sr^2,sr^3 \right\}\)
+
+    Dihedral group of order \(2\cdot4=8\)
+
+    D\textsubscript{4}\(=\langle s,r \mid r^4=s^2=e \t{ , } sr=r^3s \rangle \)
+\end{definition}
+
+\subsubsection{Symmetry Group of regular n-gon}
+\phantom{text}
+
+Rotation: \(r=\dfrac{360^\circ}{n}\;\;\circlearrowleft \left( e,r,r^2,\ldots,r^{n-1} \right)\)
+\vspace{5pt}
+
+Reflection: \(s=\)reflection across middle \(\left( s,sr,sr^2,\ldots, sr^{n-1} \right)\)
+
+\begin{proof}[\textbf{Claim:} \(rs=sr^{n-1}\)]
+    \phantom{text}\\
+    \textit{Proof.}
+    We only need 3 points since our shape is defined by the order of those 3 points
+
+    \(r\circ s\left( n,1,2 \right) = r\left( 2,1,n \right) = \left( 1,n,n-1 \right)\)
+    
+    \(s\circ r^{n-1}\left( n,1,2 \right) = s\left( n-1,n,1 \right) = \left( 1,n,n-1 \right)\)
+
+    Thus \(rs=sr^{n-1}\)
+\end{proof}
+
+\begin{definition}
+    The dihedral group D\textsubscript{n} is the symmetry group of a regular n-gon.
+
+    D\textsubscript{n}\(=\langle s,r \mid r^n=s^2=e \t{ , } rs=sr^{n-1} \rangle \)
+\end{definition}
+
+\begin{proof}[\textbf{Claim:} For all \(1\leq m\leq n-1\) we have \(r^ms=sr^{n-m}\)]
+    \phantom{text}\\
+    \textit{Proof.} Base Case: \(m=1 \implies rs=sr^{n-1}\) \checkmark
+
+    Inductive Step: Assume for \(k \geq 1\) the statement is true
+
+    Consider: 
+    \begin{align*}
+        r^{k+1}s&=rr^ks &\t{Apply indcutive hypothesis on } r^ks\\
+                &=rsr^{n-k} \\
+                &=sr^{n-1}r^{n-k}\\
+                &=sr^nr^{n-(k+1)}\\
+                &=sr^{n-(k+1)}
+    \end{align*}
+\end{proof}
+\newpage
+\subsubsection{Exercises}
+
+\begin{example}
+    Simplfy
+    \begin{itemize}
+        \item \(\left( sr^5 \right)r\left( sr^3 \right)\) in D\textsubscript{4}
+        \begin{flalign*}
+            &=(sr)r(rs) &\\
+            &=(s)r^2(rs) &\\
+            &=e &
+        \end{flalign*}
+        \item \(\left( sr^4 \right)\left( sr^2 \right)\) in D\textsubscript{6}
+        \begin{flalign*}
+            &=(r^2s)(sr^2)\;\; \t{ Use } r^ms=sr^{n-m}&\\
+            &=r^4
+        \end{flalign*}
+        \item \(r^3\left( sr \right)\) in D\textsubscript{4}
+        \begin{flalign*}
+            &=r^3(r^3s) &\\
+            &=r^2s
+        \end{flalign*}
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    The Cayley table of the $D_3$ can be written\\
+    $\begin{array}{c|cccccc}
+                 & e     & r     & r^2   & s     & r s   & r^2 s \\ 
+    \hline e     & e     & r     & r^2   & s     & r s   & r^2 s \\
+           r     & r     & r^2   & e     & r s   & r^2 s & s     \\ 
+           r^2   & r^2   & e     & r     & r^2 s & s     & r s   \\ 
+           s     & s     & r^2 s & r s   & e     & r^2   & r     \\ 
+           r s   & r s   & s     & r^2 s & r     & e     & r^2   \\ 
+           r^2 s & r^2 s & r s   & s     & r^2   & r     & e     \\ 
+    \end{array}$
+\end{example}
