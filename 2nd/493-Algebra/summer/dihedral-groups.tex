@@ -1,3 +1,4 @@
+\subsection{Intro}
 \begin{definition}
     A group is a set \(G\) together with a binary operation \(*:G\times G\to G\) s.t.
     \begin{itemize}
@@ -13,4 +14,29 @@
     Write as: ord\(\left( g \right)=\mid g \mid=n\)
 \end{definition}
 
+\subsubsection{Exercises}
+\begin{example}
+    Let \(G =\R\setminus\left\{ -1 \right\} \t{ and define } a * b = a+b+ab \t{. Show } \left( G\t{,}* \right)\) is an Abelian group
+    \begin{itemize}
+        \item (Abelian) For all \(a,b\in G\;\; a*b=a+b+ab=b+a+ba=b*a\)
+        \item (Closure) \checkmark
+        \item (Identity) For all \(a \in G\;\; a*0=0*a=0\)
+        \item (Inverses) For all \(a \in G\)\s\s let \s\s\(b= \displaystyle \frac{-a}{a+1}\). 
+        
+        \hspace{11pt} Thus, \(a*b=b*a=a+b+ab=a+b(a+1)=\displaystyle\frac{-a}{a+1}(a+1)=a-a=0\)
+        \item (Associativity) For all \(a,b,c \in G\)
+        
+        \hspace{11pt} \(a*(b*c)=a*(b+c+bc)=a+b+c+bc+ab+ac+abc=(a+b+ab)*c=(a*b)*c\)
+    \end{itemize}
+    Therefore, \(G\) is an Abelian group
+\end{example}
+
+\begin{example}
+    Find all \(x \in\Z\) s.t. \(5x\equiv4(\mod 9) \)
+    \begin{align*}
+        5x&\equiv4(\mod9) &2*5=10\equiv1(\mod9)\\
+        x&\equiv8(\mod9)\\
+        x&=9n+8 &n\in\Z&
+    \end{align*}
+\end{example}
 \subsection{Dihedral Groups}
