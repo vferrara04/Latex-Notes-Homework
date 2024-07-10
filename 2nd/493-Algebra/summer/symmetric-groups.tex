@@ -1,4 +1,4 @@
-\section{Symmetric Groups}
+\subsection{Symmetric Groups}
 
 \begin{definition}
     Given a set \(X\), a permutation of \(X\) is
@@ -6,7 +6,7 @@
     \(S_X=\left\{ \sigma : X \rightarrow X \mid \sigma \t{ is a bijection } \right\}\)
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label[lemma]{lem:permutationgroups}
     For all sets \(X \neq \emptyset\), \(S_X\) is a group
 \end{lemma}
 
@@ -80,7 +80,7 @@
     \]
 \end{example}
 \newpage
-\subsection{Cycle Notation}
+\subsubsection{Cycle Notation}
 \begin{example}
     \(\sigma,\mu\in S_5\)
     \[\sigma=\left( 
@@ -111,8 +111,8 @@
                   &=\left( 14 \right)^2\left( 253 \right)^2=\left( 235 \right)
     \end{align*}
 \end{example}
-\begin{lemma}
-    Disjoint cycles are commuative
+\begin{lemma}\label[lemma]{lem:cyclescom}
+    Disjoint cycles are commutative
 \end{lemma}
 \begin{proof}
     Let \(\alpha,\beta\) be disjoint cycles of \([n]\)
@@ -132,16 +132,16 @@
     \(\implies \alpha\beta=\beta\alpha\)
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label[lemma]{lem:disjointcycles}
     Every \(\sigma\in S_n\) can be written as disjoint cycles
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma}\label[lemma]{lem:ordercycle}
     The order of an \(m\)-cylce is \(m\)
 \end{lemma}
 \newpage
 
-\begin{lemma}
+\begin{lemma}\label[lemma]{lem:orderdivisibility}
     Suppose \(G\) is a group and ord\((g)=n\). Then \(g^m=e\iff n\mid m\)
 \end{lemma}
 
@@ -156,12 +156,12 @@
     \(g^m=g^nk=(g^n)^k=(e)^k=e\)\\
     (\(\implies\))
 
-    Assume \(g^m=e\) and use division algorithm to write \(m=nq+r\) s.t. \(0\leq r<n\)
+    Assume \(g^m=e\) and use the divsion algoritm (\ref{thm:divalgo}) to write \(m=nq+r\) s.t. \(0\leq r<n\)
 
     \(e=g^m=g^{nq+r}=(g^n)^qg^r=g^r \implies r=0 \implies n\mid m\)
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label[theorem]{thm:orderlcm}
     If \(\sigma_1,\sigma_2,\dots,\sigma_k\) are disjoint cycles of length
     \(a_1,a_2,...,a_k\) and\\ \(\sigma=\sigma_1,\sigma_2,\dots,\sigma_k\).
     Then ord\((\sigma)=\t{lcm}(a_1,a_2,\dots,a_k)\).
@@ -173,9 +173,9 @@
     Since \(l\) is a lcm it is also a multiple so \(l=a_jq_j\) for \(1\leq j\leq k\) where \(q_j\in\Z\)
     
     \begin{align*}
-        \sigma^l&=\sigma_1^l\sigma_2^l\cdots\sigma^l & \t{We can do this because of Lemma 2.1.6}\\
+        \sigma^l&=\sigma_1^l\sigma_2^l\cdots\sigma^l & \t{We can do this because of \Cref{lem:cyclescom}}\\
                 &=(\sigma_1^{a_1})^{q_1}\cdots(\sigma_k^{a_k})^{q_k}\\
-                &=(1) &\t{Apply Lemma 2.1.8}
+                &=(1) &\t{Apply \Cref{lem:ordercycle}}
     \end{align*}
 
     \(\implies m\mid l\)
@@ -195,7 +195,7 @@
     \begin{itemize}
         \item Find an element of order 12 in \(S_7\)
         
-        \((1234)(567)\in S_7\) by Theorem 2.0.10 \(\implies\) the order is \(3\cdot4=12=\)lcm(3,4)
+        \((1234)(567)\in S_7\) by \Cref{thm:orderlcm} \(\implies\) the order is \(3\cdot4=12=\)lcm(3,4)
         \item Possible orders of elements in \(S_5\)
         \begin{itemize}
             \item 1: (1), 5=1+1+1+1+1
@@ -206,4 +206,71 @@
             \item 6: (12)(345), 5=2+3
         \end{itemize}
     \end{itemize}
+\end{example}
+
+\newpage
+\subsubsection{Exercises}
+
+\begin{example}
+    Write the following as the product of disjoint cycles
+    and find the order.
+
+    \begin{itemize}
+        \item \((1358)(378)(125)\in S_8\)
+        
+        \((128537)\) order=6
+        \item \((1264)^{-1}(364)^2\in S_6\)
+        
+        \(=(1462)(346)\)
+
+        \(=(142)(36)\) order=6
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    Find all Possible orders of elements in \(S_7\)
+    \begin{itemize}
+        \item 1: (1), 7=1+1+1+1+1+1+1
+        \item 2: (12), 7=2+1+1+1+1+1 or (12)(34), 7=2+2+1+1+1 or (12)(34)(56), 7=2+2+2+1 
+        \item 3: (123), 7=3+1+1+1+1 or (123)(456), 7=3+3+1
+        \item 4: (1234), 7=4+1+1+1 or (1234)(56), 7=4+2+1+1
+        \item 5: (12345), 7=5+1+1
+        \item 6: (123456), 7=6+1 or (123)(45), 7=3+2+1+1, or (123)(45)(67), 7=3+2+2+1
+        \item 7: (1234567), 7=7
+        \item 10: (12345)(67), 7=5+2
+        \item 12: (1234)(567), 7=4+3
+    \end{itemize}
+\end{example}
+\newpage
+\begin{example}
+    What is the largest possible order of an element in \(S_{10}\)?
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{cycle type} & \textbf{order} \\
+            \hline
+            (5,1,1,1,1,1) & 5 \\
+            (5,2,1,1,1) & 10 \\
+            (5,2,2,1) & 10 \\
+            (5,3,1,1) & 15 \\
+            (5,3,2) & 30 \\
+            (5,4,1) & 20 \\
+            (5,5) & 5 \\
+            (6,1,1,1,1) & 6 \\
+            (6,2,1,1) & 6 \\
+            (6,3,1) & 6 \\
+            (6,4) & 12 \\
+            (7,1,1,1) & 7 \\
+            (7,2,1) & 14 \\
+            (7,3) & 21 \\
+            (8,1,1) & 8 \\
+            (8,2) & 8 \\
+            (9,1) & 9 \\
+            (10) & 10 \\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    Max=30
 \end{example}
