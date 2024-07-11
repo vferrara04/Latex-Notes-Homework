@@ -1,0 +1,7 @@
+digraph G {
+rankdir = "BT";
+Wholegroup[peripheries=2,label="{e,a,a^2,a^3}; for Z/4Z notation: {0,1,2,3}; whole group"];
+Trivialsubgroup[peripheries=2,label="{e}; for Z/4Z notation: {0}; trivial"];
+Middle[label="{e,a^2}; for Z/4Z notation: {0,2}; cyclic of order 2"];
+Trivialsubgroup -> Middle -> Wholegroup;
+}
