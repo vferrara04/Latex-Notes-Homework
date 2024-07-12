@@ -175,3 +175,47 @@
         \item $Z(D_4)={e,r^2}$
     \end{itemize}
 \end{example}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    Prove that if $G$ is abelian if and only if for all \(a,b \in G\)
+    we have $(ab)^{-1}=a^{-1}b^{-1}$
+
+    \begin{proof}
+        $(\implies)$ Assume $G$ is abelian and let $a,b \in G$
+
+        \(\implies (ab)^{-1}=b^{-1}a^{-1}=a^{-1}b^{-1}\)
+
+        $(\Longleftarrow)$ Assume for all \(a,b\in G\) we have \((ab)^{-1}=a^{-1}b^{-1}\)
+
+        Consider: \(a^{-1}\) and \(b^{-1}\)
+
+        \(ba=(a^{-1}b^{-1})^{-1}=ab\)
+    \end{proof}
+\end{example}
+
+\begin{example}
+    Suppose $G$ is a group of order 6 containing
+    7 and 19 where the operation is multiplication 
+    modulo 36. List all the elements of $G$.
+
+    \begin{itemize}
+        \item $7x7=49=13$
+        \item $19x19=361=1$
+        \item $7x19=133=25$
+        \item $13x19=247=31$
+    \end{itemize}
+    $G=\left\{ 1,7,13,19,25,31 \right\}$
+\end{example}
+
+\begin{example}
+    Suppose that $G$ is a group such that for all $a,b,c,d \in G$
+    such that if \[axb=cxd\] then $ab=cd$. Show that $G$ is abelian
+
+    \begin{proof}
+        Consider: $a,b\in G$
+
+        \(aa^{-1}b=ba^{-1}a\implies ab=ba\)
+    \end{proof}
+\end{example}
