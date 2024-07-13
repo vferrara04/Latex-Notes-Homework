@@ -183,3 +183,35 @@
 
     The number of choices of $m$ is $\varphi(d)$
 \end{proof}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    Find all generators of $\Z_{15} \t{ and } Z_{12}$
+
+    By \Cref{thm:cyclicgcd} this implies all the numbers that are relatively prime to 12 and 15
+
+    Thus, the generators for $\Z_{15}$ are 1,2,4,7,8,11,13,14
+
+    Thus, the generators for $\Z_{12}$ are 1,5,7,11
+    
+\end{example}
+
+\begin{example}
+    Show that $\Q^\times_{\geq0}$ is not cyclic
+
+    Assume $\Q^\times_{\geq0}$ is cyclic thus there exists
+    a $q=\frac{a}{b}\in\Q^\times_{\geq0}$ s.t. $\Q^\times_{\geq0}=\ang{q}$
+
+    Consider: $p$ a prime bigger than $a,b$
+
+    Let $\frac{1}{p}=\frac{a^m}{b^m}$
+
+    Case 1: $m \geq 1$
+
+    $\implies b^m=pa^m \implies p \mid b^m \contr \t{since we picked p to be bigger than } a,b$
+
+    Case 2: $m \leq -1$
+    
+    $\implies a^m=pb^m \implies p \mid a^m \contr$
+\end{example}
