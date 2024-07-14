@@ -1,2 +1,226 @@
 \subsection{Homomorphism and Isomorphism}
 
+\begin{definition}
+    Let $\left( G_1,* \right)$ and $\left( G_2,\circ \right)$
+    be groups. A map $\varphi: G_1 \rightarrow G_2$ is called 
+    a homomorphism if for all $a,b,c \in G_1$ we have 
+    $\varphi\left( a*b \right)=\varphi\left( a \right)\circ \varphi\left( b \right)$\\
+    If, an addition, $\varphi$ is a bijection we say $\varphi$ is an isomorphism
+    and $G_1 \t{ and } G_2$ are isomorphic \[G_1\cong G_2\]
+\end{definition}
+
+\begin{theorem}
+    \label[theorem]{thm:cyclicisomorphism}
+
+    Suppose $G=\ang{g}$ is a cyclic group.\\
+    If $|G|=\infty$ then $G \cong \Z$\\
+    If $|G|=n$ then $G \cong \Z$
+\end{theorem}
+\begin{proof}
+    Assume $|G|=\infty$ Define:
+    \begin{align*}
+        \varphi: G &\rightarrow \Z\\
+        g^m &\mapsto m
+    \end{align*}
+    \begin{align*}
+        \varphi^{-1}: \Z &\rightarrow G\\
+        m &\mapsto g
+    \end{align*}
+
+    Let $g^a,g^b \in G$ and $c,d \in \Z$
+
+    Consider: $\varphi(g^ag^b)=\varphi(g^{a+b})=a+b=\varphi(g^a)+\varphi(g^b)$
+    
+    Consider: $\varphi^{-1}(c+d)=g^{c+d}=g^cg^d=\varphi^{-1}(c)+\varphi^{-1}(d)$
+
+    Consider: $\varphi\circ\varphi^{-1}(c)=\varphi(g^c)=c$
+
+    $\varphi^{-1}\circ\varphi(g^a)=\varphi^{-1}(a)=g^a$
+
+    Thus, $\varphi$ is a homomorphism and bijective
+
+    $\implies G \cong \Z$\\\\
+
+    Assume $|G|=n$
+    \begin{align*}
+        \varphi: G &\rightarrow \Z_n\\
+        g^m &\mapsto [m]
+    \end{align*}
+    \begin{align*}
+        \varphi^{-1}: \Z_n &\rightarrow G\\
+        [m] &\mapsto g
+    \end{align*}
+
+    homomorphism: \checkmark
+
+    Consider: $\varphi\circ\varphi^{-1}([c])=\varphi(g^c)=[c]$
+
+    $\varphi^{-1}\circ\varphi(g^a)=\varphi^{-1}([a])=g^a$
+
+    Thus, $\varphi$ is a homomorphism and bijective
+
+    $\implies G \cong \Z_n$
+\end{proof}
+
+\begin{theorem}[Cayley's Theorem]
+    \label[theorem]{thm:cayleysthm}
+
+    Every group is isomorphic to a permutation group.
+\end{theorem}
+
+\begin{proof}
+    Let $G$ be a group and by \Cref{lem:permutationgroups} $\implies S_G$ is a group\\
+
+    Define:
+    \begin{align*}
+        \varphi: G &\rightarrow S_G\\
+        g &\mapsto l_g\\
+        l_g : G &\rightarrow G\\
+        x &\mapsto gx
+    \end{align*}
+
+    \begin{itemize}
+        \item Injective: Let $x,y \in G$ s.t. $l_g(x)=l_g(y)$
+        
+        $\implies gx=gy \implies x=y$
+
+        \item Surjective: Let $y \in G$
+        
+        Consider: $l_g(g^{-1}y)=gg^{-1}y=y$
+    \end{itemize}
+
+    Thus $l_g \in S_G$
+
+    Consider: $a,b \in G$
+
+    $\varphi(ab)(x)=l_{ab}(x)=abx=a(bx)=l_a\circ l_b(x)=\varphi(a)\varphi(b)(x)$
+
+    Injective: $a,b,x \in G$ s.t. $\varphi(a)=\varphi(b)$
+
+    $l_a=l_b \implies l_a(x)=l_b(x)\;\; \forall x \in G \implies ax=bx \implies ae=be \implies a=b$
+
+    $\implies G \cong \t{im(G)} \leq S_G$
+\end{proof}
+\newpage
+\begin{theorem}
+    \label[theorem]{thm:homomorphismgeneral}
+    Suppose $\varphi: G_1 \rightarrow G_2$ is a homomorphism then
+    \begin{enumerate}[I.]
+        \item $\varphi(e_1)=e_2$
+        \item $\forall n \in \Z, \varphi(g^n)=[\varphi(g)]^n$
+        \item $ab=ba\implies \varphi(a)\varphi(b)=\varphi(b)\varphi(a)$
+        \item ord$(\varphi(g))\mid\t{ord}(g)$
+        \item $H \leq G_1 \implies \varphi(H)\leq G_2$
+        \item $K \leq G_2 \implies \varphi^{-1}(K)\leq G_1$
+    \end{enumerate}
+\end{theorem}
+\begin{enumerate}[I.]
+    \item \begin{proof}
+        $e_2\varphi(e_1)=e_2\varphi(e_1e_1)=e_2\varphi(e_1)\varphi(e_1)\implies
+        e_2=\varphi(e_1)$
+    \end{proof}
+    \item \begin{proof}
+        Base Case: $n=0\;\; \varphi(g^0)=\varphi(e_1)=e_2=[\varphi(g)]^0$
+
+        Assume statement is true for $k\geq0$ for $k \in \N$
+
+        Consider: $k+1$
+
+        $\varphi(g^{k+1})=\varphi(g)\varphi(g^k)=\varphi(g)[\varphi(g)]^k=[\varphi(g)]^{k+1}$
+
+        Note: $e_2=\varphi(e_1)=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1})\implies [\varphi(g)]^{-1}=\varphi(g^{-1})$
+
+        This proves the statement for all negative integers since we just apply the induction on g then find its inverse
+    \end{proof}
+    \item \begin{proof}
+        $\varphi(a)\varphi(b)=\varphi(ab)=\varphi(ba)=\varphi(b)\varphi(a)$
+    \end{proof}
+    \item \begin{proof}
+        Set $n = \t{ord}(g)$
+
+        $\implies \varphi(g)^n=\varphi(g^n)=\varphi(e_1)=e_2 \implies \t{ord}(\varphi(g)) \mid \t{ord}(g)$
+    \end{proof}
+    \item \begin{proof}
+        Let $x,y \in \varphi(H)$ s.t. $\varphi(a)=x \t{ and } \varphi(b)=y$ for $a,b \in H$
+
+        $\implies ab^{-1}\in H \implies \varphi(ab^{-1})=\varphi(a)\varphi(b)^{-1}\in \varphi(H)$
+
+        Thus, by \Cref{thm:subgrouptest} $\varphi(H)\leq G_2$
+    \end{proof}
+    \item \begin{proof}
+        Let $a,b \in \varphi^{-1}(K) \implies \varphi(a),\varphi(b)\in K$
+
+        $\implies \varphi(ab^-1)=\varphi(a)\varphi(b)^{-1} \in K \implies ab^{-1}\in \varphi^{-1}(K)$
+
+        Thus, by \Cref{thm:subgrouptest} $\varphi^{-1}(K)\leq G_1$
+    \end{proof}
+\end{enumerate}
+
+\newpage
+\begin{theorem}
+    \label[theorem]]{thm:isomorphismgeneral}
+    Suppose $\varphi: G_1 \rightarrow G_2$ is an isomorphism then
+    \begin{enumerate}[I.]
+        \item $\varphi^{-1}$ is an isomorphism
+        \item $G_1$ is abelian $\iff$ $G_2$ is abelian
+        \item $G_1$ is cyclic $\iff$ $G_2$ is cyclic
+        \item ord$(g)=\t{ord}(\varphi(g))$
+    \end{enumerate}
+\end{theorem}
+\begin{enumerate}[I.]
+    \item \checkmark
+    \item \begin{proof}
+        Suppose $G_1$ is abelian and $x,y \in G_2$
+
+        $xy=\varphi(a)\varphi(b)=\varphi(ab)=\varphi(ba)=\varphi(b)\varphi(a)=yx$
+
+        Do same thing for other direction
+    \end{proof}
+    \item \begin{proof}
+        Suppose $G_1$ is cyclic and $\ang{g}=G_1$
+
+        Take $x \in G_2 \implies \varphi(a)=x$
+
+        $a=g^n \implies x=\varphi(g^n)=\varphi(g)^n\implies x\in \ang{\varphi(g)}\implies G_2 \subseteq \ang{\varphi(g)}$
+
+        Take $x \in \ang{\varphi(g)} \implies x=\varphi(g)^n$
+
+        $\implies x=\varphi(g^n) \implies x\in G_2 \implies \ang{\varphi(g)} \subseteq G_2$
+
+        $\implies G_2=\ang{\varphi(g)} \implies G_2$ is cyclic
+
+        Do same thing for other direction
+    \end{proof}
+    \item \begin{proof}
+        By \Cref{thm:homomorphismgeneral}.IV ord$(g) \mid \t{ord}(\varphi(g))$ and ord$(\varphi(g)) \mid \t{ord}(g) \implies \t{ord}(g) = \t{ord}(\varphi(g))$
+    \end{proof}
+\end{enumerate}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    Describe all homomorphisms $\varphi : \Z_{12}\rightarrow\Z_{20}$
+
+    ord$(1)=12 \t{ in } \Z_{12} \implies \t{ord}(\varphi(1)) \mid 12 \implies \t{ord}(\varphi(1))\in \left\{ 1,2,3,4,6,12 \right\}$
+
+    ord$(m)=\frac{n}{\t(gcd)(m,n)}$ in $\Z_n$
+    \begin{itemize}
+        \item ord$(\varphi(1))=1 \implies \varphi(1)=0\implies \varphi(n)=0$
+        \item ord$(\varphi(1))=2 \implies \varphi(1)=10$ 
+        
+        this is the only element with a gcd of 10 with 20 $\implies \varphi(n)=10n$
+
+        \item ord$(\varphi(1))=3,6,12$ there is no element with these orders since these are not divsors of 10
+        \item ord$(\varphi(1))=4 \implies \varphi(1)=5,15 \implies \varphi(n)=5n,15n$
+    \end{itemize}
+\end{example}
+
+\begin{example}
+    Show that $\R \ncong \R^\times$
+
+    Assume $\R \cong \R^\times$ via $\varphi: \R^\times \rightarrow \R$
+
+    Take $x \in R^\times$ s.t. $\varphi(x)=-1$
+
+    Consider $\varphi(\frac{x}{2})^2=\varphi(x)=-1 \implies \varphi(\frac{x}{2})\in \R \t{ with } \varphi(\frac{x}{2})^2=-1 \contr$
+\end{example}
