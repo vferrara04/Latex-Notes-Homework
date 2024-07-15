@@ -1,0 +1,112 @@
+\subsection{Cosets}
+
+\begin{definition}
+    Suppose $G$ is a group $H\leq G$, and $g\in G$.
+    \begin{itemize}
+        \item The left coset of $H$ with representative g is
+        \[gH=\left\{ gh \mid h \in H \right\}\]
+        \item The right coset of $H$ with representative g is
+        \[Hg=\left\{ hg \mid h \in H \right\}\]
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    $G=S_3, H=\left\{ (1),(12) \right\}$\\
+    $(13)H=\left\{ (13),(123) \right\}=(123)H$\\
+    $(23)H=\left\{ (23),(132) \right\}=(132)H$\\
+    $H(13)=\left\{ (13),(132) \right\}=H(132)$\\
+    $H(23)=\left\{ (23),(123) \right\}=H(123)$
+\end{example}
+
+\begin{theorem}
+    \label[theorem]{thm:cosetsequal}
+    Suppose that $G$ is a group, $H\leq G,\; x,y \in G$.
+    The following are equivalent
+    \begin{enumerate}[I.]
+        \item $xH=yH$
+        \item $Hx^{-1}=Hy^{-1}$
+        \item $xH\subseteq yH$
+        \item $y \in xH$
+        \item $x^{-1}y \in H$
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    $(I.\implies II.)$
+
+    Assume I. Let $g\in Hx^{-1} \implies g=hx^{-1} \t{ for } h\in H\implies g^{-1}=xh^{-1} \in xH=yH$
+
+    $\implies g^{-1}=yj$ for $j \in H \implies g=j^{-1}y^{-1}\in Hy^{-1} \implies Hx^{-1}\subseteq Hy^{-1}$
+
+    Do the same thing for other direction thus $Hx^{-1}=Hy^{-1}$
+
+    $(II. \implies I.)$
+
+    Assume II. Let $g \in xH \implies g=xh \t{ for } h\in H \implies g^{-1}=h^{-1}x^{-1}\in Hx^{-1}=Hy^{-1}$
+
+    $\implies g^{-1}=jy^{-1}$ for $j \in H \implies g=yj\in Hy \implies xH$
+
+    $(III. \implies IV.)$
+    
+    Assume III. Let $g \in xH \subseteq yH \implies g=xh=yj \t{ for } h,j \in H \implies y=xhj^{-1} \implies y\in xH$
+
+    $(IV. \implies V.)$
+
+    Assume IV. $y \in xH \implies y=xh \t{ for } h \in H \implies x^{-1}y=h \in H$
+
+    $(V \implies I.)$
+
+    Assume V. Let $g \in xH \implies g=xh \t{ for } h \in H \implies g=y(y^{-1}xh) \in yH$ since $y^{-1}x \in H$
+    
+    Do the same thing for the other direction this $xH=yH$
+\end{proof}
+
+\begin{theorem}
+    \label[theorem]{thm:cosetsdisjoinunion}
+
+    Suppose $H \leq G$. The cosets of $H$ partition $G$. that is, they are disjoint and they union to $G$.  
+\end{theorem}
+
+\begin{proof}
+    \phantom{text}
+
+    Disjoint: Suppose $x,y \in G$ s.t. $xH \cap yH \neq \emptyset$
+
+    Take $g \in xH \cap yH \implies g=xh=yj\;\; h,j \in H \implies x^{-1}y=hj^{-1}\in H$
+
+    Thus, by \Cref{thm:cosetsequal} $xH=yH$
+
+    Union: $\underset{x \in G}{\bigcup}xH \subseteq G \impliedby xH \subseteq G$
+
+    Take $g \in G$ by \Cref{thm:cosetsequal} $\implies g\in gH \implies g \in \underset{x \in G}{\bigcup}xH \implies G \subseteq \underset{x \in G}{\bigcup}xH$
+
+    $\implies G = \underset{x \in G}{\bigcup}xH$
+\end{proof}
+
+\begin{definition}
+    Let $G$ be any group with $H \leq G$.\\
+    Define the index of $H$ in $G$ to be the number of left(right) cosets of $H$ in $G$, denote \[\left[ G:H \right]\]
+\end{definition}
+
+\begin{theorem}
+    \label[theorem]{thm:cosetsleftrightequal}
+    The number of left cosets is equal to the number of right cosets
+\end{theorem}
+
+\begin{proof}
+    Let $\mathfrak{L}_H=\left\{ gH \mid g\in G \right\}$ and $\mathfrak{R}_H=\left\{ Hg \mid g\in G \right\}$
+
+    Define: 
+    
+    $f$: $\mathfrak{L}_H \rightarrow \mathfrak{R}_H$
+    
+    $gH \mapsto Hg^{-1}$
+
+    Well Defined: Suppose $xH=yH$, $f(xH)=Hx^{-1}=Hy^{-1}=f(yH)$
+    
+    Injective: Suppose $f(xH)=f(yH)\implies Hx^{-1}=Hy^{-1}\implies xH=yH$
+
+    Surjective: Let $Hg \in \mathfrak{R}_H, f(g^{-1}H)=Hg$
+    
+    Therefore, $|\mathfrak{L}_H| = |\mathfrak{R}_H|$
+\end{proof}
