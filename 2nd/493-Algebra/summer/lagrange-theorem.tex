@@ -1,0 +1,112 @@
+\subsection{Lagrange's Theorem}
+\begin{theorem}[Lagrange's Theorem]
+    \label[theorem]{thm:lagrange}
+    If $G$ is a finite group with $H \leq G$
+    then $|G|=[G:H]|H|$. In particular the order of a
+    subgroup divides the order of a finite group
+\end{theorem}
+
+\begin{proof}
+    Set $m=[G:H]$ and take $g_1,g_2,\ldots,g_m\in G$ so that 
+    $g_1H,g_2H,\ldots,g_mH$ are all distinct.
+    
+    Also, $|g_iH|=|H|\;\; \forall 1\leq i \leq m$. This is because
+    you take all elements of $H$ and add $g_i$ to them.
+    
+    Since $G=g_1H\cup g_2H\cup \ldots\cup g_mH$ and these are all disjoint by \Cref{thm:cosetsdisjoinunion}
+
+    By the multiplication principle, $|G|=m|H|=[G:H]|H|$
+\end{proof}
+
+\begin{corollary}
+    If  $|G|<\infty$ and $g \in G$ then ord$(g)\mid |G|$ thus $g^{|G|}=e$
+\end{corollary}
+
+\begin{proof}
+    Take $H=\ang{g}$ and ord$(H)=\t{ord}(g)$ thus by \Cref{thm:lagrange} ord$(g)=\t{ord}(H)\mid |G|$
+
+    Thus by \Cref{lem:orderdivisibility} $g^{|G|}=e$
+\end{proof}
+
+\begin{example}
+    Suppose $|G|=48$ and $K\leq H \leq G$ with $|K|=8$.\\
+    What are the possible values of $|H|$.
+
+    By \Cref{thm:lagrange} we know $|H| \mid |G|=48$ and $|K|=8 \mid |H|$
+
+    Thus $|H|=8,16,24,48$
+\end{example}
+
+\begin{example}[The Converse of Lagrange's Theorem is false]
+    
+\end{example}
+
+\begin{corollary}
+    If $p$ is prime and $|G|=p$ then $G \cong \Z_p$
+\end{corollary}
+
+\begin{proof}
+    Take $e\neq g \in G$ and note $\ang{g}\leq G$ also $|\ang{g}|\neq 1$
+
+    but by \Cref{thm:lagrange} $|\ang{g}| \mid p$ since $p$ is prime $\implies |\ang{g}|=p \implies \ang{g}=G$
+
+    By \Cref{thm:cyclicisomorphism} $G \cong \Z_p$
+\end{proof}
+
+\begin{corollary}
+    For all $a\in \Z, n\in\N$ s.t. gcd$(a,n)=1$ we have\\
+    $a^{\varphi(n)}\equiv 1 (\t{mod }n)$
+\end{corollary}
+
+\begin{proof}
+    Note $[a]\in U_n$, also $|U_n|=\varphi(n)$
+
+    $|[a]| \mid |U_n|=\varphi(n) \implies [a]^{\varphi(n)}=1\in U_n$
+    
+    $\implies [a^{\varphi(n)}]=[1]\in U_9 \implies a^{\varphi(n)}=1 (\t{mod }n)$
+\end{proof}
+
+\newpage
+\begin{theorem}
+    Let $p$ be an odd prime and $G$ a group of order $2p$ then $G \cong \Z_{2p} \t{ or } G \cong D_p$
+\end{theorem}
+
+\begin{proof}
+    \phantom{text}
+
+    Case 1: We have $g \in G$ s.t. ord$(g)=2p\implies G=\ang{g}\cong \Z_{2p}$
+
+    Case 2: $G$ does not have elements of order $2p$.
+
+    Assume $G$ does not have an element of order $p \implies$ all non identity elements have order $2$.
+
+    Take $e\neq a \neq b \neq e \in G$
+
+    Consider: $\left\{ e,a,b,ab \right\}\leq G \implies 4 \mid 2p \implies 2 \mid p \contr$
+
+    Thus, there exists a $h \in G$ s.t. ord$(h)=p$ and form $H=\ang{h}\leq G$
+
+    $[G:H]=\frac{|G|}{|H|}=\frac{2p}{p}=2$. Take $g \notin H \implies G=H \sqcup gH$
+
+    Consider: $g^2H$
+
+    Case 2a: $g^2H=H \implies g^2 \in H$
+
+    $\implies \t{ord}(g^2)\mid p\implies \t{ord}(g^2)=1 \t{ thus } g^2=e \t{ or } \t{ord}(g^2)=p \t{ thus } g^{2p}=e$ 
+    
+    $\implies \t{ord}(g)=p \t{ since no element has order }2p\implies \ang{g}=\ang{g^2} \leq H \implies g \in H \contr$
+
+    $\implies \t{ord}(g)=2$
+
+    Case 2b: $g^2H=gH \implies g^{-1}g^2=g \in H \contr$
+
+    Thus, anything not in $H$ has order $2$
+
+    $hg \in Hg \implies hg \notin H \implies \t{ord}(hg)=2$
+
+    $e=(hg)^2=hghg \implies g^{-1}h^{-1}=hg \implies gh^{p-1}=hg \implies hg^{k}=gh^{p-k}$
+
+    Cosets are a partition so 
+    
+    $G=\{e,h,h^2,\ldots,h^{p-1},g,gh,\ldots,gh^{p-1}\}=\ang{h,g\mid e=h^p=g^2,\; hg=gh^{p-1}}=D_p$
+\end{proof}
