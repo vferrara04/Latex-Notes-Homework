@@ -110,3 +110,32 @@
     
     $G=\{e,h,h^2,\ldots,h^{p-1},g,gh,\ldots,gh^{p-1}\}=\ang{h,g\mid e=h^p=g^2,\; hg=gh^{p-1}}=D_p$
 \end{proof}
+
+\newpage
+\subsubsection{Exercises}
+
+\begin{example}
+   Let $G$ be a group of order $pqr$ where $p$, $q$ and $r$ are distinct
+   primes. If $H,K \leq G$ s.t. $|H|=pq$ and $|K|=qr$,
+   show that $|H \cap K|=q$
+
+   Since $H \cap K \leq H$ and $H \cap K \leq K$
+
+   $|H \cap K| \mid |H|=qp$ and $|H \cap K| \mid |K|=qr$
+
+   $\implies |H \cap K| = 1$ or $q$
+
+   Case 1: $|H \cap K|=q$
+
+   Case 2: $|H \cap K|=1$
+
+   Consider: $HK=\left\{ hk \mid h \in H,\;\; k \in K \right\}$
+
+   $|HK|=|H \times K|$ however we are over counting here if hk is the same element as another hk
+
+   $h_1k_1=h_2k_2 \implies h_2^{-1}h_1=k_2k_1^{-1} \in H \cap K$ thus we over count by $|H \cap K|$
+
+   Thus $|HK|=\frac{|H||K|}{|H \cap K|}=pq^2r > pqr \contr$
+
+   Thus $|H \cap K|=q$
+\end{example}
