@@ -1,0 +1,52 @@
+\subsection{Normal Subgroups and Quotient Groups}
+
+\begin{definition}
+    Given a group $G$, we say $N$ is a normal subgroup and write
+    $N \unlhd G$ if for all $g \in G$, $n \in N$ we have $gng^{-1}\in N \iff gN=Ng \iff gNg^{-1}=N$\\
+    In this case we can form the quotient group $G\diagup N = \left\{ gN \mid g \in G \right\}$ with $(xN)(yN)=(xy)N$
+\end{definition}
+
+\begin{theorem}
+    \label[theorem]{thm:normalquoitentgroups}
+
+    Given a group $G$: $N \unlhd G \iff G\diagup N$ is a group 
+\end{theorem}
+\begin{proof}
+    \((\impliedby)\) Assume $G\diagup N$ is a group
+
+    Let $a,b,c,d \in G$ s.t. $aN=cN$ and $bN=dN$ then $abN=cdN$
+
+    $\implies ca^{-1}=j,bd^{-1}=h,abd^{-1}c^{-1}\in N$
+
+    $ahc^{-1}=ah(ja)^{-1}=aha^{-1}j^{-1}\in N \implies aha^{-1}\in N \implies N \unlhd G$
+
+    $(\implies)$ Assume $N \unlhd G$
+
+    Let $a,b,c,d \in G$ s.t. $aN=cN$ and $bN=dN$ $\implies a\in bN \implies a=bn$ same for $c=dh$ and $dn=jd$ since $dN=Nd$
+
+    \begin{align*}
+        (aN)(cN)&=(ac)N\\
+            &=(bndh)N\\
+            &=(bdjhn)N\\
+            &=(bd)N\\
+            &=(bN)(dN)
+    \end{align*}
+\end{proof}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    Show if $[G:H]=2$ then $H \unlhd G$. What is the isom. class of $G\diagup H$?
+
+    Assume $[G:H]=2 \implies gH \sqcup H = G$ for $g \notin H$
+
+    Let $x \in G$
+
+    Case 1: $x \in H \implies xH=H=Hx$
+
+    Case 2: $x \in gH \implies x=gh$ for $h \in H \implies xH=ghH=gH$
+
+    Consider $Hx$ since $g \notin H \implies Hg=gH \implies Hx=H(gh)=g(Hh)=gH=Hx$
+
+    Therefore $H \unlhd G$ since $|G\diagup H|=2$ it is isomorphic to $\Z_2$
+\end{example}
