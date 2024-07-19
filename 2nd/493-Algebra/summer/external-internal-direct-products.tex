@@ -1,0 +1,141 @@
+\subsection{External and Internal Direct Products}
+
+\begin{definition}
+    Given groups $(G_1,*_1),(G_2,*_2)$, their (external)
+    direct product is the set
+    \[G_1\times G_2=\left\{ (a,b) \mid a \in G_1, b\in G_2 \right\}\]
+    with operation *:
+    \[(a,b)*(c,d)=(a*_1c,b*_2,d)\]
+\end{definition}
+
+\begin{proposition}
+    Suppose $a\in G_1$, $b\in G_2$ with ord$(a)=m$ and
+    ord$(b)=n$ then ord$((a,b))=$lcm$(m,n)$ in $G_1\times G_2$
+\end{proposition}
+
+\begin{proof}
+    Set $k=\t{ord}((a,b))$, $l=\t{lcm}(m,n)$
+
+    $\implies l=ms, l=nt$ for $s,t\in \N$
+
+    $(a,b)^l=(a^l,b^l)=((a^m)^s,(b^n)^t)=(e_1,e_2) 
+    \implies k \mid l$
+
+    $(e_1,e_2)=(a,b)^k=(a^k,b^k) 
+    \implies a^k=e_1$ and $b^k=e_2$
+
+    $\implies m \mid k$ and $n \mid k$
+
+    $\implies l \mid k \implies l = k$
+\end{proof}
+
+\begin{corollary}
+    ord$((g_1,g_2,\dots,g_n))=\t{lcm}(\t{ord}(g_1),\dots\t{ord}(g_n))$
+\end{corollary}
+
+\begin{theorem}
+    \label[theorem]{thm:directproductintegerisomorphism}
+    For $m,n\in\N$ we have
+
+    $\Z_m\times\Z_n\cong\Z_{mn} \iff \t{gcd}(m,n)=1$
+\end{theorem}
+
+\begin{proof}
+    $(\impliedby)$ Assume the gcd$(m,n)=1$, 
+    take $(1,1)\in \Z_m\times\Z_n$
+
+    ord$((1,1))=\t{lcm}(\t{ord}(1),\t{ord}(1))=\t{lcm}(m,n)=mn$
+
+    $\Z_{mn}\cong\ang{(1,1)}\leq\Z_m\times\Z_n$ both have $mn$ elements
+    thus $\Z_{mn}\cong\ang{(1,1)}=\Z_m\times\Z_n$
+
+    $(\implies)$ Assume $\Z_{mn}\cong\Z_m\times\Z_n$
+
+    Since $\Z_{mn}$ is cyclic, $\Z_m\times\Z_n$ is cyclic
+
+    $\implies \exists(a,b)\in \Z_m\times\Z_n$ s.t. 
+    $\ang{(a,b)}=\Z_m\times\Z_n$
+
+    $mn=|\Z_{mn}|=|\Z_m\times\Z_n|=\t{ord}((a,b))=\t{lcm}(ord(a),ord(b))
+    \leq \t{lcm}(m,n)=\frac{mn}{d}$ 
+    
+    $\implies mn\leq \frac{mn}{d} \implies d \leq 1 \implies d = 1$
+\end{proof}
+
+\newpage
+\begin{theorem}
+    \label[theorem]{thm:directproductintegermultisomorphism}
+    If gcd$(m,n)=1$ then $U_{mn}\cong U_{m}\times U_{n}$
+\end{theorem}
+
+\begin{proof}
+    $|U_{mn}|=\varphi(mn)=\varphi(m)\varphi(n)=|U_m||U_n|=|U_{m}\times U_{n}|$
+
+    $\psi: U_{mn} \rightarrow U_{m}\times U_{n}, \psi(a)=(a,a)$
+
+    Suppose in $U_{mn} a=b\implies a\equiv b(\t{mod }mn) 
+    \implies mn \mid b-a \implies m \mid b-a$ and $n\mid b-a$
+
+    $\implies a\equiv b(\t{mod }m)$ and $a\equiv b(\t{mod }n)
+    \implies a=b \t{ in } U_n \t{ and } U_m$
+
+    $\implies \psi(a)=(a,a)=(b,b)=\psi(b) \implies$ well-defined
+
+    Homomorphism: $\psi(ab)=(ab,ab)=(a,a)(b,b)=\psi(a)\psi(b)$
+
+    Injective: Let $a,b \in U_{mn}$ s.t. $\psi(a)=\psi(b)$
+
+    $\implies (a,a)=(b,b) \implies a\equiv b(\t{mod }n)$ and 
+    $a\equiv b(\t{mod }m)$
+
+    $\implies a\equiv b(\t{mod }mn) \implies a=b$
+\end{proof}
+
+\begin{proposition}
+    If $G$ is a group, $H\leq G$, and $N \unlhd G$ then
+    $HN=\left\{ hn \mid h\in H,\; n\in N \right\}\leq G$
+\end{proposition}
+
+\begin{proof}
+    Let $x,y\in HN$
+
+    $x=hn_1, y=jn_2$
+
+    $xy^{-1}=hn_1(jn_2)^{-1}=hn_1n_2^{-1}j^{-1}=hnj^{-1}=hj^{-1}(jnj^{-1})=hn^`\in HN$
+\end{proof}
+
+\begin{definition}
+    Suppose $N_1,N_2\unlhd G$. We say $G$ is an internal direct
+    product of $N_1 \t{ and } N_2$ if
+    \begin{enumerate}
+        \item $N_1 \bigcap N_2 = \left\{ e \right\}$
+        \item $G=N_1N_2$
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+    \label[theorem]{thm:internaldirectproduct}
+    If $G$ is an internal direct product of $N_1 \t{ and } N_2$
+    then $G \cong N_1\times N_2$
+\end{theorem}
+\begin{proof}
+    Define $\varphi:N_1\times N_2 \rightarrow G$
+
+    $\varphi(n_1,n_2)=n_1n_2$
+
+    Homomorphism: Let $(a,b),(c,d)\in N_1\times N_2$
+
+    $\varphi((a,b)(c,d))=\varphi((ac,bd))=acbd$
+
+    Consider: $cbc^{-1}b^{-1}\in N_2, N_1 \implies =e \implies cb=bc$
+
+    $\implies =abcd=\varphi(a,b)\varphi(c,d)$
+
+    Injective: $\varphi(a,b)=\varphi(c,d)$
+
+    $\implies ab=cd \implies c^{-1}a=db^{-1}\in N_2,N_2 \implies = e$
+
+    $\implies c=a$ and $b=d$
+
+    Surjective: Take $y\in G \implies y=ab, a\in N_1$ and $b\in N_2$ $\varphi(ab)=ab=y$
+\end{proof}
