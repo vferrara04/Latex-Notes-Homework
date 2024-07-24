@@ -1,0 +1,147 @@
+\subsection{First Isomorphism Theorem of Groups}
+
+\begin{proposition}
+    If $\varphi: G_1 \rightarrow G_2$ is a homomorphism,
+    $H \leq G_1$, $K \leq G_2$, and $N \unlhd G_2$ then
+    \begin{enumerate}
+        \item $\varphi(H) \leq G_2$
+        \item $\varphi(K)^{-1}\leq G_1$
+        \item $\varphi(N) \unlhd G_1$
+    \end{enumerate}
+\end{proposition}
+
+\begin{enumerate}
+    \item \begin{proof}
+        Let $x,y\in \varphi(H)$
+
+        $\implies a,b \in H$ s.t. $x=\varphi(a), y=\varphi(b)$
+
+        $xy^{-1}=\varphi(a)(\varphi(b))^{-1}=\varphi(ab^{-1}) \in \varphi(H)
+        \implies \varphi(H)\leq G_2$
+    \end{proof}
+    \item \begin{proof}
+        Let $a,b\in \varphi(K)^{-1}$
+
+        $\implies \varphi(a),\varphi(b)\in K$
+
+        $\varphi(a)\varphi(b)^{-1}\in K \implies \varphi(ab^{-1})\in K$
+
+        $ab^{-1} \in \varphi(K)^{-1} \implies \varphi(K)^{-1} \leq G_1$
+    \end{proof}
+
+    \item \begin{proof}
+        Let $n \in \varphi(N)^{-1}$ and $g \in G_1$
+
+        $\implies \varphi(n)\in N \varphi(g)\in G_2$
+
+        $\implies \varphi(g)\varphi(n)\varphi(g)^{-1}\in N \implies \varphi(gng^{-1})\in N$
+
+        $\implies gng^{-1}\in \varphi(N)^{-1}$
+    \end{proof}
+\end{enumerate}
+
+\newpage
+\begin{theorem}
+    \label[theorem]{thm:firstisomorphismtheoremofgroups}
+    Suppose $\varphi: G \rightarrow G_2$ is a group homomorphism
+    then there is a unique isomorphism 
+    $\psi: G\diagup \t{ker}\varphi \rightarrow \t{im}\varphi$ s.t. the diagram commutes
+    \begin{center}
+        \begin{tikzcd}
+            G_1 \arrow[r, "\varphi"] \arrow[d, "\pi"] & \text{im}(\varphi) \arrow[r, phantom, "\leq"] & G_2 \\
+            G / \ker \varphi \arrow[ur, "\sim", "\psi"'] &
+        \end{tikzcd}
+    \end{center}
+
+    Commutes: $\psi(g\t{ ker}\varphi)=\varphi(g)$
+\end{theorem}
+
+\begin{proof}
+    $\psi$ is well-defined:
+
+    Let $x\t{ker}\varphi=y\t{ker}\varphi\in G\diagup\t{ker}\varphi \implies xy^{-1}\in \t{ker}\varphi$
+
+    $\implies \varphi(xy^{-1})=e \implies \psi(x\t{ker}\varphi)=\varphi(x)=\varphi(y)=\psi(y\t{ker}\varphi)$
+
+    Homomorphism:
+
+    $\psi((x\t{ker}\varphi)(y\t{ker}\varphi))=\psi((xy)\t{ker}\varphi)=\varphi(xy)=\varphi(x)\varphi(y)
+    =\psi(x\t{ker}\varphi)\psi(y\t{ker}\varphi)$
+
+    Injective:
+
+    Let $g\t{ker}\varphi \in \t{ker}\psi$
+
+    $\implies \psi(g\t{ker}\varphi)=\t{ker}\varphi$
+
+    $\implies \varphi(g)=e \implies g \in \t{ker}\varphi$
+
+    $\implies g\t{ker}\varphi=\t{ker}\varphi \implies \psi$ is Injective
+
+    Surjective:
+
+    Let $y \in \t{im}\varphi \implies \exists g\in G$ s.t. $\varphi(g)=y$.
+
+    $\implies \psi(g\t{ker}\varphi)=\varphi(g)=y$
+\end{proof}
+
+\newpage
+\subsubsection{Exercises}
+
+\begin{example}
+    Given a group $G$, an inner automorphism is a function $\psi_g : G \rightarrow G$
+    s.t. $\psi_g(x)=gxg^{-1}$
+
+    \begin{enumerate}
+        \item Show that $\psi_g$ is an isomorphism
+        \item Show Inn$(G)=\left\{ \psi_g \mid g \in G \right\}$ is a group.
+        \item Use the first isomorphism theorem to show \[G\diagup Z(G) \cong \t{Inn}(G)\]
+    \end{enumerate}
+\end{example}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Injective:
+
+        Let $g \in G$ and $y \in \t{ker}(\psi_g)$
+
+        $\implies y=gxg^{-1}=e$ s.t. $x \in G$
+
+        $\implies x=e \implies y=e \implies \psi_g$ is bijective since $|G|=|G|$
+
+        Homomorphism:
+
+        Let $a,b \in G$
+
+        $\psi_g(ab)=gabg^{-1}=gag^{-1}gbg^{-1}=\psi_g(a)\psi_g(b)$
+
+        \item Group
+        \begin{enumerate}
+            \item Closure \checkmark
+            \item Identity $\psi_e\circ\psi_g(n)=gng^{-1}=\psi_g\circ\psi_e(n)=\psi_g(n)$
+            \item Inverses $\psi_g\circ\psi_{g^{-1}}(n)=gg^{-1}ngg^{-1}=n=\psi_{g^{-1}}\circ\psi_g(n)=\psi_e(n)$
+            \item Associativity \checkmark
+        \end{enumerate}
+    \item By \Cref{lem:centersubgroup} $Z(G)\leq G$
+    
+    Normal:
+
+    $gZ=Zg \implies Z(G) \unlhd G$
+
+    $\implies G\diagup Z(G)$ is a group
+
+    Define: $\varphi: G \rightarrow \t{Inn}(G),\;\;\varphi(g)=\psi_g$
+
+    $\t{Im}(\varphi)=\t{Inn}(G)$ by definition
+
+    Consider: ker$(\varphi),\;\;Z(G)$
+
+    Let $x \in \t{ker}(\varphi) \implies \psi_x(g)=g \implies xgx^{-1}=g \implies xg=gx \implies x \in Z(G)$
+
+    Let $x \in Z(G) \implies \varphi(x)=\psi_x(g)=xgx^{-1}=g \implies x \in \t{ker}(\varphi)$
+
+    $\implies Z(G)=\t{ker}(\varphi)$
+
+    By \Cref{thm:firstisomorphismtheoremofgroups}, $G\diagup Z(G)\cong \t{Inn}(G)$
+    \end{enumerate}
+\end{proof}
