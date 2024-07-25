@@ -1,2 +1,115 @@
 \subsection{More Isomorphism Theorems}
 
+\begin{theorem}[Second Isomorhpism Theorem]
+    \label[theorem]{thm:secondisomorphismtheorem}
+    Suppose $H \leq G$ and $N \unlhd G$ then $H\cap N \unlhd H$
+    and $H\diagup H \cap N \cong HN \diagup N$
+\end{theorem}
+
+\begin{proof}
+    Suppose $h\in H,\;\; n\in H \cap N$
+
+    Since $N \unlhd G$ and $h\in G$
+
+    $\implies hnh^{-1} \in N$
+
+    Since $h,n \in H \implies hnh^{-1} \in H \implies hnh^{-1} \in H \cap N$
+
+    $\implies H \cap N \unlhd H$
+
+    Define : $\varphi: H \rightarrow HN \diagup N$
+
+    \hspace{0.87in}$h \mapsto hN$
+
+    Homomorphism: $\varphi(xy)=(xy)N=xNyN=\varphi(x)\varphi(y)$
+
+    Surjective: Take $(hn)N\in HN \diagup N$, for $h \in H,\; n\in N$
+
+    $(hn)N=hN$ because $h^{-1}(hn)=n \in N$
+
+    $\varphi(h)=hN=(hn)N$
+
+    Kernel: Let $h \in \t{ker}(H) \unlhd H \implies h \in H$
+
+    $\varphi(h)=hN=N \implies h \in N \implies h\in H\cap N \implies \t{ker}(H) = H \cap N$
+
+    By \Cref{thm:firstisomorphismtheoremofgroups} $H\diagup H \cap N \cong HN \diagup N$
+\end{proof}
+
+\begin{theorem}[Third Isomorhpism Theorem]
+    \label[theorem]{thm:thirdisomorphismtheorem}
+    If $M,N \unlhd G$ where $N \leq M$ then \[(G \diagup N)\diagup (M \diagup N)
+    \cong G \diagup M\]
+\end{theorem}
+
+\begin{proof}
+    Define: $\varphi: G \diagup N \rightarrow G \diagup M$
+
+    \hspace{1.2in}$gN \mapsto gM$
+
+    Well Defined: Suppose $xN=yN \in G \diagup N \implies xy^{-1}\in N \leq M$ 
+    
+    $\implies \varphi(xN)=xM=yM=\varphi(yN)$
+
+    Homomorphism: $\varphi(xNyN)=\varphi(xyN)=xyM=xMyM=\varphi(xN)\varphi(yN)$
+
+    Surjective: Suppose $gM \in G \diagup M \implies \varphi(gN)=gM$
+
+    Kernel: Suppose $gN \in \t{ker}(\varphi) \iff \varphi(gN)=M=gM \iff g \in M \iff gN \in M\diagup N$
+
+    ker$(\varphi)=M\diagup N$
+
+    By \Cref{thm:firstisomorphismtheoremofgroups} 
+    $(G \diagup N)\diagup (M \diagup N) \cong G \diagup M$
+\end{proof}
+
+\newpage
+\begin{corollary}
+    $\Z_n\diagup \ang{m} \cong \Z_{\t{gcd}(m,n)}$
+\end{corollary}
+
+\begin{proof}
+    Set $d=\t{gcd}(m,n)$  by \Cref{thm:cyclicgcd} $\ang{m}=\ang{d} \implies \t{ord} = \frac{n}{d}$
+
+    $\implies \cong \Z_{\frac{n}{d}} \cong d\Z\diagup n\Z$
+
+    $\Z_n\diagup \ang{m} \cong \Z\diagup n\Z \diagup d\Z \diagup n\Z \cong \Z\diagup d\Z \cong \Z_d$
+\end{proof}
+
+\begin{theorem}[Fourth Isomorhpism Theorem]
+    \label[theorem]{thm:fourthisomorphismtheorem}
+    Suppose $N \unlhd G$. Every subgroup $K \leq G\diagup N$ is the form 
+    $K=H\diagup N$ where $N \leq H \leq G$. Further there is a bijection\\
+    $\left\{ H \leq G \mid N \leq H \right\} \longleftrightarrow \left\{ K \leq G\diagup N \right\}$
+\end{theorem}
+
+\begin{proof}
+    Suppose $K \leq G\diagup N$. Take $K=\left\{ gN \mid g \in H \right\}$ s.t. $H=\left\{ g \in H \mid gN \in K \right\}$
+
+    $e \in H$ b/c $eN=N \in K$ b/c $K \leq G \diagup N$
+
+    Suppose $x,y\in H \implies xN,yN \in K \implies xN(yN)^{-1}\in K
+    \implies xy^{-1}N \in K \implies xy^{-1} \in H$ 
+    
+    $\implies H \leq G$ 
+
+    Consider the projection:
+    \begin{align*}
+        \Pi: G &\rightarrow G \diagup N\\
+             g &\mapsto gN
+    \end{align*}
+
+    Define $F$ by $F(H)=\Pi(H)=H\diagup N$
+
+    Injective: Assume $F(H_1)=F(H_2)$
+
+    $\implies H_1 \diagup N = H_2 \diagup N$
+
+    Suppose $h\in H_1 \iff hN \in H_1 \diagup N = H_2 \diagup N \iff h \in H_2$
+
+    $\implies H_1 = H_2$
+
+    Surjective: Suppose $K \leq G \diagup N \implies K = H \diagup N$ s.t. $N \leq H \leq G$
+
+    $F(H)=H \diagup N= K$
+\end{proof}
