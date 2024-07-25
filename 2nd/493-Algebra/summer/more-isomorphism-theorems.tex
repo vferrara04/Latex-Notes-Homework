@@ -113,3 +113,26 @@
 
     $F(H)=H \diagup N= K$
 \end{proof}
+
+\subsubsection{Exercises}
+
+\begin{example}
+    If $M,N \unlhd G$ s.t. $G=MN$ then $G\diagup M \cap N \cong G \diagup M \times G \diagup N$
+\end{example}
+
+\begin{proof}
+    Assume $M,N \unlhd G$ s.t. $G=MN$
+
+    Let $\varphi(g)=(gM,gN)$
+
+    Surjective: $Let (aM,bM) \in G \diagup M \times G \diagup N$ s.t. $a,b\in G$
+
+    Since $G=MN\;\; \exists g\in G$ s.t. $g=ab \implies
+    \varphi(g)=(gM,gN)=(aM,bN)$
+
+    Kernel: Let $g\in \t{ker}(\varphi) \iff \varphi(g)=(M,N)=(gM,gN)$
+
+    $\iff M=gM$ and $N=gN \iff g\in M\cap N$
+
+    By \Cref{thm:firstisomorphismtheoremofgroups} $G\diagup M\cap N \cong (G \diagup M)\times(G \diagup N)$
+\end{proof}
