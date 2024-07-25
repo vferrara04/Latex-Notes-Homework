@@ -1,0 +1,240 @@
+\subsection{Fundamental Theorem of Abelian Groups}
+
+\begin{theorem}[Fundamental Theorem of Finite Abelian Groups]
+    \label[theorem]{thm:fundamentaltheoremoffiniteabeliangroups}
+    If $G$ is a finite abelian group then 
+    \[G \cong \Z_{p_1^{a_1}}\times \Z_{p_2^{a_2}}\times\cdots\times\Z_{p_n^{a_n}}\]
+    for (not necessarily distinct) primes $p_i$ and $a_i \in \N$
+\end{theorem}
+
+\begin{lemma}
+    \label[lemma]{lem:abelianorderp}
+    Let $G$ be an abelian group with $|G|=n$ and $p$ a prime
+    s.t. $p\mid n$ then $G$ has an element of order $p$
+\end{lemma}
+
+\begin{proof}
+    Base Case: $n=1$
+
+    $G=\left\{ e \right\}$
+
+    IH: Assume for all $1\leq m < n$ the statement holds
+
+    Consider: $|G|=n$
+
+    Case 1: $G$ has no proper subgroups. If $e \neq g \in G$
+
+    $\left\{ e \right\}\leq\ang{g^{\frac{n}{p}}}\leq\ang{g}=G$ 
+
+    Case 1a: $\left\{ e \right\}=\ang{g^{\frac{n}{p}}} \implies e=g^{\frac{n}{p}} \implies \frac{n}{p}$
+    is a multiple of $n \implies p=1 \contr$ 
+
+    Case 1b: $\ang{g^{\frac{n}{p}}}=\ang{g} \implies p=\t{ord}(g^{\frac{n}{p}})=\t{ord}(g)=n \implies g$ is order p
+
+    Case 2: $G$ has a proper subgroup $H \leq G$ s.t. $1<|H|<n$,
+    
+    also $H \unlhd G$ since $G$ is an abelian group.
+
+    Case 2a: $p \mid |H|$ then by IH we have $h \in H$ where ord$(h)=p$
+
+    Case 2b: $p\nmid |H|$ then $p \mid |G \diagup H|$ b/c $n=|G|=|H||G \diagup H| \impliedby$ \Cref{thm:lagrange}
+
+    Apply IH to $G \diagup H$ $gH \in G\diagup H$ where ord$(gH)=p$
+
+    $\implies gH \neq H \implies g \notin H$
+
+    $H=(gH)^p=g^pH \implies g^p \in H$. Set $|H|=m \implies (g^p)^m=e \implies (g^m)^p=e$
+
+    Assume ord$(g^m)\neq p \implies$ ord$(g^m)=1 \implies g^m=e$, note gcd$(m,p)=1$ b/c $p \nmid m$
+
+    $\implies mx+py=1$ for $x,y \in \Z$
+
+    $g=(g^m)^x(g^p)^y \implies g=eh$ for some $h \in H \contr$
+
+    ord$(g^m)=p$
+\end{proof}
+
+\begin{definition}
+    We say $G$ is a $p$-group if for all $g\in G$
+    ord$(g)=p^a$ for some $a\in\Z_{\geq0}$
+\end{definition}
+\newpage
+\begin{lemma}
+    \label[lemma]{lem:abelianpgroup}
+    $G$ is a finite abelian $p$-group $\iff |G|=p^n$
+\end{lemma}
+
+\begin{proof}
+    \phantom{text}
+
+    $(\implies)$ Assume $p,q$ are distinct primes s.t. $p \mid |G|$
+    and $q \mid |G|$
+
+    By \Cref{lem:abelianorderp} find $x,y \in G$
+    s.t. ord$(x)$$=p$ and ord$(y)=q$
+
+    $\implies G$ is not a $p$-group
+
+    $(\impliedby)$ Assume $|G|=p^n$ and $g \in G$
+
+    $\ang{g}\leq G \implies |\ang{g}| \mid |G| \implies$ 
+    ord$(g) \mid p^n \implies$ ord$(g)=p^m$ for $0\leq m \leq n$
+\end{proof}
+
+\begin{lemma}
+    \label[lemma]{lem:abeliandistinctprimes}
+    Let $G$ be a finite abelian group of order
+    $p_1^{r_1}p_2^{r_2}\cdots p_k^{r_k}$ for
+    distinct primes $p_i$ then
+    \[G \cong G_1\times G_2 \times \cdots \times G_k\]
+
+    with $|G_i|=p_i^{r_i}$
+\end{lemma}
+
+\begin{proof}
+    Set $G_i=\left\{ g\in G \mid \t{ord}(g)=p_i^n \t{ s.t. } n\in\N\right\}$
+
+    Subgroups: $e\in G_i, \t{ord}(e)=1=p_i^0$
+
+    Closure: Let $x,y \in G_i \implies \t{ord}(x)=p_i^m,\; \t{ord}(y)=p_i^n$
+
+    ord$(xy)=\t{lcm}(p_i^m,p_i^n)=p_i^{\t{max}(m,n)} \implies xy \in G_i$
+
+    Inverses: Let $x\in G_i \implies \t{ord}(x)=p_i^n \implies \t{ord}(x^{-1})=p_i^n$
+
+    $\implies G_i \leq G$
+
+    Let $g\in G_i \cap G_j$ s.t. $i \neq j \implies$
+    ord$(g)=p_i^m=p_j^n \implies m,n=0$ since these are distinct primes
+    
+    $\implies g=e \implies G_i\cap G_j = \left\{ e \right\}$
+
+    Let $g\in G \implies \t{ord}(g) \mid p_1^{r_1}\cdots p_k^{r_k}$
+
+    Set $a_i=p_1^{r_1}\cdots p_{i-1}^{r_{i-1}}
+    p_{i+1}^{r_{i+1}}\cdots p_k^{r_k}=\frac{|G|}{p_i^{r_i}}$
+
+    gcd$(a_1,a_2,\dots,a_k)=1$
+
+    $\implies \t{find } b_i \in Z$ s.t. $a_1b_1+\dots+a_kb_k=1$
+
+    $g=g^{a_1b_1}\cdots g^{a_kb_k}=g_1\cdots g_k$ where $g_i=g^{a_ib_i}$
+
+    Note: $g_i^{p_i^{r_i}}=g^{(a_ip_i^{r_i})b_i}=g^{|G|b_i}=e \implies g_i \in G_i \implies G=G_1G_2\cdots G_k$
+
+    By \Cref{thm:internaldirectproduct}, $G \cong G_1 \times \cdots \times G_k$
+\end{proof}
+\newpage
+\begin{lemma}
+    \label[lemma]{lem:abeliancyclicgroup}
+    Let $G$ be a finite abelian $p$-group and take $g \in G$
+    with maximal order, then \[G \cong \ang{g}\times K\]
+    for some $K \leq G$
+\end{lemma}
+
+\begin{proof}
+    Induction on $n$, where $|G|=p^n$
+
+    Base Case: Let $n=1$, $G \cong \Z_p \cong \ang{g} \times \left\{ e \right\}$
+
+    IH: Assume for for $1 \leq m < n$ the statement holds
+
+    Consider $|G|=p^n$ and $g\in G$ s.t. ord$(g)$ is maximal
+
+    $\implies \t{ord}(g)=p^k$
+
+    If $k=n$ ord$(g)=\t{ord}(G) \implies G=\ang{g} \cong \ang{g} \times \left\{ e \right\}$
+
+    If $k < n$, choose $h \in G \setminus \ang{g}$ of min order
+
+    ord$(h)=p^r \leq p^k \implies \t{ord}(h^p)=p^{r-1} < \t{ord}(h)$
+
+    $\implies h^p \in \ang{g} \implies h^p=g^a \t{ for } a\geq0$
+
+    $(g^a)^{p^{k-1}}=(h^p)^{p^{k-1}}=h^{p^k}=e$ since $p^{r-1} \mid p^k$
+
+    $\implies \t{ord}(g^a)=\frac{\t{ord}(g)}{\t{gcd}(\t{ord}(g),a)}\leq p^{k-1} \implies p \mid a$
+
+    $\implies a=ps \implies h^p=g^{ps} \implies (g^{-s}h)^p=e$ set $x=g^{-s}h \neq e$
+
+    $\implies x^p=e \implies \t{ord}(x)=p \implies \t{ord}(h)=p$
+
+    Take $y\in \ang{g} \cap \ang{h} \implies y=h^a, 0\leq a \leq p-1$
+
+    If $a \neq 0$ then gcd$(a,p)=1$ then take $r,s\in \Z$ s.t.
+
+    $ar+ps=1$. Now $y^r=(h^a)^r=h^{ar}=h^{1-ps}=h(h^p)^{-s}=h \implies h \in \ang{g} \contr$
+
+    $\implies a=0 \implies y=e \implies \ang{g}\cap\ang{h}=\left\{ e \right\}$
+
+    Take $H=\ang{h}$
+
+    Let $gH \in G \diagup H$ and $|G \diagup H|=p^{n-1}$
+
+    Set $r=\t{ord}(gH) \mid \t{ord}(g)$. Also $g^rH=(gH)^r=H \implies g^r\in H \implies g^r \in \ang{g} \cap \ang{h}$
+    
+    $\implies g^r=e \implies \t{ord}(g) \mid r \implies r=\t{ord}(g)=p^k$
+
+    Since ord$(xH) \mid \t{ord}(x) \implies \t{ord}(gH)$ is maximal
+
+    Apply IH on $G \diagup H \implies G \diagup H \cong \ang{gH} \times J$ 
+    
+    where by \Cref{thm:fourthisomorphismtheorem} $J=K \diagup H$ s.t. $H \leq K \leq G$
+
+    Let $x\in \ang{g}\cap K \implies xH \in \ang{gH} \cap K \diagup H \implies xH=eH \implies x \in H \implies x=e$ 
+    
+    $\implies \ang{g}\cap K = \left\{ e \right\}$
+
+    Let $x\in G \implies xH \in G \diagup H = \ang{gH}(K \diagup H)$
+
+    $\implies xH=g^rKH \implies x\in g^rKH \subseteq \ang{g}K$ since $H \leq K$
+
+    By \Cref{thm:internaldirectproduct}, $G \cong \ang{g}\times K$
+\end{proof}
+
+\newpage
+\subsection*{Fundamental Theorem of Finite Abelian Groups}
+{\large\Cref{thm:fundamentaltheoremoffiniteabeliangroups}}
+\begin{proof}
+    Assume $G$ is a finite abelian group
+
+    By \Cref{lem:abeliandistinctprimes}, 
+    $G \cong G_1 \times G_2 \times \cdots \times G_k$
+    where $|G_i|=p_i^{r_i}$
+
+    By \Cref{lem:abeliancyclicgroup}, $G_i=\ang{g_i^{(1)}}\times H_i$
+    where ord$(g_i^{(1)})=p_i^{s_i^{(1)}}$
+
+    By \Cref{thm:cyclicisomorphism}, $G_i \cong \Z_{p_i^{s_i^{(1)}}} \times H_i$
+
+    Then repeat this on $H_i$ untill $G_i \cong \Z_{p_i^{s_i^{(1)}}}\times \cdots \times \Z_{p_i^{s_i^{(m)}}}$
+
+    $\implies G \cong \Z_{p_1^{a_1}}\times \Z_{p_2^{a_2}}\times\cdots\times\Z_{p_n^{a_n}}$
+\end{proof}
+
+\begin{example}
+    All abelian groups of order $8=2^3$.
+    \begin{align*}
+        \Z_2\times\Z_2\times\Z_2\\
+        \Z_2\times\Z_4\\
+        \Z_8
+    \end{align*}
+\end{example}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    All abelian groups of order $720=2^43^25$
+    \begin{align*}
+        \Z_2\times\Z_2\times\Z_2\times\Z_2\times\Z_3\times\Z_3\times\Z_5\\
+        \Z_2\times\Z_2\times\Z_4\times\Z_3\times\Z_3\times\Z_5\\
+        \Z_2\times\Z_8\times\Z_3\times\Z_3\times\Z_5\\
+        \Z_{16}\times\Z_3\times\Z_3\times\Z_5\\
+        \Z_2\times\Z_2\times\Z_2\times\Z_2\times\Z_9\times\Z_5\\
+        \Z_2\times\Z_4\times\Z_2\times\Z_9\times\Z_5\\
+        \Z_2\times\Z_8\times\Z_9\times\Z_5\\
+        \Z_{16}\times\Z_9\times\Z_5\\
+        \Z_4\times\Z_4\times\Z_3\times\Z_3\times\Z_5\\
+        \Z_4\times\Z_4\times\Z_9\times\Z_5\\
+    \end{align*}
+\end{example}
