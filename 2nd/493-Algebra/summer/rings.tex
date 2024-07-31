@@ -1,0 +1,141 @@
+\section{Rings}
+\subsection{Intro}
+
+\begin{definition}
+    A ring $R$ is a set together with operations
+    $+$ and $\cdot$ such that 
+    \begin{itemize}
+        \item $(R,+)$ is an abelian group
+        \item $\cdot$ is associative: For all $a,b,c\in R\;\; a(bc)=(ab)c$ 
+        \item There are distributive rules: For all $a,b,c \in R\;\; a(b+c)=ab+ac$ and $(a+b)c=ac+bc$
+        \item We say $R$ is commutative: For all $a,b \in R$ $ab=ba$
+        \item $R$ is a "ring with an identity" if there is a $1\in R$ s.t. $1a=a1=a$ 
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    If $R$ has a multiplicative identity the commutativity
+    of addition if "forced"
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        a+b&=(-a)+a+a+b+b+(-b)\\
+           &=(-a)+a(1+1)+b(1+1)+(-b)\\
+           &=(-a)+(a+b)(1+1)+(-b)\\
+           &=(-a)+a+b+a+b+(-b)\\
+           &=b+a
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    \phantom{text}
+
+    \begin{itemize}
+        \item $\Z_p(p$-prime),$\Q,\R,\C$
+        \begin{itemize}
+            \item Commutative 
+            \item Has identity
+            \item Everything except $0$ has inverse
+        \end{itemize}
+        \item $\Z$
+        \begin{itemize}
+            \item Commutative 
+            \item Has identity
+            \item Only $\pm 1$ have inverses
+        \end{itemize}
+        \item $2\Z,3\Z,$ etc.
+        \begin{itemize}
+            \item Commutative
+            \item No identity
+        \end{itemize}
+        \item $\Z_n$
+        \begin{itemize}
+            \item Commutative
+            \item Has Identity
+            \item $m$ has an identity
+            $\iff$gcd$(m,n)=1 \iff m \in U_n \subseteq \Z_n$
+        \end{itemize}
+        \item $M_{n\times n}(\R)$
+        \begin{itemize}
+            \item Not Commutative (unless $n=1$)
+            \item Has identity
+            \item $A$ is invertible $\iff$ det$(A)\neq 0$
+        \end{itemize}
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    Let $R$ be a ring with $a,b\in R$ then
+    \begin{enumerate}
+        \item $0a=a0=0$
+        \item $(-a)b=a(-b)=-(ab)$
+        \item $(-a)(-b)=ab$
+        \item If $R$ has an identity it is unique.
+    \end{enumerate}
+\end{proposition}
+
+\begin{enumerate}
+    \item \begin{proof}
+        $0=0a+(-0a)=(0+0)a+(-0a)=0a+0a+(-0a)=0a$
+
+        $0=a0+(-a0)=a(0+0)+(-a0)=a0+a0+(-a0)=a0$
+    \end{proof}
+    \item \begin{proof}
+        $(-a)b=(-a)b+ab+(-ab)=(-a+a)b+(-ab)=0b+(-(ab))=-(ab)$
+
+        $a(-b)=a(-b)+ab+(-ab)=a(-b+b)+(-ab)=a0+(-(ab))=-(ab)$
+    \end{proof}
+    \item \begin{proof}
+        $(-a)(-b)=(-a)(-b)+(-(ab))+ab$
+        
+        $=(-a)(-b)+a(-b)+ab=(-a+a)(-b)+ab=0(-b)+ab=ab$
+    \end{proof}
+    \item \begin{proof}
+        Let $R$ have an identity $1,i\in R$
+
+        $1+i=i(1+i)=i+i \implies i=1$
+    \end{proof}
+\end{enumerate}
+
+\newpage
+Let $R$ be a ring
+\begin{definition}
+    We say $a \neq 0$ is a zero division if there
+    is $b \neq 0$ s.t. \[ab=0\]
+\end{definition}
+
+\begin{definition}
+    Suppose $0 \neq 1$ in $R$. An element $u\in R$
+    is called a unit if there is $v\in R$ s.t. \[uv=vu=1\]
+\end{definition}
+
+\begin{definition}
+    A commutative ring with an identity in which every 
+    non-zero element is a unit is called a field
+\end{definition}
+
+\begin{definition}
+    Given a subset $S \subseteq R$ we say $S$
+    is a subring if
+    \begin{itemize}
+        \item $(S,+)\leq(R,+)$
+        \item For all $a,b\in S$, $ab \in S$
+    \end{itemize}
+\end{definition}
+
+\newpage
+\subsubsection{Exercises}
+\begin{example}
+    Show that it is impossible for an element of a ring to be both
+    a zero divisor and a unit.
+\end{example}
+\begin{proof}
+    Let $a\in R$ and assume $a$ is a zero divisor and a unit.
+
+    Then $a \neq 0$ and $\exists b \neq 0$ s.t. $ab=0$
+
+    Then $\exists v$ s.t. $av=va=1$
+
+    $b=(va)b=v(ab)=v0=0 \contr$
+\end{proof}
