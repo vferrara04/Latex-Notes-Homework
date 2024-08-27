@@ -1,1 +1,158 @@
 \subsection{Integral Domains}
+
+\begin{definition}
+    A commutative ring with 1 and no zero divisors is
+    called an integral domain
+\end{definition}
+
+\begin{proposition}
+    If $R$ is an integral domain, $a,b,c\in R$, $a\neq 0$, and $ab=ac$
+    then $b=c$
+\end{proposition}
+
+\begin{proof}
+    $ab=ac \implies ab-ac=0 \implies a(b-c)=0$ since there are no zero
+    divisors and $a\neq 0$ 
+    
+    $\implies (b-c)=0 \implies b=c$
+\end{proof}
+
+\begin{theorem}
+    \label[theorem]{thm:integralfield}
+    Every finite integral domain is a field
+\end{theorem}
+
+\begin{proof}
+    Suppose $R$ is a finite integral domain.
+
+    Let $0\neq r\in R$
+
+    Consider: $A=\{r^k \mid k \geq 0\}=\{1,r,r^2,\dots\}\subseteq R$
+
+    Since $A$ is finite $\exists m > n$ s.t. $r^m=r^n$
+
+    $\implies r^m-r^n=0 \implies r^n(r^{m-n}-1)=0$
+
+    Since $r^n \neq 0 \implies r^{m-n-1}r=1 \implies r^{-1}=r^{m-n-1} \implies R$ is a field
+\end{proof}
+
+\begin{example}
+    For every prime $p$, $\Z_p$ is an integral domain, and thus a field
+\end{example}
+\begin{proof}
+    Commutative \checkmark
+
+    Also multiply by anything between $1$ and $p$ will not give you a multiple of $p$
+    since $p$ is prime thus there are no zero divisors thus it is an integral domain
+\end{proof}
+
+\begin{definition}
+    We say the characteristic of a ring $R$ is $n \in \N$ if $n$ is 
+    the smallest such that for all $r\in R$ \[nr=r+r+\dots+r=0\]
+
+    We write char$(R)=n$
+
+    If no such $n\in\N$ exists we say char$(R)=0$
+\end{definition}
+
+\begin{proposition}
+    If $R$ is a ring with 1  and char$(R)\neq 0$ then char$(R)=$ order of 1 in the groups
+    $(R,+)$
+\end{proposition}
+
+\begin{proof}
+    Set char$(R)=n$ and ord$(1)=n$
+
+    $0=1+\dots+1 \implies m \mid n \implies m \leq n$
+
+    Also $r+\dots+r\t{ (m times)}=r(1+\dots+1)=r0=0 \implies m \geq n$
+
+    $\implies m=n$
+\end{proof}
+
+\begin{proposition}
+    If $R$ is an integral domain then char$(R)=p$ or char$(R)=0$, $p$-prime
+\end{proposition}
+
+\begin{proof}
+    If char$(R)=0$ we are done.
+
+    Assume char$(R)=n \in \N$
+
+    Assume $n=ab$ with $1\leq a,b\leq n$
+
+    $0=1+\dots+1 \t{ (n times)}=(1+\dots+1) \t{ (a times) }(1+\dots+1)\t{ (b times)}$
+
+    Since $R$ is an integral domain WLOG $a1=0$ 
+
+    $\implies a \geq n \implies a=n \implies b=1$
+
+    $\implies n$ is prime
+\end{proof}
+
+\begin{theorem}
+    \label[theorem]{thm:polynomialintegral}
+    $R$ is an integral domain $\iff R\left[ x \right]$ is an integral domain
+\end{theorem}
+
+\begin{proof}
+    $(\implies)$
+    Assume $R$ is a commutative ring with 1
+
+    Let $f,g \in R\left[ x \right]$ s.t. 
+    $f=\sum\limits^{n}_{i=0}a_ix^i$ s.t. $a_i \in R$ and 
+    $g=\sum\limits^{k}_{i=0}b_ix^i$ s.t. $b_i \in R$
+
+    WLOG let $n \geq m$
+
+    Closure + Commutative:
+
+    $f+g=(a_0+b_0)+(a_1+b_1)x+\dots+(a_n+b_n)x^n \in R\left[ x \right]$
+    $=(b_0+a_0)+\dots+(b_n+a_n)x^n=g+f \implies (R\left[ x \right],+)$ is commutative
+
+    \[f\cdot g= \left(\sum\limits^{n}_{i=0}a_ix^i\right)\left( \sum\limits^{k}_{i=0}b_ix^i \right)=
+    \sum\limits^{m+n}_{k=0}\left( \sum\limits_{i+j=k}a_ib_j \right)x^k\]
+
+    This is in $R\left[ x \right]$ and also since $R$ is a commutative ring 
+    $\implies \sum\limits^{m+n}_{k=0}\left( \sum\limits_{i+j=k}a_ib_j \right)x^k
+    =\sum\limits^{m+n}_{k=0}\left( \sum\limits_{i+j=k}b_ja_i \right)x^k = g \cdot f$
+
+    $\implies$ multiplication is commutative in $R\left[ x \right]$
+
+    Identity: $f+0=f=0+f$ and $f\cdot 1=f=1\cdot f$
+
+    Inverses: Consider $-f=\sum\limits^{n}_{i=0}-a_ix^i$ $f+(-f)=0=(-f)+f$
+
+    Associativity: $f+(g+h)=(f+g)+h$ and $f(gh)=(fg)h$ since this works for the coefficients
+
+    Thus, $(R\left[ x \right],+)$ is an abelian group
+
+    Distributivity: Since multiplication is commutative we only have to check one side 
+
+    $f(g+h)=fg+fh$ since it works with coefficients
+
+    Thus, $R\left[ x \right]$ is a commutative ring with 1
+
+    $(\impliedby)$ Assume $R\left[ x \right]$ is a commutative ring with 1
+
+    Let $f,g \in R \implies f,g \in R[x]$
+
+    So all rules follow $\implies R$ is a commutative ring with 1
+
+
+    $(\implies)$ Assume $R$ has zero divisors
+
+    Let $a,b \in R$ s.t. $a,b \neq 0$ with $ab=0$
+
+    View $a,b \in R[x] \implies ab=0 \in R[x] \implies R[x]$ has zero divisors
+    
+    $(\impliedby)$ Assume $R[x]$ has zero divisors
+
+    Let $f,g \in R[x]$ s.t. $f,g \neq 0$ with $fg=0$
+
+    Let $f=a_0+\dots+a_mx^m$ s.t. $a_m \neq 0$
+
+    $g=b_0+\dots+b_nx^n$
+
+    $fg=a_mb_nx^{n+m}+\dots=0 \implies a_mb_n=0 \implies R$ has zero divisors
+\end{proof}
