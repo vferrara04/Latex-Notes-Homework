@@ -12,3 +12,38 @@
 \begin{definition}
     The order of a group, denoted $|G|$ is the cardinality of G
 \end{definition}
+
+\begin{definition}
+    The order of $a \in G$, the order of $a$ is the
+    smallest $n\in\N$ s.t. $a^n=e$
+\end{definition}
+
+\begin{theorem}[Lagrange's Theorem]
+    Let $G$ be a finite group. Let $H \leq G$
+    then $|H|$ divides $|G|$
+\end{theorem}
+
+\begin{corollary}
+    Let  $a\in G$ then ord$(a)$ divides $|G|$
+\end{corollary}
+
+\begin{definition}
+    Let $a\in G$ and $H \leq G$ then the left coset $aH=\{ah \mid h\in H\}$
+\end{definition}
+
+\begin{example}
+    $\Z_n$ and let $H=\ang{2}$\\
+    $a=0$ $"aH"=a+H=\ang{2}$\\
+    $a=1 \{1,3\}$\\
+    $a=2 \{0,2\}$\\
+    $a=3 \{1,3\}$
+\end{example}
+
+\begin{proposition}
+    \phantom{text}
+
+    \begin{enumerate}
+        \item Any two left cosets are either identical or disjoint
+        \item $G$ is the disjoint union of the left cosets of $H$ in $G$
+    \end{enumerate}
+\end{proposition}
