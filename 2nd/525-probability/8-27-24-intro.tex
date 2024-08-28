@@ -1,2 +1,41 @@
 \subsection{Intro}
 
+Recommended Reading: Probability and Random Processes (Grimmett/Stirzker)
+
+Mathematical study of randomness (random $\leftrightarrow$ deterministic)
+
+\subsubsection*{How do we model Randomness?}
+
+Coin: $P(H)=P(T)=0.5$\\
+Biased Coin: $P(H)=0.7, P(T)=0.3$\\
+Dice: $P(1)=P(2)=\cdots=P(6)=\frac{1}{6}$\\
+$P(1 \text{ or } 3)=P(\{1,3\})=P(1)+P(3)=\frac{1}{3}$\\
+Power Law: $P(n)=\frac{6}{\pi^2}\frac{1}{n^2}$\\
+$P(n\t{ is even})=P(\{2,4,6,\dots\})=\frac{1}{2}$\\
+$P(\t{4 divides }n)=P(\{4,8,\dots\})$\\
+
+\subsubsection*{Sample space and probability measure}
+
+\begin{definition}[Sample Space]
+    Let $\Omega$ be a set. Let $F$ be a collection of subsets of $\Omega$, which is a $\sigma$-algebra
+    \begin{enumerate}
+        \item $\emptyset \in F$
+        \item If $A \in F, then A^c \in F$
+        \item If $A_1,A_2,\dots \in F$ then $\bigcup\limits_n A_n \in F$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Probability Measure]
+    A Probability meassure on ($\Omega, F$) is a function\\
+    $\mathbb{P}: F \mapsto [0,1]$ s.t.
+    \begin{itemize}
+        \item $\P(\emptyset) = 0,\;\;\P(\Omega)=1$
+        \item If $A_1,A_2,\dots\in F$ is disjoint collection then $\P(\bigcup\limits_n A_n)=\sum\limits_n \P(A_n)$
+    \end{itemize}
+\end{definition}
+
+\begin{exercise}
+\begin{itemize}
+    \item $A,B \in$
+\end{itemize}
+\end{exercise}
