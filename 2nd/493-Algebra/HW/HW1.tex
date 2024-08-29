@@ -435,19 +435,6 @@ Separate Proof:
             $\implies $ by Lagrange's Theorem ord$(g)$ divides ord$(G)$
         \end{proof}
 \phantom{text}\\
-Another Separate proof:
-
-    \begin{proof}
-        Set $m=[G:H]$ and take $g_1,g_2,\ldots,g_m\in G$ so that 
-        $g_1H,g_2H,\ldots,g_mH$ are all distinct.
-        
-        Also, $|g_iH|=|H|\;\; \forall 1\leq i \leq m$. This is because
-        you take all elements of $H$ and add $g_i$ to them.
-        
-        Since $G=g_1H\cup g_2H\cup \ldots\cup g_mH$ and these are all disjoint by Lagrange's Theorem
-
-        By the multiplication principle, $|G|=m|H|=[G:H]|H|$
-    \end{proof}
 
 \begin{proof}
     Let $p$ be prime and $G$ be a group of order $2p$
@@ -489,7 +476,7 @@ Another Separate proof:
         Take $e \neq a \neq b \neq e \in G$\\
         Consider $\{e,a,b,ab\} \leq G \implies$ by Lagrange's Theorem that 4 divides $2p \implies 2$ divides $p \contr$\\
         Thus $G$ has an element $g \in G$ with order $p$. Take $\ang{h}=H$ and proven above $H$ is a subgroup of $G$.
-        By proof above $[G:H]=\frac{|G|}{|H|}=\frac{2p}{p}=2$. Take $g\notin H \implies G=H\sqcup gH$
+        By Lagrange's Theorem $[G:H]=\frac{|G|}{|H|}=\frac{2p}{p}=2$. Take $g\notin H \implies G=H\sqcup gH$
         
         Consider:  $g^2H$
         \begin{enumerate}
@@ -518,4 +505,56 @@ Another Separate proof:
         $G=H\sqcup gH = \{e,h,h^2,\dots,h^{p-1},g,gh,\dots,gh^{p-1}\}=\ang{h,g \mid e=h^p=g^2, gh=h^{p-1}g}=D_p$
     \end{enumerate}
 \end{proof}
+
+\newpage
+\subsection*{Problem 4}
+
+\begin{proof}($\implies$)
+    Assume $HK$ is a subgroup of $G$\\
+    Let $j\in HK$ this means there exists $h\in H$ and $k\in K$ s.t. $j=hk$\\
+    Consider $j^{-1}$ since $HK$ is a subgroup of $G$ this implies $j^{-1} \in HK$\\
+    Consider $j^{-1}=k^{-1}h^{-1}$ and since $H$ and $K$ are subgroups of $G$ this implies
+    that $k^{-1} \in K$ and $h^{-1} \in H$ thus $j^{-1} \in KH$ thus $HK \subseteq KH$\\
+    \phantom{text}\\
+    Let $j\in KH$ this means there exists $h\in H$ and $k \in K$ s.t. $j=kh$\\
+    Consider $j^{-1}=h^{-1}k^{-1}$ and since $H$ and $K$ are subgroups of $G$ this implies
+    that $k^{-1} \in K$ and $h^{-1} \in H$ thus $j^{-1} \in HK$ and since $HK$ is a subgroup of $G$
+    this implies that $j \in HK$ thus $KH \subseteq HK$\\
+    Therefore $HK=KH$
+\end{proof}
+\begin{proof}($\impliedby$)
+    Assume $HK=KH$
+    \begin{itemize}
+        \item (Identity) Since $H$ and $K$ are subgroups $e \in H\cap K$ thus $ee=e\in HK$
+        \item (Inverses) Let $j\in HK \implies \exists h\in H$ and $k\in K$ s.t. $j=hk$\\
+        Consider $j^{-1}=k^{-1}h^{-1}$ since $H$ and $K$ are subgroups $k^{-1}\in K$ and $h^{-1}\in H$\\
+        therefore $j^{-1}\in KH=HK$
+        \item (Closure) Let $j,i \in HK=KH \implies \exists h,h'\in H$ and $k,k'\in K$ s.t. $j=hk$ and $i=h'k'$\\
+        $ji=hkh'k'$ since $KH=HK$ there exists an element $n$ in $HK$ s.t. $kh'=n$\\
+        $ji=hnk'$  since $n\in HK \implies \exists s \in H$ and $t \in K$ s.t. $n=st$\\
+        $ji=hstk'$ since $H$ is a subgroup $hs \in H$ and since $K$ is a subgroup $tk'\in K$ thus $ij\in HK$  
+    \end{itemize}
+    Therefore $HK$ is a subgroup of $G$.
+\end{proof}
+
+\newpage
+\subsection*{Problem 5}
+
+   \begin{proof}
+     Initially, consider the set of all pairs \( (h, k) \) where \( h \in H \) and \( k \in K \). The total number of such pairs is \( |H| \times |K| \). If all such pairs \( (h, k) \) produced distinct elements in \( HK \), then \( |HK| = |H| \times |K| \). However, since \( H \) and \( K \) may have non-trivial intersection, some products \( hk \) may coincide, leading to overcounting.\\
+     Suppose \( h_a k_a = h_b k_b \) for some \( h_a, h_b \in H \) and \( k_a, k_b \in K \). This implies:
+     \[
+     h_a^{-1} h_b = k_a k_b^{-1}.
+     \]
+     The left-hand side, \( h_a^{-1} h_b \), is an element of \( H \), and the right-hand side, \( k_a k_b^{-1} \), is an element of \( K \). Thus, \( h_a^{-1} h_b \) must be an element of \( H \cap K \), meaning:
+     \[
+     h_a^{-1} h_b \in H \cap K \quad \text{and} \quad k_a k_b^{-1} \in H \cap K.
+     \]
+     Therefore, if \( h_a k_a = h_b k_b \), then the pairs \( (h_a, k_a) \) and \( (h_b, k_b) \) correspond to the same element in \( HK \), and the number of distinct elements in \( HK \) is reduced by a factor equal to the size of the intersection \( H \cap K \).\\
+     Therefore, the number of distinct elements in \( HK \) is exactly \( \frac{|H| \cdot |K|}{|H \cap K|} \), establishing that
+     \[
+     |HK| = \frac{|H| \cdot |K|}{|H \cap K|}.
+     \]
+   \end{proof}
+
 \end{document}
