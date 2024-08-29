@@ -27,6 +27,7 @@
 \usepackage{mathtools}
 \usepackage{setspace}
 \usepackage{cleveref}
+\usepackage{multicol}
 
 %--------Theorem Environments--------
 %theoremstyle{plain} --- default
@@ -75,7 +76,24 @@
 \subsubsection*{c)}
 For $n>3$
 \[D_n=\left\{ e,x,x^2,\dots,x^n-1,y,yx,yx^2,\dots,yx^{n-1} \right\}\]
-\[x=\dfrac{360^\circ}{n}\]
+\[x=\dfrac{360^\circ}{n}\]\\
+\begin{proof}[\textbf{Claim:} For all \(1\leq j < n\) we have \(yx^j=x^{n-j}y\)]
+    \phantom{text}\\
+    \textit{Proof.} Base Case: \(m=1 \implies yx=x^{n-1}y\) \checkmark
+
+    Inductive Step: Assume for \(k \geq 1\) the statement is true
+
+    Consider: 
+    \begin{align*}
+        yx^{k+1}&=yx^kx &\t{Apply indcutive hypothesis on } yx^k\\
+                &=x^{n-k}yx \\
+                &=x^{n-k}x^{n-1}y\\
+                &=x^{n}x^{n-(k+1)}y\\
+                &=x^{n-(k+1)}y
+    \end{align*}
+\end{proof}
+This $\implies x^my=yx^{n-m}$ also\\
+\phantom{text}\\
 Consider: \[
 R = \begin{pmatrix}
 \cos\left(\frac{360^\circ }{n}\right) & -\sin\left(\frac{360^\circ }{n}\right) \\
@@ -159,7 +177,7 @@ we have:
 \[
 R^{n-j} = R^{-j}
 \]
-Subgroup of $GL_2(\R)$ : $\ang{R,S \mid R^n=S^2=I, SR^j=R^{n-j}S}=A$
+Subgroup of $GL_2(\R)$ : $\ang{R,S \mid R^n=S^2=I,\; SR=R^{n-1}S}=A$
 \begin{itemize}
     \item (Associativity) Given by matrix multiplication
     \item (Identity) \[I = \begin{pmatrix}
@@ -196,13 +214,308 @@ Subgroup of $GL_2(\R)$ : $\ang{R,S \mid R^n=S^2=I, SR^j=R^{n-j}S}=A$
         \[SR^jSR^k=R^{n-j}SSR^k=R^{n+k-j \mod n}\] This is another rotation in the group.
     \end{enumerate}
 \end{itemize}
-Let $\varphi : D_n \mapsto A$ s.t. $\varphi(x^j)=R^j$ s.t. $1 \leq j \leq n$, $\varphi(y)=\varphi(S)$, and $\varphi(yx^j)=SR^j$ s.t. $1 \leq j < n$\\
+Let $\varphi : D_n \mapsto A$ s.t. $\varphi(x^j)=R^j$, and $\varphi(yx^j)=SR^j$ s.t. $0 \leq j < n$\\
 Well Defined: Le\\
 Homomorphism: Let $a,b \in D_n$
 \begin{enumerate}
     \item If $a=x^j$ and $b=x^k$ s.t. $1 \leq j,k \leq n$\\
     $\varphi(x^jx^k)=\varphi(x^{j+k})=R^{j+k}=R^jR^k=\varphi(x^j)\varphi(x^k)$
     \item If $a=x^j$ and $b=yx^k$ s.t. $0 \leq j,k < n$\\
-    $\varphi(x^jyx^k)=\varphi(yx^{n-j}x^k)=SR^{n+k-j}=R^jSR^{k}=\varphi(x^j)\varphi(yx^k)$
+    $\varphi(x^jyx^k)=\varphi(yx^{n-j}x^k)=SR^{n+k-j}=R^jSR^{k}=\varphi(x^j)\varphi(yx^k)$\\
+    $\varphi(yx^kx^j)=\varphi(yx^{k+j})=SR^{k+j}=SR^kR^{j}=\varphi(yx^k)\varphi(x^j)$\\
+    \item If $a=yx^j$ and $b=yx^k$ s.t. $0 \leq j,k < n$\\
+    $\varphi(yx^jyx^k)=\varphi(x^{n-j}yyx^k)=\varphi(x^{n+k-j})=R^{n+k-j}=R^{n-j}SSR^{k}=SR^jSR^k=\varphi(yx^j)\varphi(yx^k)$
 \end{enumerate}
+Injective: Let $a,b \in D_n$ s.t. $\varphi(a)=\varphi(b)$\\
+Small Proof Before:
+Let $G,H$ be groups and $\varphi$ be a homomorphism from $G$ to $H$ then\\
+$\varphi(g)^{-1}=\varphi(g^{-1}) \forall g\in G$
+\begin{proof}
+    Let $g\in G$\\
+    $e_H\varphi(e_G)=e_H\varphi(e_Ge_G)=e_H\varphi(e_G)\varphi(e_G) \implies e_H=\varphi(e_G)$\\
+    $e_H=\varphi(e_G)=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1}) \implies \varphi(g)^{-1}=\varphi(g^{-1})$
+\end{proof}
+\begin{align*}
+    \varphi(a) &= \varphi(b)\\
+    \varphi(a)\varphi(b)^{-1} &= I\\
+    \varphi(ab^{-1}) &= I\\
+\end{align*}
+Cases:
+\begin{enumerate}
+    \item If $a=x^j$ and $b=x^k$ for $0 \leq j,k < n$
+    \[
+    I=\varphi(x^jx^{-k})=R^jR^{-k} \implies j=k
+    \]
+    Therefore $a=b$
+    \item If $a=yx^j$ and $b=yx^k$ for $0 \leq j,k < n$
+    \[
+    I=\varphi(yx^jyx^k)=SR^jSR^k=R^{n-j}SSR^k=R^{n+k-j} \implies k=j
+    \]
+    Therefore $a=b$
+    \item If $a=x^j$ and $b=yx^k$ for $0 \leq j,k < n$
+    \[
+    I=\varphi(x^jyx^k)=R^jSR^k=SR^{n+k-j} \implies R^{j-n-k}=S \contr
+    \]
+    This is a contradiction since this would turn $A$ into only having $R$
+\end{enumerate}
+Therefore $a=b$ thus $\varphi$ is Injective\\
+Surjective:\\
+Let $a\in A$\\
+Cases:
+\begin{enumerate}
+    \item If $a=R^k$ s.t. $0 \leq k < n$
+    Consider $\varphi(x^k)=R^k=a$
+    \item IF $a=SR^k$ s.t. $0 \leq k < n$
+    Consider $\varphi(yx^k)=SR^k=a$
+\end{enumerate}
+Therefore $\varphi$ is surjective\\
+Therefore $\varphi$ is bijective\\
+Therefore $\varphi$ is an isomorphism
+
+\newpage
+\subsubsection*{d)}
+Let $G$ be a group
+Consider $Z(G)$
+\begin{enumerate}
+    \item (Identity)
+    Consider $e,g \in G$.\\
+    $eg=ge \implies e \in Z(G)$
+    \item (Closure)
+    Let $z,h \in Z(G)$ and $g \in G$\\
+    $zhg=zgh=gzh \implies zh \in Z(G)$
+    \item (Inverses)
+    Let $z \in Z(G)$ and $g \in G$\\
+    $zg=gz \implies g^{-1}z^{-1}=z^{-1}g^{-1} \implies z^{-1}\in Z(G)$
+\end{enumerate}
+Therefore $Z(G)$ is a subset of $G$
+
+\begin{itemize}
+    \item If $n$ is odd then $Z(G)=\{e\}$
+    \item If $n$ is even then $Z(G)=\{e,x^{n/2}\}$
+\end{itemize}
+Proven in c) $x^jy=yx^{n-j}$ for $1 \leq j < n$\\
+Thus only $x^j$ commutes with $y$ if $j=n-j \implies j=n/2$\\
+and $x^j$ commutes with all $x^k$ since associativity and that $x^kx^j=x^{k+j}$\\
+and since $x^j$ commutes with $x^k$ and $y$ it will commute with all reflections\\
+Therefore this is only possible if $n$ is even.\\
+\phantom{text}\\
+Geometrically:\\
+When $n$ is odd this is just the do nothing to the $n$-gon.\\
+When $n$ is even this is just a $180^\circ$ rotation.
+
+\newpage
+\subsubsection*{e)}
+Let $G,H$ be a group and $\varphi$ be a homomorphism between them and let $g\in G$
+$\forall n \in \Z, \varphi(g^n)=[\varphi(g)]^n$
+\begin{proof}
+    Base Case: $n=0\;\; \varphi(g^0)=\varphi(e_1)=e_2=[\varphi(g)]^0$
+
+    Assume statement is true for $k\geq0$ for $k \in \N$
+
+    Consider: $k+1$
+
+    $\varphi(g^{k+1})=\varphi(g)\varphi(g^k)=\varphi(g)[\varphi(g)]^k=[\varphi(g)]^{k+1}$
+
+    Note: $e_2=\varphi(e_1)=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1})\implies [\varphi(g)]^{-1}=\varphi(g^{-1})$
+
+    This proves the statement for all negative integers since we just apply the induction on g then find its inverse
+\end{proof}
+\phantom{text}\\
+If $\varphi$ is an isomorphism then ord$(g)=\text{ord}(\varphi(g))$
+\begin{proof}
+    Assume $g\in G$ s.t. ord$(g)=n \in N$\\
+    $\implies \varphi(g^n)=\varphi(e_G)=e_H \impliedby$ a proof in c)\\
+    $\implies \varphi(g)^n=e_H \implies \text{ord}(\varphi(g))$ divides $n$\\
+    Since $\varphi$ is injective, if $\varphi(g)^m=e_H$ for some $m<n$ then $g^m=e_G$
+    but this contradicts that $g$ has order $n$\\
+    Thus ord$(\varphi(g))=$ ord$(g)$
+\end{proof}
+\phantom{text}\\
+Thus, by the proof above an isomorphism has 2 choices
+for where $x$ goes either $\tau$ or $\tau^2$ and once you pick $x$ there is only one place for $x^2$\\
+and there is 1 choice for $e$\\
+and $y$ has 3 choices $\sigma$, $\sigma\tau$, $\sigma\tau^2$, and since
+the isomorphism has to preserve group structure there is only one choice for $yx$ and $yx^2$ after you pick $y$\\
+Thus, there are in total 6 isomorphisms.\\
+They are:
+\newpage
+\begin{multicols}{3}
+\begin{enumerate}
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau$
+        \item $x^2$ to $\tau^2$
+        \item $y$ to $\sigma$
+        \item $yx$ to $\sigma\tau$
+        \item $yx^2$ to $\sigma\tau^2$
+        \end{itemize}
+    %2
+    %3
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau^2$
+        \item $x^2$ to $\tau$
+        \item $y$ to $\sigma\tau$
+        \item $yx$ to $\sigma$
+        \item $yx^2$ to $\sigma\tau^2$
+        \end{itemize}
+    %5
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau^2$
+        \item $x^2$ to $\tau$
+        \item $y$ to $\sigma\tau^2$
+        \item $yx$ to $\sigma\tau$
+        \item $yx^2$ to $\sigma$
+        \end{itemize}
+    %7
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau^2$
+        \item $x^2$ to $\tau$
+        \item $y$ to $\sigma$
+        \item $yx$ to $\sigma\tau^2$
+        \item $yx^2$ to $\sigma\tau$
+        \end{itemize}
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau$
+        \item $x^2$ to $\tau^2$
+        \item $y$ to $\sigma\tau^2$
+        \item $yx$ to $\sigma$
+        \item $yx^2$ to $\sigma\tau$
+        \end{itemize}
+    %10
+    \item \begin{itemize}
+        \item $e$ to $e$
+        \item $x$ to $\tau$
+        \item $x^2$ to $\tau^2$
+        \item $y$ to $\sigma\tau$
+        \item $yx$ to $\sigma\tau^2$
+        \item $yx^2$ to $\sigma$
+        \end{itemize}
+    %12
+\end{enumerate}
+\end{multicols}
+
+Since all of these mappings are injective they are bijective since $|D_3|=|S_3|$.\\
+homomorphisms
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{enumerate}
+\end{multicols} 
+
+
+\newpage
+\subsection*{Problem 2}
+\subsubsection*{a)}
+
+\newpage
+\subsection*{Problem 3}
+Separate Proof:
+
+        \begin{proof}
+            Let $G$ be a finite group and $g\in G$ and let ord$(g)=n\in N$
+    
+            Consider $\ang{g}$:
+    
+            \begin{enumerate}
+                \item $g^n=e \in \ang{g}$
+                \item Let $g_1,g_2 \in \ang{g} \implies g_1=g^j \text{ and } g_2=g^k$ for $j,k\in \N_{\leq n} \text{ thus } g_1g_2=g^jg^k=g^{j+k \mod n} \in \ang{g}$
+                \item Let $g_1\in \ang{g} \implies g_1=g^j$ for $j\in \N_{\leq n}$
+                
+                Consider: $g^{n-j} \in \ang{g}$
+
+                $g^{n-j}g^j=e=g^jg^{n-j} \implies g_1^{-1}=g^{n-j} \in \ang{g}$
+            \end{enumerate}
+            Thus for all finite groups $G$ and $g\in G$ with finite order, $\ang{g}$ is a subgroup of $G$\\
+            $\implies $ by Lagrange's Theorem ord$(g)$ divides ord$(G)$
+        \end{proof}
+\phantom{text}\\
+Another Separate proof:
+
+    \begin{proof}
+        Set $m=[G:H]$ and take $g_1,g_2,\ldots,g_m\in G$ so that 
+        $g_1H,g_2H,\ldots,g_mH$ are all distinct.
+        
+        Also, $|g_iH|=|H|\;\; \forall 1\leq i \leq m$. This is because
+        you take all elements of $H$ and add $g_i$ to them.
+        
+        Since $G=g_1H\cup g_2H\cup \ldots\cup g_mH$ and these are all disjoint by Lagrange's Theorem
+
+        By the multiplication principle, $|G|=m|H|=[G:H]|H|$
+    \end{proof}
+
+\begin{proof}
+    Let $p$ be prime and $G$ be a group of order $2p$
+    \begin{enumerate}
+        \item Assume $p=2$\\
+        Thus $G$ has 4 elements
+        \begin{enumerate}
+            \item Assume $G$ has an element with order 4\\
+             $\implies \ang{g}$ has $4$ elements since $G$ also has $4$ elements
+            and $\ang{g} \subseteq G$ thus there is no element in $G$ that is not in $\ang{g}$ thus $G=\ang{g}$ thus $G \cong C_{4}$
+            \item Assume $G$ has no elements with order 4\\
+            Thus by my proof above all elements have order 2 for all non-identity elements\\
+            Thus $G={e,a,b,c}$ then $a^2=b^2=c^2=e$. WLOG let $c=ab$\\
+            Consider $ab=(ab)^{-1}=b^{-1}a^{-1}=ba$\\
+            Let $\varphi : G \mapsto D_2$ s.t. $\varphi(e)=e, \varphi(a)=x, \varphi(b)=y, \varphi(ab)=yx=xy=\varphi(ba)$\\
+            This is a well-defined function because every input has one output
+
+            Injective:
+            
+            This is injective by definition.
+
+            Since this is injective and $G$ and $D_2$ have 4 elements this makes $\varphi$ surjective
+            Thus it is bijective.\\
+
+            Homomorphism:
+
+            $\varphi(ab)=xy=\varphi(a)\varphi(b)$\\
+            $\varphi(ba)=yx=\varphi(b)\varphi(a)$\\
+            Let $g\in G$\\
+            $\varphi(eg)=\varphi(g)=\varphi(e)\varphi(g)$\\
+            $\varphi(ge)=\varphi(g)=\varphi(g)\varphi(e)$\\
+            Thus $\varphi$ is an isomorphism thus $G \cong D_2$
+        \end{enumerate}
+        \item Assume $G$ has an element $g$ s.t. ord$(g)=2p$ for odd primes\\
+        $\implies \ang{g}$ has $2p$ elements since $G$ also has $2p$ elements
+        and $\ang{g} \subseteq G$ thus there is no element in $G$ that is not in $\ang{g}$ thus $G=\ang{g}$ thus $G \cong C_{2p}$
+        \item Assume $G$ has no elements of order $2p$ and $p$ is odd\\
+        For contradiction assume $G$ has no elements of order $p \implies$ by my proof above that all non-identity elements have order of 2\\
+        Take $e \neq a \neq b \neq e \in G$\\
+        Consider $\{e,a,b,ab\} \leq G \implies$ by Lagrange's Theorem that 4 divides $2p \implies 2$ divides $p \contr$\\
+        Thus $G$ has an element $g \in G$ with order $p$. Take $\ang{h}=H$ and proven above $H$ is a subgroup of $G$.
+        By proof above $[G:H]=\frac{|G|}{|H|}=\frac{2p}{p}=2$. Take $g\notin H \implies G=H\sqcup gH$
+        
+        Consider:  $g^2H$
+        \begin{enumerate}
+            \item Assume $g^2H=H \implies g^2 \in H$\\
+            $\implies$ ord$(g^2) \text{ divides } p$ by Lagrange's Theorem $\implies$ ord$(g^2)=1$ or ord$(g)=p$
+            \begin{enumerate}
+                \item If ord$(g^2)=1 \implies$ $g^{2}=e \implies$ ord$(g)$ divides 2 $\implies$ ord$(g)=2$ or 1
+                \begin{enumerate}
+                    \item If ord$(g)=1$ then $\ang{g}=\ang{g^2}=\{e\}$ which is a subset of H which $\implies g\in H$ this is a contradiction
+                \end{enumerate}
+                \item If ord$(g^2)=p \implies$ $g^{2p}=e \implies$ ord$(g)$ divides 2p and since there is no elements of order $2p$\\
+                $\implies$ ord$(g)=1$ or $p$
+                \begin{enumerate}
+                    \item If ord$(g)=p$ then $\ang{g}=\ang{g^2}$ which is a subset of H which $\implies g\in H$ this is a contradiction
+                    \item If ord$(g)=1$ then $g=e$ but $g^2\neq e$ since ord$(g^2)=p$ this is a contradiction
+                \end{enumerate}
+            \end{enumerate}
+            Therefore ord$(g)=2$ by 3.(a).i
+            \item $g^2H=gH$\\
+            Take $h,j \in H$ s.t. $g^2h=gj \implies g=jh^{-1} \in H$ this is a contradiction
+        \end{enumerate}
+        Therefore anything not in $H$ has order 2.\\
+        $gh\in gH \implies gh \notin H \implies$ ord$(gh)=2$\\
+        $e=(gh)^2=ghgh \implies h^{-1}g^{-1}=gh \implies gh=h^{p-1}g \implies gh^{k}=h^{p-k}g$
+        Since Cosets are a partition\\ 
+        $G=H\sqcup gH = \{e,h,h^2,\dots,h^{p-1},g,gh,\dots,gh^{p-1}\}=\ang{h,g \mid e=h^p=g^2, gh=h^{p-1}g}=D_p$
+    \end{enumerate}
+\end{proof}
 \end{document}
