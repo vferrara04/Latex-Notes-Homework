@@ -1,0 +1,144 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\section*{HW 1}
+\subsection*{Problem 1}
+\subsection*{1.}
+\[\{(1,1),(1,-1)\}\]
+\subsection*{2.}
+\[\{(1,-1,1),(1,-1,-1),
+   (-1,1,1),(-1,1,-1)
+\}\]
+\subsection*{3.}
+\[A_n=\{(a_1,a_2,\dots,a_n,\dots) \in \Omega | \sum\limits_{i=1}^na_i=0\}\]
+\subsection*{4.}
+\[\bigcup\limits_{n=1}^\infty A_n\]
+\subsection*{5.}
+No for example the infinite sequence of +1'S
+
+\newpage
+\subsection*{Problem 2}
+\subsection*{1.}
+Since $\Omega=\bigcup\limits_{n \in N}\{n\}$ by definition 
+\begin{align*}
+    \P(\Omega)=
+    \sum\limits_{n \in N}\P(\{n\})&=1\\
+    \sum\limits_{n \in N}C_sn^{-s}&=1\\
+    C_s\sum\limits_{n \in N}n^{-s}&=1\\
+    C_s&=\dfrac{1}{\sum\limits_{n \in N}n^{-s}}
+\end{align*}
+\subsection*{2.}
+Since  $A=\{2,4,6,\dots\}=\bigcup\limits_{n \in N}\{2n\}$ by definition 
+\begin{align*}
+    \P(A)
+    &=\sum\limits_{n \in N}\P(\{2n\})\\
+    &=\sum\limits_{n \in N}C_s(2n)^{-s}\\
+    &=C_s2^{-s}\sum\limits_{n \in N}n^{-s}\\ \intertext{From 1. we know $C_s=\dfrac{1}{\sum\limits_{n \in N}n^{-s}}$} 
+    &=\dfrac{1}{2^{s}}
+\end{align*}
+\subsection*{3.}
+Since  $A=\{q,2q,3q,4q,\dots\}=\bigcup\limits_{n \in N}\{qn\}$ by definition
+\begin{align*}
+    \P(A)
+    &=\sum\limits_{n \in N}\P(\{pn\})\\
+    &=\sum\limits_{n \in N}C_s(pn)^{-s}\\
+    &=C_sp^{-s}\sum\limits_{n \in N}n^{-s}\\ \intertext{From 1. we know $C_s=\dfrac{1}{\sum\limits_{n \in N}n^{-s}}$} 
+    &=\dfrac{1}{p^{s}}
+\end{align*}
+
+Do the same thing for $B$ and we get $\P(B)=\dfrac{1}{q^s}$
+
+Do the same thing for $A\cap B = \{pq,2pq,3pq,\dots\}$ and we get $\P(A\cap B)=\dfrac{1}{(pq)^s}$
+
+\[\P(A)\P(B)=\P(A\cap B)=\dfrac{1}{(pq)^s}\]
+Thus by definition event $A$ and event $B$ are independent with respect to this measure $\P$
+
+\newpage
+\subsection*{Problem 3}
+\subsection*{1.}
+First consider $A \cap B=(A^c \cup B^c)^c$
+\begin{align*}
+    \P(A\cap B)&=\P((A^c \cup B^c)^c)\\
+               &=1-\P(A^c \cup B^c)\\ \intertext{Proven in class $\P(A^c \cup B^c) \leq \P(A^c)+\P(B^c)$}
+               &\geq 1-\P(A^c)-\P(B^c)\\
+               &= 1-1+\P(A)-1+\P(B)\\
+               &=\P(A)+\P(B)-1
+\end{align*}
+Thus $\P(A\cap B) \geq \P(A)+\P(B)-1$\\
+\phantom{text}\\
+Now consider $(A\cap B)\cap C$ apply the proof above to these sets.
+\begin{align*}
+    \P((A\cap B)\cap C)&\geq \P(A\cap B) + \P(C)-1\\ \intertext{Now apply proof again}
+    &\geq \P(A)+\P(B)\P(C)-2
+\end{align*}
+Therefore $\P((A\cap B)\cap C)\geq\P(A)+\P(B)\P(C)-2$
+\subsection*{2.}
+\end{document}

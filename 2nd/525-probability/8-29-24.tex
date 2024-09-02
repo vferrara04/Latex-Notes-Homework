@@ -1,0 +1,109 @@
+\section{Events}
+\subsection*{Why Events}
+
+When three coins are tossed but not seen, we still take the sample space as:\\
+$\Omega=\{(b_1,b_2,b_3) \mid b_i \in \{H, T\}\}$\\
+After uncovering the first (or just after the first toss: is there a difference?)\\
+$F=\{\emptyset, \Omega, \{(HHH,(HTH),(HTT),(HHT)\}, \{(T,b_2,b_3): b_i \in \{H,T\}\}\}$\\
+After unvovering the second,\\
+$\Omega_0=\{H,T\}$\\
+$F=\{\emptyset, \Omega, \{H\}\times\{H\}\times\Omega_0\} \text{ plus other stuff and unions of stuff}$
+After uncovering the third,
+$F=P(\Omega)$
+
+\subsection*{A glimpse of continuum}
+Let us model the height of a 'random' person\\
+Alice uses a ruler in milimeters.\\
+$\Omega=\{\dots,\{1.7745,1.775\},\dots\}$ Event is what my rulers says\\
+Bob uses a ruler in micrometers\\
+$\Omega=\{\dots,\{1.7777745\},\dots\}$\\
+God uses a ruler\\
+$\Omega=\R[0,3]$\\
+Don't do this set $\Omega=\R$ and let $F = that stuff$
+
+\subsection*{Terminology}
+$\Omega$: Sample Space = all possible outcomes\\
+$(\Omega,F)$: Measurable space what you can know about what happened\\
+$(\Omega, F, \P)$: Probability Space  how likely it is that an event happens\\
+Note: If $\Omega$ is finite, one can put the uniform measure, i.e.\\
+$\forall \omega \in \Omega, \P(\{w\})=\frac{1}{|\Omega|}$
+
+\subsection*{Properties}
+\begin{itemize}
+    \item $\P(A^c)=1-\P(A)$
+    \item $\P(A)+\P(B)=\P(A\cup B)+\P(A \cap B)$
+\end{itemize}
+
+\begin{example}
+    Union bound: $\P(\bigcup\limits_n A_n) \leq \sum\limits_n \P(A_n)$\\
+    $\bigcup\limits_n A_n = A_1 \cup (A_2\setminus A_1)\cup(A_3\setminus(A_2\cup A_1))\cup\dots$\\
+    $\P(\bigcup\limits_n A_n) = \P(A_1)+\P(A_2\setminus A_1)+\P(A_3\setminus(A_2 \cup A_1))+\dots$\\
+    Since all the set minus is $\leq \P(A_n)$ thus $\P(\bigcup\limits_n A_n) \leq \sum\limits_n \P(A_n)$
+\end{example}
+
+\subsection*{Conditional Probability and Independence}
+\begin{definition}
+    $A,B\in F$, $\P(B)\neq 0$
+
+    The probability of $A (condition on/given) B$ is $\P(A \mid B)=\dfrac{\P(A\cap B)}{\P(B)}$
+\end{definition}
+
+\begin{definition}
+    $A_1,A_2,\dots \in F$ and finite subcollection $i_1<i_2<\dots<i_n$
+
+    $\P(A_{i_1}\cap A_{i_2} \cap \dots \cap A_{i_n})=\P(A_{i_1})\P(A_{i_2})\dots\P(A_{i_n})$
+
+    ($A$ and $B$ are independint if $\P(A \cap B)= \P(A)\P(B)$)
+\end{definition}
+
+\begin{example}
+    \phantom{text}\\
+    Independent weather/biased coin (70\% H 30\% T) toss. $\P(rains)=70\%$
+
+    $\Omega = \{ (rains, H), (rains, T), (clear, H), (clear, T)\}$
+
+    (rains) = \{(rains, H), (rains, T)\}
+
+    (heads) = \{(rains, H), (clear, H)\}
+
+    (rains and heads) = (rains) $\cap$ (heads)\\\\
+    Soothsayer's count toss: rain if heads, clear if tails
+
+    $\Omega = \{(rains, H), (clear, T)\}$
+
+    $\P(rains)=70\%$\\\\
+    Independent and identically distributed (i.i.d) tosses:
+
+    $n$ tosses, $\P(n heads)=0.7^{n}$
+
+    $\P(at least 1 tail)=1-0.7^{n}$
+\end{example}
+
+\subsection*{Set Theorem $\longleftrightarrow$ Probability Theory}
+
+$A\cap B \longleftrightarrow A and B$
+
+$A \cup B \longleftrightarrow A or B$
+
+$A^c \longleftrightarrow A does not happen$
+
+$A\setminus \longleftrightarrow A happens B does not happen$
+
+\begin{theorem}[Total Probability Theorem]
+    $B_1, B_2, \dots, B_n$ with $\forall \P(B_i)>0$, partitions $\Omega$
+
+    \begin{align*}
+        \P(A)&=\P((A\cap B_1)\cup \dots \cup (A \cap B_n))\\
+             &=\P(A\cap B_1)
+    \end{align*}
+\end{theorem}
+
+\begin{example}
+    3 colors of products: 100 blue, 70 red, 30 purple
+    
+    defective rate: 3\% 9\% 7\%
+
+    partition $\Omega=B\cup R\cup P$
+
+    $\P(D)$
+\end{example}

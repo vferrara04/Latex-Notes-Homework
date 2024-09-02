@@ -72,7 +72,153 @@
 \section*{HW 1}
 
 \subsection*{Problem 1}
+\subsubsection*{a)}
+\begin{tikzcd}[every arrow/.append style={dash}]
+    &&D_4\ar[d]\ar[dl]\ar[dr]\\
+    &\langle x^2,y \rangle \ar[d]\ar[dl]\ar[dr]&\langle x\rangle\ar[d] &\langle x^2,yx\rangle\ar[d]\ar[dl]\ar[dr]\\
+    \langle y\rangle\ar[rrd]&\langle yx^2\rangle\ar[rd]&\langle x^2\rangle\ar[d]&\langle yx\rangle\ar[ld]&\langle yx^3\rangle\ar[lld]\\
+    &&\langle e\rangle
+\end{tikzcd}
+\phantom{text}\\
+Let $H$ be a subgroup of $D_4$ by Lagrange's Theorem the order of $H$ can only be $1,2,4,8$
 
+Case 1: \(H\) has order 1
+\begin{itemize}
+    \item The only subgroup of order 1 is the trivial subgroup \( \{e\} \).
+    \item Since \( \{e\} \) is already on our list, \( H \) cannot be of order 1 unless it is \( \{e\} \), which is already accounted for.
+\end{itemize}
+
+Case 2: \(H\) has order 2
+\begin{itemize}
+    \item If \( H \) has order 2, it must consist of \( e \) and one other element \( g \), where \( g^2 = e \).
+    \item In \( D_4 \), the elements that satisfy \( g^2 = e \) are \( x^2 \), \( y \), \( yx \), \( yx^2 \), and \( yx^3 \).
+    \item Each of these elements generates a subgroup of order 2:
+    \begin{itemize}
+        \item \( \langle x^2 \rangle = \{ e, x^2 \} \)
+        \item \( \langle y \rangle = \{ e, y \} \)
+        \item \( \langle yx \rangle = \{ e, yx \} \)
+        \item \( \langle yx^2 \rangle = \{ e, yx^2 \} \)
+        \item \( \langle yx^3 \rangle = \{ e, yx^3 \} \)
+    \end{itemize}
+    \item Therefore, any subgroup \( H \) of order 2 must be one of these, and all are already on our list.
+\end{itemize}
+
+Case 3: \(H\) has order 4
+\begin{itemize}
+    \item If $H$ has an element of order $4$ this implies $x \in H$ or $x^3 \in H$ since $\ang{x}=\ang{x^3}$ this implies $\ang{x} \subset H$ but since they both have 4 elements this means $H=\ang{x}$
+    \item If $H$ does not have an element of order $4$ this implies all non-identity elements must be order 2 by Lagrange's Theorem. The elements
+    of order 2 are $\{x^2,y,yx,yx^2,yx^3\}$
+    \begin{itemize}
+        \item If $yx^3 \in H$ and we then add $a \in \{x^2,y,yx,yx^2\}$
+        \begin{itemize}
+            \item If $a=x^2$ then $yx^3x^2=x^2xy=yx \in H \implies H=\ang{x^2,yx}$
+            \item If $a=yx$ then $yx^3yx=x^2 \in H \implies H=\ang{x^2,yx}$
+            \item If $a=y$ then $yx^3y=x^3 \in H \implies$ is bigger than 4.
+            \item If $a=yx^2$ then $yx^3yx^2=x \in H \implies$ is bigger than 4.
+        \end{itemize}
+
+        \item If $yx \in H$ and we then add $a \in \{x^2,y,yx^2,yx^3\}$
+        \begin{itemize}
+            \item If $a=x^2$ then $yxx^2=yx^3 \in H \implies H=\ang{x^2,yx}$
+            \item If $a=yx^3$ then $yx^3yx=x^2 \in H \implies H=\ang{x^2,yx}$
+            \item If $a=y$ then $yyx=x \in H \implies$ is bigger than 4.
+            \item If $a=yx^2$ then $yx^2yx=x^3 \in H \implies$ is bigger than 4.
+        \end{itemize}
+
+        \item If $y \in H$ and we then add $a \in \{x^2,yx,yx^2,yx^3\}$
+        \begin{itemize}
+            \item If $a=x^2$ then $yx^2 \in H \implies H=\ang{x^2,y}$
+            \item If $a=yx^2$ then $x^2 \in H \implies H=\ang{x^2,y}$
+            \item If $a=yx^3$ then $yyx^3=x^3 \in H \implies$ is bigger than 4.
+            \item If $a=yx$ then $yyx=x \in H \implies$ is bigger than 4.
+        \end{itemize}
+
+        \item If $x^2 \in H$ and we then add $a \in \{y,yx,yx^2,yx^3\}$
+        \begin{itemize}
+            \item If $a=y$ then $yx^2 \in H \implies H=\ang{x^2,y}$
+            \item If $a=yx$ then $yx^3 \in H \implies H=\ang{x^2,yx}$
+            \item If $a=yx^2$ then $y \in H \implies H=\ang{x^2,y}$
+            \item If $a=yx^3$ then $yx \in H \implies H=\ang{x^2,yx}$
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+Case 4: \(H\) has order 8
+\begin{itemize}
+    \item If \( H \) has order 8, it must be the whole group \( D_4 \).
+    \item Therefore, \( H \) would be \( D_4 \), which is already on our list.
+\end{itemize}
+\phantom{text}\\
+In each case, we’ve shown that any possible subgroup \( H \) of \( D_4 \) must be one of the subgroups already listed. Therefore, no additional subgroups can exist, and our list of subgroups is complete.
+
+\newpage
+\subsubsection*{b)}
+\begin{tikzpicture}[scale=1.5]
+
+    % Nodes
+    \node (D5) at (0,4) {\(D_5\)};
+    \node (R) at (-0.5,2.5) {\(\langle x \rangle\)};
+    \node (S1) at (1,2) {\(\langle y \rangle\)};
+    \node (S2) at (2,2) {\(\langle yx \rangle\)};
+    \node (S3) at (3,2) {\(\langle yx^2 \rangle\)};
+    \node (S4) at (4,2) {\(\langle yx^3 \rangle\)};
+    \node (S5) at (5,2) {\(\langle yx^4 \rangle\)};
+    \node (E) at (0,0) {\(\{e\}\)};
+    
+    % Edges
+    \draw (E) -- (R);
+    \draw (E) -- (S1);
+    \draw (E) -- (S2);
+    \draw (E) -- (S3);
+    \draw (E) -- (S4);
+    \draw (E) -- (S5);
+    \draw (R) -- (D5);
+    \draw (S1) -- (D5);
+    \draw (S2) -- (D5);
+    \draw (S3) -- (D5);
+    \draw (S4) -- (D5);
+    \draw (S5) -- (D5);
+    
+\end{tikzpicture}
+\phantom{text}\\
+Let $H$ be a subgroup of $D_5$ by Lagrange's Theorem the order of $H$ can only be $1,2,5,10$
+
+Case 1: \(H\) has order 1
+\begin{itemize}
+    \item The only subgroup of order 1 is the trivial subgroup \( \{e\} \).
+    \item Since \( \{e\} \) is already on our list, \( H \) cannot be of order 1 unless it is \( \{e\} \), which is already accounted for.
+\end{itemize}
+
+Case 2: \(H\) has order 2
+\begin{itemize}
+    \item If \( H \) has order 2, it must consist of \( e \) and one other element \( g \), where \( g^2 = e \).
+    \item In \( D_4 \), the elements that satisfy \( g^2 = e \) are \( y \), \( yx \), \( yx^2 \), \( yx^3 \), and \( yx^4 \).
+    \item Each of these elements generates a subgroup of order 2:
+    \begin{itemize}
+        \item \( \langle y \rangle = \{ e, y \} \)
+        \item \( \langle yx \rangle = \{ e, yx \} \)
+        \item \( \langle yx^2 \rangle = \{ e, yx^2 \} \)
+        \item \( \langle yx^3 \rangle = \{ e, yx^3 \} \)
+        \item \( \langle yx^4 \rangle = \{ e, yx^4 \} \)
+    \end{itemize}
+    \item Therefore, any subgroup \( H \) of order 2 must be one of these, and all are already on our list.
+\end{itemize}
+
+Case 3: \(H\) has order 5
+\begin{itemize}
+    \item Proven in class since 5 is prime this means $H$ is cyclic which implies $H$ has an element of order $5$ the elements of order 5 are $\{x,x^2,x^3,x^4\}$\\
+    Thus, $H$ has one of these; however, since $\ang{x}=\ang{x^2}=\ang{x^3}=\ang{x^4}$ this implies $\ang{x} \subset H$ and since they both have 5 elements this means $H=\ang{x}$
+\end{itemize}
+
+Case 4: \(H\) has order 10
+\begin{itemize}
+    \item If \( H \) has order 10, it must be the whole group \( D_4 \).
+    \item Therefore, \( H \) would be \( D_5 \), which is already on our list.
+\end{itemize}
+\phantom{text}\\
+In each case, we’ve shown that any possible subgroup \( H \) of \( D_5 \) must be one of the subgroups already listed. Therefore, no additional subgroups can exist, and our list of subgroups is complete.
+
+\newpage
 \subsubsection*{c)}
 For $n>3$
 \[D_n=\left\{ e,x,x^2,\dots,x^n-1,y,yx,yx^2,\dots,yx^{n-1} \right\}\]
@@ -150,7 +296,6 @@ Thus, we have shown that:
 \[
 S R^j = R^{-j} S
 \]
-\newpage
 To show \( R^{-j} = R^{n-j} \), consider:
 Let $0 \leq j < n$
 \[
@@ -398,84 +543,282 @@ They are:
 \end{enumerate}
 \end{multicols}
 
-Since all of these mappings are injective they are bijective since $|D_3|=|S_3|$.\\
-homomorphisms
-\begin{multicols}{2}
-    \begin{enumerate}
-        \item \begin{itemize}
-            \item 
-        \end{itemize}
-    \end{enumerate}
-\end{multicols} 
+All of these have the properties $\varphi(x)^3=\varphi(y)^2=e$ and $\varphi(y)\varphi(x)\varphi(y)=\varphi(x)^2$\\
+Thus they are homomorphisms and they are obviously bijective by construction thus they are isomorphisms.
 
 
 \newpage
 \subsection*{Problem 2}
+Let $G$ be a group.\\
+Consider (Aut$(G)$, function composition)
+\begin{enumerate}
+    \item (Associativity) Given by function composition.
+    \item (Identity) Let $id(g)=g$ for all $g \in G$\\
+    Let $\varphi$ be another automorphism on $G$\\
+    $id \circ\varphi(g)=\varphi(g)=\varphi \circ id(g)$
+    \item (Inverses) Let $\varphi \in$ Aut$(G)$.\\
+    Since $\varphi$ is a bijection by definition it has an inverse call this $\varphi^{-1}$\\
+    This inverse is bijective and goes from $G$ to $G$\\
+    Homomorphism:\\
+    Let $x,y \in G$ since $\varphi$ is an automorphism there exists $a,b\in G$ s.t. $x=\varphi(a)$ and $y=\varphi(b)$ thus
+    \begin{align*}
+        \varphi^{-1}(xy)&=\varphi^{-1}(\varphi(a)\varphi(b))\\ \intertext{Since $\varphi$ is a homomorphism}
+        \varphi^{-1}(xy)&=\varphi^{-1}(\varphi(ab))\\
+        \varphi^{-1}(xy)&=ab\\
+        \varphi^{-1}(xy)&=\varphi^{-1}(x)\varphi^{-1}(y)
+    \end{align*}
+    Thus $\varphi^{-1}$ is also an automorphism, so inverses are also in the (Aut$(G)$, function composition)
+    \item (Closure) Let $\psi, \phi \in$ Aut$(G)$
+    \begin{itemize}
+        \item Homomorphism: Let $a,b \in G$
+        \begin{align*}
+        (\psi \circ \phi)(a \cdot b) &= \psi(\phi(a \cdot b))\\
+        &= \psi(\phi(a) \cdot \phi(b)) \intertext{(since \( \phi \) is a homomorphism)}
+        &= \psi(\phi(a)) \cdot \psi(\phi(b)) \intertext{(since \( \psi \) is a homomorphism)}
+        &= (\psi \circ \phi)(a) \cdot (\psi \circ \phi)(b).
+        \end{align*}
+        Therefore, \( \psi \circ \phi \) is a homomorphism.
+    
+        \item Bijective:
+        \begin{itemize}
+            \item Injective: Assume \( (\psi \circ \phi)(a) = (\psi \circ \phi)(b) \) for some \( a, b \in G \). Then:
+            \[
+            \psi(\phi(a)) = \psi(\phi(b)).
+            \]
+            Since \( \psi \) is injective, we have \( \phi(a) = \phi(b) \). Since \( \phi \) is also injective, this implies \( a = b \). Therefore, \( \psi \circ \phi \) is injective.
+            
+            \item Surjective: Let \( c \in G \). Since \( \psi \) is surjective, there exists \( b \in G \) such that \( \psi(b) = c \). Since \( \phi \) is surjective, there exists \( a \in G \) such that \( \phi(a) = b \). Therefore, \( (\psi \circ \phi)(a) = \psi(\phi(a)) = \psi(b) = c \), proving that \( \psi \circ \phi \) is surjective.
+        \end{itemize}
+    
+        \item Since \( \psi \circ \phi \) is both a homomorphism and bijective, it is an automorphism of \( G \).
+    \end{itemize}
+\end{enumerate}
+Therefore, (Aut$(G)$, function composition) is a group.\\
+\textbf{Separate Proof/Example:} Let $G = \ang{S \mid R}$ be a group where $S=\{s_1,s_2,\dots,s_n\}$ is a generating set, and $R$ is a set of relations among the generators s.t. a relation in $G$ is an equation of the form:
+\[
+s_1^{k_1}s_2^{k_2}\dots s_n^{k_n}=e  \text{ for $k_i \in \Z$}
+\]
+Let $\varphi$ be an automorphism on $G$. Let $g \in G$ thus $g=s_1^{k_1}s_2^{k_2}\cdots s_n^{k_n}$ for $c$
+\[
+\varphi(g)=\varphi(s_1^{k_1}s_2^{k_2}\dots s_n^{k_n})=\varphi(s_1^{k_1})\varphi(s_2^{k_2})\cdots \varphi(s_n^{k_n})
+\]
+Thus, knowing $\varphi(s_1),\varphi(s_2),\dots ,\varphi(s_n)$ completely determines $\varphi(g)$ for any $g \in G$. Hence, the automorphism $\varphi$ is determined by its action on the generators in set $S$\\
+Let $s_1^{k_1}s_2^{k_2}\dots s_n^{k_n}=e$ be a relation in $R$\\
+\[
+\varphi(s_1^{k_1}s_2^{k_2}\dots s_n^{k_n})=\varphi(s_1)^{k_1}\varphi(s_2)^{k_2}\cdots \varphi(s_n)^{k_n}=e
+\]
+This shows that the image of a relation under an automorphism is still a valid relation.\\
+Therefore, automorphism preserve the relations among the generators of the group.\\
+Therefore, an automorphism is determined by how it maps the generators of the group, and it preserves the relations among these generators.
 \subsubsection*{a)}
+Let $C_5=\ang{g}$ where $g$ is a generator. By the proof/exercise above any automorphism $\varphi \in $ Aut$(C_5)$ is determined by where it sends $g$ and if it preserves relations the only relation in this case is the order of $g$ thus $\varphi(g)$ must be another element with order $5$.\\
+In $C_5$ there are $4$ elements with order 5 thus,\\
+\[
+\varphi_k(g)=g^k, \quad \text{for $k = 1,2,3,4$.}
+\]
+Therefore, Aut$(C_5)$ has 4 elements.\\
+Consider $\varphi_2$
+\begin{align*}
+    \varphi_2^1(g)&=g^2\\
+    \varphi_2^2(g)=\varphi_2(g^2)&=g^4\\
+    \varphi_2^3(g)=\varphi_2(\varphi(g)^2)=\varphi_2(g^4)=g^8&=g^3\\
+    \varphi_2^4(g)=\varphi_2(\varphi_2^3(g))=\varphi_2(g^3)&=g
+\end{align*}
+Therefore Aut$(C_5)$ has an element of order 4 and since the group also has 4 elements proven in class Aut$(C_5) \cong C_4$
+\subsubsection*{b)}
+Let $C_8=\ang{g}$ where $g$ is a generator. By the proof/exercise above any automorphism $\varphi \in $ Aut$(C_8)$ is determined by where it sends $g$ and if it preserves relations the only relation in this case is the order of $g$ thus $\varphi(g)$ must be another element with order $8$.\\
+In $C_5$ there are $4$ elements with order 8 thus,\\
+\[
+\varphi_k(g)=g^k, \quad \text{for $k = 1,3,5,7$.}
+\]
+Therefore, Aut$(C_8)$ has 4 elements.\\
+Consider $\varphi_3$
+\begin{align*}
+    \varphi_3(g)&=g^3\\
+    \varphi_3^2(g)=\varphi_3(g^3)&=g\\
+\end{align*}
+Consider $\varphi_5$
+\begin{align*}
+    \varphi_5(g)&=g^5\\
+    \varphi_5^2(g)=\varphi_3(g^5)&=g\\
+\end{align*}
+Consider $\varphi_7$
+\begin{align*}
+    \varphi_7(g)&=g^7\\
+    \varphi_7^2(g)=\varphi_3(g^7)&=g\\
+\end{align*}
+Therefore all non identity elements have order $2$ so this group is not cyclic thus proven in class Aut$(C_5) \cong C_2 \times C_2$
+\subsubsection*{c)}
+Let $C_{11}=\ang{g}$ where $g$ is a generator. By the proof/exercise above any automorphism $\varphi \in $ Aut$(C_{11})$ is determined by where it sends $g$ and if it preserves relations the only relation in this case is the order of $g$ thus $\varphi(g)$ must be another element with order $11$.\\
+In $C_{11}$ there are $10$ elements with order 11 thus,\\
+\[
+\varphi_k(g)=g^k, \quad \text{for $k = 1,2,3,4,5,6,7,8,9,10$.}
+\]
+Therefore, Aut$(C_5)$ has 10 elements.\\
+Consider $\varphi_2$
+\begin{align*}
+    \varphi_2^1(g)&=g^2\\
+    \varphi_2^2(g)=\varphi_2(g^2)&=g^4\\
+    \varphi_2^3(g)=\varphi_2(\varphi_2^2(g))=\varphi_2(g^4)&=g^8\\
+    \varphi_2^4(g)=\varphi_2(\varphi_2^3(g))=\varphi_2(g^8)&=g^5\\
+    \varphi_2^5(g)=\varphi_2(\varphi_2^4(g))=\varphi_2(g^5)&=g^{10}\\
+    \varphi_2^6(g)=\varphi_2(\varphi_2^5(g))=\varphi_2(g^{10})&=g^9\\
+    \varphi_2^7(g)=\varphi_2(\varphi_2^6(g))=\varphi_2(g^9)&=g^7\\
+    \varphi_2^8(g)=\varphi_2(\varphi_2^7(g))=\varphi_2(g^7)&=g^3\\
+    \varphi_2^9(g)=\varphi_2(\varphi_2^8(g))=\varphi_2(g^3)&=g^6\\
+    \varphi_2^10(g)=\varphi_2(\varphi_2^9(g))=\varphi_2(g^6)&=g\\
+\end{align*}
+Therefore Aut$(C_5)$ has an element of order 10 and since the group also has 10 elements proven in class Aut$(C_5) \cong C_{10}$
+\subsubsection*{d)}
+Let $S_3=\ang{x=(123),y=(12) \mid x^3=y^2=e, yx=x^2y}$ where $x,y$ are generators. By the proof/exercise above any automorphism $\varphi \in $ Aut$(S_3)$ is determined by where it sends $x,y$ 
+and if it preserves relations in this case is the order of $x,y$ thus $\varphi(x)$ has order 3, $\varphi(y)$ has order 2, and $\varphi(y)\varphi(x)\varphi(y)=\varphi(x)^2$.\\
+Given this we have the following possibilities for $\varphi$,\\
+\[
+\varphi(y)=y, \quad \varphi(x)=x \text{ or } x^2.
+\]
+\[
+\varphi(y)=yx^2, \quad \varphi(x)=x \text{ or } x^2.
+\]
+\[
+\varphi(y)=yx, \quad \varphi(x)=x \text{ or } x^2.
+\]
+Thus, there are $6$ automorphisms.
+Therefore, Aut$(S_3)$ has 6 elements.
+\begin{enumerate}
+    \item \(\varphi_1\): Identity automorphism
+    \begin{align*}
+    \varphi_1(y) &= y \\
+    \varphi_1(x) &= x
+    \end{align*}
+    \textbf{Order}: 1 (identity map).
+    
+    \item \(\varphi_2\): Cycle the transpositions \( y \rightarrow yx^2 \rightarrow yxy \)
+    \begin{align*}
+    \varphi_2(y) &= yx^2 \\
+    \varphi_2(x) &= x
+    \end{align*}
+    \textbf{Order}: 3 (Applying \( \varphi_2 \) three times gives the identity automorphism).
+    
+    \item \(\varphi_3\): Swap transpositions \( y \) and \( yx^2 \), keeping \( yx \) fixed
+    \begin{align*}
+    \varphi_3(y) &= yx^2 \\
+    \varphi_3(x) &= x^2
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_3 \) twice gives the identity automorphism).
+    
+    \item \(\varphi_4\): Cycle the transpositions \( y \rightarrow yx \rightarrow yx^2 \)
+    \begin{align*}
+    \varphi_4(y) &= yx \\
+    \varphi_4(x) &= x
+    \end{align*}
+    \textbf{Order}: 3 (Applying \( \varphi_4 \) three times gives the identity automorphism).
+    
+    \item \(\varphi_5\): Swap transpositions \( y \) and \( yx \), keeping \( yx^2 \) fixed
+    \begin{align*}
+    \varphi_5(y) &= yx \\
+    \varphi_5(x) &= x^2
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_5 \) twice gives the identity automorphism).
+    
+    \item \(\varphi_6\): Identity on \( y \) and swapping the 3-cycles \( x \) and \( x^2 \)
+    \begin{align*}
+    \varphi_6(y) &= y \\
+    \varphi_6(x) &= x^2
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_6 \) twice gives the identity automorphism).
+\end{enumerate}
+Therefore, Aut$(S_3)$ has no elements of order 6, so it is not cyclic. Thus, proven in class since it has 6 elements Aut$(S_3) \cong S_3$
+
+\subsubsection*{d)}
+Let $C_2\times C_2=\{e, x=(1,0),y=(0,1),(1,1)\}$. By the proof/exercise above any automorphism $\varphi \in $ Aut$(C_2 \times C_2)$ is determined by where it sends $x,y$ 
+and if it preserves relations in this case is the order of $x,y$ thus $\varphi(x)$ and $\varphi(y)$ have order 2, and $\varphi(y)\varphi(x)\varphi(y)=\varphi(x)$.\\
+Given this we have the following possibilities for $\varphi$,\\
+\[
+\varphi(y)=y, \quad \varphi(x)=x \text{ or } xy.
+\]
+\[
+\varphi(y)=x, \quad \varphi(x)=y \text{ or } xy.
+\]
+\[
+\varphi(y)=xy, \quad \varphi(x)=x \text{ or } y.
+\]
+Thus, there are $6$ automorphisms.
+Therefore, Aut$(C_2 \times C_2)$ has 6 elements.
+\begin{enumerate}
+    \item \(\varphi_1\): Identity automorphism
+    \begin{align*}
+    \varphi_1(y) &= y \\
+    \varphi_1(x) &= x
+    \end{align*}
+    \textbf{Order}: 1 (identity map).
+    
+    \item \(\varphi_2\):
+    \begin{align*}
+    \varphi_2(y) &= y \\
+    \varphi_2(x) &= xy
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_2 \) twice gives the identity automorphism).
+    
+    \item \(\varphi_3\): Swap transpositions \( y \) and \( yx^2 \), keeping \( yx \) fixed
+    \begin{align*}
+    \varphi_3(y) &= x \\
+    \varphi_3(x) &= y
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_3 \) twice gives the identity automorphism).
+    
+    \item \(\varphi_4\):
+    \begin{align*}
+    \varphi_4(y) &= x \\
+    \varphi_4(x) &= xy
+    \end{align*}
+    \textbf{Order}: 3 (Applying \( \varphi_4 \) three times gives the identity automorphism).
+    
+    \item \(\varphi_5\):
+    \begin{align*}
+    \varphi_5(y) &= xy \\
+    \varphi_5(x) &= x
+    \end{align*}
+    \textbf{Order}: 2 (Applying \( \varphi_5 \) twice gives the identity automorphism).
+    
+    \item \(\varphi_6\):
+    \begin{align*}
+    \varphi_6(y) &= xy \\
+    \varphi_6(x) &= y
+    \end{align*}
+    \textbf{Order}: 3 (Applying \( \varphi_6 \) three gives the identity automorphism).
+\end{enumerate}
+Therefore, Aut$(C_2\times C_2)$ has no elements of order 6, so it is not cyclic. Thus, proven in class since it has 6 elements Aut$(C_2 \times C_2) \cong S_3$
+
+\subsubsection*{f)}
+By the proof/exercise above any automorphism $\varphi \in $ Aut$(\Z)$ is determined by where it sends $1$ thus $\varphi(1)$ must be another generator of $\Z$.\\
+In $\Z$ there are 2 generators,\\
+\[
+\varphi_k(1)=(-1)^k, \quad \text{for $k = 0,1$.}
+\]
+Therefore, Aut$(\Z)$ has 2 elements.\\
+Thus, proven in class groups with an order equal to a prime number are isomorphic to $C_p$ where $p$ is prime thus Aut$(\Z) \cong C_2$
 
 \newpage
 \subsection*{Problem 3}
-Separate Proof:
-
-        \begin{proof}
-            Let $G$ be a finite group and $g\in G$ and let ord$(g)=n\in N$
-    
-            Consider $\ang{g}$:
-    
-            \begin{enumerate}
-                \item $g^n=e \in \ang{g}$
-                \item Let $g_1,g_2 \in \ang{g} \implies g_1=g^j \text{ and } g_2=g^k$ for $j,k\in \N_{\leq n} \text{ thus } g_1g_2=g^jg^k=g^{j+k \mod n} \in \ang{g}$
-                \item Let $g_1\in \ang{g} \implies g_1=g^j$ for $j\in \N_{\leq n}$
-                
-                Consider: $g^{n-j} \in \ang{g}$
-
-                $g^{n-j}g^j=e=g^jg^{n-j} \implies g_1^{-1}=g^{n-j} \in \ang{g}$
-            \end{enumerate}
-            Thus for all finite groups $G$ and $g\in G$ with finite order, $\ang{g}$ is a subgroup of $G$\\
-            $\implies $ by Lagrange's Theorem ord$(g)$ divides ord$(G)$
-        \end{proof}
-\phantom{text}\\
-
 \begin{proof}
     Let $p$ be prime and $G$ be a group of order $2p$
     \begin{enumerate}
         \item Assume $p=2$\\
-        Thus $G$ has 4 elements
+        Thus $G$ has 4 elements\\
+        Thus proven in class $G$ is either isomorphic to $C_4$ or $C_2 \times C_2$
         \begin{enumerate}
-            \item Assume $G$ has an element with order 4\\
-             $\implies \ang{g}$ has $4$ elements since $G$ also has $4$ elements
-            and $\ang{g} \subseteq G$ thus there is no element in $G$ that is not in $\ang{g}$ thus $G=\ang{g}$ thus $G \cong C_{4}$
-            \item Assume $G$ has no elements with order 4\\
-            Thus by my proof above all elements have order 2 for all non-identity elements\\
-            Thus $G={e,a,b,c}$ then $a^2=b^2=c^2=e$. WLOG let $c=ab$\\
-            Consider $ab=(ab)^{-1}=b^{-1}a^{-1}=ba$\\
-            Let $\varphi : G \mapsto D_2$ s.t. $\varphi(e)=e, \varphi(a)=x, \varphi(b)=y, \varphi(ab)=yx=xy=\varphi(ba)$\\
-            This is a well-defined function because every input has one output
-
-            Injective:
-            
-            This is injective by definition.
-
-            Since this is injective and $G$ and $D_2$ have 4 elements this makes $\varphi$ surjective
-            Thus it is bijective.\\
-
-            Homomorphism:
-
-            $\varphi(ab)=xy=\varphi(a)\varphi(b)$\\
-            $\varphi(ba)=yx=\varphi(b)\varphi(a)$\\
-            Let $g\in G$\\
-            $\varphi(eg)=\varphi(g)=\varphi(e)\varphi(g)$\\
-            $\varphi(ge)=\varphi(g)=\varphi(g)\varphi(e)$\\
-            Thus $\varphi$ is an isomorphism thus $G \cong D_2$
+            \item If $G$ is cyclic then it is isomorphic to $C_4$
+            \item If $G$ is not cyclic it is isomorphic to $C_2 \times C_2$
+            Since $D_2$ is not cyclic either this means $C_2 \times C_2 \cong D_2$ thus $D_2 \cong G$
         \end{enumerate}
         \item Assume $G$ has an element $g$ s.t. ord$(g)=2p$ for odd primes\\
         $\implies \ang{g}$ has $2p$ elements since $G$ also has $2p$ elements
-        and $\ang{g} \subseteq G$ thus there is no element in $G$ that is not in $\ang{g}$ thus $G=\ang{g}$ thus $G \cong C_{2p}$
+        and $\ang{g} \subseteq G$ thus there is no element in $G$ that is not in $\ang{g}$ thus $G=\ang{g}$ thus proven in class $G \cong C_{2p}$
         \item Assume $G$ has no elements of order $2p$ and $p$ is odd\\
         For contradiction assume $G$ has no elements of order $p \implies$ by my proof above that all non-identity elements have order of 2\\
         Take $e \neq a \neq b \neq e \in G$\\
         Consider $\{e,a,b,ab\} \leq G \implies$ by Lagrange's Theorem that 4 divides $2p \implies 2$ divides $p \contr$\\
-        Thus $G$ has an element $g \in G$ with order $p$. Take $\ang{h}=H$ and proven above $H$ is a subgroup of $G$.
+        Thus $G$ has an element $h \in G$ with order $p$. Take $\ang{h}=H$ and proven above $H$ is a subgroup of $G$.
         By Lagrange's Theorem $[G:H]=\frac{|G|}{|H|}=\frac{2p}{p}=2$. Take $g\notin H \implies G=H\sqcup gH$
         
         Consider:  $g^2H$
@@ -502,10 +845,9 @@ Separate Proof:
         $gh\in gH \implies gh \notin H \implies$ ord$(gh)=2$\\
         $e=(gh)^2=ghgh \implies h^{-1}g^{-1}=gh \implies gh=h^{p-1}g \implies gh^{k}=h^{p-k}g$
         Since Cosets are a partition\\ 
-        $G=H\sqcup gH = \{e,h,h^2,\dots,h^{p-1},g,gh,\dots,gh^{p-1}\}=\ang{h,g \mid e=h^p=g^2, gh=h^{p-1}g}=D_p$
+        $G=H\sqcup gH = \{e,h,h^2,\dots,h^{p-1},g,gh,\dots,gh^{p-1}\}=\ang{h,g \mid e=h^p=g^2, gh=h^{p-1}g}$
     \end{enumerate}
 \end{proof}
-
 \newpage
 \subsection*{Problem 4}
 

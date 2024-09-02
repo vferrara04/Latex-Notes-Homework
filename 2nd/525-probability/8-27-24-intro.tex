@@ -35,7 +35,14 @@ $P(\t{4 divides }n)=P(\{4,8,\dots\})$\\
 \end{definition}
 
 \begin{exercise}
+\phantom{text}
 \begin{itemize}
-    \item $A,B \in$
+    \item $A,B \in F$
+    \begin{proof}
+        $A\cap B = (A^c \cup B^c)^c$\\
+        $A^c, B^c \in F \implies A^c \cup B^c \in F \implies (A^c \cup B^c)^c \in F$
+    \end{proof}
+    \item If $A,B \in F, A \subset B \implies \P(A) \leq \P(B)$\\
+    $B=A\cup(B \setminus A) \implies \P(B)=\P(A)+\P(B\setminus A) \implies \P(A)\leq\P(B)$
 \end{itemize}
 \end{exercise}
