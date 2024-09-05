@@ -94,7 +94,8 @@ $A\setminus \longleftrightarrow A happens B does not happen$
 
     \begin{align*}
         \P(A)&=\P((A\cap B_1)\cup \dots \cup (A \cap B_n))\\
-             &=\P(A\cap B_1)
+             &=\sum\limits_{i=0}^n \P(A \cap B_i)\\
+             &=\sum\limits_{i=0}^n \P(A \mid B_i)\P(B_i)
     \end{align*}
 \end{theorem}
 
@@ -105,5 +106,9 @@ $A\setminus \longleftrightarrow A happens B does not happen$
 
     partition $\Omega=B\cup R\cup P$
 
-    $\P(D)$
+    $\P(B)=\frac{100}{200}, \P(R)=\frac{70}{200}, \P(P)=\frac{30}{200}$
+
+    $\P(D)=\P(D\mid B)\P(B)+\P(D \mid R)\P(R)+\P(D \mid P)\P(P)$
+
+    $\P(B \mid D)=\frac{\P(B \cap D)}{\P(D)}=\frac{\P(D\mid B)\P(B)}{\P(D)}$
 \end{example}

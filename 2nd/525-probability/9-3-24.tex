@@ -1,0 +1,60 @@
+\subsection*{Condition Probability: rejection sampling (naive  ver.)}
+Choose at random
+\begin{itemize}
+    \item If defective
+    \begin{itemize}
+        \item Make a histogram
+    \end{itemize}
+    \item If not defective
+    \begin{itemize}
+        \item Start again.
+    \end{itemize}
+\end{itemize}
+
+\begin{example}
+    A man possesses five coins, two of which are double-headed, one is double tailed, and two are normal.
+    He shuts his eyes, picks a coin at random, and tosses it. What is the probability that the lower face of the coin is a head?
+
+    $\P(DH)=2/5, \P(DT)=1/5, \P(N)=2/5$
+
+    $\P(LH)=\P(LH \mid DH)\P(DH)+\P(LH \mid N)\P(N)$
+
+    $\P(LH)=\P(DH)+1/2\P(N)=2/5+1/5=3/5$
+
+    He opens his eyes and see that the coin is showing heads; what is the probability that the lower face is a head?
+
+    $\P(LH \mid UH) = \frac{\P(LH \cap UH)}{\P(UH)}=\frac{\P(DH)}{\P(DH)+1/2\P(N)}$
+
+    He shuts his eyes again, and tosses the coin again. What is the probability that the lower face is a head?
+
+    $\P(LH' \mid UH)=\frac{\P(LH'\cap UH)}{\P(UH)}=\frac{\P(LH'\cap UH)\P(DH) + \P(LH'\cap UH \mid N)\P(N)}{}$
+
+    He opens his eyes and see that the coin is showing heads; what is the probability that the lower face is a head?
+
+    $\P(LH' \mid UH \cap UH')=\frac{\P(LH' \cap (UH \cap UH'))}{\P(UH \cap UH')}$
+
+    He discards this coin, picks another at random, and tosses it. What is the probability that it shows heads?
+
+
+\end{example}
+
+\begin{example}
+    A random $N$ of dice is thrown. Let $A_i$ be the even that $N=i$, and assume that $\P(A_i)=2^{-i}, i \geq 1$.
+    Thus sume of the scores is $S$. Find the probability that:
+    \begin{enumerate}[a.]
+        \item $N = 2$ given that $S=4$.
+        $\P(N=2 \mid S=4)=\frac{\P(N=2 \cap S=4)}{\P(S=4)}=\frac{\P(S=4\mid N=2)\P(N=2)}{\P(S=4 \mid N=1)\P(N=1)+\dots+\P(S=4 \mid N=4)\P(N=4)}
+        =\frac{}{}$
+        \item The largest number shown by an dice is $r$, where $S$ is unknown
+        
+        $\P(M_r)=\P(M_r\mid N=1)\P(N=1)+\P(M_r \mid N=2)\P(N=2)+\dots$
+
+        $\P(M_r \mid N =n)=\frac{r^n - (r-1)^n}{6^n}$
+    \end{enumerate}
+\end{example}
+4! choices for first row 
+for the first column there are 3! ways to finish it
+for the second row there are 3 spots remaining. but two have been picked for each spot. so there is 2! choices for two spots put them one for the reaming
+then 1 way for the remaining
+
+4!x3!x4
