@@ -27,6 +27,7 @@
 \usepackage{mathtools}
 \usepackage{setspace}
 \usepackage{cleveref}
+\usepackage{multicol}
 
 %--------Theorem Environments--------
 %theoremstyle{plain} --- default
@@ -43,6 +44,7 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{algorithm}[theorem]{Algorithm}
 \newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
 
 %----------- my commands -------------
 \newcommand{\C}{\mathbb{C}}
@@ -62,33 +64,50 @@
 
 \begin{document}
 
-\title{ \normalsize \textsc{}
-		\\ [2.0cm]
-		\HRule{1.5pt} \\
-		\LARGE \textbf{\uppercase{MATH 493}
-		\HRule{2.0pt} \\ [0.6cm] \LARGE{Algebra} \vspace*{10\baselineskip}}
-		}
-\date{}
-\author{\textbf{Vincent Ferrara}}
-
-\maketitle
-\thispagestyle{empty}
-
-\newpage
-\tableofcontents
-\thispagestyle{empty}
-
-\newpage
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
 \fancyhead[ROE]{\thepage}
 
-\include{8-26-24-intro.tex}
+\section*{HW 1}
 
-\include{8-28-14.tex}
+\subsection*{Problem 1}
+Let $G$ be a group and $N \unlhd G$\\
+Let $\psi$ be an homomorphism form $G$ to $G_1$ s.t. $N \subseteq \text{ ker}(\psi)$\\
+Define: $\bar{\psi}: G \diagup N \rightarrow G_1$ s.t. $\bar{\psi}(gN)=\psi(g)$\\\
+Well Defined: Suppose $gN=hN \implies gh^{-1} \in N \implies gh^{-1} \in $ ker$(\psi)$\\
+$\psi(gh^{-1})=e \implies \psi(g)=\psi(h)$ since $\psi$ is a homomorphism this implies $\bar{\psi}(gN)=\bar{\psi}(hN)$\\
+Homomorphism: Let $gN,hN \in G \diagup N$\\
+$\bar{\psi}(gNhN)=\bar{\psi}(ghN)=\psi(gh)=\psi(g)\psi(h)=\bar{\psi}(gN)\bar{\psi}(hN)$\\
+Uniqueness: Suppose there exists another homomorphism $\phi: G\diagup  N \rightarrow G_1$ such that $\varphi=\psi \circ \varphi$\\
+\[
+\phi(gN)=\psi(g) \implies \phi = \bar{\psi}
+\]
 
-\include{normalsubgroups-quotientgroups-firstisomorphismtheorem.tex}
+\newpage
+\subsection*{Problem 2}
+Let $H$ be a subgroup of $G$.
+\begin{itemize}
+    \item (Inverses) Let $a \in N_G(H)$\\
+    Consider: $a^{-1}Ha=a^{-1}aH=H$ thus $a^{-1} \in N_G(H)$
+    \item (Closure) Let $a,b \in N_G(H)$\\
+    Consider: $abHb^{-1}a^{-1} = abb^{-1}Ha^{-1}=aHa^{-1}=H$ thus $ab \in N_G(H)$
+    \item (Identity) Consider $eHe=H$ thus $e \in N_G(H)$
+\end{itemize}
+Let $h \in H$\\
+Consider : $hHh^{-1}$ since $h,h^{-1} \in H \implies hHh^{-1}=H$ thus $h \in N_G(H)$ thus $H \subseteq N_G(H)$\\
+By definition since $\forall g \in N_g(H)\; gHg^{-1}=H$ thus $H \unlhd N_G(H)$\\
+Largest: Let $K$ be a subgroup of $G$ s.t. $H \unlhd K$ thus $\forall k \in K$ 
+\[kHk^{-1}=H \]
+thus $k \in N_G(H)$ thus $K \subseteq N_G(H)$
 
-
+\newpage
+\subsection*{Problem 3}
+\begin{itemize}
+    \item (i. $\implies$ ii)
+    \begin{proof}
+        Assume i.\\
+        Let $g \in H \cap K \implies g \in H$ and $g \in K$
+    \end{proof}
+\end{itemize}
 \end{document}

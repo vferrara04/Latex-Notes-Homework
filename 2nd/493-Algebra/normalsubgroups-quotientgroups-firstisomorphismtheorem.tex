@@ -1,0 +1,31 @@
+\subsection{Normal Subgroups, Quotient groups and the first isomorphism theorem}
+
+\begin{definition}
+    A subgroup $H \subset G$ is said to be normal in $G$ if left coset of $H$ in $G$ is also a right coset.
+\end{definition}
+
+
+\begin{proposition}
+        \phantom{text}
+      \begin{enumerate}
+          \item $H$ is normal in $G$
+          \item $aH=Ha\; \forall a \in G$
+          \item $aHa^{-1}=H\; \forall a \in G$
+          \item $aHa^{-1}\subseteq\; H \forall a\in G$
+          \item $H \subset aHa^{-1}\; \forall a \in G$
+      \end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+    Suppose $\varphi: G_2 \rightarrow G_2$ is a group homomorphism
+    then there is a unique isomorphism 
+    $\psi: G_1\diagup \t{ker}\varphi \rightarrow \t{im}\varphi$ s.t. the diagram commutes
+    \begin{center}
+        \begin{tikzcd}
+            G_1 \arrow[r, "\varphi"] \arrow[d, "\pi"] & \text{im}(\varphi) \arrow[r, phantom, "\leq"] & G_2 \\
+            G_1 / \ker \varphi \arrow[ur, "\sim", "\psi"'] &
+        \end{tikzcd}
+    \end{center}
+
+    Commutes: $\psi(g\t{ ker}\varphi)=\varphi(g)$
+\end{theorem}

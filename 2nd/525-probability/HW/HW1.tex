@@ -141,4 +141,49 @@ Now consider $(A\cap B)\cap C$ apply the proof above to these sets.
 \end{align*}
 Therefore $\P((A\cap B)\cap C)\geq\P(A)+\P(B)\P(C)-2$
 \subsection*{2.}
+
+\newpage
+\subsection*{Problem 4}
+\begin{align*}
+    B_1&=\{1,2,3,4,5,6\}\\
+    B_2&=\{2,4,6\}\\
+    B_3&=\{3,6\}
+\end{align*}
+\subsection*{1.}
+\[
+\P(6)=\P(6 \mid B_1)P(B_1)+\P(6 \mid B_2)P(B_2)+\P(6 \mid B_3)P(B_3)
+     =\dfrac{1}{3}\left( \dfrac{1}{6}+\dfrac{1}{3}+\dfrac{1}{2} \right) = \dfrac{1}{3}
+\]
+\subsection*{2.}
+\[
+\P(B_2 \mid 6)=\dfrac{\P(B_2 \cap 6)}{\P(6)}=\dfrac{\P(6 \mid B_2)\P(B_2)}{\frac{1}{3}}=\dfrac{\frac{1}{3}\times\frac{1}{3}}{\frac{1}{3}}=\dfrac{1}{3}
+\]
+\subsection*{3.}
+\[
+\P(6 \text{ on second} \mid 6 \text{ on first}) = \dfrac{\P(6 \text{ on second} \cap 6 \text{ on first})}{\P(6)}=\dfrac{\frac{1}{3}(\P(6 \mid B_1)^2+\P(6 \mid B_2)^2+\P(6 \mid B_3)^2)}{\frac{1}{3}}
+\]
+\[
+=\left( \dfrac{1}{36}+\dfrac{1}{9}+\dfrac{1}{4} \right)= \dfrac{7}{18}
+\]
+\subsection*{4.}
+\[
+\P(B_2 \mid \text{diff})=\dfrac{\P(B_2 \cap \text{diff})}{\P(\text{diff})}=\dfrac{\P(\text{diff}\mid B_2)\P(B_2)}{\P(\text{diff})}=\dfrac{\frac{2}{3}\times\frac{1}{3}}{\frac{1}{3}(\P(diff \mid B_1)+\dots)}=\dfrac{\frac{2}{3}}{(\frac{5}{6}+\frac{2}{3}+\frac{1}{2})}=\dfrac{1}{3}
+\]
+\subsection*{5.}
+\begin{align*}
+\P(\text{Same from two diff bags})&=\\
+&=\P(\text{Same from two diff} \mid B_1,B_2)\P(B_1,B_2)\\
+&+\P(\text{Same from two diff} \mid B_1,B_3)\P(B_1,B_3)\\
+&+\P(\text{Same from two diff} \mid B_2,B_3)\P(B_2,B_3)\\
+\\
+\P(\text{Same from two diff} \mid B_1,B_2)&=\frac{1}{6}\\
+\P(\text{Same from two diff} \mid B_1,B_3)&=\frac{1}{6}\\
+\P(\text{Same from two diff} \mid B_2,B_3)&=\frac{1}{6}\\
+\\
+&=\dfrac{1}{3}\times\dfrac{1}{2}=\dfrac{1}{6}
+\end{align*}
+\subsection*{6.}
+\begin{align*}
+\P(B_1B_2 \mid \text{Same from two diff})=\dfrac{\P(\text{Same from two diff} \mid B_1,B_2)\P(B_1B_2)}{\P(\text{Same from two diff bags})}=\dfrac{1}{3}
+\end{align*}
 \end{document}
