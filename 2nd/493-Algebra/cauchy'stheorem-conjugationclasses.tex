@@ -1,0 +1,51 @@
+\subsection{Cauchy's Theorem/Conjugation and Conjugacy classes}
+\subsubsection{Cauchy's Theorem Abelian}
+\begin{theorem}
+    Suppose $G$ is a finite group and $p \mid |G|$ s.t. $p$ is prime the $G$ contains an element of order $p$.
+\end{theorem}
+\begin{proof}
+    Cauchy's Thm for abelian groups\\
+    Base Case: $|G|=p$ thus since prove in class $G$ is cyclic thus $G$ has an element of order $p$\\
+    Inductive Step: Assume this works for all groups of order less than $n$ where $p$ divides $n$.\\
+    Suppose $|G|=n$. Let $x \in G$ s.t. $x \neq e$. Let $H=\ang{x}\subseteq G$\\
+    Case I: $p \mid |H| \implies p \mid \text{ord}(x) \implies$ ord$(x)=pm$ for $m \in \N$\\ 
+    thus consider $(x^{m})^p=e$ thus ord$(x^m) \mid p \implies$ $x^m$ is order $1$ or $p$ it cant be 1 since $x$ is order $pm$, so it is order $p$\\
+    Case II: $p \nmid |H| \implies H \subsetneq G$ also $H \unlhd G$ since $G$ is Abelian.\\
+    Consider $G \rightarrow G \diagup H$\\
+    $|G \diagup H|=|G| \diagup |H| < |G|$ since $H \neq \{e\}$ and $G \diagup H$ is abelian\\
+    $p \mid |G| \implies p \mid |G \diagup H|$\\
+    By induction hypothesis, $G \diagup H$ has an element $\bar{y}$ of order $p$.\\
+    Since the map is surjective there is a $y \in G$ s.t. $\varphi(y)=\bar{y}$\\
+    $\implies p \mid \text{ ord}(y) \implies$ ord$(y)=pt \implies \text{ ord}(y^t)=p$
+\end{proof}
+\subsubsection{Conjugation and Conjugacy Classes}
+\begin{definition}
+    Let $G$ be a group and $x,y \in  G$\\
+    We say $x$ and $y$ are conjugate in $G$ if $\exists g \in G$ s.t. $y=gxg^{-1}$
+\end{definition}
+\begin{proposition}
+    Conjugacy is an equivalence relation
+\end{proposition}
+\begin{proof}
+    $x \sim y$ if $x$ is conjugate to $y$ in $G$\\
+    $x \sim x$  $x=exe$\\
+    $x \sim y \implies y=gxg^{-1} \implies x=g^{-1}yg \implies y  \sim x$\\
+    $x  \sim y$ and $y \sim z \implies y=gxg^{-1}\; z=hyh^{-1}\implies z=(hg)x(hg)^{-1} \implies x \sim z$
+\end{proof}
+
+$G = \bigsqcup \text{(Cojugacy classes in G)}$
+
+\begin{example}
+    Suppose $G$ is abelian. $x\sim y \implies y=gxg^{-1}=x \implies$ Conjugacy classes are singeltons 
+\end{example}
+$x \sim y \implies $ ord$(x)=\text{ord}(y)$\\
+\begin{proof}
+    $y=gxg^{-1}$ and $x^m = e$\\
+    $y^m=(gxg^{-1})\dots(gxg^{-1})=gx^mg^{-1}=gg^{-1}=e$
+\end{proof}
+thus by the contrapositive if there dont have the same order they cant be in the same class.\\
+\subsubsection*{Formula for the size of the conjugacy class of an element}
+\begin{theorem}
+    $|C_x|=|G\diagup Z_G(x)|=\dfrac{|G|}{|Z_G(x)|}$\\
+    First equality for all groups second equality for finite groups
+\end{theorem}

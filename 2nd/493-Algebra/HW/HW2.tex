@@ -104,10 +104,123 @@ thus $k \in N_G(H)$ thus $K \subseteq N_G(H)$
 \newpage
 \subsection*{Problem 3}
 \begin{itemize}
-    \item (i. $\implies$ ii)
+    \item (i)
     \begin{proof}
-        Assume i.\\
-        Let $g \in H \cap K \implies g \in H$ and $g \in K$
+        \phantom{text}
+        \begin{itemize}
+            \item (Closure) Let $hk,jl \in HK$ s.t. $h,j \in H$ and $k,l \in K$\\
+            $hkjl=h(kj)l$ since $H \subseteq N_G(K) \implies kj=jk'$ for $k' \in K$\\
+            $h(jk')l=hjk'l \in HK$
+            \item (Identity) Since $H,K$ are subgroups of $G$, $e\in H\cap K \implies ee=e\in HK$
+            \item (Inverses) Let $hk \in HK$ s.t. $h\in H$ and $k \in K$\\
+            Consider $k^{-1}h^{-1}$ since $H \subseteq N_G(K) \implies k^{-1}h^{-1}=h^{-1}k'$ for $k' \in K$\\
+            thus $k^{-1}h^{-1}=h^{-1}k'\in HK$\\
+            \phantom{text}\\
+            \item Let $hk \in HK$ s.t. $h\in H$ and $k,k' \in K$\\
+            $(hk)k'(hk)^{-1}=h(kk'k^{-1})h^{-1}$ thus $kk'k^{-1}=l \in K$ and since $h \in H \subseteq N_G(K)$\\ 
+            $\implies hlh^{-1} \in K$ thus $(hk)k'(hk)^{-1} \in K$ thus $K \unlhd HK$
+        \end{itemize}
+    \end{proof}
+    \item (ii)
+    \begin{proof}
+        Let $l \in H \cap K \implies l \in H$ and $l \in K$ and $h \in H$\\
+        $hlh^{-1}$ since $l \in K$ and $H \subset N_G(K) \implies hlh^{-1} \in K$\\
+        since $h \in H$ and $l \in H \implies hlh^{-1} \in H$ thus $hlh^{-1} \in H \cap K$ thus $H\cap K \unlhd H$
+    \end{proof}
+    \item (iii)
+    \begin{proof}
+        Let $\varphi: H \rightarrow HK \diagup K$ s.t. $\varphi(h)=hK$\\
+        Well-defined: Suppose $h_1 = h_2 \in H \implies \varphi(h_1)=h_1K=h_2K=\varphi(h_2)$\\
+        Homomorphism: Let $h,j \in H$\\
+        $\varphi(hj)=hjK=hKjK=\varphi(h)\varphi(j)$\\
+        Kernel: Let $h \in \text{ker}(\varphi) \unlhd H \implies h \in H$\\
+        $\varphi(h)=hK=K \implies h \in K \implies h \in H \cap K \implies$ ker$(\varphi)=H \cap K$\\
+        Surjective: Let $hkK \in HK \diagup K$, for $h \in H,\; k\in K$\\
+        $\varphi(h)=hK=hkK$ thus im$(\varphi)=HK \diagup K$\\
+        Thus by the first isomorphism theorem $H \diagup H \cap K \cong HK \diagup K$
     \end{proof}
 \end{itemize}
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item (i. $\implies$ ii.)\\
+        Assume i.\\
+        Let $g \in G$ by i. we know $g=hk$ for $h \in H$ and $k \in K$ thus $g=hk\in HK$\\
+        Let $hk \in HK$ s.t. $h \in H$ and $k \in K$ since $H,K \subseteq G \implies hk \in G$ thus $G=HK$\\
+        Since $e\in H,K \implies e \in H \cap K \implies \{e\} \subseteq H \cap K$\\
+        Let $l \in H \cap K \implies l \in H$ and $l \in K$ and $g \in G$ by i. $g=hk$ for $h \in H$ and $k \in K$\\
+        $g=hxx^{-1}k$ thus $hx \in H$ and $x^{-1}k \in K$ thus by i. since we assume uniqueness for each $g \in G$ this implies $x=e$ thus $H \cap K = \{e\}$
+        \item (ii. $\implies$ iii.)\\
+        Assume ii.\\
+        Define: $\varphi: H \times K \rightarrow G$ s.t. $\varphi(h,k)=hk$\\
+        Homomorphism: Let $(h,k),(j,l) \in H \times K$\\
+        $\varphi((h,k)(j,l))=\varphi(hj,kl)=hjkl=\varphi(hj)\varphi(kl)$\\
+        Injective: Let $(h,k) \in$ ker$(\varphi)$\\
+        $\varphi(h,k)=hk=e \implies h=k^{-1} \implies h,k \in H \cap K$ by ii. $\implies h=k=e$\\
+        Thus $(h,k)=(e,e) \implies$ ker$(\varphi)=\{(e,e)\} \implies \varphi$ is injective.\\
+        Surjective: Let $g \in G$ by ii. $g=hk$ for $h \in H$ and $k \in K$ thus $\varphi(h,k)=hk=g$ thus surjective\\
+        Thus $\varphi$ is an isomorphism
+        \item (iii. $\implies$ i.)\\
+        Assume iii.\\
+        Let $g \in G$ and $k \in K$\\
+        By iii. since $H \times K$ is isomorphic to $G$ this implies for all $g \in G$
+        can be written uniquely as a product $hk$, with $h \in H$ and $k \in K$\\
+        Let $g \in G$ and $h_1 \in H$\\
+        $gh_1g^{-1}$ by iii. $g=hk$ for $h \in H$ and $k \in K$\\
+        $hkh_1k^{-1}h^{-1}$\\
+        Consider $kh_1k^{-1} \in G \implies kh_1k^{-1}=k\varphi(h_1,k^{-1})=k\varphi((e,k^{-1})(h_1,e))=k\varphi(e,k^{-1})\varphi(h_1,e)=kk^{-1}h_1=h_1 \in H$\\
+        Thus $kh_1k^{-1}=h_1 \in H \implies gh_1g^{-1} \in H$ thus $H$ is normal in $G$\\
+        Let $g \in G$ and $k_1 \in K$\\
+        $gk_1g^{-1}$ by iii. $g=hk$ for $h \in H$ and $k \in K$\\
+        $hkk_1k^{-1}h^{-1}$. Let $l=kk_1k^{-1}$\\
+        $hlh^{-1}=\varphi(h,l)h^{-1}=\varphi(e,l)\varphi(h,e)h^{-1}=lhh^{-1}=l \in K \implies K \unlhd G$
+    \end{itemize}
+    \item If $G$ is an internal direct product of $H$ and $K$ then $G \cong H \times K$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+    \item $\varphi: \{\text{subgroups of $G$ containing $N$}\} \rightarrow \{\text{subgroups of $G \diagup N$}\}$ s.t. $\varphi(H)=\phi(H)=H\diagup N$\\
+    $\varphi^{-1}: \{\text{subgroups of $G \diagup N$}\} \rightarrow \{\text{subgroups of $G$ containing $N$}\}$ s.t. $\varphi^{-1}(\bar{H})=\phi^{-1}(\bar{H})$\\
+    Let $H \leq G$\\
+    $\varphi^{-1}(\varphi(H))=\varphi^{-1}(H \diagup N)=H$\\
+    Let $\bar{H} \leq G \diagup N$\\
+    $\varphi(\varphi^{-1}(\bar{H}))=\varphi(\phi(\bar{H}))=\bar{H}$\\
+    Thus $\varphi$ is bijective since it has an inverse\\
+    Let $H \unlhd G$ and $H \supseteq N$ consider $\varphi(H)=H \diagup N$\\
+    Let $gN \in G \diagup N$ and $hN \in H \diagup N$\\
+    $gNhNg^{-1}N=ghg^{-1}N$ since $H \unlhd G \implies ghg^{-1} \in H \implies gNhNg^{-1}N=ghg^{-1}N \in H \diagup N$ \\
+    Let $\bar{H} \unlhd G \diagup N$ consider $\varphi^{-1}(\bar{H})$\\
+    Let $g \in G$ and $h \in \varphi^{-1}(\bar{H})$\\
+    $\phi(ghg^{-1})=ghg^{-1}N \in \bar{H}$ since $\bar{H}$ is normal $ \implies ghg^{-1} \in \varphi^{-1}(\bar{H}) \implies \varphi^{-1}(\bar{H}) \unlhd G$
+    \item Let $h \in H$ and $n \in N$\\
+    $hnh^{-1}$ since $h \in H \subseteq G$ and $N \unlhd G \implies hnh^{-1} \in N \implies N \unlhd H$\\
+    By (a) since $H \unlhd G \implies H \diagup N \unlhd G \diagup N$\\
+    Let $\varphi: G \diagup N \rightarrow G \diagup H$ s.t. $\varphi(gN)=gH$\\
+    Well Defined: Let $xN=yN \implies xy^{-1} \in N \subseteq H$\\
+    $\implies xy^{-1}H=H \implies xH=yH \implies \varphi(xN)=\varphi(yN)$\\
+    Kernel: Let $gN \in$ ker$(\varphi)$ s.t. $g \in G$\\
+    $\varphi(gN)=gH=H \implies g \in H \implies gN \in H \diagup N$\\
+    Let $hN \in H \diagup N$ s.t. $h \in H$\\
+    $\varphi(hN)=hH=H \implies hN \in$ ker$(\varphi)$\\
+    Thus ker$(\varphi) = H \diagup N$\\
+    Surjective: Let $gH \in G \diagup H$ s.t. $g \in G$\\
+    Consider: $\varphi(gN)=gH$ thus surjective\\
+    By the first isomorphism theorem $\dfrac{G \diagup N}{H \diagup N} \cong G \diagup H$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 6}
+Let $G$ be order 8.\\
+By lagrange's theorem $G$ can only have terms of order 1,2,4,8
+\begin{enumerate}
+    \item If $G$ has an element $g \in G$ s.t. order of $g$ is 8.\\
+    $\ang{g} \leq G$ but since $|\ang{g}|=|G| \implies \ang{g}=G \implies G$ is cyclic thus $G \cong C_8$
+    \item If $G$ does not have an element of order 8 then $G$ has elements of order 1,2,4
+    By Cauchy's theorem since $2 \mid 8=|G| \implies \exists a \in G$ s.t. ord$(a)=2$ and let $\ang{a}=K \cong C_2$\\
+    Consider $G \diagup K$ by Lagrange's theorem $|G \diagup K|=4$ thus proven in class $G \diagup K \cong C_4$ or $G \diagup K \cong C_2 \times C_2$
+\end{enumerate}
 \end{document}
