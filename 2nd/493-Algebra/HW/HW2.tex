@@ -214,13 +214,459 @@ thus $k \in N_G(H)$ thus $K \subseteq N_G(H)$
 
 \newpage
 \subsection*{Problem 6}
+\begin{proof}
+    If $X,Y \unlhd G$ then $XY \leq G$
+    \begin{itemize}
+        \item (Closure) Let $a,b \in XY$ thus $a=xy$ and $b=ij$ for $x,i \in X$ and $yj \in Y$\\
+        $ab=xyij=x(yi)j$ since $X$ is normal in $G$ we know $yiy^{-1}=x' \in X \implies yi=x'y$\\
+        $=xx'yj \in XY$
+        \item (Inverses) Let $a \in XY$ thus $a=xy$ for $x \in X$ and $y \in Y$\\
+        $a=xy \implies a^{-1}=y^{-1}x^{-1}$ since $X$ is normal in $G$ we know $y^{-1}x^{-1}y=x' \in X \implies y^{-1}x^{-1}=x'y^{-1}$\\
+        $a^{-1}=x'y^{-1} \in XY$
+        \item (Identity) $e \in X \cap Y$ thus $ee=e\in XY$
+    \end{itemize}
+    Thus $XY \leq G$
+\end{proof}
 Let $G$ be order 8.\\
 By lagrange's theorem $G$ can only have terms of order 1,2,4,8
 \begin{enumerate}
     \item If $G$ has an element $g \in G$ s.t. order of $g$ is 8.\\
     $\ang{g} \leq G$ but since $|\ang{g}|=|G| \implies \ang{g}=G \implies G$ is cyclic thus $G \cong C_8$
-    \item If $G$ does not have an element of order 8 then $G$ has elements of order 1,2,4
-    By Cauchy's theorem since $2 \mid 8=|G| \implies \exists a \in G$ s.t. ord$(a)=2$ and let $\ang{a}=K \cong C_2$\\
-    Consider $G \diagup K$ by Lagrange's theorem $|G \diagup K|=4$ thus proven in class $G \diagup K \cong C_4$ or $G \diagup K \cong C_2 \times C_2$
+    \item If $G$ does not have an element of order 8 or 4 thus all nonidentity elements have order 2.\\
+    Let $a\neq b \neq e$ s.t. $a,b \in G$ thus let $X=\{e,a\}$ and $Y=\{e,b\}$\\
+    $XY=\{e,a,b,ab\}$ since $XY$ has 4 elements and is obviously not cyclic $XY \cong C_2 \times C_2$ and $XY \leq G$\\
+    Let $c \notin XY$ this is possible since there are 4 elements in $XY$, so there are 4 remaining elements in $G$ thus $Z=\{e,c\}$\\
+    Consider: $XYZ$ since $G$ is abelian all subgroups are normal so $XY$ and $Z$ are normal in $G$ and $XY \cap Z = \{e\}$\\
+    $XYZ$ is a subgroup of $G$ since $XY$ and $Z$ are normal, so its order must divide $8$ by lagrange's theorem.\\
+    $XYZ$ must have $\{e,a,b,ab,c\}$ so it must have at least 5 elements, since its order must divide 8 this implies its order is 8 thus $XYZ=G$ and since $Z$ is order 2, $Z \cong C_2$\\
+    thus by problem 4 $G=XYZ \cong XY \times Z \cong C_2\times C_2 \times C_2$
+    \item If $G$ does not have an element of order 8 thus $G$ only has elements of order 1,2,4\\
+    Let $a \in G$ s.t. ord$(a)=4$ and $X=\{e,a,a^2,a^3\}=\ang{a}$ and let $b \notin X$
+    \begin{enumerate}
+        \item If ord$(b)=2$ then let $Y=\{e,b\}=\ang{b}$\\
+        Then $X,Y$ are both normal since they are subgroups of an abelian group and $X \cap Y = \{e\}$\\
+        Also consider $XY$, $XY$ is a subgroup of $G$ since $X$ and $Y$ are normal. $XY$ must also contain $\{e,a,a^2,a^3,b\}$ so a total of 5 elements
+        however the order must divide the order of $G$ so this implies $|XY|=8 \implies XY=G$ thus by problem 4, $G \cong X \times Y$\\
+        and since $X$ is cyclic $X \cong C_4$ and since $Y$ is cyclic $Y \cong C_2$ thus $G \cong X \times Y \cong C_4 \times C_2$
+        \item If ord$(b)=4 \implies$ ord$(b^2)=2$
+        \begin{enumerate}
+            \item If $b^2 \notin X$ then done by proof above in case (a)
+            \item If $b^2 \in H \implies b^2 = a^2$ since these have the same order.\\
+            Thus consider $ab$, $ab$ is not in $X$ since $a \in X$ and $b \notin X$\\
+            $abab=a^2b^2=a^2a^2=a^4=e$ thus $ab$ is order 2 and not in $X$ thus done by proof above in case (a)
+        \end{enumerate}
+    \end{enumerate}
 \end{enumerate}
+
+\newpage
+\subsection*{Problem 7}
+\begin{proof}
+    Let $G$ be a group and $H \leq G$ and $[G : H] = 2$ then $H \unlhd G$\\
+    Since $[G : H] = 2$ this implies $G=gH\sqcup H$ for $g \notin H$\\
+    Consider $Hg$ since $g \notin H \implies Hg \neq H$\\
+    If $x \in H \implies xHx^{-1}=Hx^{-1}=H$\\
+    Thus $H \unlhd G$
+\end{proof}
+\begin{enumerate}[(a)]
+    \item If $G$ had an element of order $8$ then it would be cyclic and thus abelian\\
+    If $G$ did not have an element of order 8 or 4 then it would only have elements of order 1,2 thus proven in class since all nonidentity elements have order 2 this makes $G$ abelian\\
+    So $G$ must have an element $x$ of order 4\\
+    By lagrange's theorem, $[G : \ang{x}] =2$ thus by proof above $\ang{x} \unlhd G$ thus $yxy^{-1}\in \ang{x}$\\
+    Since $x$ is order 4 this means $yxy^{-1}$ is order 4 this $yxy^{-1}=x \text{ or } x^3$ if it is $x$ then this implies $yx=xy$ which implies G is abelian so this is not possible
+    thus $yxy^{-1}=x^3$\\
+    Same for $y^{-1}xy$, so it also equals $x^3$
+    \item \begin{enumerate}[1.]
+        \item If ord$(y)=2$ then $G=\ang{x,y \mid x^4=y^2=e,\; yx=x^3y}$\\
+        Let $\varphi : G \rightarrow D_4$ s.t. $\varphi(x)=a$ where $a$ is the rotation and $\varphi(y)=b$ where $b$ is the reflection.\\
+        Homomorphism: Since $x,y$ are generators only have to check $\varphi(y)\varphi(x)=\varphi(x)^3\varphi(y)$ holds and that we send same order to same order but by defintion of $\varphi$ we do send same order to same order\\
+        $\varphi(y)\varphi(x)=ba=a^{3}b=\varphi(x)^3\varphi(y)$\\
+        Injective:\\
+        $\varphi(x^2)=a^2$\\
+        $\varphi(y^2)=b^2$\\
+        $\varphi(yx)=\varphi(y)\varphi(x)=ba$\\
+        $\varphi(yx^2)=ba^2$\\
+        $\varphi(yx^3)=ba^3$\\
+        Thus injective\\
+        Surjective: Let $g \in D_4$\\
+        Thus $g=b^ja^i$  for $i \in \{0,1,2,3\}$ and $j \in \{0,1\}$\\
+        Consider $y^jx^i$\\
+        $\varphi(y^jx^i)=\varphi(y^j)\varphi(x^i)=\varphi(y)^j\varphi(x)^i=b^ja^i$ thus surjective\\
+        Thus $\varphi$ is an isomorphism thus $G \cong D_4$
+        \item If ord$(y)=4$ then ord$(y^2)=2$\\
+        $yxyx=yyx^3x=y^2$, so order is more than 2\\
+        $yx^3yx^3=yyx^4=y^2$, so order is more than 2\\
+        thus the only element with order $2$ is $x^2$ thus $x^2=y^2$\\
+        Let $\varphi : G \rightarrow Q$ s.t. $\varphi(x)=i$ and $\varphi(y)=j$\\
+        Homomorphism: Since $x,y$ are generators only have to check order, which is the same, and that $\varphi(y)\varphi(x)\varphi(y)^{-1}=\varphi(x)^3$ and $\varphi(y)^2=\varphi(x)^2$\\
+        $\varphi(y)\varphi(x)\varphi(y)^{-1}=jij^{-1}=jij^3=jkj^2=ii^2=i^3=\varphi(x)^3$\\
+        $\varphi(y)^2=j^2=i^2=\varphi(x)^2$\\
+        Injective:\\
+        $\varphi(x^2)=\varphi(x)^2=i^2=-1$\\
+        $\varphi(y^2)=\varphi(y)^2=\varphi(x)^2=-1$\\
+        $\varphi(yx)=\varphi(y)\varphi(x)=ji=-k$\\
+        $\varphi(yx^2)=j-1=-j$\\
+        $\varphi(yx^3)=j(-i)=k$\\
+        Thus injective\\
+        Surjective: Let $g \in Q$ thus $g=j^ai^b$ for $a \in \{0,1,2,3\}$ and $b \in \{0,1\}$\\
+        Consider $y^ax^b$\\
+        $\varphi(y^ax^b)=\varphi(y^a)\varphi(x^b)=\varphi(y)^a\varphi(x)^b=j^ai^b$\\
+        Thus $\varphi$ is an isomorphism thus $G \cong Q$
+    \end{enumerate}
+    \item \begin{tikzpicture}
+        \matrix (m) [matrix of nodes, row sep=1cm, column sep=1cm]{
+            & & $Q$ & & \\
+            & $\langle i \rangle$ & $\langle j \rangle$ & $\langle k \rangle$& \\
+            & & $\langle -1 \rangle$ & & \\
+            & & $\{ 1 \}$ & & \\
+        };
+      
+        \draw (m-1-3) -- (m-2-2);
+        \draw (m-1-3) -- (m-2-3);
+        \draw (m-1-3) -- (m-2-4);
+        \draw (m-2-2) -- (m-3-3);
+        \draw (m-2-3) -- (m-3-3);
+        \draw (m-2-4) -- (m-3-3);
+        \draw (m-3-3) -- (m-4-3);
+      \end{tikzpicture}
+      \phantom{text}\\
+Let $H$ be a subgroup of $Q$ by Lagrange's Theorem the order of $H$ can only be $1,2,4,8$
+
+Case 1: \(H\) is order 1
+\begin{itemize}
+    \item The only subgroup of order 1 is the trivial subgroup \( \{e\} \).
+    \item Since \( \{e\} \) is already on our list, \( H \) cannot be of order 1 unless it is \( \{e\} \), which is already accounted for.
+\end{itemize}
+
+Case 2: \(H\) is order 2
+\begin{itemize}
+    \item If $H$ is order 2, it must consist of $e$ and one other element $g$, where $g^2=e$.
+    \item In $Q$ the elements with order 2 are only $-1$\\
+    Therefore, any subgroup \( H \) of order 2 must be $\{1,-1\}$.
+\end{itemize}
+
+Case 3: \(H\) is order 4
+\begin{itemize}
+    \item If $H \cong C_4 \implies H$ has an element of order 4.\\
+    Thus, elements of order 4 are $i,-i,j,-j,k,-k$ and since
+    \item $\ang{i}=\ang{-i}$
+    \item $\ang{j}=\ang{-j}$
+    \item $\ang{k}=\ang{-k}$\\
+    Thus $H$ is one of these
+    \item If $H \cong C_2\times C_2 \implies H$ has only elements of order 2.\\
+    However, there are not enough elements of order 2 for this to happen.
+\end{itemize}
+
+Case 4: \(H\) is order 8
+\begin{itemize}
+    \item If \( H \) is order 8, it must be the whole group \( Q \).
+    \item Therefore, \( H \) would be \( Q \), which is already on our list.
+\end{itemize}
+\phantom{text}\\
+In each case, we've shown that any possible subgroup \( H \) of \( Q \) must be one of the subgroups already listed. Therefore, no additional subgroups can exist, and our list of subgroups is complete.\\
+By the proof below since $Z(Q)=\ang{-1}$ this means it is normal and $\{e\}$ and the full group are always normal.\\
+For $\ang{i}$ we only have to check for conugacy with the generators\\
+\begin{itemize}
+    \item For $i$ we know that conguates with all elements in $\ang{i}$ since subgroup closure.
+    \item For $j$, $jij^{-1}=ji(-j)=(-j)ij=j^{-1}ij=kj=-i \in \ang{i}$
+    \item For $k$, $kik^{-1}=ki(-k)=(-k)ik=k^{-1}ik=-ijiij=-ij(-1)j=-(-i)j^2=-i \in \ang{i}$
+\end{itemize}
+Thus $\ang{i}$ is normal and similar proof for $\ang{j}$ and $\ang{k}$ thus all subgroups of $Q$ are normal.
+\begin{itemize}
+    \item $1 \in Z(Q)$
+    \item $-1$, let $x \in Q$
+    $(-1)x=x(-1)=-x$ thus $-1 \in Z(Q)$
+    \item $i$, $ij=k$ and $ji=-k$
+    \item $-i$, $(-i)j=-k$ and $j(-i)=k$
+    \item $j$, $ij=k$ and $ji=-k$
+    \item $-j$, $i(-j)=-k$ and $(-j)i=k$
+    \item $k$, $ki=j$ and $ik=-j$
+    \item $-k$, $-ki=-j$ and $i(-k)=j$
+    \item Thus $Z(Q)=\{1,-1\}$
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 8}
+\begin{itemize}
+    \item (Closure) Let $A,B\in H$
+    \[
+    A = \begin{pmatrix}
+    1 & a_1 & b_1 \\
+    0 & 1 & c_1 \\
+    0 & 0 & 1
+    \end{pmatrix}, \quad B = \begin{pmatrix}
+    1 & a_2 & b_2 \\
+    0 & 1 & c_2 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+
+    \[
+    AB = \begin{pmatrix}
+    1 & a_1 & b_1 \\
+    0 & 1 & c_1 \\
+    0 & 0 & 1
+    \end{pmatrix} 
+    \begin{pmatrix}
+    1 & a_2 & b_2 \\
+    0 & 1 & c_2 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & a_1 + a_2 & b_1 + a_1 c_2 + b_2 \\
+    0 & 1 & c_1 + c_2 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+    thus $AB \in H$
+    \item (Identity) $I \in H$
+    \item (Inverses) Let $A \in H$
+
+    \[
+    A = \begin{pmatrix} 
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1 
+    \end{pmatrix}, \quad A^{-1} = \begin{pmatrix}
+    1 & -a & ac - b \\
+    0 & 1 & -c \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+
+    \[
+    AA^{-1} = \begin{pmatrix}
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{pmatrix} 
+    \begin{pmatrix}
+    1 & -a & ac-b \\
+    0 & 1 & c_2 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & a-a & b - ac + ac - b \\
+    0 & 1 & c - c \\
+    0 & 0 & 1
+    \end{pmatrix} = I
+    \]
+    \[
+    A^{-1}A = \begin{pmatrix}
+    1 & -a & ac-b \\
+    0 & 1 & c_2 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & a-a & b - ac + ac - b \\
+    0 & 1 & c - c \\
+    0 & 0 & 1
+    \end{pmatrix} = I
+    \]
+    Thus $H$ is a subgroup
+\end{itemize}
+
+Let $A \in H$ and $B \in K$
+\[
+    A = \begin{pmatrix}
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{pmatrix}, \quad B = \begin{pmatrix}
+    1 & 0 & g \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+
+    \[
+    ABA^{-1} = \begin{pmatrix}
+    1 & a & b \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{pmatrix} 
+    \begin{pmatrix}
+    1 & 0 & g \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & -a & ac - b \\
+    0 & 1 & -c \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & a & b+g \\
+    0 & 1 & c \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & -a & ac - b \\
+    0 & 1 & -c \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+    \[
+    =\begin{pmatrix}
+    1 & 0 & g \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+    Thus $ABA^{-1} \in K$ thus $K \unlhd H$\\
+    Let $h \in H$, consider $hK$\\
+    \[
+    hK = \left\{ \begin{pmatrix}
+        1 & x & y \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+        1 & 0 & g \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+        \end{pmatrix}=
+        \begin{pmatrix}
+        1 & x & g+y \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    Thus $A=B$ for $A,B \in H \diagup K$ if $a_{12}=b_{12}$ and $a_{23}=b_{23}$, $a_{ij}$ is the $(i,j)$ component.\\
+    Thus
+    \[
+    H \diagup K = \left\{ \left\{\begin{pmatrix}
+        1 & x & g \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}  : x,z \in \mathbb{R} \right\}
+    \]
+    Thus let $\varphi : H \diagup K \rightarrow \R^2$ s.t. for $A \in H \diagup K$ and $x,z \in \R$
+    \[
+    A = \left\{ 
+        \begin{pmatrix}
+        1 & x & g \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    \[\varphi(A)=(x,z)\]
+    Homomorphism: Let $A,B \in H \diagup K$ s.t.
+    \[
+    A = \left\{ 
+        \begin{pmatrix}
+        1 & x & g \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\} \quad B = \left\{ 
+        \begin{pmatrix}
+        1 & a & g \\
+        0 & 1 & b \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    for $x,z,a,b \in \R$
+    \[
+    AB = \left\{ 
+        \begin{pmatrix}
+        1 & x+a & g \\
+        0 & 1 & z+b \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    $\varphi(AB)=(x+a,z+b)=(x,z)+(a,b)=\varphi(A)\varphi(B)$\\
+    Injective: Let $A \in$ ker$(H \diagup K)$ for $x,z \in \R$
+    \[
+    A = \left\{ 
+        \begin{pmatrix}
+        1 & x & g \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    $\varphi(A)=(x,y)=(0,0) \implies x=0$ and $y=0$ thus
+    \[
+    K=A = \left\{ 
+        \begin{pmatrix}
+        1 & 0 & g \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    thus the kernel is trivial thus $\varphi$ is injective\\
+    Surjective: Let $(x,z) \in \R^2$ s.t. $x \in \R$ and $z \in \R$\\
+    Consider: 
+    \[
+    A = \left\{ 
+        \begin{pmatrix}
+        1 & x & g \\
+        0 & 1 & z \\
+        0 & 0 & 1
+        \end{pmatrix}  : g \in \mathbb{R} \right\}
+    \]
+    $\varphi(A)=(x,z)$ thus surjective\\
+    Thus $H \diagup K \cong \R^2$\\
+    Let $A \in H$ and $B \in Z(H)$
+    \[
+    A = \begin{pmatrix}
+    1 & x & y \\
+    0 & 1 & z \\
+    0 & 0 & 1
+    \end{pmatrix}, \quad
+    B = \begin{pmatrix}
+    1 & x' & y' \\
+    0 & 1 & z' \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+        
+    \[
+    AB = \begin{pmatrix}
+    1 & x & y \\
+    0 & 1 & z \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & x' & y' \\
+    0 & 1 & z' \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & x + x' & y + x'z + y' \\
+    0 & 1 & z + z' \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+    \[
+    BA = \begin{pmatrix}
+    1 & x' & y' \\
+    0 & 1 & z' \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    1 & x & y \\
+    0 & 1 & z \\
+    0 & 0 & 1
+    \end{pmatrix}
+    = \begin{pmatrix}
+    1 & x + x' & y' + xz' + y \\
+    0 & 1 & z + z' \\
+    0 & 0 & 1
+    \end{pmatrix}
+    \]
+    since $B \in Z(H) \implies AB=BA$ thus $y+x'z+y'=y'+xz'+y \implies x'z=xz' \implies x'z-xz'=0$
+    \begin{enumerate}
+        \item If $x' = 0$ then $xz'=0 \implies z'=0$ since $x$ could be anything
+        \item If $z'=0$ then similar reasoning to above $ \implies x'=0$
+        \item If $x' \neq 0 \implies z' \neq 0$ thus $\frac{z}{z'}=\frac{x}{x'}$ however since this implies that $z'$ and $x'$ depend on what $z,x$ are this solution will not work.
+    \end{enumerate}
+    Thus, $B \in K$\\
+    Show above for $A \in H$ and $B \in K$, $ABA^{-1}=B \implies AB=BA$ thus $B \in Z(H)$\\
+    Thus $Z(G)=K$
 \end{document}
