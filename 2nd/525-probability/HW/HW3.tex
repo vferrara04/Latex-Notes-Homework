@@ -1,0 +1,89 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{enumerate}
+    \item $\{K=0\}=\{\{TTTTTT\dots TT\}\}$ $N$ times.\\
+    Since the first tying head appears if there is one head this means that for there to be no typing heads there is no heads.\\
+    $A_N=0$ since there is no heads, so there is no $HH$ pair\\
+    $B_N=0$ since there is no heads, so there is no $HT$ pair
+    \item 
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 2}
+Consider the up right lattice paths from $(0,0)$ to $(n,n-k)$.\\
+Let right be if he takes it out of the right pocket and up to be if he takes it out of the left pocket.\\
+Thus, the number of ways to count this is paths from $(0,0)$ to $(n,n-k)$ or $(n-k,n)$ for both pockets thus\\
+$\binom{2n-k}{n}+\binom{2n-k}{n}=2\binom{2n-k}{n}$ the total number of ways to pick from the left and right pocket is $2^{2n-k}$ since we have 2 choices for where to take the $2n-k$ matches from\\
+but since we emptied the pocked then checked one more time from the pocket this means we actually check one more time so the total number of possibilities if $2^{2n-k+1}$\\
+thus $\P(\t{the first time the mathematician finds a picket to be empty})=\dfrac{2\binom{2n-k}{n}}{2^{2n-k+1}}=\dfrac{\binom{2n-k}{n}}{2^{2n-k}}$
+\end{document}

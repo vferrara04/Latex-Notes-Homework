@@ -1,0 +1,232 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{itemize}
+    \item If $n$ is odd
+    \begin{itemize}
+        \item Consider $x^i$ for $0 < i < n$ s.t. $x$ is a rotation\\
+        $x^jx^ix^{-j}$ for $0 \leq j < n$\\
+        $=x^i$\\
+        $yx^jx^iyx^{j}$ for $0 \leq j < n$\\
+        $=yyx^{n-j-i}x^{j}=x^nx^{-i}x^{j-j}=x^{-i}$\\
+        Thus $C_{x^{i}}=\{x^i,x^{-i}\}=C_{x^{-i}}$
+        \item Consider $y$ s.t. $y$ is a reflection\\
+        $x^jyx^{-j}$ for $0 \leq j < n$\\
+        $=yx^{n-j}x^{-j}=yx^{-2j}$\\
+        Since $n$ is odd we can solve $k \equiv -2j \pmod{n}$\\
+        thus $C_y=\{yx^k \mid k \in \Z\}=\{yx^k \mid k \in \{0,1,2,\dots,n-1\}\}$
+        
+        Thus $|D_n|=\sum\limits_{[x^i]}|C_{x^i}|+|C_y|=|\{e\}|+\sum\limits_{[x^i]\setminus [e]}|C_{x^i}|+|C_y|=1+(n-1)+n=2n$
+    \end{itemize}
+    \item If $n$ is even
+    \begin{itemize}
+        \item It is the same for rotations
+        \item Consider $y$ s.t. $y$ is a reflection\\
+        $x^jyx^{-j}$ for $0 \leq j < n$\\
+        $=yx^{n-j}x^{-j}=yx^{-2j}$\\
+        thus $C_y=\{y,yx^2,yx^4,\dots , yx^{n/2 - 1}\}$
+        \item Consider $yx$\\
+        $x^jyxx^{-j}$ for $0 \leq j < n$\\
+        $=yx^{n-j}x^{1-j}=yx^{1-2j}$\\
+        thus $C_{yx}=\{yx,yx^3,yx^5,\dots , yx^{n-1}\}$
+
+        Thus $|D_n|=\sum\limits_{[x^i]}|C_{x^i}|+|C_y|+|C_{yx}|$
+
+        $=|\{e\}|+|\{x^{n/2}\}|+\sum\limits_{[x^i]\setminus [e]\cup[x^{n/2}]}|C_{x^i}|+|C_y|+|C_{yx}|=1+1+2(n/2-1)+2(n/2)=2n$
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\subsection*{Problem 2}
+\begin{itemize}
+
+    \item Conjugacy class of \( 1 \):
+    \[
+    \{ 1 \}
+    \]
+    Since \( 1 \) is the identity element, it commutes with all other elements:
+    \[
+    h \cdot 1 \cdot h^{-1} = 1 \quad \text{for all} \quad h \in Q_8.
+    \]
+
+    \item Conjugacy class of \( -1 \):
+    \[
+    \{ -1 \}
+    \]
+    Similar to \( 1 \), the element \( -1 \) commutes with all other elements:
+    \[
+    h \cdot (-1) \cdot h^{-1} = -1 \quad \text{for all} \quad h \in Q_8.
+    \]
+
+    \item Conjugacy class of \( i \) and \( -i \):
+    
+    The conjugates of \( i \) by other elements of \( Q_8 \) are:
+    \[
+    1 \cdot i \cdot 1^{-1} = i, \quad (-1) \cdot i \cdot (-1)^{-1} = i,
+    \]
+    \[
+    j \cdot i \cdot j^{-1} = -i, \quad k \cdot i \cdot k^{-1} = -i.
+    \]
+    Therefore, the conjugacy class of \( i \) is:
+    \[
+    \{ i, -i \}.
+    \]
+    
+    Similarly, for \( -i \):
+    \[
+    j \cdot (-i) \cdot j^{-1} = i, \quad k \cdot (-i) \cdot k^{-1} = i,
+    \]
+    so \( i \) and \( -i \) share the same conjugacy class.
+
+    \item Conjugacy class of \( j \) and \( -j \):
+    
+    The conjugates of \( j \) are computed as follows:
+    \[
+    1 \cdot j \cdot 1^{-1} = j, \quad (-1) \cdot j \cdot (-1)^{-1} = j,
+    \]
+    \[
+    i \cdot j \cdot i^{-1} = -j, \quad k \cdot j \cdot k^{-1} = -j.
+    \]
+    Hence, the conjugacy class of \( j \) is:
+    \[
+    \{ j, -j \}.
+    \]
+    
+    Similarly, for \( -j \):
+    \[
+    i \cdot (-j) \cdot i^{-1} = j, \quad k \cdot (-j) \cdot k^{-1} = j,
+    \]
+    so \( j \) and \( -j \) are in the same conjugacy class.
+
+    \item Conjugacy class of \( k \) and \( -k \):
+    
+    The conjugates of \( k \) are:
+    \[
+    1 \cdot k \cdot 1^{-1} = k, \quad (-1) \cdot k \cdot (-1)^{-1} = k,
+    \]
+    \[
+    i \cdot k \cdot i^{-1} = -k, \quad j \cdot k \cdot j^{-1} = -k.
+    \]
+    Therefore, the conjugacy class of \( k \) is:
+    \[
+    \{ k, -k \}.
+    \]
+    
+    Similarly, for \( -k \):
+    \[
+    i \cdot (-k) \cdot i^{-1} = k, \quad j \cdot (-k) \cdot j^{-1} = k,
+    \]
+    so \( k \) and \( -k \) share the same conjugacy class.
+
+\end{itemize}
+\phantom{text}\\
+Thus, the conjugacy classes of \( Q_8 \) are:
+\[
+\{ 1 \}, \quad \{ -1 \}, \quad \{ i, -i \}, \quad \{ j, -j \}, \quad \{ k, -k \}.
+\]
+The sizes of these conjugacy classes are:
+\[
+| \{ 1 \} | = 1, \quad | \{ -1 \} | = 1, \quad | \{ i, -i \} | = 2, \quad | \{ j, -j \} | = 2, \quad | \{ k, -k \} | = 2.
+\]
+
+Therefore, the class equation of \( Q_8 \) is:
+\[
+8 = 1 + 1 + 2 + 2 + 2.
+\]
+
+\newpage
+\subsection*{Problem 3}
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item (i. $\implies$ iii.) Assume i.\\
+        Let $\varphi:G \rightarrow K$ s.t. $\varphi(g)=\varphi(hk)=k$\\
+        Well Defined:
+        Let $g \in G$ by i. since $g=hk$ is unique this implies every input has one output.\\
+        Kernel:
+        Let $g \in$ ker$(\varphi)$\\
+        $\varphi(g)=\varphi(hk)=e \implies k=e$ thus $g=h \in H$\\
+        Let $h \in H$ thus $he \in HK$ thus $\varphi(h)=\varphi(he)=e$ thus $H=$ker$(\varphi)$\\
+        Surjective: Let $k \in K$ consider: $ek \in G$\\
+        $\varphi(ek)=k$ thus $\varphi$ is surjective.\\
+        By the first isomorphism theorem this implies $K \cong G\diagup H$
+        \item (iii. $\implies$ ii.) Assume iii. with the map $\varphi$\\
+        Since $\varphi$ is injective ker$(\varphi)=\{e\} \implies$ ker$(\varphi) \subseteq K \cap H$
+        Let $l \in K \cap H \implies l \in K$ and $l \in H$ thus $\varphi(l)=lH$ but since $l \in H \implies \varphi(l)=H$ thus $l \in$ ker$(\varphi)$ thus ker$(\varphi)=K \cap H=\{e\}$\\
+        Since $\varphi$ is surjective this means for all $kH \in G \diagup H$ there exists a $k' \in K$ s.t. $\varphi(k')=kH$ and since $G \diagup H$ paritions $G$ this implies for all $g \in G \implies g \in jH$ for some $j \in K \implies g=jh$ for some $h \in H$\\
+        thus $G=HK$
+        \item (ii. $\implies$ i.) Assume ii.\\
+        Let $g \in G$ s.t. $g=hk=ij$ for $h,i \in H$ and $kj \in K$\\
+        thus $i^{-1}h=jk^{-1} \implies$ that is in $H \cap K$ thus $i^{-1}h=e \implies i=h$ and $jk^{-1}=e \implies j=k$ thus all $g\in G$ are a unique product of an $h \in H$ and $k \in K$ 
+    \end{itemize}
+    \item 
+\end{enumerate}
+\end{document}

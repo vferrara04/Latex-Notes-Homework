@@ -152,8 +152,7 @@
     $\P(\t{exactly two heads have appeared to date})=\dfrac{\binom{n}{2}}{2^n}$
     \item $\P(\t{at least two heads have appeared to date})$\\
     Total number of posibilities is $2^n$\\
-    The number of ways to get at least tow heads is two first pick two heads from our $n$ coin flips which is $\binom{n}{2}$ then the remaing $n-2$ flips have 2 choices thus $2^{n-2}$ so the total number of ways is
-    $\binom{n}{2}\times 2^{n-2}$ thus\\
-    $\P(\t{at least two heads have appeared to date})=\dfrac{\binom{n}{2}\times 2^{n-2}}{2^n}$
+    The number of ways to get at least two heads is also to count the complement of the ways to get 0 heads and 1 head thus\\
+    the number of ways to get 1 head or 0 heads is $1+n$ thus $\P(\t{at least two heads})=1-\P(\t{1 or 0 heads})=1-\dfrac{n+1}{2^n}$
 \end{enumerate}
 \end{document}
