@@ -86,4 +86,16 @@ Thus, the number of ways to count this is paths from $(0,0)$ to $(n,n-k)$ or $(n
 $\binom{2n-k}{n}+\binom{2n-k}{n}=2\binom{2n-k}{n}$ the total number of ways to pick from the left and right pocket is $2^{2n-k}$ since we have 2 choices for where to take the $2n-k$ matches from\\
 but since we emptied the pocked then checked one more time from the pocket this means we actually check one more time so the total number of possibilities if $2^{2n-k+1}$\\
 thus $\P(\t{the first time the mathematician finds a picket to be empty})=\dfrac{2\binom{2n-k}{n}}{2^{2n-k+1}}=\dfrac{\binom{2n-k}{n}}{2^{2n-k}}$
+
+\newpage
+\subsection*{Problem 3}
+Let $X_i$ be the indicator function such that $X_i(s)=1$ if $s(i)=i$ and 0 otherwise\\
+Consider $E[X]=E[X1+X_2+\dots+X_n]=E[X_1]+\dots+E[X_n]=\dfrac{1}{n}+\dfrac{1}{n}+\dots+\dfrac{1}{n}=1$\\
+Thus $E[X^2]=E[X_1^2+X_2^2\dots+X_n^2+2X_1X_2+2X_1X_3+\dots+2X_{n-1}X_n]=\sum\limits_{i=0}^nE[X_i^2]+2E[X_1X_2]+2E[X_1X_3]+\dots+2E[X_{n-1}X_n]$\\
+since $X_0$ only outputs 0 or 1 $X_i^2$ will also output the same thing thus\\
+$=1+2E[X_1X_2]+2E[X_1X_3]+\dots+2E[X_{n-1}X_n]=1+2(E[X_i^2]+E[X_1X_2]+E[X_1X_3]+\dots+E[X_{n-1}X_n])$\\
+$=1+2(\binom{n}{2}E[X_1X_2])$ we can do this since the expected value of two number is the same no matter the two numbers and also there is $n$ choose $2$ ways to pick the two pairs of numbers\\
+$E[X_1X_2]=\P(s(1)=1)\P(s(2)=2 \mid s(1)=1)$ there is $n$ choices for the first number and $n-1$ for the second given 1 is fixed\\
+thus $E[X_1X_2]=\dfrac{1}{n}\times \dfrac{1}{n-1}$\\
+$=1+2(\binom{n}{2}\dfrac{1}{n}\times \dfrac{1}{n-1})=1+2(\dfrac{n(n-1)}{2}\dfrac{1}{n}\times \dfrac{1}{n-1})=1+2(\dfrac{1}{2})=1+1=2$
 \end{document}

@@ -227,6 +227,223 @@ Therefore, the class equation of \( Q_8 \) is:
         Let $g \in G$ s.t. $g=hk=ij$ for $h,i \in H$ and $kj \in K$\\
         thus $i^{-1}h=jk^{-1} \implies$ that is in $H \cap K$ thus $i^{-1}h=e \implies i=h$ and $jk^{-1}=e \implies j=k$ thus all $g\in G$ are a unique product of an $h \in H$ and $k \in K$ 
     \end{itemize}
-    \item 
+    \item Let $\varphi : G \rightarrow (H \times K, \t{ with the given group multiplication})$ s.t. $\varphi(hk)=(h,k)$\\
+    Homomorphism: Let $g_1,g_2 \in G$ thus $g_1=h_1k_1$ and $g_2=h_2k_2$ for $h_1,h_2 \in H$ and $k_1,k_2 \in K$\\
+    $\varphi(g_1g_2)=\varphi(h_1k_1h_2k_2)=\varphi(h_1(k_1h_2k_1^{-1})k_1k_2)$ since $H$ is normal in $G$ this means $k_1h_2k_1^{-1} \in H$\\
+    thus $\varphi(h_1(k_1h_2k_1^{-1})k_1k_2)=(h_1(k_1h_2k_1^{-1}), k_1k_2)=(h_1,k_1)(h_2,k_2)=\varphi(g_1)\varphi(g_2)$\\
+    Injective: Let $g \in$ ker$(\varphi)$ thus $g=hk$ for $h \in H$ and $k \in K$\\
+    $\varphi(g)=\varphi(hk)=(h,k)=(e,e)$ thus $h=e$ and $k=e$ thus $g=ee=e$ thus ker$(\varphi)=\{e\}$\\
+    Surjective: Let $(h,k) \in (H \times K, \t{ with the given group multiplication})$ consider $hk=g \in G$\\
+    $\varphi(g)=\varphi(hk)=(h,k)$\\
+    Thus $G \cong (H \times K, \t{ with the given group multiplication})$
+    \item Let $k \in K$ consider $\phi_k$\\
+    Homomorphism: Let $h,j \in H$\\
+    $\phi_k(hj)=khjk^{-1}=khk^{-1}kjk^{-1}=\phi_k(h)\phi_k(j)$\\
+    Injective: Let $h \in$ ker$(\phi_k)$\\
+    $\phi_k(h)=khk^{-1}=e \implies h=e$ thus ker$(\phi_k)=\{e\}$\\
+    Surjective: Let $h \in H$ since $H$ is normal conisder $k^{-1}hk$\\\
+    $\phi_k(k^{-1}hk)=kk^{-1}hkk^{-1}=h$\\
+    Thus $\phi_k$ is an automorphism\\
+    \phantom{text}\\
+    Homomorphism: Let $k,j \in K$\\
+    $\phi(kj)(h)=\phi_{kj}(h)=kjhj^{-1}k^{-1}=\phi_k\circ\phi_j(h)=\phi(k)\phi(j)(h)$\\
+    Thus $\phi$ is a homomorphism\\
+    \phantom{text}\\
+    If $H,K$ are an internal direct product then $\phi(k)=id_H$ for all $k\in H$\\
+    Thus the group law of $H \times K$ would be $(h_1,k_1)(h_2,k_2)=(h_1h_2,k_1k_2)$ thus proven in last homework this means $G$ is a direct product of $H,K$
 \end{enumerate}
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item (Closure) Given by group law this is closed
+        \item (Identity) Consider $(e,e),(h,k)\in H \rtimes_{\phi} K$\\
+        $(e,e)(h,k)=(e\phi_e(h),ek)$ since $\phi$ is a homomorphism and $\phi(e)=\phi_e$ this means that $\phi(e)=\phi_e=id_H$
+        thus $=(h,k)$\\
+        $(h,k)(e,e)=(h\phi_k(e),ke)$ since $\phi_k$ is an automorphism it is a homomorphism\\
+        thus $\phi_k(e)=e$ thus $=(he,k)=(h,k)$
+        \item (Associativity) Let $(h_1,k_1),(h_2,k_2),(h_3,k_3) \in H \rtimes_\phi K$\\
+        $(h_1,k_1)[(h_2,k_2)(h_3,k_3)]=(h_1,k_1)(h_2\phi_{k_2}(h_3),k_2k_3)=(h_1\phi_{k_1}(h_2\phi_{k_2}(h_3)),k_1k_2k_3)$\\
+        $[(h_1,k_1)(h_2,k_2)](h_3,k_3)=(h_1\phi_{k_1}(h_2),k_1k_2)(h_3,k_3)=(h_1\phi_{k_1}(h_2)\phi_{k_1k_2}(h_3),k_1k_2k_3)\\
+        =(h_1\phi_{k_1}(h_2\phi_{k_2}(h_3),k_1k_2k_3))$
+        \item (Inverses) Let $(h,k) \in H \rtimes_\phi K$\\
+        Consider $(\phi_{k^{-1}(h^{-1})},k^{-1})$\\
+        $(h,k)(\phi_{k^{-1}}(h^{-1}),k^{-1})=(h\phi_{k}(\phi_{k^{-1}}(h^{-1})),kk^{-1})=(h\phi_{e}(h^{-1}),e)=(e,e)$\\
+        $(\phi_{k^{-1}}(h^{-1}),k^{-1})(h,k)=(\phi_{k^{-1}}(h^{-1})\phi_{k^{-1}}(h),k^{-1}k)=(\phi_{k^{-1}}(e),e)=(e,e)$
+    \end{itemize}
+    \item The internal and external semidirect products provide two perspectives on how groups can combine through an action. 
+    In the external semidirect product, we start with two independent groups \(H\) and \(K\) and define a homomorphism 
+    \(\phi: K \to \text{Aut}(H)\) to describe how \(K\) acts on \(H\). 
+    This action defines a group structure on the set \(H \times K\), where the multiplication is given by 
+    \((h_1, k_1) \cdot (h_2, k_2) = (h_1 \cdot \varphi(k_1)(h_2), k_1 \cdot k_2)\). 
+    The internal semidirect product, on the other hand, starts with a single group \(G\) that can be decomposed into two subgroups \(H \triangleleft G\) and \(K \leq G\). 
+    Here, \(H\) is a normal subgroup, and \(K\) acts on \(H\) via conjugation: \(khk^{-1} \in H\) for \(k \in K\) and \(h \in H\). 
+    Both constructions describe the same type of group structure, where the elements of one group act on another.
+    \item \begin{itemize}
+        \item (Identity) Let $\phi \in$ Hom$(K, \t{Aut}(H))$, and let $(\psi,\mu)=(id_H,id_K)$\\
+        $((id_H,id_k)\phi)(k)=id_H \circ \phi(id_K^{-1}(k))\circ id_H^{-1}$\\
+        $=id_H \circ \phi(k) \circ id_H = \phi(k)$
+        \item Let $(\psi_1, \mu_1),(\psi_2,\mu_2) \in \t{Aut}(H) \times \t{Aut}(K)$ and let $\phi \in$ Hom$(K, \t{Aut}(H))$\\
+        $[(\psi_1\circ\psi_2,\mu_1\circ\mu_2)\phi](k)=\psi_1\circ\psi_2\circ(\phi(\mu_2^{-1}\circ\mu_1^{-1}(k)))\circ\psi_2^{-1}\circ\psi_1^{-1}$\\
+        $((\psi_1, \mu_1)[(\psi_2,\mu_2)\phi])(k)=(\psi_1, \mu_1)(\psi_2 \circ(\phi(\mu_2^{-1}(k)))\circ \psi_2^{-1})=\\
+        \psi_1 \circ \psi_2 \circ(\phi(\mu_2^{-1}\circ\mu_1^{-1}(k)))\circ \psi_2^{-1} \circ \psi_1^{-1}$\\
+        Thus this is an action
+    \end{itemize}
+    Assume $\phi, \phi'$ are in the same orbit for this action this means\\
+    there exists a $(\psi,\mu)\in \t{Aut}(H) \times \t{Aut}(K)$ s.t. $\phi'_k = (\psi,\mu)\phi_k=\psi\circ\phi_{\mu^{-1}(k)}\circ\psi^{-1}$\\
+    Let $\varphi : H \rtimes_\phi K \rightarrow H \rtimes_{\phi'} K$ s.t. $\varphi(h_1,k_1)=(\psi(h),\mu(k))$\\
+    Homomorphism: Let $(h_1,k_1),(h_2,k_2) \in H \rtimes_{\phi} K$\\
+    $\varphi[(h_1,k_1)(h_2,k_2)]=\varphi(h_1\phi_{k_1}(h_2),k_1k_2)=(\psi(h_1\phi_{k_1}(h_2)),\mu(k_1,k_2))$\\\
+    $\varphi(h_1,k_1)\varphi(h_2,k_2)=(\psi(h_1),\mu(k_1))(\psi(h_2),\mu(k_2))=(\psi(h_1)\phi'_{\mu(k)}(\psi(h_2)),\mu(k_1)\mu(k_2))$\\
+    $=(\psi(h_1)\psi\circ\phi_{\mu^{-1}(\mu(k_1))}\circ\psi^{-1}(\psi(h_2)),\mu(k_1k_2))=(\psi(h_1\phi_{k_1}(h_2)),\mu(k_1k_2))$\\
+    Injective: Let $(h_1,k_1),(h_2,k_2) \in H \rtimes_{\phi} K$ s.t. $\varphi(h_1,k_1)=\varphi(h_2,k_2)$
+    \begin{align*}
+        \varphi(h_1,k_1)&=\varphi(h_2,k_2)\\
+        (\psi(h_1),\mu(k_1))&=(\psi(h_2),\mu(k_2))
+    \end{align*}
+    thus $\psi(h_1)=\psi(h_2)$ and $\mu(k_1)=\mu(k_2)$ since these are automorphisms $h_1=h_2$ and $k_1=k_2$ thus $(h_1,k_1)=(h_2,k_2)$\\
+    Surjective: Let $(h,k) \in H \rtimes_{\phi'} K$ consider $(\psi^{-1}(h),\mu^{-1}(k))$\\
+    $\varphi(\psi^{-1}(h),\mu^{-1}(k))=(h,k)$\\\
+    Thus $H \rtimes_\phi K \cong H \rtimes_{\phi'} K$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+Used some latex from class notes.\\
+Let $n_3$ be the number of $3$-Sylows then by Sylow Theorem 3, $n_3 \mid 7$ and $n_3 \equiv 1 \pmod{3}$.
+Thus, $n_3 = 1$ or $n_3 = 7$\\
+Let $n_7$ be the number of $7$-Sylows then by Sylow 3, $n_7 \mid 3$ and $n_7 \equiv 1 \pmod{7}$, thus $n_7 = 1$.\\
+If $n_3 = 1$ then this implies $H$ is a unique 3-Sylow subgroup of $G$, and thus it is normal by Sylow 2 this applies 
+for $K$ the unique 7-Sylow subgroup of $G$.\\
+Consider $HK$: Since $H,K$ are both normal $HK$ is a subgroup of $G$. Also, $H\cup K$ has $9$ elements of the 21 elements in $G$,
+thus by Lagrange's theorem the only other order of elements outside $H \cup K$ would have order 21, thus $G \cong C_{21}$\\
+If $n_3 = 7$. We still have that the unique $7$-Sylow subgroup $K=\{e,x,x^2,\dots,x^6\}$ which is normal in $G$, and we can fix an arbitrary $3$-Sylow subgroup $H = \{e, y, y^2 \}$.\\
+Since  $K$ is normal this implies $yxy^{-1}=x^i$ thus
+\begin{gather*}
+    y^2 x y^{-2} = y(yxy^{-1})y^{-1} = y x^i y^{-1} = (yxy^{-1})^i = (x^i)^i = x^{(i^2)} \\
+    x = y^3 x y^{-3} = y (y^2 x y^{-2})y^{-1} = y(x^{(i^2)})y^{-1} = (x^{(i^2)})^i = x^{(i^3)}
+\end{gather*}
+From this we can see that $i^3 \equiv 1 \pmod{7}$, reducing the possibilities to $i \in \{1, 2, 4 \}$.
+\begin{itemize}
+    \item If $i=1$ then $yx=xy$ thus consider $xy$
+    \begin{multicols}{3}
+            $(xy)^2=x^2y^2\\
+            (xy)^3=x^3y^3=x^3\\
+            (xy)^4=x^4y\\
+            (xy)^5=x^5y^2\\
+            (xy)^6=x^6\\
+            (xy)^7=y\\
+            (xy)^8=xy^2\\
+            (xy)^9=x^2\\
+            (xy)^{10}=x^3y\\
+            (xy)^{11}=x^4y^2\\
+            (xy)^{12}=x^5\\
+            (xy)^{13}=x^6y\\
+            (xy)^{14}=y^2\\
+            (xy)^{15}=x\\
+            (xy)^{16}=x^2y\\
+            (xy)^{17}=x^3y^2\\
+            (xy)^{18}=x^4\\
+            (xy)^{19}=x^5y\\
+            (xy)^{20}=x^6y^2\\
+            (xy)^{21}=e\\
+            $
+    \end{multicols}
+    Thus ord$(xy)=21$ thus $G \cong C_{21}$
+    \item If $i=2$\\
+    Thus $yxy^{-1}=x^2$\\
+    Thus $G=\ang{x,y \mid x^7=y^3=e, yxy^{-1}=x^2}$
+    \item If $i = 4$\\
+    Thus $yxy^{-1}=x^4$\\
+    thus $y^2xy^{-2}=x^{16}=x^2$\\
+    Thus let $\varphi: G \rightarrow \ang{a,b \mid a^7=b^3=e, bab^{-1}=a^2}=A$ s.t. $\varphi(x)=a$ and $\varphi(y^2)=b$\\
+    Homomorphism: We only need to check for we sent same order to same order which we did and that $\varphi(y^2)\varphi(x)=\varphi(x)^2\varphi(y^2)$\\
+    $\varphi(y^2)\varphi(x)=ba=ba^2=\varphi(x)^2\varphi(y^2)$\\
+    Injective: Let $g \in$ ker$(\varphi)$\\
+    Since we did not send any generators of $G$ to the identity elmeent this means that our kernel is trivial thus $\varphi$ is injective\\
+    Surjective: Let $g \in A$ thus $g=a^ib^j$ for $0 \leq i < 7$ and $0 \leq j < 3$\\
+    Consider $x^iy^{2j}$\\
+    $\varphi(x^iy^{2j})=\varphi(x)^i\varphi(y^2)^j=a^ib^j=g$\\
+    Thus $G \cong A$
+\end{itemize}
+
+\newpage
+\subsection*{Problem 6}
+Only have to check generators for conjugacy\\
+Consider: $x^n$\\
+$yx^ny^{-1}=x^{2n}$ thus\\
+Class 1: $\{x,x^2,x^4\}$\\
+Class 2: $\{x^3,x^5,x^6\}$\\
+Consider: $y$\\
+$x^iyx^{-i}=yx^{2i}x^{-i}=yx^i$ for $i \in \{0,\dots,6\}$\\
+Class 3: $\{y,yx,yx^2,yx^3,yx^4,yx^5,yx^6\}$\\
+Consider: $y^2$\\
+$x^iy^2x^{-i}=yx^{2i}yx^{-i}=y^2x^{3i}$ for $i \in \{0,\dots,6\}$\\
+Class 4: $\{y^2,y^2x,y^2x^2,y^2x^3,y^2x^4,y^2x^5,y^2x^6\}$\\
+Class 5: $\{e\}$\\
+Thus $|G|=1+3+3+7+7=21$
+
+\newpage
+\subsection*{Problem 7}
+Let $G$ be order $30=2\times3\times5$.\\
+By Sylow 1 there exists 2-Sylow subgroup, 3-Sylow subgroup, and 5-Sylow subgroup.\\
+Let $n_5$ be the number of 5-Sylow subgroups the by Sylow 3, $n_5 \mid 6$ and $n_5 \equiv 1 \pmod{5}$\\
+Thus $n_5=1,6$\\
+Let $n_3$ be the number of 3-Sylow subgroups the by Sylow 3, $n_3 \mid 10$ and $n_3 \equiv 1 \pmod{3}$\\
+Thus $n_3=1,10$\\
+If $n_5=6$ and $n_3=10$ then this means there are $2\cdot 10=20$ elements of order $3$\\ 
+this leaves $9$ elements to be order 5 however there are $4 \cdot 6=25$ elements of order $5$ thus these cannot be true at the same time\\
+Thus $n_5$ or $n_3$ is equal to 1.\\
+If $n_5=1$ let $H$ be the unique 5-Sylow. Thus, $H$ is normal in $G$, and let $K$ be a 3-Sylow.\\
+Since $H$ is normal this implies $HK$ is a subgroup of $G$. Also since $H$ has only elements of order 5,1 and $K$ only has elements of order 3,1 this implies $K\cap H = \{e\}$
+thus $|HK|=\dfrac{|H||K|}{|H \cap K|}=15$ thus $[G : HK]=2$ by lagrange's theroem. Thus, since $HK$ is index 2 this means it is normal in $G$\\
+If $n_3=1$ do the same thing as above, and you will get a normal subgroup of order 15.\\
+Let $L$ be that normal subgroup of order $15$ since it is order 15 proven in class this can only be isomorphic $C_{15}$ thus let $L=\ang{x}$ for $x\in L$\\
+Let $U$ be a 2-Sylow subgroup since it is order of a prime we know it is cyclic thus let $U=\ang{y}$ for $y \in U$\\
+Since $L$ is normal this implies $yxy^{-1}=x^i$ thus\\
+$x=y^2xy^{-2}=y(yxy^{-1})y^{-1}=yx^iy^{-1}=x^{2i}$ thus\\
+$i^2 \equiv 1 \pmod{15}$\\
+$i \in \{1,4,11,14\}$\\
+\begin{itemize}
+    \item If $i=1$ then $yx=xy$ thus consider $xy$
+    \begin{multicols}{3}
+        $(xy)^2=x^2y^2=x^2\\
+        (xy)^3=x^3y^3=x^3y\\
+        (xy)^4=x^4\\
+        (xy)^5=x^5y\\
+        (xy)^6=x^6\\
+        (xy)^7=x^7y\\
+        (xy)^8=x^8\\
+        (xy)^9=x^9y\\
+        (xy)^{10}=x^{10}\\
+        (xy)^{11}=x^{11}y\\
+        (xy)^{12}=x^{12}\\
+        (xy)^{13}=x^{13}y\\
+        (xy)^{14}=x^{14}\\
+        (xy)^{15}=y\\
+        (xy)^{16}=x\\
+        (xy)^{17}=x^2y\\
+        (xy)^{18}=x^3\\
+        (xy)^{19}=x^4y\\
+        (xy)^{20}=x^5\\
+        (xy)^{21}=x^6y\\
+        (xy)^{22}=x^7\\
+        (xy)^{23}=x^8y\\
+        (xy)^{24}=x^9\\
+        (xy)^{25}=x^{10}y\\
+        (xy)^{26}=x^{11}\\
+        (xy)^{27}=x^{12}y\\
+        (xy)^{28}=x^{13}\\
+        (xy)^{29}=x^{14}y\\
+        (xy)^{30}=e\\
+        $
+    \end{multicols}
+    Thus $G \cong C_{30}$
+    \item If $i=14$ then $yxy^{-1}=x^{14} \implies yx=x^{14}y$\\
+    thus $G= \ang{x,y \mid x^{15}=y^2=e,\; yx=x^{14}y} \cong D_{15}$
+    \item If $i=4$ then $yxy^{-1}=x^4$ $G= \ang{x,y \mid x^{15}=y^2=e,\; yxy^{-1}=x^4}$
+    \item If $i=11$ then $yxy^{-1}=x^{11}$ $G= \ang{x,y \mid x^{15}=y^2=e,\; yxy^{-1}=x^{11}}$
+\end{itemize}
+
 \end{document}
