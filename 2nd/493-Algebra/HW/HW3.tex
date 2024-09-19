@@ -353,7 +353,7 @@ From this we can see that $i^3 \equiv 1 \pmod{7}$, reducing the possibilities to
     Thus ord$(xy)=21$ thus $G \cong C_{21}$
     \item If $i=2$\\
     Thus $yxy^{-1}=x^2$\\
-    Thus $G=\ang{x,y \mid x^7=y^3=e, yxy^{-1}=x^2}$
+    Thus $G=\ang{x,y \mid x^7=y^3=e, yxy^{-1}=x^2}=A$
     \item If $i = 4$\\
     Thus $yxy^{-1}=x^4$\\
     thus $y^2xy^{-2}=x^{16}=x^2$\\
@@ -365,12 +365,14 @@ From this we can see that $i^3 \equiv 1 \pmod{7}$, reducing the possibilities to
     Surjective: Let $g \in A$ thus $g=a^ib^j$ for $0 \leq i < 7$ and $0 \leq j < 3$\\
     Consider $x^iy^{2j}$\\
     $\varphi(x^iy^{2j})=\varphi(x)^i\varphi(y^2)^j=a^ib^j=g$\\
-    Thus $G \cong A$
+    Thus $G \cong A$\\
+    and $A$ we know has a subgroup $H$ of size 7 that is normal, and we know it has a subgroup $K$ of size 3.\\
+    Since $H$ only has elements of order 1,7 and $K$ only has elemetns of order 1,3 we know $H\cap K =\{e\}$ thus $|HK|=|H||K|/|H\cap K|=21$ thus $G=HK$ and $H \cap K = \{e\}$
+    thus by 3 we know $A \cong H \rtimes K$ and since $H,K$ are prime order we know they are isomorphic to $C_7,C_3$ repectively thus $A \cong C_7 \rtimes C_3$
 \end{itemize}
 
 \newpage
 \subsection*{Problem 6}
-Only have to check generators for conjugacy\\
 Consider: $x^n$\\
 $yx^ny^{-1}=x^{2n}$ thus\\
 Class 1: $\{x,x^2,x^4\}$\\
@@ -446,4 +448,69 @@ $i \in \{1,4,11,14\}$\\
     \item If $i=11$ then $yxy^{-1}=x^{11}$ $G= \ang{x,y \mid x^{15}=y^2=e,\; yxy^{-1}=x^{11}}$
 \end{itemize}
 
+\newpage
+\subsection*{Problem 8}
+Let $G$ be a group of order 12.\\
+By Sylow 1 there exists 2-Sylow subgroup and a 3-Sylow subgroup.\\
+Let $n_2$ be the number of 2-Sylow subgroups the by Sylow 3, $n_2 \mid 3$ and $n_2 \equiv 1 \pmod{2}$\\
+Thus $n_2=1,3$\\
+Let $n_3$ be the number of 3-Sylow subgroups the by Sylow 3, $n_3 \mid 4$ and $n_3 \equiv 1 \pmod{3}$\\
+Thus $n_3=1,4$\\
+If $n_2=3$ and $n_3=4$ then there are $2*4=8$ elements of order 3 thus there are 3 elements left for the 2-Sylow subgroups
+this is not enough elements thus $n_2=1$ or $n_3=1$\\
+\begin{enumerate}
+    \item If $n_2=1$\\
+    Then let $H$ be the 2-Sylow subgroup and $K$ be a 3-sylow subgroup and since $|K|=3$ this means $K\cong C_3$ and since $|H \cap K|=\{e\}$ since $H$ only has order 1,2,4 and $K$ only has order 1,3 so $|HK|=|H||K|=|G|$ thus $HK=G$ thus $G \cong H \rtimes K$
+    \begin{enumerate}
+        \item If $H \cong C_2 \times C_2$\\
+        Thus $G \cong (C_2 \times C_2) \rtimes_\phi C_3$ s.t. $\phi : C_3 \rightarrow \t{Aut}(C_2 \times C_2) \cong S_3$ by homework 1 and is a homomorphism.\\
+        Since all non identity elements in $C_3$ are order 3 and ord$(\phi(x)) \mid \t{ord}(x)=3$ thus $\phi(x)=id$ or equals three cycle where $x$ is the generator of $C_3$\\
+        If $\phi$ is trivial then by 3c this implies that $G \cong C_2 \times C_2 \times C_3 \cong C_6 \times C_2$\\
+        If $\phi$ is not trivial then we have two choices for $C_2 \times C_2 = \{e,1,2,3=12\}$ $\phi_1(x)=(123)$ and $\phi_2(x)=(132)$ since there are two 3 cycles. Consider $f : C_3 \rightarrow C_3$ s.t. $f(x)=x^{-1}$
+        and $g : C_2\times C_2 \rightarrow C_2 \times C_2$ s.t. $g(x)=x$ these are both automorphisms\\
+        Consider $(g,f)\phi_2(x)= g \circ \phi_2(f(x)) \circ g^{-1}=\phi_2(x^2)$\\
+        $\phi_2(x^2)(1)=(132)(132)(1)=(123)(1)=2$\\
+        $\phi_2(x^2)(2)=(132)(132)(2)=(123)(2)=3$\\
+        Thus $(f,g)\phi_{2}(x)=\phi_1(x)$ thus by 4 since $x$ is the generator and defines the homomorphism $H \rtimes_{\phi_1} K = H \rtimes_{\phi_{2}} K$ thus $G \cong (C_2 \times C_2) \rtimes C_3$
+        \item If $H=C_4$\\
+        Thus $G \cong C_4 \rtimes_\phi C_3$ s.t. $\phi : C_3 \rightarrow \t{Aut}(C_4) \cong C_2$ since there are two generators of $C_4$ and is a homomorphism.\\
+        non identity elements in $C_3$ are order 3 and ord$(\phi(x)) \mid \t{ord}(x)=3$ thus $\phi(x)=id$ thus by 3c $G \cong C_4 \times C_3 \cong C_{12}$ since proven in class if gcd$(a,b)=1$ then $C_a \times C_b \cong C_{ab}$
+    \end{enumerate}
+    \item If $n_3=1$\\
+    then let $H$ be the 3-Sylow subgroup and since $|H|=3$ this means $H \cong C_3$ and let $K$ be a 2-Sylow subgroup abs since $|H \cap K|=\{e\}$ since $H$ only has order 1,3 and $K$ only has order 1,2,4 so $|HK|=|H||K|=|G|$ thus $HK=G$ thus  $G \cong H \rtimes K$
+    \begin{enumerate}
+        \item If $H \cong C_2 \times C_2$\\
+        Then $G \cong C_3 \rtimes_{\phi} C_2 \times C_2$ s.t. $\phi : C_2 \times C_2 \rightarrow \t{Aut}(C_3) \cong C_2$ since $C_3$ has two generators and is a homomorphism.\\
+        Since all non identity elements in $C_2 \times C_2=\{e,a,b,ab\}$ are order 2 and ord$(\phi(x)) \mid \t{ord}(x)=2$ thus $\phi(x)=id$ for all $x\in C_2 \times C_2$
+        or $\phi_1(a)=c$ and $\phi_1(b)=c$ or $\phi_2(a)=c$ and $\phi_2(b)=id$ or $\phi_3(a)=id$ and $\phi_3(b)=c$ where $c : C_3 \rightarrow C_3$ s.t. $c(x)=x^{-1}$ for $x \in C_3$\\
+        If $\phi$ is trivial then by 3c this implies that $G \cong C_3 \times C_2 \times C_2 \cong C_6 \times C_2$\\
+        If $\phi$ is not trivial then consider
+        \begin{itemize}
+            \item $f$ swaps $a$ and $b$ and fixes $ab$
+            \item $h$ swaps $a$ and $ab$ and fixes $b$
+        \end{itemize}
+        and $g : C_3 \rightarrow C_3$ s.t. $g(x)=x$ for all $x \in C_3$ these are all automorphisms
+        \begin{itemize}
+            \item Consider: $(g,f)\phi_2$
+            \begin{itemize}
+                \item $(g,f)\phi_2(a)=g \circ \phi_2(f(a))\circ g^{-1}=\phi_2(b)=id$
+                \item $(g,f)\phi_2(b)=g \circ \phi_2(f(b))\circ g^{-1}=\phi_2(a)=c$
+            \end{itemize}
+            Thus $(g,f)\phi_2 = \phi_3$ thus by 4, \\$H \rtimes_{\phi_2} K \cong H \rtimes_{\phi_3} K$
+            \item Consider: $(g,f)\phi_1$
+            \begin{itemize}
+                \item $(g,h)\phi_1(a)=g \circ \phi_1(f(a))\circ g^{-1}=\phi_1(ab)=\phi_1(a)\phi_1(b)=c \circ id = c$
+                \item $(g,h)\phi_1(b)=g \circ \phi_1(f(b))\circ g^{-1}=\phi_1(b)=id$
+            \end{itemize}
+            Thus $(g,h)\phi_1 = \phi_2$ thus by 4, \\$H \rtimes_{\phi_1} K \cong H \rtimes_{\phi_2} K$
+        \end{itemize}
+        Thus $H \rtimes_{\phi_1} K \cong H \rtimes_{\phi_2} K \cong H \rtimes_{\phi_3} K$\\
+        Thus $G \cong C_3 \rtimes C_2 \times C_2$
+        \item If $H \cong C_4$\\
+        Then $G \cong C_3 \rtimes_\phi C_4$ s.t. $\phi : C_4 \rightarrow \t{Aut}(C_3) \cong C_2$.\\
+        Since the generator of $C_4$ is $4$ and ord$(\phi(x)) \mid \t{ord}(x)=4$ thus $\phi(x)=id$ or $\phi(x)=x^{-1}$\\
+        If $\phi$ is trivial then by 4 $G \cong C_4 \times C_3 \cong C_{12}$\\
+        If $\phi$ is not trivial then $G \cong C_3 \rtimes C_4$
+    \end{enumerate}
+\end{enumerate}
 \end{document}
