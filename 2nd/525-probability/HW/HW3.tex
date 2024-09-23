@@ -72,10 +72,45 @@
 \subsection*{Problem 1}
 \begin{enumerate}
     \item $\{K=0\}=\{\{TTTTTT\dots TT\}\}$ $N$ times.\\
-    Since the first tying head appears if there is one head this means that for there to be no typing heads there is no heads.\\
+    Since the first tying head appears if there is one head this means that for there to be no tying heads there is no heads.\\
     $A_N=0$ since there is no heads, so there is no $HH$ pair\\
     $B_N=0$ since there is no heads, so there is no $HT$ pair
-    \item 
+    \item Consider the number of $HT$ and $TH$ between two $H$'s this number must be equal.
+    Between two  heads, the sequence must contain transitions from tails beck to heads. This ensures that for every $HT$ there must be a corresponding $TH$ because if not we would not end with a $H$.\\
+    Thus, when we apply $r$ to a sequence between two heads there will always be the same score for Bob, and there will be the same number for Alice since $HH$ reversed is $HH$.
+    Thus, $A_i(\omega)=A_i(r(\omega))$ and $B_i(\omega)=B_i(r(\omega))$ for $i$ at or after the second tying head.\\
+    Consider $r : \{K > 1\} \rightarrow \{K > 1\}$\\
+    Let $\omega \in \{K > 1\}$. Let $a$ be the sequence between the first two tying heads in $\omega$\\
+    $r\circ r(\omega)=r (\omega^{-1})$ where $\omega^{-1}$ is $\omega$ except $a$ is reversed. We know this is also in $\{K > 1\}$ since we know it still has two tying heads by shown above.\\
+    Thus, $r(\omega^{-1})=\omega$ thus $r$ is its own inverse thus it is bijective.
+    \item Since $r$ is its own inverse we can split $\{K > 1\}$ into pairs of the form\\ 
+    $(\omega, r(\omega))$ s.t. $(\omega, r(\omega)) = (\omega^{-1}, r(\omega^{-1}))$ if $\omega=r(\omega^{-1})$ and $\omega^{-1}=r(\omega)$\\
+    Since $r$ is bijective and its own inverse we know there is exactly $|\{K > 1\}|/2$ of these unique pairs with the equivalence relation.\\
+    Thus consider $(\omega,  r(\omega))$: WLOG let $\omega$ be an element whose toss directly after the first tying head is T and
+    the toss directly before the second tying head is $H$\\
+    Thus $r(\omega)$ is the element whose sequence between the first two tying heads is flipped from $\omega$ thus $r(\omega)$ is an element whose toss directly
+    after the first tying head is $H$ and the toss directly before the second tying head is $T$.\\
+    Thus, $\{K > 1\}$ can be written as the pairs of these two elements, and thus it is the union of these two sets. We know they have the same cardinality since each element has a unique element in the other set this is from $r$ being its own inverse thus they have the same cardinality.
+    \item Let $k : \{K = 1\} \rightarrow \{K = 1\}$ s.t. $k(\omega)$ flips the toss directly after the first tying head\\
+    Well Defined: Since all $k$ does is flip the toss directly after the first tying heads it cannot affect the rest of the sequence thus it cannot create more tying heads, so the output will also have one tying head.
+    Let $\omega \in \{K > 1\}$\\
+    Consider $k \circ k(\omega)=k(\omega^{-1})$ s.t. $\omega^{-1}$ is $\omega$ except the toss directly after the first tying head is flipped thus\\
+    $k(\omega^{-1})=\omega$\\
+    Thus $k$ is its own inverse thus it is bijective. Also since it is its own inverse we can do the same thing as above and write the set as pairs of $(\omega, k(\omega))$ similar to the proof above we know this splits $\{K = 1\}$ into two sets that have the same cardinality.
+    \item From 4 we know $\{K = 1\}$ can be split into two sets the ones defined in $(a),(b)$.\\
+    Consider $(a)$ We know there is one tying head mainly the first head, and we know directly after that the score is Bob has 1 and Alice has 0. Alice cannot get any more $HH$ because then she would make another tying heads, but we only assume there is one in our sequence thus Bob always wins\\
+    Consider $(b)$ We know there is one tying head mainly the first head, and we know directly after that the score is Alice has 1 and Bob has 0. However, Bob can score by there being a $T$ after the second $H$ this does not create a second tying head thus we can actually end in either Alice winning or there being a tie.
+    \item To show that in the set $\{K > 1\}$, the number of sequences where Bob wins is at least the number of sequences where Alice wins, we begin by considering the partial sequence starting from the final tying head. 
+    From this point onward, the problem reduces to the previous case of $\{K = 1\}$, but for a smaller $N$. We can do this since between two tying heads this basically resets out score to net-zero, so we keep doing this till the last typing head.
+    In this reduced case, we have already established that Bob wins at least as many sequences as Alice, since Bob wins all sequences where the toss directly after the first tying head is $T$, and Alice only wins a subset of sequences where the toss after the first tying head is $H$. 
+    Since the remainder of the sequence after the final tying head in $\{K > 1\}$ behaves like a $\{K = 1\}$ case, the number of sequences where Bob wins from this point is at least the number of sequences where Alice wins. 
+    Therefore, in the entire set $\{K > 1\}$, the number of sequences where Bob wins is at least the number of sequences where Alice wins.
+    \item We conclude that Bob is more likely to win when $N > 2$. 
+    This follows from the fact that in the set $\{K = 1\}$, we have already shown that Bob wins strictly more sequences than Alice, as Bob wins all sequences where the toss after the first tying head is $T$, while Alice only wins a subset of sequences where the toss is $H$. 
+    Moreover, in the set $\{K > 1\}$, we argued that the number of sequences where Bob wins is at least the number of sequences where Alice wins. 
+    Since Bob tends to have an advantage both in $\{K = 1\}$ and $\{K > 1\}$, and $N > 2$ implies a larger number of possible ties and sequences to analyze, Bob’s likelihood of winning increases as $N$ increases beyond 2. 
+    Therefore, as $N > 2$, Bob is more likely to win overall.
+
 \end{enumerate}
 
 \newpage
@@ -98,4 +133,10 @@ $=1+2(\binom{n}{2}E[X_1X_2])$ we can do this since the expected value of two num
 $E[X_1X_2]=\P(s(1)=1)\P(s(2)=2 \mid s(1)=1)$ there is $n$ choices for the first number and $n-1$ for the second given 1 is fixed\\
 thus $E[X_1X_2]=\dfrac{1}{n}\times \dfrac{1}{n-1}$\\
 $=1+2(\binom{n}{2}\dfrac{1}{n}\times \dfrac{1}{n-1})=1+2(\dfrac{n(n-1)}{2}\dfrac{1}{n}\times \dfrac{1}{n-1})=1+2(\dfrac{1}{2})=1+1=2$
+
+\newpage
+\subsection*{Problem 4}
+Let $X_i(\omega)=1$ if the run of heads ends at $i$.\\
+Thus, $E[X_1]=0$ and $E[X_i]=\P(\t{spot $i$ is heads})\P(\t{spot $i-1$ is heads})\P(\t{spot $i+1$ is tails})=\dfrac{1}{8}$ for $2 \leq i < 15$ and for $E[X_{15}]=\P(\t{spot 15 is heads})\P(\t{spot 14 is heads})=\dfrac{1}{4}$\\
+$E[X]=E[X_1+\dots+X_{15}]=E[X_1]+\dots+E[X_15]=0+13\dfrac{1}{8}+\dfrac{1}{4}=\dfrac{15}{8}$
 \end{document}

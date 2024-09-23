@@ -1,0 +1,204 @@
+\documentclass[12pt,letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\newpage
+\subsection*{Problem 5}
+Let $x,h \in N_G(H)$\\
+Consider $xhx^{-1} \in N_G(H)$ since $N_G(H)$ is a subgroup thus $x \in N_G(H)$ thus $N_G(H) \subseteq N_G(N_G(H))$\\
+We know $H \unlhd N_G(H) \unlhd N_G(N_G(H))$ thus by proven in class since $H$ is a $p$-Sylow subgroup of $N_G(H)$ we know $H \unlhd N_G(N_G(H))$\\
+Thus let $x \in N_G(N_G(H))$\\
+Consider $xHx^{-1}=H $ thus $x \in N_G(H)$ thus $N_G(N_G(H)) \subseteq N_G(H)$\\
+Thus $N_G(N_G(H))=N_G(H)$ 
+
+\newpage
+\subsection*{Problem 6}
+Let $|G|=pqr$ where $p,q,r$ are distinct primes.\\
+WLOG: Let $p<q<r$ and for contradiction suppose $G$ has no normal Sylow subgroups thus $n_r,n_q,n_p>1$\\
+By Sylow 3 we know $n_r \mid pq$ and $n_r \equiv 1 \pmod{r}$\\
+Thus, $n_r=pq$ since $n_r \equiv 1 \pmod{r}$ and $p<q<r$\\
+Thus, there are $pq(r-1)=pqr-pq$ elements of order $r$.\\
+By Sylow 3 we know $n_q \mid pr$ and $n_q \equiv 1 \pmod{q}$\\
+Thus, $n_q\geq r$ since $n_q \equiv 1 \pmod{q}$ and $p < q< r$\\
+Thus, there are at least $r(q-1)=qr-r$ elements of order $q$.\\
+By Sylow 3 we know $n_p \mid qr$ and $n_p \equiv 1 \pmod{p}$\\
+Thus, $n_p \geq q$ since $n_p \equiv 1 \pmod{p}$ and $p<q<r$
+Thus, there are at least $q(p-1)=pq-q$ elements of order $p$.\\
+Thus, $pqr-pq+qr-r+pq-q \leq pqr$\\
+Thus, $qr-r-q \leq 0 \implies q(r-1)\leq r \implies q \leq \dfrac{r}{r-1}$\\
+Since $2\leq p<q$ we know $2 < q \leq \dfrac{r}{r-1} \leq 2$ since $r > r-1$\\
+This is a contradiction thus there is a normal Sylow subgroup.\\
+\phantom{text}\\
+Proven in class we know groups of order $p$ are simple, so we can rule these out.
+\begin{itemize}
+    \item 61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167
+\end{itemize}
+Proven in class we know groups of order $p^n$ have a nontrivial center thus they are not simple, so we can rule these out.
+\begin{itemize}
+    \item 64,81,121,125,128
+\end{itemize}
+Proven in class we know groups of order $pq$ are not simple, so we can rule these out.
+\begin{itemize}
+    \item 62,65,69,74,77,82,85,86,87,91,93,94,95,106,111,115,118,119,122,123,129,\\
+    133,134,141,142,143,145,146,155,158,159,161,166
+\end{itemize}
+Proven above we know groups of order $pqr$ are not simple, so we can rule these out.
+\begin{itemize}
+    \item 66,70,78,102,105,110,114,130,138,154,165
+\end{itemize}
+Proven in class we know groups of order $p^2q$ are not simple, so we can rule these out,
+\begin{itemize}
+    \item 63,68,75,76,92,98,99,116,117,124,147,148,153,164
+\end{itemize}
+Thus we have 72,80,84,88,90,96,100,104,108,112,120,126,\\
+132,135,136,140,144,150,152,156,160,162 left
+
+\begin{itemize}
+    \item 72:
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1,4$ if $n_3=1$ then done so assume $n_3=4$\\
+    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Since $|G|=72 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    \item 80:
+    Let $n_5$ be the number of 5-Sylow subgroups.\\
+    By Sylow 3, $n_5=1,16$ if $n_5=1$ then done so assume $n_5=16$\\
+    Thus there are $16*4=64$ elements of order 5 and $80-64=16$ elements left thus the remaining elements form the unique 2-Sylow subgroup thus $G$ is not simple.
+    \item 84:
+    Let $n_7$ be the number of 7-Sylow subgroups.\\
+    By Sylow 3, $n_7=1$ so it is normal thus done
+    \item 88:
+    Let $n_{11}$ be the number of 11-Sylow subgroups.\\
+    By Sylow 3, $n_{11}=1$ so it is normal thus done
+    \item 90:
+    \item 96:
+    Let $n_2$ be the number of 2-Sylow subgroups.\\
+    By Sylow 3, $n_2=1,3$ if $n_3=1$ then done so assume $n_3=3$\\
+    Thus $G$ acts of these 3 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_3$\\
+    Since $|G|=96 > |S_3|=6$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    \item 100:
+    Let $n_{5}$ be the number of 5-Sylow subgroups.\\
+    By Sylow 3, $n_{5}=1$ so it is normal thus done
+    \item 104:
+    Let $n_{13}$ be the number of 13-Sylow subgroups.\\
+    By Sylow 3, $n_{13}=1$ so it is normal thus done
+    \item 108:
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1,4$ if $n_3=1$ then so assume $n_3=4$\\
+    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Since $|G|=108 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    \item 112:
+    \item 120:
+    \item 126:
+    Let $n_{7}$ be the number of 7-Sylow subgroups.\\
+    By Sylow 3, $n_{7}=1$ so it is normal thus done
+    \item 132:
+    Let $n_{11}$ be the number of 11-Sylow subgroups.\\
+    By Sylow 3, $n_{11}=1,12$ if $n_{11}=1$ then done so assume $n_{11}=12$\\
+    Thus there are $12*10=120$ elements of order 11 and $132-120=12$ elements left\\
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1,4,22$ if $n_3=1$ then done so assume $n_3 \neq 1$\\
+    If $n_3=4$ then there are $4*2=8$ elements of order 3 thus there are $12-8=4$ elements left thus the remaining elements form the unique 2-Sylow subgroup.\\
+    If $n_3=22$ then there are $22*2=44$ elements of order 3 this is too many and a contradiction\\
+    \item 135:
+    Let $n_{5}$ be the number of 5-Sylow subgroups.\\
+    By Sylow 3, $n_{5}=1$ so it is normal thus done
+    \item 136:
+    Let $n_{17}$ be the number of 17-Sylow subgroups.\\
+    By Sylow 3, $n_{17}=1$ so it is normal thus done
+    \item 140:
+    Let $n_{7}$ be the number of 7-Sylow subgroups.\\
+    By Sylow 3, $n_{7}=1$ so it is normal thus done
+    \item 144:
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1,4,16$ if $n_3=1$ then so assume $n_3\neq1$\\
+    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Since $|G|=144 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    \item 150:
+    Let $n_5$ be the number of 5-Sylow subgroups.\\
+    By Sylow 3, $n_5=1,6$ if $n_5=1$ then done so assume $n_5=6$\\
+    Thus $G$ acts on these 6 subgroups of conjugation, so there is a homomorphism from $G \rightarrow S_6$\\
+    If the homomorphism is injective this implies $|\varphi(G)|=|G|$ and since $\varphi(G)$ is a subgroup of $S_6$ by lagrange's theorem its order must divide $|S_6|=720$\\
+    However, $|G|=150 \nmid 720$ thus this homomorphism cannot be injective. If kernel is the whole group this would mean there are 6 distinct normal 5-Sylow subgroups which is a contradiction thus the kernel of this homomorphism is normal in $G$
+    \item 152:
+    Let $n_{19}$ be the number of 19-Sylow subgroups.\\
+    By Sylow 3, $n_{19}=1$ so it is normal thus done
+    \item 156:
+    Let $n_{13}$ be the number of 13-Sylow subgroups.\\
+    By Sylow 3, $n_{13}=1$ so it is normal thus done
+    \item 160:
+    Let $n_2$ be the number of 2-Sylow subgroups.\\
+    By Sylow 3, $n_2=1,5$ if $n_2=1$ then done so assume $n_2=5$\\
+    Thus $G$ acts on these 5 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_5$\\
+    Since $|G|=160 > |S_5|=120$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    \item 162:
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1$ so it is normal thus done
+\end{itemize}
+\end{document}
