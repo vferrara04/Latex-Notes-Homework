@@ -70,6 +70,191 @@
 \fancyhead[ROE]{\thepage}
 
 \newpage
+\subsection*{Problem 1}
+\begin{enumerate}[(a)]
+    \item Let order of $a^i$ be $m$ and let $d=\gcd(i,n)$\\
+    Thus let $x \in \ang{a^i}$ this means $x=a^{ik}$ for $k \in \Z$\\
+    Also, $i=dq$ for some $q \in \Z$ since $d \mid i$\\
+    $x=a^{dqk}=(a^d)^{qk} \in \ang{a^d}$ thus $\ang{a^i} \subseteq \ang{a^d}$\\
+    Since $\gcd(i,n)=d$ there exists $r,s \in \Z$ s.t. $ir+ns=d$\\
+    Let $x \in \ang{a^d}$ this means $x=a^{dk}$ for $k \in \Z$\\
+    $a^{dk}=a^{(ir+ns)k}=a^{ikr}a^{nks}=a^{ikr} \in \ang{a^i}$ thus $\ang{g^i}=\ang{g^d}$\\
+    Thus, ord$(a^i)=\gcd(i,n)$
+    \item Let $H$ be a subgroup of $G$.
+    If $H=\{e\}=\ang{e}$ so done
+    If $H\neq \{e\}$ then $H=\{\dots,a^{-m_2},a^{-m_1},e,a^{m_1},g^{m_2}\}$ s.t. $m_i \in \N$\\
+    Let $m$ be the minimum $m_i$\\
+    Since $a^m \in H$ and $H$ is a subgroup this implies $\ang{a^m} \subseteq H$\\
+    Let $h \in H$ thus $h=a^k$ for some $k \in \Z$\\
+    Use division algorithm and thus there exists $q,r \in \Z$ s.t. $0 \leq r < m$ and $k=qm+r$\\
+    Consider: $a^r$\\
+    $a^r=a^ka^{-mq}=ha^{mq}$ thus $g^r \in H$\\
+    Since $m$ is the minimum this means $r=0$\\
+    Thus $h=a^mq \in \ang{a^m}$ thus $H=\ang{g^m}$ thus $H$ is cyclic
+    Uniqueness: Let $H$ be a subgroup of order $d$ s.t. $d \mid n$\\
+    Consider $\ang{a^{\frac{n}{d}}}$\\
+    $a^{\frac{n}{d}}$ has order $d$ thus there exists a subgroup of order $d$.
+    Let $H$ be another subgroup of order $d$ thus it is cyclic by proof above thus $H=\ang{a^m}$ s.t. ord$(a^m)=d$ and $m \in \Z$\\
+    By (a) we know $\ang{a^m}=\ang{a^{\gcd(m,n)}}$\\
+    Thus $d(\gcd(m,n))=n \implies \gcd(m,n)=\dfrac{n}{m} \implies H= \ang{a^{\frac{n}{d}}}$
+    \item Consider the prime factorization of $n=p_1^{k_1}p_2^{k_2}\dots p_r^{k_r}$\\
+    where $p_1,\dots p_r$ are distinct primes and $k_i \in \N$
+    \begin{align*}
+        \phi(n)&=|\{1 \leq a \leq n \mid \gcd(a,n)=1\}|\\
+               &=n-|\{1 \leq a \leq n \mid \gcd(a,n)>1\}|\\
+               &=n-|\{1 \leq a \leq n : p_1 \mid a \t{ or } p_2 \mid a \t{ or } \dots \t{ or } p_r \mid x\}|
+               \intertext{By Inclusion Exclusion s.t. $A_i = \{1 \leq a \leq n : p_i \mid a\}$}
+               &=n-\sum\limits_{k=1}^r\left[ (-1)^{k+1}\left( \sum\limits_{1 \leq i_1 < \dots < i_k \leq r}|A_{i_1} \cap \dots A_{i_k}| \right)\right]
+               \intertext{$|A_{i_1} \cap \dots A_{i_k}|=\dfrac{n}{p_{i_1}p_{i_2}\dots p_{i_k}}$ since this is the number of multiples of things that are less than $n$ and have these prime divisors}
+               &=n-\sum\limits_{k=1}^r\left[ (-1)^{k+1}\left( \sum\limits_{1 \leq i_1 < \dots < i_k \leq r}\dfrac{n}{p_{i_1}p_{i_2}\dots p_{i_k}} \right)\right]\\
+               &=n(1-\frac{1}{p_1})(1-\frac{1}{p_2})\dots(1-\frac{1}{p_r})\\
+               &=n\prod\limits_{i=1}^r(1-\frac{1}{p_i})
+    \end{align*}
+    Let $\gcd(m,n)=1$ this means they have prime factors with no overlapping primes thus let\\
+    $n=p_1^{k_1}p_2^{k_2}\dots p_r^{k_r}$ and $m=q_1^{c_1}q_2^{c_2}\dots q_a^{c_a}$ where $p_i,q_j$ are all distinct primes and there powers are natural numbers.
+    \begin{align*}
+        \phi(mn)&=mn(1-\frac{1}{p_1})\dots(1-\frac{1}{p_r})(1-\frac{1}{q_1})\dots(1-\frac{1}{q_a})\\
+                &=n(1-\frac{1}{p_1})\dots(1-\frac{1}{p_r})m(1-\frac{1}{q_1})\dots(1-\frac{1}{q_a})\\
+                &=\phi(n)\phi(m)
+    \end{align*}
+    \item Let $H$ be the unique subgroup of order $d$ s.t. $d \mid n$ this is by the proof in (b)\\
+    Since it is a subgroup of $G$ a cyclic group we know it is cyclic by proof in (b) thus let $H=\ang{h}$\\
+    Let $x \in G$ have order $d$ since $H$ is unique we know $\ang{h}=\ang{x} \implies x=h^m$ and by proof in (a) we know $\gcd(m,d)=1$\\
+    Thus the number of choices of $m$ is $\phi(d)$\\
+    Since every element has one unique order consider taking the sum of all the elements based on there order for example\\
+    \begin{align*}
+        \sum\limits_{i=1}^n|\{a \in G \mid a \t{ is order $i$}\}|=n
+        \intertext{By lagrange's theorem we know the only possible orders are divisors of $n$ thus}
+        \sum\limits_{d \mid n}|\{a \in G \mid a \t{ is order $d$}\}|=n
+        \intertext{And by the proof above we know $|\{a \in G \mid a \t{ is order $d$}\}|=\phi(d)$ thus}
+        \sum\limits_{d \mid n}\phi(d)=n
+    \end{align*} 
+    \item An automorphism is only determined by where is sends its generator, and to be an automorphism we must send our generator to another generator so if $G=\ang{x}$ and is order $n$ by (d) there are $\phi(n)$ choices for where to send $x$.
+    Thus, if $f \in$ Aut$(G)$ then $f(x)=x^a$ s.t. $\gcd(n,a)=1$\\
+    Let $\varphi: \t{Aut}(G) \rightarrow (\Z\diagup n\Z)^\times$ s.t. $\varphi(f)=a$ if $f(x)=x^a$\\
+    Homomorphism: Let $f,g \in \t{Aut}(G)$ s.t. $f(x)=x^a$ and $g(x)=x^b$\\
+    $\varphi(f \circ g)=ab=\varphi(f)\varphi(g)$\\
+    Let $\varphi^{-1}: (\Z\diagup n\Z)^\times \rightarrow \t{Aut}(G) $ s.t. $\varphi^{-1}(a)=f$ if $f(x)=x^a$\\
+    Homomorphism: Let $a,b \in (\Z\diagup n\Z)^\times$\\
+    $\varphi^{-1}(ab)=h$ s.t. $h(x)=x^{ab}$\\
+    $\varphi(a)\varphi(b)=f \circ g$ s.t. $f(x)=x^a$ and $g(x)=x^b$\\
+    $f\circ g(x)=x^{ab}$ thus $f\circ g = h$\\
+    Thus consider $\varphi \circ \varphi^{-1}(a)=\varphi(f)=a$\\
+    $\varphi^{-1} \circ \varphi(f)=\varphi^{-1}(a)=f$\\
+    Thus $\varphi$ has a inverse that is a homomorphism thus it is an isomorphism thus $\t{Aut}(G) \cong (\Z\diagup n\Z)^\times$
+    \item Suppose $a\in G_1$, $b\in G_2$ with ord$(a)=m$ and
+    ord$(b)=n$ then ord$((a,b))=$lcm$(m,n)$ in $G_1\times G_2$
+    
+    Set $k=\t{ord}((a,b))$, $l=\t{lcm}(m,n)$
+
+    $\implies l=ms, l=nt$ for $s,t\in \N$
+
+    $(a,b)^l=(a^l,b^l)=((a^m)^s,(b^n)^t)=(e_1,e_2) 
+    \implies k \mid l$
+
+    $(e_1,e_2)=(a,b)^k=(a^k,b^k) 
+    \implies a^k=e_1$ and $b^k=e_2$
+
+    $\implies m \mid k$ and $n \mid k$
+
+    $\implies l \mid k \implies l = k$
+    
+    Let $C_m=\ang{a}$ and $C_n=\ang{b}$\\
+    
+    $(\impliedby)$ Assume the gcd$(m,n)=1$, 
+    take $(a,b)\in C_m\times C_n$
+
+    ord$((a,b))=\t{lcm}(\t{ord}(a),\t{ord}(b))=\t{lcm}(m,n)=mn$ since $\gcd(n,m)=1$
+
+    $C_{mn}\cong\ang{(a,b)}\leq C_m\times C_n$ both have $mn$ elements
+    thus  $C_{mn}\cong\ang{(a,b)}=C_m\times C_n$
+
+    $(\implies)$ Assume $  C_{mn}\cong C_m\times C_n$
+
+    Since $C_{mn}$ is cyclic thus $C_m\times C_n$ is cyclic
+
+    $\implies \exists(a,b)\in C_m\times C_n$ s.t. 
+    $\ang{(a,b)}= C_m\times C_n$
+
+    $mn=| C_{mn}|=| C_m\times C_n|=\t{ord}((a,b))=\t{lcm}(ord(a),ord(b))
+    \leq \t{lcm}(m,n)=\frac{mn}{d}$ since $ord(a) \mid m$ and $ord(b) \mid n$
+    
+    $\implies mn\leq \frac{mn}{\gcd(m,n)} \implies \gcd(m,n) \leq 1 \implies \gcd(m,n) = 1$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}[(a)]
+    \item First $a(d)=\sum\limits_{d' \mid d}b(d')$ by definition of what $a(d)$ is.\\
+    Consider $x^n-1=0$ in $k$. By lagrange's theorem every element divides $n$ thus for $g \in G$ $g^n=1$ thus all elements are roots and since a polynomial can have max $n$ roots we know all elements of $G$ are roots so this equation has exactly $n$ roots.\\
+    Now consider $x^d-1=0$ we know this has at least $d$ roots so $a(d)\leq d$\\
+    Now factor $x^n-1=0 \implies (x^d -1)(x^{n-d} + x^{n-2d} \dots + 1)$ and since we know $x^n-1=1$ has exactly $n$ roots we know the left size of the facot has $d$ contributes roots and the right size contributes $n-d$ roots thus there are at least $d$ elements with order $d$.\\
+    Thus $d \leq a(d) \leq d$ thus $a(d)=d$\\
+    Thus $d=\sum\limits_{d' \mid d}b(d')$
+    \item Base Case: Let $d=1$\\
+    Thus $b(1)=1=\phi(1)$\\
+    Inductive Step: Assume $b(d')=\phi(d')$ for all $d' < d$\\
+    Consider $b(d)$ from (a) we know $b(d)=d-\sum\limits_{{d' \mid d\;\;\;d' \neq d}}b(d')$ by inductive hypothesis\\
+    $b(d)=d-\sum\limits_{{d' \mid d\;\;\;d' \neq d}}\phi(d')$ by problem 1(d)\\
+    $d=\sum\limits_{d' \mid d}\phi(d')$ thus\\
+    $b(d)=\sum\limits_{d' \mid d}\phi(d')-\sum\limits_{{d' \mid d\;\;\;d' \neq d}}\phi(d')=\phi(d)$\\
+    Thus $b(d)=\phi(d)$ for all $d \mid n$\\
+    Thus $b(n)=\phi(n)\geq 1$ since $\phi(n)$ always has 1 thus we know there is an element of order $n$ thus we know since $|G|=n$ we know $G$ is cylic.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+Let $G$ be a group of order $pq$ s.t. $p,q$ are distinct primes. WLOG let $p<q$\\
+Let $n_q$ be the number of $q$-Sylow subgroups.\\
+By Sylow 3, we know $n_q=1$ thus the unique $q$-Sylow subgroup is normal in $G$.
+Let $n_p$ be the number of $p$-Sylow subgroups.\\
+By Sylow 3, we know $n_p=1,q$ thus the unique $q$-Sylow subgroup is normal in $G$.\\
+If $n_p=1$ then let $P,Q$ be the $p$-Sylow group and the $q$-Sylow group respectively.\\
+Since $P$ only has elements of order $p,1$ and $Q$ only has elements of order $q,1$ thus we know $P\cap Q = \{e\}$ and thus $|PQ|=pq$ thus $PQ=G$, and they are both normal thus proven in homework we know
+$G \cong P \times Q \cong C_p \times C_q \cong C_pq$ since $\gcd(p,q)=1$\\
+If $n_p=q$ then let $P,Q$ be a $p$-Sylow group and the $q$-Sylow respectively.\\
+Since $P$ only has elements of order $p,1$ and $Q$ only has elements of order $q,1$ thus we know $P\cap Q = \{e\}$ and thus $|PQ|=pq$ thus $PQ=G$, and $Q$ is normal thus proven in homework we know
+$G \cong Q \rtimes_\phi P \cong C_q \rtimes_\phi C_p$ s,t. $\phi: C_p \rightarrow \t{Aut}(C_q) \cong C_{q-1}$ by proof above and is a homomorphism.\\
+Since all non identity elements of $C_p$ are order $p$ and ord$(\phi(x)) \mid \t{ord}(x)=p$ thus $\phi(x)$ is order $1$ or $p$ where $x$ is the generator for $C_p$\\
+Thus if $p \nmid q-1$ then this means there are no elements of order $p$ in $C_{q-1}$ thus ord$(\phi(x))=1$ thus this is the trivial homomorphism thus $G \cong C_q \times C_p \cong C_{pq}$\\
+If $p \mid q-1$ then by Cauchy's Theorem there is an element of order $p$ in $q-1$ thus there is a subgroup of order $p$ to $C_{q-1}$ thus we send $\phi(x)$ to one of these generators of the order $p$ subgroup and thus there are $p-1$ choices of generators in the subgroup.\\
+Thus let $\phi(x)=C_a$ s.t. $C_a : C_q \rightarrow C_q$ s.t. $C_a(c)=c^a$ s.t. $c^a$ is order $p$ and let $\phi'(x)=C_b$ s.t. $C_b : C_q \rightarrow C_q$ s.t. $C_a(c)=c^b$ s.t. $c^b$ is order $p$ s.t. $c$ is the generator of $C_q$ WLOG let $a \equiv b^k \pmod{p}$ for $k \in \N$ and $k < p$\\
+Thus consider $f: C_q \rightarrow C_q$ s.t. $f=id$ and $g : C_p \rightarrow C_p$ s.t. $g(x)=x^k$ these are both automorphisms since $f$ is the identity and g is since $k < p$\\
+Consider $(g,f)\phi'(x)=f \circ \phi'(g(x))\circ f^{-1}= \phi'(x^k)=(C_a)^k$\\
+$(C_a)^k(c)=c^{ka}=c^b=\phi(x)(c)$
+Thus $(g,f)\phi'(x)=\phi$\\
+Thus $C_q \rtimes_\phi C_p \cong C_q \rtimes_{\phi'} C_p$ for all homomorphisms thus $C_q \rtimes C_p$
+
+\newpage
+\subsection*{Problem 4}
+Consider an element in $GL_n(\mathbb{F}_p)$ since it has to be independent there is $p^n-1$ choices for the first column since we have $p$ choices for the $n$ spots, but they can't be all zero thus $p^n-1$\\
+For the second column we have $p^n-p$ since it can't be a scalar multiple of the first, so we have p choices for a scalar.\\
+In general for the $k$th column we have $p^n$ choices of vectors but it cant be a linear combination of the previous thus $c_1v_1+\dots+c_{k-1}v_{k-1}$ thus we have $k-1$ scalars and $p$ choices $0,1,2,\dots, p-1$ thus we have $p^n-p^{k-1}$ choices for column $k$\\
+Thus $|GL_n(\mathbb{F}_p)|=\prod\limits_{k=1}^n(p^n-p^{k-1})=\prod\limits_{k=1}^np^{k-1}(p^{n-k+1}-1)=p^{n(n-1)/2}\prod\limits_{k=1}^n(p^k-1)$\\
+Thus by Sylow 1 we know there is a $p$-Sylow of order $p^{n(n-1)/2}$. Consider upper triangle matrices with ones on the diagonal. This has order $p^{n(n-1)/2}$ since we have that many choices for each spot above the diagonal and an upper triangular matrix is invertible if there is no zero on the diagonal and there is all 1's on the diagonal, so this is one $p$-Sylow subgroup.\\
+Let $n_p$ be the number of $p$-Sylow subgroups. Consider the action of conjugation on these $p$-Sylow subgroups thus by proven in class we know $n_p=|\text{Stab} (P)|=\dfrac{|G|}{|N_G(P)|}$ where $P$ is any $p$-Sylow subgroup.\\
+In this case let $P$ be upper triangular matrices with 1's on the diagonal.\\
+Consider $N_G(P)$\\
+Let $A$ be an invertible upper triangular matrix and let $U \in P$\\
+$AUA^{-1}=A(I+B)A^{-1}$ where $B$ is $U$ except it has zeros on the diagonal.\\
+$=AIA^{-1}+ABA^{-1}=I+ABA^{-1}$ since $A,B,A^{-1}$ are all upper triangular we know $ABA^{-1}$ is also upper triangular, so now lets look at the diagonal.\\
+Consider the $i,i$ spot of our $AB$ this is $\sum\limits_{k=1}^nA_{ik}B_{ki}$ for $k\geq i,\;B_{ii}=0$ since $B$ is upper triangular and has zero's on the diagonal for $k<i,\; A_{i,k}=0$ thus for all $k$ we get everything is zero thus $AB$ is also upper triangular
+with zero's on the diagonal. This will also happen for $(AB)A^{-1}$ thus our output lets call it $C$ is also an upper triangular matrix with zero's on the diagonal\\
+Thus $=I+C=D$ where $D$ is an upper triangular matrix with 1's on the diagonal thus we know that $A \in N_G(P)$ thus upper triangular matrices are a subset of our normalizer.\\
+\phantom{text}\\
+Let $A \in N_G(P)$ and let $E$ be an identity matrix with an extra 1 at position $k,j$\\
+Assume for contradiction that $A$ is not upper triangular and has a non zero element at position $i,j$ s.t. $i>j$\\
+Define $M=AEA^{-1}$\\
+Thus $(M-I)=AEA^{-1}-I=A(I+e_{k,j})A^{-1}$ where $e_{k,j}$ is a matrix with all zeros except a 1 on $k,j$\\
+$=AIA^{-1}+Ae_{k,j}A^{-1}=I-I+Ae_{j,k}A^{-1}=I+(Ae_{k,j})A^{-1}$ thus $(Ae_{k,j})$ is a matrix all zeros except the $k$th column is the $j$th column of $A$.\\
+And then $(Ae_{k,j})A^{-1}$ is a matrix of the form where the $a$th column is of the form $c_{k,a}a_j$ where $c_{k,a}$ is the $k,a$ element of $A^{-1}$ and $a_j$ is the $j$th column of $A$. Thus, for $a\leq i$ look at $i,a$ on the left side.\\
+We know $M-I$ is upper triangular with 0's on the diagonal so $i,a$ is zero for $a \leq i$ thus since $a_{ij}$ is not zero $c_{k,a}$ must be zero. Thus, if we look at all values of $1 \leq k \leq n$ we get that $A^{-1}$ is zero for all rows from 0 to $i$ thus since $1\leq j < i$
+we know that the first column of $A^{-1}$ is zero thus this is a contradiction since $A^{-1}$ is invertible, so $A$ is upper triangular.\\
+Thus, $N_G(P)$ is upper triangular matrices since upper triangular matrices are invertible if there are no non zeros on the diagonal thus $|N_G(P)|=(p-1)^np^{n(n-1)/2}$\\
+Thus $n_p=\prod\limits_{k=1}^n\dfrac{(p^k-1)}{(p-1)^n}$
+
+
+\newpage
 \subsection*{Problem 5}
 Let $x,h \in N_G(H)$\\
 Consider $xhx^{-1} \in N_G(H)$ since $N_G(H)$ is a subgroup thus $x \in N_G(H)$ thus $N_G(H) \subseteq N_G(N_G(H))$\\
@@ -124,7 +309,7 @@ Thus we have 72,80,84,88,90,96,100,104,108,112,120,126,\\
     \item 72:
     Let $n_3$ be the number of 3-Sylow subgroups.\\
     By Sylow 3, $n_3=1,4$ if $n_3=1$ then done so assume $n_3=4$\\
-    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Thus $G$ acts on these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
     Since $|G|=72 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
     \item 80:
     Let $n_5$ be the number of 5-Sylow subgroups.\\
@@ -137,10 +322,29 @@ Thus we have 72,80,84,88,90,96,100,104,108,112,120,126,\\
     Let $n_{11}$ be the number of 11-Sylow subgroups.\\
     By Sylow 3, $n_{11}=1$ so it is normal thus done
     \item 90:
+    Let $n_5$ be the number of 5-Sylow subgroups.\\
+    By Sylow 3, $n_5=1,6$ if $n_5=1$ then done so assume $n_5=6$\\
+    Let $n_3$ be the number of 3-Sylow subgroups.\\
+    By Sylow 3, $n_3=1,10$ if $n_3=1$ then done so assume $n_3=10$\\
+    If the 3-Sylow subgroups intersect trivially then\\
+    There are 10*8=80 elements in the 3-Sylow subgroups. However,
+    this is not enough elements for the 6 5-Sylow subgroups since $6*4+80>90$\\
+    If there exists 2 unique 3-Sylow subgroups where they don't intersect trivially.\\
+    Thus let $H$ and $K$ be two unique subgroups where $H \cap K \neq \{e\}$ since $H \cap K$ is a subgroup of $H$ we know by lagrange's theorem it is size 3,9.\\
+    If it is size 9 then this implies $H=K$ which is a contradiction thus $|H \cap K|=3$\\
+    Proven in class since $H,K=3^2$ we know they are abelian.\\
+    Thus let $e\neq x \in H \cap K$\\
+    Thus $x$ is abelian in $H$ and abelian in $K$\\
+    Thus $C_G(x)$ contains $H \cup K$\\
+    Thus this implies $HK \subset C_G(x)$ since $C_G(x)$ is a group.\\
+    Thus $|HK|=\dfrac{|H||K|}{|P \cap K|}=27$\\
+    Thus $|C_G(x)|\geq 27$ and is a multiple of 9 since it has subgroup $H$ and divides 90 thus $|C_G(x)|=45,90$\\
+    If $|C_G(x)|=45 \implies$ it is normal since it has index 2.\\
+    If $|C_G(x)|=90 \implies x\in Z(G)$ thus the center is nontrivial thus it is a normal subgroup, and it can't be the whole group since $G$ is not abelian.
     \item 96:
     Let $n_2$ be the number of 2-Sylow subgroups.\\
     By Sylow 3, $n_2=1,3$ if $n_3=1$ then done so assume $n_3=3$\\
-    Thus $G$ acts of these 3 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_3$\\
+    Thus $G$ acts on these 3 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_3$\\
     Since $|G|=96 > |S_3|=6$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
     \item 100:
     Let $n_{5}$ be the number of 5-Sylow subgroups.\\
@@ -151,10 +355,29 @@ Thus we have 72,80,84,88,90,96,100,104,108,112,120,126,\\
     \item 108:
     Let $n_3$ be the number of 3-Sylow subgroups.\\
     By Sylow 3, $n_3=1,4$ if $n_3=1$ then so assume $n_3=4$\\
-    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Thus $G$ acts on these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
     Since $|G|=108 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
     \item 112:
+    Let $n_2$ be the number of 2-Sylow subgroups.\\
+    By Sylow 3, $n_2=1,7$ if $n_2=1$ then done so assume $n_2=7$\\
+    Thus $G$ acts on these 7 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_7$ if not injective then we have a nontrivial kernel, and it can't be the whole group since this would make the conjugation of groups trivial. Thus, that is our normal subgroup of $G$\\
+    So assume it is injective\\
+    Then consider the compound homomorphism $G \rightarrow S_7 \rightarrow \{\pm 1\}$ where $1$ if even and $-1$ if odd.\\
+    The compound homomorphism is not injective since $|G|>2$ so if the kernel is not the whole group then we are done since we have a normal subgroup.\\
+    If the kernel is the whole group then we know that $G$ is isomorphic to a subgroup of $A_7$\\
+    However this is not possible since $|G|=112 \nmid |A_7|=2520$ which is a contradiction of lagrange's theorem thus in all possibilities $G$ has a normal subgroup
     \item 120:
+    Let $n_5$ be the number of 5-Sylow subgroups.\\
+    By Sylow 5, $n_5=1,6$ if $n_5=1$ then done so assume $n_5=6$\\
+    Thus $G$ acts on these 6 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_6$ if not injective then we have a nontrivial kernel, and it can't be the whole group since this would make the conjugation of groups trivial. Thus, that is our normal subgroup of $G$\\
+    So assume it is injective\\
+    Then consider the compound homomorphism $G \rightarrow S_6 \rightarrow \{\pm 1\}$ where $1$ if even and $-1$ if odd.\\
+    The compound homomorphism is not injective since $|G|>2$ so if the kernel is not the whole group then we are done since we have a normal subgroup.\\
+    If the kernel is the whole group then we know that $G$ is isomorphic to a subgroup of $A_6$\\
+    Thus consider the group action of $A_6$ on the left cosets of im$(G)$ by left multiplication\\
+    Thus there is a homomorphism from  $A_6 \rightarrow S_3$ since $|\t{im}(G)|=120$ thus $[A_6 : \t{im}(G)]=3$\\
+    Thus, since shown in class $A_6$ is simple we know that the kernel of this map is either $G$ or $\{e\}$. However, it cannot be the whole group since each coset is distinct and this would mean they are all the same.\\
+    Thus the homomorphism is injective however this is a contradiction since $|A_6| > |S_3|$ thus this is not possible.
     \item 126:
     Let $n_{7}$ be the number of 7-Sylow subgroups.\\
     By Sylow 3, $n_{7}=1$ so it is normal thus done
@@ -178,8 +401,27 @@ Thus we have 72,80,84,88,90,96,100,104,108,112,120,126,\\
     \item 144:
     Let $n_3$ be the number of 3-Sylow subgroups.\\
     By Sylow 3, $n_3=1,4,16$ if $n_3=1$ then so assume $n_3\neq1$\\
-    Thus $G$ acts of these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
-    Since $|G|=144 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.
+    If $n_3 = 4$. Thus $G$ acts on these 4 subgroups by conjugation, so there is a homomorphism from $G \rightarrow S_4$\\
+    Since $|G|=144 > |S_4|=24$ thus this map is not injective thus its kernel is not trivial, so that is a normal subgroup of $G$.\\
+    If $n_3 = 16$\\
+    If the 3-Sylow subgroups intersect trivially thus there is $15(9-1)=128$ this gives us 16 elements which must from the unique 2-Sylow
+    subgroup thus $n_2=1$\\
+    If they don't intersect trivially then\\
+    Let $H$ and $K$ be 2 unique 3-Sylow subgroups they both have 9 elements.
+    Thus let $H$ and $K$ be two unique subgroups where $H \cap K \neq \{e\}$ since $H \cap K$ is a subgroup of $H$ we know by lagrange's theorem it is size 3,9.\\
+    If it is size 9 then this implies $H=K$ which is a contradiction thus $|H \cap K|=3$\\
+    Proven in class since $H,K=3^2$ we know they are abelian.\\
+    Thus let $e\neq x \in H \cap K$\\
+    Thus $x$ is abelian in $H$ and abelian in $K$\\
+    Thus $C_G(x)$ contains $H \cup K$\\
+    Thus this implies $HK \subset C_G(x)$ since $C_G(x)$ is a group.\\
+    Thus $|HK|=\dfrac{|H||K|}{|P \cap K|}=27$\\
+    Thus $|C_G(x)|\geq 27$ and is a multiple of 9 since it has subgroup $H$ and divides 144 thus $|C_G(x)|=36,72,144$\\
+    If $|C_G(x)|=72 \implies$ it is normal since it has index 2.\\
+    If $|C_G(x)|=144 \implies x\in Z(G)$ thus the center is nontrivial thus it is a normal subgroup, and it can't be the whole group since $G$ is not abelian.\\
+    If $|C_G(x)|=36$ thus $[G : C_G(x)]=4$ by lagrange's theorem\\
+    Thus G acts on these 4 left cosets by left multiplication, so there is a homomorphism from $G \rightarrow S_4$\\
+    Since $|G|=144 > |S_4| =24$ thus this map is not inejective thus its kernel is not trivial so that is a normal subgroup of $G$.
     \item 150:
     Let $n_5$ be the number of 5-Sylow subgroups.\\
     By Sylow 3, $n_5=1,6$ if $n_5=1$ then done so assume $n_5=6$\\
