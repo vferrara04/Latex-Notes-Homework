@@ -1,0 +1,109 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{enumerate}
+    \item Consider: $\P(X=k)$ the total number of ways to pick $n$ balls from $2n$ balls is $\binom{2n}{n}$. 
+    We then want to count the number of ways to pick $k$ black balls which is $\binom{n}{k}$, and thus we must also pick $n-k$ blue balls this is counted in $\binom{n}{n-k}$ thus
+    $\P(X=k)=\dfrac{\binom{n}{k}\binom{n}{n-k}}{\binom{2n}{n}}$
+    \item Let $X_i$ be 1 if we get a black ball on the $i$th spot and zero otherwise.\\
+    Thus $E[X^2]=E[X_1^2+X_2^2\dots+X_n^2+2X_1X_2+2X_1X_3+\dots+2X_{n-1}X_n]=\sum\limits_{i=0}^nE[X_i^2]+2\sum\limits_{1 \leq i < j \leq n}E[X_iX_j]$\\
+    since $X_i$ only outputs 0 or 1 $X_i^2$ will also output the same thing thus\\
+    $=\sum\limits_{i=0}^nE[X_i]+2\sum\limits_{1 \leq i < j \leq n}E[X_iX_j]$\\
+    $=\sum\limits_{i=0}^nP(I_i=1)+2\sum\limits_{1 \leq i < j \leq n}P(I_i=1, I_j=1)$\\
+    $=\sum\limits_{i=0}^n\dfrac{\binom{2n-1}{n-1}}{\binom{2n}{n}}+2\sum\limits_{1 \leq i < j \leq n}\dfrac{\binom{2n-2}{n-2}}{\binom{2n}{n}}$\\
+    $=\sum\limits_{i=0}^n \dfrac{1}{2}+2\binom{n}{2}\dfrac{n-1}{2(2n-1)}$\\
+    $=\dfrac{n}{2}+\dfrac{n(n-1)^2}{2(2n-1)}$\\
+    $=\dfrac{n((n-1)^2+2n-1)}{2(2n-1)}$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 2}
+Consider $\P(M \geq k)$ since $\{M \geq k\} = (\{M \geq K\} \cap \{X < k\}) \cup (\{M \geq K\} \cap \{X = k\}) \cup (\{M \geq K\} \cap \{X > k\})$,
+we know this because we can put where the path ends into those three groups above. Then because these sets are disjoint since you can't end at $k$, end at greater than $k$ and end at less that $k$ all at the same time, so we know.\\
+$\P(M \geq k)=\P(M \geq k, X = k) + \P(M \geq k, X > k) + \P(M \geq k, X > k)$\\
+Look at $\P(M \geq k, X = k)$ since we know that the end is $k$ we know that the max is at least $k$, so thus $\P(M \geq k, X = k)=\P(X=k)$\\
+Look at $\P(M \geq k, X > k)$ since we know that the end is greater than $k$ this is equivalent to $X \geq k+1$, and thus we know that the max is at least $k+1$ already this $\P(M \geq k, X > k)=\P(M \geq k, X \geq k+1)=\P(X \geq k+1)$\\
+Look at $\P(M \geq k, X < k)$ since we know the max is at $M$ we then know that the path goes down to less than $k$. Thus, by reflection we can flip up at $M$ which is a bijection to $X>k \implies X \geq k+1$ and thus $\P(M \geq k, X < k)=\P(M \geq k, X > k)=\P(X \geq k)$\\
+Thus $\P(M \geq k)=\P(X = k)+ 2\P(X \geq k+1)$
+
+\newpage
+\subsection*{Problem 3}
+\begin{enumerate}
+    \item The probability of not getting one in one booster is $(1-\frac{15}{300})$ the probability of getting at least one is $1-(1-\frac{15}{300})^{n}$
+    \item First order the cards 1-300 then let $X_i$ be 1 if they get card $i$ and 0 if not.
+    $E[X]=E[X_1+X_2+\dots+X_{300}]=\sum\limits_{i=0}^{300}E[X_i]=\sum\limits_{i=0}^{300}\P(\t{Getting card i})=\sum\limits_{i=0}^{300}(1-(1-\frac{15}{300})^{n})=300(1-(1-\frac{15}{300})^{n})$
+    \item The probability of not getting one in one card is $(1-\frac{1}{300})$ the probability of getting at least one is in $15n$ cards $1-(1-\frac{1}{300})^{15n}$\\
+    First order the cards 1-300 then let $X_i$ be 1 if they get card $i$ and 0 if not.\\
+    $E[X]=E[X_1+X_2+\dots+X_{300}]=\sum\limits_{i=0}^{300}E[X_i]=\sum\limits_{i=0}^{300}\P(\t{Getting card i})=\sum\limits_{i=0}^{300}(1-(1-\frac{1}{300})^{15n})=300(1-(1-\frac{1}{300})^{15n})$\\
+    $(\frac{299}{300})^{15}\approx(0.9511)$ and $\dfrac{285}{300}=0.95$ thus $(0.9511)^n$ and $(0.95)^n$ since the left one is bigger thus it will go to zero slower than the other one so $\frac{299}{300}^{15n}>\frac{285}{300}^n$ thus $1-(\frac{299}{300}^{15n})<1-\frac{285}{300}^n$ thus $E[X_{\t{individual}}]<E[X_{\t{boosters}}]$
+\end{enumerate}
+\end{document}
