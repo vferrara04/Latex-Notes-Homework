@@ -1,0 +1,167 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+Since the ambulance can only move vertical or horizontal, $X=|x|+|y|$ where $x$ is the $x$ choord and $y$ is the $y$ choord.\\
+Now we can spilt our cdf into two parts the first part where $X$ is less than or equal to 1. When you draw this on the grid this is when the diamond is touching or inside the grid thus $F_{X}(d)=(\sqrt{2}d)^2/4=d^2/2$\\
+The other is when $1 < X <= 2$ because 2 is the max distance it can travel. This is when the diamond overlaps with the square thus we get $\frac{2d^2-4(d-1)^2}{4}=\frac{d^2-2(d-1)^2}{2}$\\
+Thus $F_{X}(d)=\left\{ \begin{array}{lr}
+    \frac{d^2}{2} & 0 \leq d \leq 1\\
+    \frac{d^2-2(d-1)^2}{2} & 1 < d \leq 2\\
+    0 & \t{otherwize}
+\end{array} \right\}$\\
+$f_{X}(d)=F_{X}'(d)=\left\{ \begin{array}{lr}
+    d & 0 \leq d \leq 1\\
+    d-2(d-1) & 1 < d \leq 2\\
+    0 & \t{otherwize}
+\end{array} \right\}$
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item $\displaystyle\int_{-\infty}^{\infty}c(1-x^2)\,dx=1$\\
+        $c\displaystyle\int_{-1}^{1}(1-x^2)\,dx=1$\\
+        $\left[ x-\frac{x^3}{3} \right]^{1}_{-1}=\frac{1}{c}$\\
+        $\left[ 1-\frac{1}{3}+1-\frac{1}{3}\right]=\frac{1}{c}$\\
+        $\left[ \frac{4}{3}\right]=\frac{1}{c}$\\
+        $c=\frac{3}{4}$\\
+        $F_{X}=\frac{3}{4}\displaystyle\int_{-1}^x(1-t^2)\,dt$\\
+        $=\frac{3}{4}\left( t-\frac{t^3}{3} \right)^x_{-1}=\frac{3}{4}(x-\frac{x^3}{3}+1-\frac{1}{3})$
+        \item $\displaystyle\int_{0}^{\pi}c\sin(x)\,dx=1$\\
+        $c\left[ -\cos(x) \right]^\pi_0=1$\\
+        $c\left[ -\cos(\pi)+\cos(0) \right]=1$\\
+        $c=\frac{1}{2}$\\
+        $F_{X}=\frac{1}{2}\displaystyle\int_{0}^{x}\sin(t)\,dt$\\
+        $=\frac{1}{2}(-\cos(t))^x_0=\frac{1}{2}(-\cos(x)+1)$
+        \item $\displaystyle\int_{0}^{\infty}c(e^{-x}-e^{-2x})\,dx=1$\\[1 ex]
+        $c\lim\limits_{t \rightarrow \infty}\left[ -e^{-x}+\frac{1}{2}e^{-2x} \right]^t_0=1$\\
+        $c\lim\limits_{t \rightarrow \infty}\left[ -e^{-t}+\frac{1}{2}e^{-2t}+\frac{1}{2} \right]=1$\\[1 ex]
+        $\frac{c}{2}=1$\\
+        $c=2$\\
+        $F_X=2\displaystyle\int_{0}^{x}(e^{-t}-e^{-2t})\,dt$\\
+        $=2\left( -e^{-t}+\frac{1}{2}e^{-2t} \right)^x_0$\\
+        $=2(-e^{-x}+\frac{1}{2}e^{-2x}+\frac{1}{2})$
+    \end{enumerate}
+    \item $F_{X^2}=\P(X^2 \leq y)=\P(-\sqrt{y} \leq X \leq \sqrt{y})=\int_{-\sqrt{y}}^{\sqrt{y}}f(x)\,dx$\\
+    $=\displaystyle\int_{-\sqrt{y}}^{0}f(x)\,dx+\int_{0}^{\sqrt{y}}f(x)\,dx$\\[1 ex]
+    $F'_{X^2}=f_{X^2}=f(\sqrt{y})(\frac{1}{2\sqrt{y}})-f(-\sqrt{y})\frac{-1}{2\sqrt{y}}$\\
+    $=\frac{1}{4\sqrt{y}}(e^{-|\sqrt{y}+1|}+e^{-|-\sqrt{y}+1|})$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+$F_Z=\P(\max\{X_1,\dots,X_n \leq z\})=\P(X_1 \leq z \t{ and } \dots \t{ and } X_n \leq z)=\P(X_1 \leq z)\cdots\P(X_n \leq z)=(F_{X_1})^n$\\
+$F_{X_1}=\displaystyle\int_{0}^z2x\,dx=z^2$\\[1 ex]
+$F_Z=z^{2n}$\\
+$F_Z'=f_Z=(2n)z^{2n-1}$ for $0 \leq z \leq 1$\\
+$E[Z]=\displaystyle\int_0^1z(2n)z^{2n-1}\,dz=2n\displaystyle\int_0^1z^{2n}\,dz=2n\left[ \dfrac{z^{2n+1}}{2n+1} \right]^1_0=\dfrac{2n}{2n+1}$
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}
+    \item $\displaystyle\int_{0}^1\int_{0}^{1-x}ce^{-(x+y)}\,dydx=1$\\
+    $c\displaystyle\int_{0}^1\int_{0}^{1-x}e^{-(x+y)}\,dydx=1$\\[1 ex]
+    Let $u=-y-x$ thus $du=-dy$\\
+    $c\displaystyle\int_{0}^1(-1)\int_{x}^{1}e^{u}\,dydx=1$\\
+    $c\displaystyle\int_{0}^1e^{-x}-e^{-1}\,dx=1$\\
+    $c\left[ -e^{-x}-e^{-1}x \right]^1_0=c(-e^{-1}-e^{-1}+1)=c(1-2e^{-1})=1$\\
+    $c=\dfrac{1}{1-2e^{-1}}$
+    \item $E[XY]=c\displaystyle\int_0^1\int_0^{1-x}xye^{-(x+y)}\,dydx=c\displaystyle\int_0^1xe^{-x}\int_0^{1-x}ye^{-y}\,dydx$\\
+    $=c\displaystyle\int_0^1xe^{-x}((x-2)e^{x-1}+1)\,dx=c\left( -xe^{-x}-e^{-x}+(e^{-1}/3)x^3-e^{-1}x^2 \right)^1_0$\\
+    $=c(-e^{-1}-e^{-1}+(e^{-1}/3)-e^{-1}+1)=c(1-(8e^{-1}/3))$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+Since $X,Y,Z$ are independent and have the same pdf this implies they are identically distributed thus there are $3!=6$ possible orderings with equal probabilities of $X,Y,Z$\\
+Given $X>Y$ we have these orderings\\
+$X>Y>Z$, $X>Y>Z$, and $Z>X>Y$\\
+Thus $\P(X>Z \mid X>Y)=\frac{2}{3}$
+
+\newpage
+\subsection*{Problem 6}
+\begin{enumerate}
+    \item Let $Z=X+Y$\\
+    Shown in class $f_Z(z)=\displaystyle\int_0^z(xe^{-x})(z-x)(e^{-z+x})\,dx$ for $z \geq 0$\\
+    $=e^z\displaystyle\int_0^zy(z-y)\, dy=(1/6)z^3e^{-z}$ for $z \geq 0$ and 0 otherwize
+    \item Let $Z=X+Y$ and $W=X/(X+Y)$ thus $X=WZ$ and $Y=Z-WZ$\\
+    Look at case $x,y \geq 0$ since the pdf would be zero otherwise\\
+    Thus shown in class $f_{W,Z}(w,z)=f_{X,Y}(wz,z-wz)(1/|\det(J)|)$\\
+    $J=\begin{pmatrix}
+        \frac{Y}{X+Y} & \frac{-X}{(X+Y)^2}\\
+        1 & 1
+    \end{pmatrix}$
+    Thus $f_{W,Z}(w,z)=(z)(wze^{-wz})((1-w)ze^{-(z-wz)})=w(1-w)z^3e^{-z}$\\
+    Thus $f_W(w)=w(1-w)\lim\limits_{t \rightarrow \infty}\displaystyle\int_0^tz^3e^{-z}dz$\\
+    $=6w(1-w)$ for $0 \leq w \leq 1$ and 0 otherwize.
+\end{enumerate}
+\end{document}
