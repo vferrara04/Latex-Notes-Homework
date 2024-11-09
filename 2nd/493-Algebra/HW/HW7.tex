@@ -1,0 +1,310 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+$((c)\implies (a))$\\
+Assume $(c)$\\
+Let $\varphi: G \rightarrow H \times K$ s.t. $\varphi(g)=(\phi'(g),\psi(g))$\\
+Homomorphism:\\
+Since $\phi'$ and $\psi$ are homomorphisms $\varphi$ is a homomorphism.\\
+Injective:\\
+Let $g \in \t{ker}(\varphi)$\\
+Thus $\varphi(g)=(\phi'(g),\psi(g))=(e,e)$ thus $g \in \t{ker}(\phi'),\,\t{ker}(\psi)$ 
+thus since this is an exact sequence $\t{ker}(\psi)=\t{im}(\phi)$ thus since $\phi'\circ \phi=id_H \implies g=e$ thus ker$(\varphi)=\{e\}$\\
+Surjective:
+Let $(h,k) \in H \times K$, thus since $\sigma$ is surjective there exists a $g \in G$ s.t. $\psi(g)=k$ and for the $h$ consider $\phi(h)$\\
+Thus $\varphi(\phi(h),g)=(\phi'(\phi(h)),\psi(g))=(h,k)$ thus surjective. Thus $G \cong H \times K$ thus proven in class since this is a direct product this sequence is split.\\
+$((a)\implies (b))$\\
+Assume $(a)$\\
+Thus shown in class this means there exists a $K' \cong K$ s.t. $G=\phi(H)K$ and $\phi(H) \cap K'=1$\\
+Consider $\psi\mid_{K'}: K' \rightarrow K$ is a homomorphism.\\
+Injective:\\
+Let $k' \in \t{ker}(\psi\mid_{K'})$ thus $\psi\mid_{K'}(k')=e \in \phi(H) \implies k'=e$ since $\phi(H) \cap K' = \{e\}$\\
+Surjective:\\
+For any $k \in K$, since $\psi$ is surjective, there exits $g \in G$ s.t. $\psi(g)=k$\\
+Thus you can write $g=\phi(h)k'$ for $h \in H$ and $k' \in K'$\\
+$k=\psi(g)=\psi(\phi(h)k')=\psi(\phi(h))\psi(k')=\psi(k')$\\
+Thus $\psi\mid_{K'}$ is surjective.\\
+Since $\psi\mid_{K'}$ is an isomorhpism take its inverse and define $\phi': K \rightarrow G$ s.t. $\psi'=(\psi\mid_{K'})^{-1}$ we can do thus since $K' \subset G$\\
+$\psi'$ is a homomorphism since $(\psi\mid_{K'})^{-1}$ is a homomorphism.\\
+Consider $\psi(\psi'(k))$ for $k \in K$ well as shown above $\psi'$ is actually only going to map to $K'$ and because of this we can think of $\psi=\psi\mid_{K'}$ thus since these are inverse of eachother\\
+$\psi(\psi'(k))=k$ thus done\\
+$((b)\implies (a))$\\
+Assume $(b)$\\
+Define $K' = \psi'(K)$\\
+Let $x \in \phi(H) \cap K'$\\
+Thus $x=\phi(h)=\psi'(k)$ for $h \in H$ and $k \in K$\\
+$\psi(\phi(h))=\psi(\psi'(k)) \implies e=k \implies x=\psi'(e)=e$ thus $\phi(H) \cap K'=\{e\}$\\
+Let $g \in G$\\
+Define $k'=\psi'(\psi(g)) \in K'$\\
+Consider $\psi(gk'^{-1})=\psi(g)\psi(k'^{-1})=\psi(g)\psi(k')^{-1}=\psi(g)\psi(\psi'(\psi(g)))^{-1}=\psi(g)\psi(g)^{-1}=e$\\
+Thus $gk'^{-1} \in \t{ker}(\psi)=\t{im}(\phi)$ thus there is an $h \in H$ s.t. $\phi(h)=gk'^{-1}$ thus $g=\phi(h)k'$\\
+Thus $G=\phi(H)K'$\\
+Thus $G$ is split
+
+\newpage
+\subsection*{Problem 2}
+For a group of order $8$ to be split in this sequence $G \cong C_2 \rtimes C_2 \times C_2$ thus there exists a $\phi: C_2 \times C_2 \rightarrow \t{Aut}(C_2)\cong\{e\}$
+thus the only homomorphism $\phi(a)=id_{C_2\times C_2}$ s.t. $a \in C_2$ thus to be split $G \cong C_2 \times C_2 \times C_2$
+\begin{enumerate}
+    \item $C_8$\\
+    If $N \cong C_2$, then $C_8 \diagup N \cong C_4$ thus $C_8$ cannot fit in this sequence.
+    \item $C_4 \times C_2$\\
+    $C_2 \cong \ang{(a^2,e)}$\\
+    $C_4\times C_2 \diagup \ang{(a^2,e)} = \{\ang{(a^2,e)}, (a,e)\ang{(a^2,e)}, (e,b)\ang{(a^2,e)}, (a,e)\ang{(a^2,e)}\} \cong C_2 \times C_2$\\
+    $e \rightarrow \ang{(a^2,e)} \rightarrow G \rightarrow G\diagup\ang{(a^2,e)} \rightarrow e$\\
+    Thus this sequence fits and is not split from above.
+    \item $C_2\times C_2 \times C_2$\\
+    $C_2 \cong \ang{(a,e,e)}$\\
+    $C_2\times C_2 \times C_2 \diagup \ang{(a,e,e)} = \{\ang{(a,e,e)}, (e,b,e)\ang{(a,e,e)}, (e,e,c)\ang{(a,e,e)}, (e,b,c)\ang{(a,e,e)}\} \cong C_2 \times C_2$\\
+    $e \rightarrow \ang{(a,e,e)} \rightarrow G \rightarrow G\diagup\ang{(a,e,e)} \rightarrow e$\\
+    Thus this sequence fits and is split by above.
+    \item $D_4$
+    $C_2 \cong \ang{x^2}$\\
+    $D_4 \diagup \ang{x^2} = \{\ang{x^2}, x\ang{x^2}, y\ang{x^2}, xy\ang{x^2}\} \cong C_2 \times C_2$\\
+    $e \rightarrow \ang{x^2} \rightarrow G \rightarrow G\diagup\ang{x^2} \rightarrow e$\\
+    Thus this sequence fits and is not split from above.
+    \item $Q$
+    $C_2 \cong \ang{-1}$\\
+    $Q \diagup \ang{-1} = \{\ang{-1}, i\ang{-1}, j\ang{-1}, k\ang{-1}\} \cong C_2 \times C_2$\\
+    Thus this sequence fits and is not split from above.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+\hspace{0.48cm} If \( G \) is split, there must exist a subgroup \( D_2' \cong D_2 \) in \( G \). This implies we can center all reflections and rotations at a single point, as there is a subgroup isomorphic to \( D_2 \).
+
+Let \( v \) be the smallest vector on the \( x \)-axis, and let \( w \) be the vector with the smallest height. Let \( z \) be the smallest vector in the lattice.
+
+\begin{itemize}
+    \item If \( z \) lies on the \( x \)-axis, then \( z = v \).
+    \item If \( z \) lies on the \( y \)-axis, then \( z = w \).
+\end{itemize}
+
+Assuming without loss of generality that \( z \) is in the first quadrant, we can act on it by \( r \), so \( r(z) \) is in our lattice. Then \( r(z) + z \) lies on the \( x \)-axis. Since \( z \) is the smallest vector in the lattice, we have:
+\[
+x(r(z) + z) < 2x(v) \Rightarrow 2x(z) < 2x(v)
+\]
+If \( 2x(w) \neq x(v), 0 \), then \( z + r(z) - v \) would be a smaller vector than \( v \) on the \( x \)-axis, which is a contradiction.
+
+Thus, if \( x(z) = 0 \), then \( z = w \). If \( x(z) = \frac{1}{2}x(v) \), then by similar reasoning, we find \( x(z) = x(w) \). Since \( w \) has the smallest height and \( z \) is the smallest vector, it must be \( w \). Therefore, our lattice is spanned by \( v \) and \( w \).
+
+We now have two cases: whether \( w \) is vertical or not.
+
+1. \textbf{If \( w \) is vertical}, this corresponds to case 9:
+   \[
+   G \cong \mathbb{Z} \times \mathbb{Z} \rtimes D_2 = \langle x, y, r, p_\pi \mid xy = yx, \, rp_\pi = p_\pi r, \, r^2 = e, \, p_\pi^2 = e, \, r x r = x, \, r y r = y^{-1}, \, p_\pi x p_\pi = x^{-1}, \, p_\pi y p_\pi = y^{-1} \rangle
+   \]
+   with
+   \[
+   \phi(r) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad \phi(p_\pi) = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}
+   \]
+
+2. \textbf{If \( w \) is not vertical}, this corresponds to case 12:
+   \[
+   G \cong \mathbb{Z} \times \mathbb{Z} \rtimes D_2 = \langle x, y, r, p_\pi \mid xy = yx, \, rp_\pi = p_\pi r, \, r^2 = e, \, p_\pi^2 = e, \, r x r = x, \, r y r = x y^{-1}, \, p_\pi x p_\pi = x^{-1}, \, p_\pi y p_\pi = y^{-1} \rangle
+   \]
+   with
+   \[
+   \phi(r) = \begin{pmatrix} 1 & 1 \\ 0 & -1 \end{pmatrix}, \quad \phi(p_\pi) = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}
+   \]
+\phantom{text}\\
+If \( G \) is not split, then we have two cases:
+
+\begin{enumerate}
+    \item If one reflection lifts to only a glide.
+    \item If both reflections lift to only a glide.
+\end{enumerate}
+
+For the first case, if one reflection lifts to a glide, we make the glide parallel to the \( x \)-axis and the reflection parallel to the \( y \)-axis, centering the rotations at the origin.
+Let the min glide (meaning moves the minimum distance) parallel to the \( x \)-axis be defined as \( t_{(a,h)}rt_{(0,-h)} = t_{(a,2h)}r \). Let a reflection parallel to the \( y \)-axis be \( t_{(b,0)}r_y t_{(-b,0)} = t_{(2b,0)}r_y \).
+
+Now, consider:
+\[
+t_{(a,2h)}r t_{(a,2h)}r = t_{(a,2h)} t_{(a,-2h)} rr = t_{(2a,0)}
+\]
+Thus, we have a vector on the \( x \)-axis. We call the minimal vector on the \( x \)-axis \( v \). Assume \( v = (c,0) \) with \( c < a \). Then consider:
+\[
+t_{(-c,0)} t_{(a,2h)} r = t_{(a-c,2h)} r
+\]
+Since \( a - c < a \), this contradicts the minimal glide assumption, so \( v = (2a,0) \).\\
+Similarly, we can find a vector on the \( y \)-axis by acting with \( r_y \), and then finding the minimal vector, which we call \( w \).\\
+Let \( z \) be the smallest vector. If \( z \) lies on any axis, it must be \( v \) or \( w \). If the \( x \)- or \( y \)-coordinate of \( z \) is zero, then it is either \( v \) or \( w \), leaving us with \( z = (a, 0.5y(w)) \) using a similar argument as above. 
+
+Consider the element:
+\[
+t_{-z} t_{(a,2h)} r = t_{(0,2h - 0.5y(w))} r
+\]
+Then:
+\[
+t_{(0,2h - 0.5y(w))} r t_{(0,2h - 0.5y(w))} r = t_{(0,2h - 0.5y(w))} t_{(0,-2h + 0.5y(w))} rr = \text{id}
+\]
+This is a reflection parallel to the horizontal axis, which is not allowed. Thus, this minimal vector \( z \) cannot exist. Therefore, the minimal vector is either \( v \) or \( w \), so these two span the lattice.\\
+Thus:
+\[
+t_{(a,2h)} r = t_{\frac{1}{2}v + cw} r \in G \quad \text{for } c \in \mathbb{R}
+\]
+and
+\[
+t_{(2b,0)} r_y = t_{kv} r_y \in G \quad \text{for } k \in \mathbb{R}
+\]
+Now, consider:
+\[
+t_{kv} r_y t_{\frac{1}{2}v + cw} r = t_{(k - \frac{1}{2})v + cw} p_\pi \in G
+\]
+Thus:
+\[
+t_{(k - \frac{1}{2})v + cw} p_\pi p_\pi = t_{(k - \frac{1}{2})v + cw} \in G
+\]
+implying \( k - \frac{1}{2} \in \mathbb{Z} \) and \( c \in \mathbb{Z} \) since this translation is in my group, and we only have integer linear combinations of $v$ and $w$.\\
+So:
+\[
+t_{-cw} t_{\frac{1}{2}v + cw} r = t_{\frac{1}{2}v} r = t_{(a,0)} r \in G
+\]
+Also, since \( k - \frac{1}{2} \in \mathbb{Z} \) and \( 2b = 2ak \Rightarrow b = ak \Rightarrow k = \frac{d}{2} \) for \( d \) odd, we have \( b = \frac{ad}{2} \). Setting \( d = 1 \), we find \( b = \frac{a}{2} \), so:
+\[
+t_{(a,0)} r_y \in G
+\]
+Thus, we have case 11:
+\phantom{text}\\
+$G = \langle \mu, y, r, p_\pi \mid \mu^2 y = y \mu^2, \, r^2 = p_\pi^2 = e, \, r \mu r = \mu^{-1}, \, r p_\pi = p_\pi r, \, r y r = y, \, \mu y \mu^{-1}, \, r \mu^{-1} = \mu r, \, p_\pi \mu^{-1} = \mu p_\pi, \, p_\pi \mu p_\pi = \mu^{-1}, \, p_\pi y p_\pi = y^{-1} \rangle$
+\phantom{text}\\
+
+If two reflections lift to glides, we pick the minimal glides \( t_{(a, 2c)} r \) and \( t_{(2d, b)} r_y \) parallel to their respective axes. The minimal vectors on the \( x \)-axis and \( y \)-axis, as in the previous proof, are \( v = (2a, 0) \) and \( w = (0, 2b) \), respectively.\\
+Then:
+\[
+t_{(a,2c)} r = t_{\frac{1}{2}v + k w} r \quad \text{for } k \in \mathbb{R}
+\]
+\[
+t_{(2d,b)} r_y = t_{j v + \frac{1}{2}w} r_y \quad \text{for } j \in \mathbb{R}
+\]
+Now consider:
+\[
+t_{j v + \frac{1}{2}w} r_y \, t_{\frac{1}{2}v + k w} r = t_{\left(\frac{1}{2} - j\right)v + \left(\frac{1}{2} + k\right)w} p_\pi \in G
+\]
+Thus:
+\[
+t_{\left(\frac{1}{2} - j\right)v + \left(\frac{1}{2} + k\right)w} p_\pi p_\pi = t_{\left(\frac{1}{2} - j\right)v + \left(\frac{1}{2} + k\right)w} \in G
+\]
+so we require \( \frac{1}{2} - j \in \mathbb{Z} \) and \( \frac{1}{2} + k \in \mathbb{Z} \).
+
+Since \( k + \frac{1}{2} \in \mathbb{Z} \) and \( 2c = 2ak \), it follows that \( k = \frac{f}{2} \) for some odd integer \( f \). Choosing \( f = 1 \), we get \( c = \frac{a}{2} \). Similarly, \( d = \frac{b}{2} \), so \( t_{(a,0)} r \in G \) and \( t_{(0,b)} r_y \in G \).
+
+Thus, we have case 10:
+\phantom{text}\\
+$G = \langle \mu, \gamma, p_\pi \mid \mu^2 \gamma^2 = \gamma^2 \mu^2, \, \gamma \mu^{-1} = \mu \gamma^{-1}, \, \mu p_\pi \mu^{-1} = \mu^2 p_\pi, \, \mu \gamma^{-1} = \gamma \mu^{-1}, \, \gamma p_\pi \gamma^{-1} = \gamma^2 p_\pi \rangle$
+\phantom{text}\\
+
+\newpage
+\subsection*{Problem 4}
+\hspace{0.48cm} If \( G \) lifts one reflection to a reflection s.t. a rotation of order 4 is on that line; thus, make the reflection like the $x$-axis, let this reflection be \( r \) with the center of the rotation \( p_{\pi/2} \) at the origin.
+
+Let \( x \) be a vector. We can act on \( x \) by \( r \) to obtain something on the \( x \)-axis. Let \( v \) be the minimal vector on the \( x \)-axis.
+
+Applying a rotation, we obtain a vector on the \( y \)-axis. Let \( w \) be the smallest vector on the \( y \)-axis.
+
+Now, consider \( p_{\pi/2}(v) - w \); this vector would be shorter than \( w \), which is a contradiction. Thus, \( p_{\pi/2}(v) = w \), meaning they must be the same vector.
+
+Let \( z \) be the smallest vector and, without loss of generality, assume it lies in the first quadrant. By a similar argument as above, we either conclude that \( z \) is on one of the axes or that \( z = \left(0.5 \cdot x(v), 0.5 \cdot x(v)\right) \).
+
+If this is our minimal vector, we can rotate by \( 45^\circ \) to get a new coordinate system where the lattice is spanned by \( z \) and \( p_{\pi/2}(z) \) or by \( v \) and \( w \).
+
+Thus, for any coord. system we will have a line of reflection with a center of an order 4 rotation.
+
+Then, we can use $p_\pi/2$ on the reflection to get all reflections
+
+Thus, this is a clear subgroup in $G$ that is isomorphic to $D_4$ thus we are in the split case
+
+Thus, with a square lattice we have case 13:
+\phantom{text}\\
+$G \cong \mathbb{Z} \times \mathbb{Z} \rtimes D_4 = \langle x, y, r, p_{\pi/2} \mid xy = yx, \, r p_{\pi/2} = p_{\pi/2}^{-1} r, \, r^2 = e, \, p_{\pi/2}^4 = e, \, r x r = x, \, r y r = y^{-1}, \, p_{\pi/2} x p_{\pi/2}^{-1} = y, \, p_{\pi/2} y p_{\pi/2}^{-1} = x^{-1} \rangle
+$\phantom{text}\\
+
+For:
+\[
+\phi(r) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad \phi(p_{\pi/2}) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
+\]
+
+If \( G \) does not lift any reflection to a reflection s.t. a rotation of order 4 is on that line.
+
+Thus, this is the non split case because we cannot get 4 reflections intersection at one point which is needed for a subgroup isomorphic to $D_4$.\\
+
+Thus, a reflection lifted to only glide, thus assume for contradiction that any glide is also not on a center of rotation of order 4.
+
+Thus, 4 glides are on a 
+
+
+
+
+\newpage
+\subsection*{Problem 5}
+
+\end{document}

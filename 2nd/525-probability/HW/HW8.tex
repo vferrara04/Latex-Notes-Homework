@@ -1,0 +1,134 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+Let $N(y)$ be the number events from $[0,y]$ thus $N(y) \sim \t{Poisson}(\lambda y)$\\
+\begin{align*}
+    F_Y(y)=\P(Y \leq y)= \P(N(y) \geq n)&=1-\P(N(y) < n)\\
+                                        &=1-\sum_{k=0}^{n-1}\dfrac{e^{-\lambda y}(\lambda y)^k}{k!}
+\end{align*}
+\begin{align*}
+    f_Y(y)&=-\sum_{k=0}^{n-1}\dfrac{d}{dy}\dfrac{e^{-\lambda y}(\lambda y)^k}{k!}\\
+          &=-\lambda e^{-\lambda y}\left( \sum_{k=0}^{n-1}\dfrac{(\lambda y)^{k-1}(k-\lambda y)}{k!} \right)\\
+          &=-\lambda e^{-\lambda y}\left(  \sum_{k=1}^{n-1}\dfrac{(\lambda y)^{k-1}}{(k-1)!} -\sum_{k=0}^{n-1}\dfrac{(\lambda y)^{k}}{k!}\right)\\
+          &=-\lambda e^{-\lambda y}\left(  \sum_{m=0}^{n-2}\dfrac{(\lambda y)^{m}}{m!} -\sum_{k=0}^{n-1}\dfrac{(\lambda y)^{k}}{k!}\right)\\
+          &=-\lambda e^{-\lambda y}\left(  \dfrac{-(\lambda y)^{n-1}}{(n-1)!}\right)\\
+          &=\dfrac{\lambda^ny^{n-1}e^{-\lambda y}}{(n-1)!}
+\end{align*}
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}
+    \item Let $X$ be the number of earthquakes in a year from time 0 to the end of the year so thus is a Poisson distribution.\\
+    \begin{align*}
+        G(s)&=\sum_{k=0}^{\infty}\dfrac{e^{-\lambda}(sk)^k}{k!}\\
+            &=e^{-\lambda}\sum_{k=0}^{\infty}\dfrac{(sk)^k}{k!}\\
+            &=e^{-\lambda}e^{\lambda s}=e^{\lambda(s-1)}
+    \end{align*}
+    \begin{align*}
+        G(s)&=\sum_{k even}\P(X=k)s^k + \sum_{k odd}\P(X=k)s^k=G_{even}(s)+G_{odd}(s)\\
+        G(1)&=G_{even}(1)+G_{odd}(1)=1
+    \end{align*}
+    \begin{align*}
+        G(-1)&=G_{even}(-1)+G_{odd}(-1)\\
+        e^{-2\lambda}&=\sum_{k even}\P(X=k)(-1)^k + \sum_{k odd}\P(X=k)(-1)^k=G_{even}(1)-G_{odd}(1)
+    \end{align*}
+    \begin{align*}
+        2G_{even}(1)&=1+e^{-2\lambda}\\
+        G_{even}(1)&=\dfrac{1+e^{-12}}{2}
+    \end{align*}
+    \item $\P(\t{no more than one earthquake every month})=\P(T_1 \leq 1)\P(T_2 \leq 1)\cdots\P(T_{12} \leq 1)\\
+    =(\P(T_1 \leq 1))^{12}=(e^{-\lambda/12}(\lambda/12)^0+e^{-\lambda/12}(\lambda/12)^1)^{12}=(e^{- \lambda/12}(1+\lambda/12))^{12}$
+    \item $\P(\t{A month has $k$ earthquakes})=e^{-\lambda/12}\dfrac{(\lambda/12)^6}{6!}$\\
+    $\P(\t{Any month has $k$ earthquakes and others have non})=12e^{-6/12}\dfrac{(6/12)^k}{k!}(e^{-6/12})^{11}$\\
+    $\P(\t{There are all earthquakes in one month})=\sum_{k=1}^{\infty}12(1/2)^ke^{-1/2}(1/k!)(e^{-1/2})^{11}\\=12e^{-6}(e^{1/2}-1)$
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+Let $X=\max(T_s,T_b)$ s.t. $T_s$ is the time to see the first starling, and $T_b$ is the time to see the first blackbird. Thus since this is Poisson Process, $T_b,T_s \sim$ Exponential distribution.\\
+$\P(X \leq x)=\P(\max(T_s,T_b) \leq x)=\P(T_s \leq x \t{ and } T_b \leq x)=\P(T_s \leq x)\P(T_b \leq x)=(1-e^{-5x})(1-e^{-2x})=1-e^{-2x}-e^{-5x}+e^{-7x}$\\
+$f_X(x)=2e^{-2x}+5e^{-5x}-7e^{-7x}$\\
+$E[X]=\int_{-\infty}^{\infty}xf_X(x)=\int_{0}^{\infty}x2e^{-2x}+x5e^{-5x}-x7e^{-7x}\,dx$\\
+$=\lim_{a \rightarrow \infty}\left[-xe^{-2x}-(1/2)e^{-2x}-xe^{-5x}-(1/5)e^{-5x}+xe^{-7x}+(1/7)e^{-7x}\right]^a_0=(1/2)+(1/5)-(1/7)=(39/70)$
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}
+    \item $\P(Z_1=k_1,\dots,Z_n=k_n \mid X_{[0,1]}=p)$\\
+    $\P(Z_1=k_1,\dots,Z_n=k_n \mid X_{[0,1]}=p)=(\P(Z_1=k_1,\dots,Z_n=k_n,X=p))(1/\P(X=p))$ since we already that split of intervals of $X$ sum up to a total number of $p$ events the last $X=p$ is redundant, and we can get rid of it.\\
+    Thus, $=(\P(Z_1=k_1,\dots,Z_n=k_n))(1/\P(X=p))=(1/\P(X=p))\prod_{i=1}^{n}\P(Z_i=k_i)$ we can do this since the intervals are disjoint\\
+    $=\dfrac{p!}{\lambda^p e^{-\lambda p}}\prod_{i=1}^{n}\dfrac{\lambda^{k_i}t_i^{k_i}e^{-\lambda t_i}}{k_i!}=p!\prod_{i=1}^n\dfrac{t_i^{k_i}}{k_i!}$
+    \item $\P(Y_1=k_1,\dots,Y_n=k_n)$ first number of ways to order the $p$ variables into $n$ boxes of size $k_1,\dots ,k_n$ is $\dfrac{p!}{k_1!k_2!\dots k_n!}$
+     and then the probability of being in interval $i$ is exactly $t_i$ since each $U_i$ is uniformly distributed. Since all the variables are independent we can just write them as products of all their probabilities thus\\
+     $\P(Y_1=k_1,\dots,Y_n=k_n)=\dfrac{p!}{k_1!k_2!\dots k_n!}(t_1)^{k_1}\dots(t_n)^{k_n}$ and this is clearly equal to the first one.
+\end{enumerate}
+\end{document}
