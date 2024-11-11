@@ -127,12 +127,12 @@ thus the only homomorphism $\phi(a)=id_{C_2\times C_2}$ s.t. $a \in C_2$ thus to
     $C_2\times C_2 \times C_2 \diagup \ang{(a,e,e)} = \{\ang{(a,e,e)}, (e,b,e)\ang{(a,e,e)}, (e,e,c)\ang{(a,e,e)}, (e,b,c)\ang{(a,e,e)}\} \cong C_2 \times C_2$\\
     $e \rightarrow \ang{(a,e,e)} \rightarrow G \rightarrow G\diagup\ang{(a,e,e)} \rightarrow e$\\
     Thus this sequence fits and is split by above.
-    \item $D_4$
+    \item $D_4$\\
     $C_2 \cong \ang{x^2}$\\
     $D_4 \diagup \ang{x^2} = \{\ang{x^2}, x\ang{x^2}, y\ang{x^2}, xy\ang{x^2}\} \cong C_2 \times C_2$\\
     $e \rightarrow \ang{x^2} \rightarrow G \rightarrow G\diagup\ang{x^2} \rightarrow e$\\
     Thus this sequence fits and is not split from above.
-    \item $Q$
+    \item $Q$\\
     $C_2 \cong \ang{-1}$\\
     $Q \diagup \ang{-1} = \{\ang{-1}, i\ang{-1}, j\ang{-1}, k\ang{-1}\} \cong C_2 \times C_2$\\
     Thus this sequence fits and is not split from above.
@@ -292,19 +292,146 @@ For:
 \[
 \phi(r) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}, \quad \phi(p_{\pi/2}) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
 \]
+\phantom{text}\\
+If \( G \) does not lift any reflection to a reflection such that a rotation of order 4 lies on that line, then this is the non-split case. We cannot have four reflections intersecting at a rotation point of order 4, which would be necessary for a subgroup isomorphic to \( D_4 \).
 
-If \( G \) does not lift any reflection to a reflection s.t. a rotation of order 4 is on that line.
+Thus, at least one reflection lifts only to a glide, let it be parallel to the \( x \)-axis, and place the center of an order-4 rotation at the origin. Let \( t_{(a,2h)}r \) be the minimal glide. As shown in previous proofs, the minimal vector on the \( x \)-axis is \( (2a,0) = v \). Similarly, by acting on this vector with a \( 90^\circ \) rotation, we find that the minimal vector on the \( y \)-axis is \( (0,2a) = w \).
 
-Thus, this is the non split case because we cannot get 4 reflections intersection at one point which is needed for a subgroup isomorphic to $D_4$.\\
+Now, consider the minimal vector \( z \). By previous reasoning, \( z \) must be \( v \), \( w \), or \( 0.5(v + w) \). If \( z = 0.5(v + w) \), then let our basis for the lattice be \( z \) and \( p_{\pi/4}(z) = w \).
 
-Thus, a reflection lifted to only glide, thus assume for contradiction that any glide is also not on a center of rotation of order 4.
+Then:
+\[
+t_{-z} t_{(a,2h)} r = t_{(0,2h - a)} r = t_{k w} r \in G \quad \text{for } k \in \mathbb{R}
+\]
+This gives:
+\[
+t_{k w} r t_{k w} r = \text{id} \in G
+\]
+which implies a reflection parallel to the \( x \)-axis.
 
-Thus, 4 glides are on a 
+Since \( p_{\pi/4} t_{k w} r = t_{-k z} r_{y = -x} \in G \),
+\[
+t_{-k z} r_{y = -x} t_{-k z} r_{y = -x} = t_{-k z} t_{k w} = t_{-k z + k w}
+\]
+which implies \( k \in \mathbb{Z} \), as this translation is in \( G \).
 
+Thus, \( t_{-k w} t_{k w} r = r \in G \), which is a contradiction because we assumed there were no reflections through a center of a rotation of order 4. Therefore, \( v \) and \( w \) must span our lattice.
 
+Now:
+\[
+t_{(a,2h)} r = t_{\frac{1}{2}v + k w} r \quad \text{for } k \in \mathbb{R}
+\]
+and
+\[
+p_{\pi/4} t_{\frac{1}{2}v + k w} r = t_{\frac{1}{2}w - k v} r_{y = -x} \in G
+\]
+Then:
+\[
+t_{\frac{1}{2}w - k v} r_{y = -x} t_{\frac{1}{2}w - k v} r_{y = -x} = t_{\frac{1}{2}w - k v} t_{-\frac{1}{2}v + k w} = t_{-(k + \frac{1}{2})v + \left(\frac{1}{2} + k\right)w} \in G
+\]
+which implies \( k + \frac{1}{2} \in \mathbb{Z} \), so \( k = \frac{d}{2} \) for \( d \) odd. Choosing \( d = 1 \), we find \( 2ka = 2h \Rightarrow h = \frac{a}{2} \).
+
+Thus, \( t_{(a,a)}r \) is our minimal glide. 
+
+Consider:
+\[
+p_{\pi/4}^2 t_{(a,a)} r = t_{(-a,-a)} r_y \in G
+\]
+so the inverse of this, \( t_{(-a,a)} r_y \), is also in \( G \). This is the minimal glide parallel to the \( y \)-axis; otherwise, we would contradict the minimality of \( w \) on the \( y \)-axis.
+
+Additionally, we can obtain the minimal glides on the lines \( y = x \) and \( y = -x \) by rotating the glide parallel to the \( x \)-axis:
+\[
+p_{\pi/4} t_{(a,a)} r = t_{(-a,a)} r_{y = -x}
+\]
+\[
+p_{\pi/4}^3 t_{(a,a)} r = t_{(a,-a)} r_{y = x}
+\]
+These are minimal along their lines, as shown by similar arguments as before. We can also get the reflections by adding \( v \) or \( w \) to these glides:
+\[
+t_{(a,a)} r_{y = -x} \in G
+\]
+\[
+t_{(a,a)} r_{y = x} \in G
+\]
+and
+\[
+t_{(a,a)} r_{y = -x} t_{(a,a)} r_{y = -x} = \text{id}
+\]
+\[
+t_{(a,a)} r_{y = x} t_{(a,a)} r_{y = x} = \text{id}
+\]
+
+Thus, this is the only other group representation with two glides in the vertical and horizontal directions, and two reflections along the lines \( y = x \) and \( y = -x \), giving us case 14 for a square lattice:
+\phantom{text}\\
+$G \cong \langle \mu, p_{\pi/2} \mid \mu^2 p_{\pi/2} \mu^2 p_{\pi/2}^3 = p_{\pi/2} \mu^2 p_{\pi/2}^3 \mu^2, \, p_{\pi/2} \mu p_{\pi/2}^{-1} = \mu^{-1}, \, p_{\pi/2} \mu^{-1} = \mu p_{\pi/2}^{-1} \rangle
+$
 
 
 \newpage
 \subsection*{Problem 5}
+\begin{theorem}
+    An isomorphism between wallpaper groups takes translations to translations, rotations to rotations, reflections to reflections and glide reflections to glide reflections.
+\end{theorem}
+    \begin{proof}
+        Let $\varphi: G \rightarrow H$ be an isomorphism between wallpaper groups.
 
+        Let $t \in G$ be a translation. Since translations have infinite order $\varphi(t)$ is either a glide or a translation.
+
+        Assume for contradiction that $\varphi(t)$ is a glide. Let $y$ be a translation that is not parallel to the glide. Thus, these do not commute.
+
+        Since $\varphi$ is an isomorphism it is surjective thus there exists a $g \in G$ s.t. $\varphi(g)=y$. Thus, again $g$ is either a glide or translation, but we know $g^2$ is a translation in either case.
+        
+        However, this implies $y^2$ and $\varphi(t)$ commute since $\varphi(g^2t)=\varphi(tg^2)$. Thus, this means that $y^2$ is parallel to the glide $\varphi$ which is a contradiction since $y$ is not parallel.
+
+        Thus, translations go to translations and glides go to glides.
+
+        Let $r \in G$ be a reflection. Since reflections have order 2 $\varphi(r)$ is either a reflection or a 180 turn.
+        
+        Let $t \in G$ be a translation not perpendicular to the reflection line of $r$ or equivalent s.t. $tr$ is a glide.
+
+        Thus, $\varphi(tr)=\varphi(t)\varphi(r)$ this is a product of a translation and a 180 turn which is still a 180 turn. Thus, this is a contradiction from the first part where glides go to glides.
+
+        Thus, reflections go to reflections.
+
+        Thus, finally rotations are forced to go to rotations.
+    \end{proof}
+\begin{corollary}
+    If two wallpaper groups are isomorphic then their point groups are isomorphic.
+\end{corollary}
+    \begin{proof}
+        Let $G\cong H$ for two wallpaper groups. With translations $T,T'$ and point groups $K,K'$ for $G$ and $H$ respectively.
+
+        Since they are isomorphic this means there exists an isomorhpism $\varphi$ between them.
+
+        Thus, by the previous theorem we get that $\varphi(T)=T'$ thus $T \cong T'$
+
+        Thus, $K \cong G \diagup T \cong H \diagup T' \cong K'$
+    \end{proof}
+
+Now using the corollary we can say if two wallpaper groups have different point groups they are not isomorphic thus we can split it up into groups.
+\begin{enumerate}
+    \item For all the point groups of $C_n$ there is only one type for each number, so we are done with those.
+    \item For point group $D_1$\\
+    We proved in class these are not isomorphic.
+    \item For point group $D_2$\\
+    First using the theorem since case 9,12,11 have reflections and case 10 does not we know that case 10 is not isomorphic to 9,12,11.\\
+    For, case 11 prove above since at any center of a rotation of order 2 we only have one reflection this makes it, so we will not have a subgroup isomorphic to $D_2$ thus 11 is not isomorphic to 9 and 12.\\
+    Let $G$ be case 9, and $H$ be case 12.\\
+    I tried.
+    \item For point group $D_3$\\
+    I tried.
+    \item For point group $D_4$\\
+    Let $G$ be our case 13 and $H$ be our case 14.\\
+    Assume for contradiction $G \cong H$ with $\varphi : G \rightarrow H$.\\
+    First in $G$ center ourselves at a center of rotation of order 4, and let one reflection be the $x$-axis.\\
+    Thus, we have that $rr_{y=x}=p_{\pi/2}$. Thus, $\varphi(rrp_{\pi/2})=\varphi(r)\varphi(rp_{\pi/2})=\varphi(p_{\pi/2})$\\
+    Thus, by the theorem since we assumed these are isomorphic we have that two reflections in $H$ can produce a rotation of order 4.\\
+    Now in $H$ center ourselves at a center of rotation of order 4. Then set a basis $v,w$ for our lattice. Let $v$ be horizontal and $w$ be vertical.\\
+    Thus shown in a previous problem the only reflections we can get in $H$ are parallel to the line $y=x$ and $y=-x$.\\
+    Now lets try to get to $t_{c}p_{\pi/2}=t_zr_{a}t_xr_{b}$ for $z,x,c$ as vectors and $a,b$ as $y=x$ or $y=-x$\\
+    $t_{c}p_{\pi/2}=t_{z+r_{a}(x)}r_ar_b=t_{z+r_{a}(x)}p_{j\pi/2}p_{i\pi/2}=t_{z+r_{a}(x)}p_{(i+j)\pi/2}$ for $i,j \in \{1,3\}$ however there is no combination of $i,j$ to get to $p_{\pi/2}$ thus this is a contradiction.
+    Thus, $G$ is not isomorphic to $H$.
+    \item For point group $D_6$\\
+    There is only one group with point group $D_6$, so we are done.
+\end{enumerate}
 \end{document}
