@@ -1,0 +1,112 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+A stationary distribution would be $\pi_s = \left( 1/3,1/3,1/3 \right)$ since every node is symmetric\\
+Since this graph is symmetric we only have to look at one point.\\
+First we can see every node communicates with each other by just starting at any node and going left till you hit the node you want, thus it is irreducible.\\
+Now to show it is aperodic. First we can start at a node then go right then left this we can see that $2$ is in our set. Then we can also go left 3 times and end up back at the same node thus 3 is in our set. Thus, since $\gcd(2,3)=1$ we have that our period for every node is 1. Thus it is aperodic.\\
+Thus, the convergence theorem applies.
+
+\newpage
+\subsection*{Problem 2}
+A stationary distribution would be $\pi_s = \left( 1/4,1/4,1/4,1/4 \right)$ since every node is symmetric\\
+Since this graph is symmetric we only have to look at one point.\\
+First we can see every node communcates with each other by just starting at any node and going left till you hit the node you want, thus it is irreducible.\\
+However, this is not aperodic, since it always takes an even amount of moves to get back to our original point thus we have period 2 for all nodes. Thus, the convergence theorem does not apply.\\
+A counter example is $\pi=\left( 1/2,0,1/2,0 \right)$\\
+$\left( 1/2,0,1/2,0 \right) \rightarrow \left( 0,1/2,0,1/2 \right) \rightarrow \left( 1/2,0,1/2,0 \right) \rightarrow \dots$\\
+This oscillates back and forth between the first 2, so this never converges to anything.
+
+\newpage
+\subsection*{Problem 3}
+A stationary distribution would be $\pi_s = \left( 0,0,1/2,1/2 \right)$\\
+First we can see that this is 2 non-connected 2-cycles. Thus this graph is not irreducible, since states 1,2 cannot get to 3,4 and vice versa.\\
+Thus the convergence theorem does not apply\\
+A counter example is $\pi=\left( 1/2,1/2,0,0 \right)$\\
+This is another stationary distribution so the first one we found is not unique.
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item A stationary distribution would be $\pi_s = \left( 1/4,1/4,1/4,1/4 \right)$ since again every node is symmetric\\
+    First we can see every node communcates with each other since all of them are connected.\\
+    Now to show it is aperodic. First we can start at a node then go to any other node and come back thus we can see that 2 is in our set. Then we can also start at our node go to another node then go to another node that is not our starting point and since every node is connected then go back to our starting point thus 3 is in our set. Thus since $\gcd(2,3)=1$ we know that every node has period 1. Thus our chain is aperodic and irreducible\\
+    Thus the convergence theorem applies.
+    \item A stationary distribution would be $\pi_s = \left( 1/2,1/8,1/8,1/8,1/8 \right)$ where the $1/2$ is on the carbon.\\
+    First we can see every node communcates with each other since if we start at any hydrogen we can go to the carbon then from the carbon we can go to any hydrogen.\\
+    However, it is not aperodic since to get back to your starting point you must make an even amount of moves. Thus the period of each node is 2.\\
+    Thus the convergence theorem does not apply\\
+    A counter example is $\pi=\left( 1,0,0,0,0 \right)$\\
+    $\left( 1,0,0,0,0 \right) \rightarrow \left( 0,1/4,1/4,1/4,1/4 \right) \rightarrow \left( 1,0,0,0,0 \right) \rightarrow \dots$\\
+    Thus oscillates back and forth between the first 2, so this never converges.
+\end{enumerate}
+\end{document}
