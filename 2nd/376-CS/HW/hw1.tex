@@ -8,7 +8,6 @@
 % in order to compile this file you will need to get 'header.tex'
 % and make the line below point to the appropriate file path
 \input{header}
-
 \ifprintanswers
 \hwslnheader   % header for solutions
 \else
@@ -17,91 +16,47 @@
 
 \begin{document}
 
-
-\hwpreface
-
 \begin{questions}
 
-  \addtocounter{question}{-1}
-  \question[0] \textbf{Before you start; before you submit.}
-  
-  \begin{parts} 
-    \part Before starting this assignment, carefully read \href{https://drive.google.com/file/d/1s8EuLp-75kDk3tE4_j18htpUnG4diVoq/view?usp=drive_link}{Handout 1} (Running Times and Aysmptotics) and the ``Good Writing'' section of \href{https://drive.google.com/file/d/1dT8l17SH5XvXCFZht7SnvxV652pOIkcE/view?usp=drive_link}{Handout 2} (the induction section is optional but recommended), and apply them to your work.
-
-    \part If applicable, state the name(s) and uniqname(s) of your collaborator(s).
-
-    \begin{solution}
-       
-    \end{solution}
-
-  \end{parts}
-
   \bonusquestion[10] \textbf{\LaTeX\ for dummies (optional extra credit).} 
-  
-    \emph{You are not required to do this question to receive full credit on this assignment.}
-
-    We (along with the rest of the civilized math-writing world) use \LaTeX\ for all homeworks and exams.
-    \LaTeX\ is \emph{not} a ``what you see is what you get'' word-processing software like you may be accustomed to (Word, Google Docs, etc.).
-    Instead, a \LaTeX\ document is best seen as a \emph{program} that \emph{describes} the desired output, and is \emph{compiled} into a human-readable format (e.g., PDF, HTML, Postscript, etc.).
-    
-    Importantly, the ultimate appearance and contents of the document can vary based on certain options and settings, without making any changes to the main contents.
-    So, when writing in \LaTeX, the primary focus should be on the \emph{structure} of the document and the \emph{meaning} of the ``code,'' rather than the layout and appearance.
-    Ensuring a consistent and beautiful appearance is the job of the compiler, not the human author.
-    For more on this perspective and many other useful \LaTeX\ practices and things to avoid, see these good resources:
-    \begin{itemize}[itemsep=0pt]
-    \item \href{https://www.gleave.me/post/latex-design-patterns/}{Writing Beautifully in \LaTeX},
-    \item \href{https://tug.ctan.org/info/short-math-guide/short-math-guide.pdf}{Short Math Guide for \LaTeX},
-    \item \href{https://chenfuture.wordpress.com/2009/02/07/dos-and-donts-when-typesetting-a-document/}{DOs and DON'Ts when typesetting a document}.
-    \end{itemize}
-  
-  To receive the bonus points, you must typeset this \textbf{entire} assignment in \LaTeX, and typeset the following two snippets of text in \LaTeX. Include the source code in a \texttt{Verbatim} environment from the \href{https://ctan.org/pkg/fvextra}{fxectra} package. 
-
-\ifprintanswers
-\else
-\newpage
-\fi
 
   \begin{parts}
       \part The following snippet is about some key features of the big-O notation extracted from \href{https://drive.google.com/file/d/1s8EuLp-75kDk3tE4_j18htpUnG4diVoq/view?usp=drive_link}{Handout 1}.
       \begin{center}
-        \includegraphics[width=\linewidth]{asymp.png}
+        For (non-negative) functions $f(n)$ and $g(n)$, we say "$f(n)=O(g(n))$" if there exist positive constants $c$, $n_0$
+        such that $f(n) \leq c \cdot g(n)$ for all $n \geq n_0$. The key features here are:
+
+        \begin{itemize}
+          \item "there exists a positive constant $c \ldots f(n) \leq c \cdot g(n)$": this says that $f(n)$ is \emph{upper bounded}
+          by some \emph{constant multiple } of $g(n)$. That is, $O$-notation "hides," or ignores constant factors. Note also that it captures only an \emph{upper bound}: $f(n)$ might actually by \emph{much smaller}
+          than $c \cdot g(n)$, or not. A big-O bound by itself says nothing about which is the case.
+          \item "there exists a positive constant $n_0 \ldots$ for all $n \geq n_0$": this says that the upper bound holds for all $n$ \emph{above some constant "threshold."}
+          However, it says nothing about the relationship between $f(n)$ and $g(n)$ \emph{below} the threshold; it could be that $f(n)$ greatly exceeds (even a huge multiple of) $g(n)$ in that range. Moreover, the 
+          threshold $n_0$ can be \emph{any constant}---it could be one, or ten, or a billion, or a googolplex---and the notation hides its exact value.
+        \end{itemize}
       \end{center}
-      \LaTeX\ you may need:
-      \begin{itemize}
-          \item In-line math
-          \item Less-than-or-equal-to symbol
-          \item Quote marks
-          \item Lists
-      \end{itemize}
-
-      \begin{solution}
-      % Uncomment this to include your solution
-      % \begin{Verbatim}[breaklines]
-
-      % \end{Verbatim}
-      \end{solution}
-
     \part The following snippet is about \href{https://en.wikipedia.org/wiki/Fibonacci_sequence}{Fibonnaci numbers}. 
       \begin{center}
-        \includegraphics[width=\linewidth]{fib.png}
+        The Fibonacci numbers may be defined by the recurrence relation \[F_n = F_{n-1} + F_{n-2}\]
+  with base cases $F_0=0$ and $F_1=1$. WE can compute the $n$-th Fibonacci number using the following recursive algorithm:\\
+  \begin{minipage}{\linewidth}
+    \begin{algorithm}[H]
+          \begin{algorithmic}[1]
+            \Require{a natural number $n$}
+            \Ensure{the $n$-th Fibonnaci}
+            \Function{Fib}{$n$} 
+            \If{$n=0$}
+              \State \Return 0
+            \EndIf
+            \If{$n=1$}
+              \State \Return 1
+            \EndIf
+            \State \Return \Call{Fib}{$n - 1$} $+$ \Call{Fib}{$n - 2$}
+            \EndFunction
+          \end{algorithmic}
+    \end{algorithm}
+  \end{minipage}
       \end{center}
-    
-
-    \LaTeX\ you may need:
-    \begin{itemize}
-        \item Display math
-        \item The \texttt{algorithmic} environment
-    \end{itemize}
-
-    \emph{Hint:} Feel free to copy and modify the source code of the algorithms from other problems.
-
-    \begin{solution}
-      % Uncomment this to include your solution
-      % \begin{Verbatim}[breaklines]
-
-      % \end{Verbatim}
-    \end{solution}
-
   \end{parts}
 
 \ifprintanswers
@@ -120,19 +75,14 @@
     \begin{tabular}{|l|c|}
     \hline
     \textbf{Component}         & \textbf{Weight (\%)} \\ \hline
-    Homework                   &  \\ \hline
-    Exams                      &  \\ \hline
-    Discussion Attendance      &  \\ \hline
-    Course Evaluations         &  \\ \hline
+    Homework                   &  40\%\\ \hline
+    Exams                      &  59\%\\ \hline
+    Discussion Attendance      &  0\%\\ \hline
+    Course Evaluations         &  1\%\\ \hline
     \textbf{Total}             & \textbf{100}       \\ \hline
     \end{tabular}
     \end{center}
       Based on your calculation, explain how attending 9 discussion impacts the weight distribution of your final grade compared to attending 10 or more discussions. 
-      \begin{solution}
-      Homework: 40\%, Exams: 59\%, Discussion Attendance: 0\%, Course Evals: 1\%. 
-
-    Attending less than 10 discussions weights the final exam by an additional 3\%. 
-      \end{solution}
 
       \part [5] Below is a table showing your scores for 12 homework assignments. Assume one homework was not submitted and one homework was submitted late. 
 
@@ -157,15 +107,19 @@
     \end{center}
 
     Calculate your average homework grade after applying the drop policy (dropping the two lowest scores) and the 5\% late penalty.
-
+    \printanswers
     \begin{solution}
-
+      87.9\%
     \end{solution}
 
       \part [5] Name three different ways you can ask a question about course content in this class. How are you more likely to ask questions?
-
       \begin{solution}
-
+       \begin{itemize}
+        \item discussions
+        \item office hours
+        \item piazza
+       \end{itemize}
+       I will likely ask in discussions
       \end{solution}
   \end{parts}
 
@@ -196,15 +150,26 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
 \end{minipage}
 
 \begin{parts}
+    \printanswers
     \part[3] Identify the value of $k$ that induces the \emph{most} \texttt{"Welcome to EECS 376!"} printed by the algorithm, in terms of $n$. \label{3a}
     \begin{solution}
-
+      There are $k(n-k)$ iterations since this is basically $\sum_{1}^{k}\sum_{1}^{n-k}1=k(n-k)$\\
+      Thus, we get that $f(k)=kn-k^2$\\
+      The formula for the vertex of a quadratic is $x=\dfrac{-b}{2a}$ where a polynomial is $ax^2+bx+c$\\
+      Thus, the max number of iterations is when $k=\dfrac{n}{2}$ and since a quadratic has symmetry across the point of its vertex if $n$ is odd you can either round up or down.\\
+      Thus, the max number of iterations is when $k=\lceil n/2 \rceil$
     \end{solution}
 
     \part[4] Based on your answer in \cref{3a}, give the \emph{tightest correct asymptotic} (big-$O$) bound, as a function of~$n$, on the worst-case number of \texttt{"Welcome to EECS 376!"} printed by the algorithm. \label{3b}
 
     \begin{solution}
-
+      The number of prints we talked about in (a) is the function $f(k)=kn-k^2$ and from part (a) we know the worst number of iterations is when $k=\lceil n/2 \rceil$ thus $f\left( \lceil n/2 \rceil \right)\leq (n/2)(n/2)=n^2/4 \leq n^2$
+      Thus, the total number of iterations is bounded above by $O(n^2)$\\
+      As for showing this is the tightest bound we can also show it is $\Omega(n^2)$\\
+      If $n$ is even then $f(\ceil{n/2})=\dfrac{n^2}{4}$\\
+      If $n$ is odd then $f(\ceil{n/2})=f((n+1)/2)=\dfrac{n^2-1}{4}$\\
+      Thus in both cases $f(\ceil{n/2}) \geq n^2/4$ thus it is also $\Omega(n^2)$\\
+      Thus the number of iterations is $\Theta(n^2)$
     \end{solution}
 
     \part[4] Determine whether the algorithm is \emph{efficient}, i.e., runs in at most polynomial time with respect to the input size. Briefly explain your answer. \label{3c}
@@ -212,7 +177,11 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     \emph{Reminder}: The input size of an integer is defined as the number of bits needed to represent it in binary.
 
     \begin{solution}
-
+      Let $S$ be the size of the integer $n$. Thus, we know that $S=\lfloor \log_2 n \rfloor + 1$ for $n>0$ and $1$ for $n=0$\\
+      Thus for large enough $n$ we know that
+      \[S-1 \leq \log_2n < S\]
+      \[2^{S-1}=(1/2)2^S\leq n < 2^S\]
+      Thus $n=\Theta(2^S)$, thus in terms of size we know from (b) the number of iterations is $\Theta(n^2)$ thus the size is $\Theta(4^S)$
     \end{solution}
 
     \part [4] Does your answer in \cref{3c} change if $n$ and $k$ are represented in base-10 (decimals) instead? Briefly justify your answer.
@@ -223,13 +192,14 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     \]
 
     \begin{solution}
-
+      This is the same proof from (c) but let $S=\floor{\log n}+1$ thus you get that $n=\Theta(10^S)$ and thus the size is $\Theta(10^{2S})$
     \end{solution}
 \end{parts}
 
+\newpage
 
     \question \textbf{Lumpy array.}
-    
+    \printanswers
     In lecture, we said that you can measure the ``size" of an array as the number of elements in it, but we also said the ``size" of an input is the number of bits needed to represent it.  Consider the following example algorithm on an array:
        
     \begin{minipage}{\linewidth}
@@ -248,18 +218,14 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     \end{algorithm}
     \end{minipage}
 
-\ifprintanswers
-\else
-\newpage
-\fi
-
     \begin{parts}
         \part [5] For this part, we will assume that each element of the array is the same fixed size, and the ``size" of our input will be considered the number of elements in the array, $n$.  Find the big-O runtime of this algorithm (in terms of $n$) and state whether the function \textsc{Sum} is efficient, i.e., runs in polynomial time with respect to the input size ($n$). \label{4a}
 
         \emph{Note:} Because all elements of the array are the same size, we will treat addition as runnings in constant time, $O(1)$.
 
         \begin{solution}
-
+          Lines 2,5 are both $O(1)$ operations, so we can ignore them in our analysis.\\
+          Thus for the number of iterations let $f$ be the function. We get that $f(n)=n<=n$ thus $f(n)=O(n)$, and since what it is doing in the loop is a $O(1)$ operation we can ignore it thus the algorithm runs in $O(n)$ time. Thus, this function is efficient since $f(n)=O(n^c)$ for $c \in \N$
         \end{solution}
 
         \part [5] Suppose instead, that we measure the ``size" of our array as the number of bits used to represent it, call it $b$.  Here, the elements of the array may be of different (arbitrarily large) sizes, so we will treat addition as running in linear time (to sum numbers with $k$ bits, it takes $O(k)$ time; you could think of this as taking finite time to add/carry each place value).  Determine whether in this interpretation, our algorithm is still efficient, running in polynomial time with respect to the input size (now $b$).
@@ -267,11 +233,18 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
         \emph{Hint}: If our input has $b$ bits, find an upper bound on the number of elements that could be in the array and the number of bits in any one element of the array.  Note that your big-O bound for the runtime of the algorithm does not need to be a tight bound.
 
         \begin{solution}
+            Let $b_i$ be the number of bits to represent $A[i]$ thus we have that
+            \[b=\sum_{i=1}^{n}b_i\]
+            In the min case we have that each $b_i$ uses 1 bit. Thus, $n \leq b$.\\
+            Thus, since the loop runs $n \leq b$ times we get that the number of iterations is $O(b)$\\
+            Then it takes $O(b)$ work for each addition since $b_i \leq b$ for all $i \in \{1,\dots,n\}$\\
+            Thus, we get that the total runtime is $O(b^2)$ since we do $n \leq b$ iterations with $b_i \leq b$ work. 
             
         \end{solution}
 
     \end{parts}
 
+\newpage
 
   \question \textbf{Prof. Upsilon and their oopsie claims.}
 
@@ -292,29 +265,126 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     \part[6] ``We can upper bound the runtime of $Y$ by $O(n^2)$.''
 
     \begin{solution}
-    
+    Since $T_Y(n)$ is $\Theta(n \log n)$ we get that there exists constants $c_1,c_2$, and $n_1$ s.t.:
+    \[c_1 n\log n \leq T_Y(n) \leq c_2 n \log n \quad \text{for all $n \geq n_1$}\]
+    Since $\lim_{n \rightarrow \infty} \dfrac{log(n)}{n}=\lim_{n \rightarrow \infty} \dfrac{1}{n}=0$ thus this limit is finite thus $log(n) \in O(n)$ thus there exists constants $c_3,n_2$ s.t. $log(n) < c_3 n$ for all $n > n_2$\\
+    \[c_1 n\log n \leq T_Y(n) \leq c_2 n \log n \leq c_2c_3 n^2 \quad \text{for all $n \geq \text{max}(n_1,n_2)$}\]
+    Thus we have that $T_Y(n) \in O(n^2)$
     \end{solution}
 
     \part[8] ``On every input, $Y$ runs faster than $X$.''
     \begin{solution}
+      This is both true and false, depending on the functions \(T_X(n)\) and \(T_Y(n)\). 
 
+      Since \(T_X(n) \in O(n^2)\), this means \(T_X(n) \leq c_1 n^2\) for some constant \(c_1 > 0\) and all \(n > n_0\). For example, \(T_X(n)\) could be \(1\), since \(1 \leq n^2\) for all \(n > 1\), thus \(T_X(n) \in O(n^2)\). Similarly, suppose \(T_Y(n)\) is in \(\Theta(n \log n)\), which means \(c_2 n \log n \leq T_Y(n) \leq c_3 n \log n\) for some constants \(c_2, c_3 > 0\) and all \(n > n_0\). For example, \(T_Y(n)\) could be \(n \log n\). Thus, $c_2,c_3=1$, and $n_0=0$ 
+
+      Now consider a specific input \(n = 10\): 
+      \[
+      T_X(10) = 1, \quad T_Y(10) = 10 \log 10=10.
+      \]
+      In this case, \(T_Y(n)\) runs slower than \(T_X(n)\). 
+
+      However, suppose \(T_X(n) = n^2 + 1\), which satisfies \(T_X(n) \leq 2n^2\) for \(n > 1\). Similarly to above, let \(T_Y(n) = n \log n + 1\). 
+
+      Define \(g(n) = n^2 - n \log n\), and compute its derivative:
+      \[
+      g'(n) = 2n - \frac{\ln(n) + 1}{\ln(10)}.
+      \]
+      To show that \(g'(n) > 0\), consider the function \(h(x) = e^{2 \ln(10)x - 1} - x\). Compute its derivatives:
+      \[
+      h'(x) = 2 \ln(10) e^{2 \ln(10)x - 1} - 1, \quad h''(x) = 4 (\ln(10))^2 e^{2 \ln(10)x - 1}.
+      \]
+      Since \(e^y > 0\) for all \(y \in \mathbb{R}\), we know \(h''(x) > 0\) for all \(x \in \mathbb{R}\). Thus, \(h'(x)\) is increasing for all \(x > 0\). Also, \(h'(0) > 0\), so \(h'(x) > 0\) for all \(x > 0\), implying \(h(x) > 0\) for all \(x > 0\). 
+
+      Therefore:
+      \[
+      e^{2 \ln(10)x - 1} > x \quad \text{for all } x > 0.
+      \]
+      This implies:
+      \[
+      2 \ln(10)x - 1 > \ln(x), \quad \text{or equivalently, } 2x > \frac{\ln(n) + 1}{\ln(10)} \quad \text{for all } x > 0.
+      \]
+
+      Thus, \(g'(n) > 0\) for all \(n > 0\), and since \(g(0) > 0\), we conclude \(g(n) > 0\) for all \(n > 0\). Therefore:
+      \[
+      n^2 + 1 > n \log n + 1 \quad \text{for all } n > 0.
+      \]
+
+      Hence, \(T_X(n)\) runs slower than \(T_Y(n)\) on every input \(n > 0\).
     \end{solution}
     
 
     \part[10] ``For all large enough $n$, there is an input of size $n$ for which $Y$ runs faster than $X$.''
     \begin{solution}
+      This is both true and false.
 
+      Since $T_Y(n) \in \Theta(n \log n)$.
+
+      By definition, there exist constants $c_1, c_2 > 0$ and $n_0 > 0$ such that:
+      \[
+      c_1 n \log n \leq T_Y(n) \leq c_2 n \log n \quad \text{for all } n \geq n_0.
+      \]
+
+      Since$T_X(n) \in O(n^2)$.
+
+      This means there exists a constant $c_3 > 0$ and $n_1 > 0$ such that:
+      \[
+      T_X(n) \leq c_3 n^2 \quad \text{for all } n \geq n_1.
+      \]
+
+      Let $T_X(n) = 1$ for all $n$. Clearly, $T_X(n) \in O(n^2)$, because:
+      \[
+      T_X(n) = 1 \leq c_3 n^2 \quad \text{for } c_3 = 1 \text{ and all } n > 1.
+      \]
+
+      For $T_X(n) = 1$, we know $T_Y(n) \geq c_1 n \log n$ for all sufficiently large $n$:
+      \[
+      T_Y(n) > T_X(n) \quad \text{for all sufficiently large } n,
+      \]
+      because $c_1 n \log n \to \infty$ as $n \to \infty$, while $T_X(n) = 1$ is constant. Thus, this is false in this example
+
+      Use the second case in part (b) to show this is true.
     \end{solution}
     
 
     \part[10] ``For all large enough $n$, there is an input of size $n$ for which $Z$ runs faster than $Y$.''
 
     \begin{solution}
+      Since $Z(n) \in \Theta(n)$, there exist constants $c_1, c_2 > 0$ and $n_0 > 0$ such that:
+      \[
+      c_1 n \leq Z(n) \leq c_2 n, \quad \text{for all } n \geq n_0.
+      \]
 
+      Since $Y(n) \in \Theta(n \log n)$, there exist constants $c_3, c_4 > 0$ and $n_1 > 0$ such that:
+      \[
+      c_3 n \log n \leq Y(n) \leq c_4 n \log n, \quad \text{for all } n \geq n_1.
+      \]
+
+      Using the bounds for $Z(n)$ and $Y(n)$, we find:
+      \[
+      \frac{c_1 n}{c_4 n \log n} \leq \frac{Z(n)}{Y(n)} \leq \frac{c_2 n}{c_3 n \log n}, \quad \text{for all } n > \max(n_0,n_1)
+      \]
+
+      Simplifying the bounds:
+      \[
+      \frac{c_1}{c_4 \log n} \leq \frac{Z(n)}{Y(n)} \leq \frac{c_2}{c_3 \log n}, \quad \text{for all } n > \max(n_0,n_1)
+      \]
+
+      As $n \to \infty$, $\log n \to \infty$, so both the lower and upper bounds approach 0:
+      \[
+      \frac{c_1}{c_4 \log n} \to 0 \quad \text{and} \quad \frac{c_2}{c_3 \log n} \to 0.
+      \]
+
+      By the Squeeze Theorem:
+      \[
+      \lim_{n \to \infty} \frac{Z(n)}{Y(n)} = 0.
+      \]
+
+      Since $\lim_{n \to \infty} \frac{Z(n)}{Y(n)} = 0$, we conclude that $Z(n) \in O(Y(n))$. Thus, for all large enough $n$, there is an input of size $n$ for which $Z$ runs faster than $Y$.
     \end{solution}
 
 \end{parts}
-
+    \newpage
     \question \textbf{Set of proofs by contra-.}
     
     Recall that a \emph{set} is a collection of distinct elements. Below are some important set notations:
@@ -335,7 +405,10 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
         Prove the above property by contradiction. 
 
         \begin{solution}
-
+          Assume $A \subseteq B$ and $B \subseteq C$\\
+          Assume for contradiction $A \nsubseteq C$\\
+          Thus let $x \in A$ thus $x \in B$ since $A \subseteq B$\\
+          Thus $x \in C$ since $B \subseteq C$; however, since $A \nsubseteq C$ this implies $x \notin C$ thus this is a contradiction thus $A \subseteq C$
         \end{solution}
 
         \part [5] Recall the DeMorgan's Law, which says: 
@@ -345,12 +418,15 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
         State the contrapositive of the statement. Then, prove the contrapositive. 
 
         \begin{solution}
-
+          If $x \notin \overline{A}\cup \overline{B}, \text{then } x \notin \overline{A \cap B}$\\
+          Assume $x \notin \overline{A} \cup \overline{B}$ thus $x \notin \overline{A}$ and $x \notin \overline{B}$\\
+          Since if $x \in \overline{A}$ then it would be in $\overline{A}\cup \overline{B}$ and vice versa.\\
+          Thus, since $x \notin \overline{A}$ this means it is in $A$ and same for $B$ thus $x \in A \cap B \implies$ it is not in $\overline{A \cap B}$ 
         \end{solution}
         
     \end{parts}
 
-    
+  \newpage
   \question \textbf{Euclid's algorithm, extended.}
 
   
@@ -389,6 +465,31 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     \emph{Hint}: by recursion/induction, we know that $g = \gcd(y,r)$ and $a'y+b'r = g$.
      
     \begin{solution}
+      \(x = qy + r \implies r = x - qy\)
+
+      \(g = a'y + b'r \implies g = a'y + b'(x - qy) \implies g = (a' - b'q)y + b'x.\)
+
+      Thus, we let \( a = b' \) and \( b = a' - b'q \).
+
+      For \( (1) \), since \( g \) is the \( \gcd(y, r) \), we know that \( g \mid y \) and \( g \mid r \), so:
+
+      \(y = gk \quad \text{and} \quad r = gc, \quad \text{for } k, c \in \mathbb{Z}.\)
+
+      Substituting into \( x = qy + r \), we have:
+
+      \(x = g(qk + c).\)
+      
+      Thus, \( g \mid x \). Let \( g' = \gcd(x, y) \). Since \( g \mid x \) and \( g \mid y \), we conclude:
+
+      \(g \geq g'.\)
+
+      On the other hand, since \( r = x - qy \) and \( g' \mid x \) and \( g' \mid y \), it follows that \( g' \mid r \). Hence:
+
+      \(g' \leq g.\)
+
+      Since \( g \geq g' \) and \( g \leq g' \), we conclude \( g = g' \). Thus: \(\gcd(x, y) = \gcd(y, r).\)
+
+      For \( (2) \), reversing the argument starting from \( g = (a' - b'q)y + b'x \) yields the desired result. 
 
     \end{solution}
     
@@ -412,7 +513,20 @@ To express our excitement for the start of EECS 376, we present an algorithm tha
     Put~`--' for any entries that are not defined due to the base case.
 
     \begin{solution}
-
+      \begin{table}[H]\centering
+        \begin{tabular}{r|rr|rr|rr|rr|rrc}
+          & \multicolumn{2}{c|}{input} & \multicolumn{2}{|c|}{division} & \multicolumn{2}{|c|}{rec ans} & \multicolumn{2}{|c|}{output} \\
+          $i$ & $x$   & $y$  & $q$ & $r$  & $a'$ & $b'$ & $a$ & $b$ & $s$ & $s_{i+1}/s_{i}$ & $\leq 2/3$ ? \\ \hline
+          $0$ & $376$ & $281$ & 1 & 95 & -24 & 70 & 70 & 94 & 657 & 376/657 & T \\
+          1 & 281 & 95 & 2 & 91 & 22 & -24 & -24 & 70 & 376 & 186/376 & T \\
+          2 & 95 & 91 & 1 & 4 & -1 & 22 & 22 & -24 & 186 & 95/186 & T \\
+          3 & 91 & 4 & 22 & 3 & 1 & -1 & -1 & 22 & 95 & 7/95 & T \\
+          4 & 4 & 3 & 1 & 1 & 0 & 1 & 1 & -1 & 7 & 4/7 & T \\
+          5 & 3 & 1 & 3 & 0 & 1 & 0 & 0 & 1 & 4 & 1/4 & T \\
+          6 & 1 & 0 & -- & -- & -- & -- & 1 & 0 & 1 & -- & -- \\
+          % Add more rows as needed
+        \end{tabular}
+      \end{table}
     \end{solution}
   \end{parts}
 
