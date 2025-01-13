@@ -1,0 +1,186 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{enumerate}[(a)]
+    \item Let $A$ be the set of all functions $f: \{0,1\} \to \N$\\
+    Let $g: A \to \N \times \N$ s.t. $g(f)=(f(0),f(1))$\\
+    Injective:\\
+    Let $f,h \in A$ s.t. $g(f)=g(h)$ thus this means that $(f(0),f(1))=(h(0),h(1))$\\
+    This implies that $f=h$ since they map the same input to the same output for their whole domain thus $g$ is injecive.\\
+    Surjective:\\
+    Let $a,b \in \N$ thus consider $(a,b) \in \N \times \N$\\
+    Consider the function $f$ that maps $0$ to $a$ and $1$ to $b$. This function is in $A$. Thus, $g(f)=(a,b)$\\
+    Thus $g$ is bijective, thus by proven in class since $\N \times \N$ and has a bijection to $A$ we know that $A$ is countable.
+    \item Consider $F_n$ which is all functions from $\{1,\dots,n\}$ to $\N$.\\
+    Using a similar proof to $(a)$ we can show that $F_n$ has a bijection to $\N^n$, the Cartesian product of $\N$ taken $n$-times.\\
+    Shown in class that finite number of Cartesian products is finite thus each $F_n$ is countable. Then proven in class we showed that countable union of countable sets is countable,
+    and since we only take $|\N|$ number of unions this is a countable number thus the set is countable.
+    \item Let $A$ be the set of all functions $f: \N \to \{0,1\}$\\
+    Let $g: A \to \{\text{infinite binary sequences}\}$ s.t. $g(f)=(f(1),f(2),\dots)$\\
+    Injective:\\
+    Let $f,h \in A$ s.t. $g(f)=g(h)$ thus this means that $(f(1),f(2),\dots)=(h(1),h(2),\dots)$ thus $f(1)=h(1),f(2)=h(2),\dots$ thus $f=h$ thus $g$ is injective.\\
+    Surjective:\\
+    Let $s=(x_1,x_2,\dots)$ be a infinite binary sequence. Thus pick the function $f$ in $A$ s.t. $f(1)=x_1, f(2)=x_2,\dots$ thus $g(f)=s$\\
+    Thus $g$ is bijective.\\
+    Now assume for contradiction that the set of infinite binary sequences is countable. Thus, we can list them $s_1,s_2,\dots$\\
+    Now define the sequence $t$ s.t. $t(n)=1$ if $s_n$ at the $n$th term is $0$ and $0$ if the $n$th term is $1$.\\
+    $t$ cannot be in our list because if it were lets say it was $s_m$ but at the $m$th spot we flipped it in $t$ thus this is a contradiction.\\
+    Thus, $A$ is not countable.
+    \item Let $A$ be the set in the question.\\
+    Let $g: A \to \bigcup_{N \in \N}\{\text{binary sequences of length $N-1$}\}$ s.t. for $f$ s.t it is eventually zero at $N\in \N$ this means for all $n \geq N$, $f(n)=0$
+    thus define $g$ s.t. $g(f)=(f(1),f(2),\dots,f(N-1))$\\
+    Injective:\\
+    Let $f,h \in A$ s.t. $g(f)=g(h)$ thus we know that both $f,h$ both become zero at the same spot lets call it $N$ and that $f(1)=h(1),\dots,f(N-1)=h(N-1)$ thus these are the same functions since everything after and at $N$ is the same.
+    Thus, $f=h$ thus this function is injective.\\
+    Surjective:\\
+    Let $s \in \bigcup_{N \in \N}\{\text{binary sequences of length $N-1$}\}$. WLOG let $s$ be length $N \in \N$. Thus pick the function in $A$ s.t. $f(1)=x_1$, $f(2)=x_2$, $\dots$, $f(N)=x_N$ s.t. $x_i$ are the $i$th term in $s$, and that $f$ is zero after and at $N$\\
+    Thus $g(f)=s$\\
+    Thus $A$ is bijective to the set of all finite binary sequences. Thus, for each size the number of sequences is $2^N$ where $N$ is the size, thus each set is finite thus finite then we do a countable union on these finite sets thus this whole set is countable.
+    \item Let $A$ be the set in the question.\\
+    Let $g: A \to \bigcup_{N \in \N}\N^N$ s.t. for $f$ s.t it is eventually constant at $N\in \N$ this means for all $n \geq N$, $f(n)=m$ for $m \in \N$
+    thus define $g$ s.t. $g(f)=(f(1),f(2),\dots,f(N))$\\
+    Injective:\\
+    Let $f,h \in A$ s.t. $g(f)=g(h)$ thus we know that both $f,h$ both become constant at the same spot lets call it $N$ and that $f(1)=h(1),\dots,f(N)=h(N)$ thus these are the same functions since everything after and at $N$ is the same.
+    Thus, $f=h$ thus injecive.
+    Surjective:\\
+    Let $s=(x_1,x_2,\dots,x_N)$. WLOG $s$ is length $N$. Thus pick the function in $A$ s.t. $f(i)=x_i$ for $i \in \{1,\dots,N\}$, and $f$ is constant at and after $N$. Thus, $g(f)=s$\\
+    Thus $g$ is bijective. Thus, since finite cartesian products are countable we are doing countable unions on countable sets thus the whole set is countable.
+    \item Let $A$ be the set of all two-element subsets of $\N$. Thus $A=\{\{a,b\} \subset \N \mid a \neq b\}$\\
+    Let $g: A \rightarrow \{(a,b) \in \N \times \N \mid a < b\}$ s.t. $g(\{a,b\})=(a,b)$ if $a<b$ or $(b,a)$ if $b<a$.\\
+    Injective:\\
+    Let $c=\{a,b\},d=\{e,f\}\in A$ s.t. $g(c)=g(d)$. WLOG let $a<b$ and $e<f$. Thus, since $g(c)=g(d)$ we know that $a=e$ and $b=f$. Thus, we know that $c,d$ are the same subset.\\
+    Surjective:\\
+    Consider $(a,b)$ consider the two element subset $\{a,b\}$ thus $g(\{a,b\})=(a,b)$.\\
+    Thus, $A$ has a bijection to a subset of a countable set $\N \times \N$ thus it is countable.\
+    \item Let $A$ be all finite subsets. Do a similar proof in $A$, but do the bijection to $\bigcup_{N \in \N}\{(x_1,\dots,x_N) \in \N^N \mid x_1 < \dots < x_N\}$. Thus since we know that finite cartesian products are countable, and we do a countable union on them we know that the whole set is countable.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}[(a)]
+    \item Reflexivity: Since $f(x)=f(x)$ thus $x \sim x$\\
+    Symmetry: If $x \sim y$ then $f(x)=f(y)$ then $f(y)=f(x)$ thus $y \sim x$\\
+    Transitivity: If $x \sim y$ and $y \sim z$ then $f(x)=f(y)$ and $f(y)=f(z)$ thus $f(x)=f(z)$ thus $x \sim z$\\
+    Thus this is an equivalence relation.\\
+    Let $g: \{\text{equivalence classes of $A$}\}=C \to B$ s.t. $g([x])=f(x)$\\
+    Injective:\\
+    Let $[a],[b] \in C$ s.t. $g([a])=g([b])$. Thus, we know that $f(a)=f(b)$ thus we know that $a \sim b$ thus $[a]=[b]$ Thus injective.\\
+    Surjective:\\
+    Let $b \in B$ since $f$ is surjective there exists an $a \in A$ s.t. $f(a)=b$ then take the equivalnce class $a$ is in thus $g([a])=f(a)=b$ thus surjective.\\
+    Thus, $g$ is bijective.
+    \item Reflexivity: Since $A=A$ we can use the identity map form $A$ to $A$ which is a bijection thus we know that $|A|=|A|$ thus $A \sim A$.\\
+    Symmetry: If $A \sim B$ then $|A|=|B|$ thus $|B|=|A|$ thus $B \sim A$\\
+    Transitivity: If $A \sim B$ and $B \sim C$ then there is a bijection from $A$ to $B$ and $B$ to $C$ thus compose these bijections and we get a bijection from $A$ to $C$ thus $|A|=|C|$ thus $A \sim C$.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+
+\newpage
+\subsection*{Problem 4}
+Let $f : (X^\omega)^\omega \to X^\omega$ s.t. given $S=(s_1,s_2,\dots)$ s.t. $s_i=(x_{i,1},x_{i,2},\dots)$ we can define $f(S)=(y_{\pi(1,1)}=x_{1,1},y_{\pi(2,1)}=x_{2,1},\dots)$ s.t. $\pi(i,j)=\dfrac{(i+j-2)(i+j-1)}{2}+j$ gives the order which is basically diagonal order.\\
+Injective:\\
+Let $a,b \in (X^\omega)^\omega$ s.t. $f(a)=f(b)$ thus we know that all items in the sequence $f(a),f(b)$ are the same. Thus, since the function $f$ will map spot $i,j$ to $\pi(i,j)$ we thus know that each $i,j$ in $a,b$ are the same thus $a=b$ thus they are injective.\\
+Surjective:\\
+Let $s \in X^\omega$ consider the element $a \in (X^\omega)^\omega$ s.t. the $(i,j)$th spot of $a$ is equal to $x_{\pi(i,j)}$ in $s$. Thus, $f(a)=s$ thus surjective.\\
+Thus we have found a bijection thus they have the same cardinality.
+
+\newpage
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+    \item Let $X$ be a well-ordered set. Let $A$ be a bounded above subset of $X$. Thus consider the set $U=\{u \in X \mid u \geq a \t{ for all } a \in A\}$.\\
+    This is non empty since $A$ is bounded above. Thus, since $X$ is well-ordered any nonempty subset has a min thus we know found the least upper bound.
+    \item Let $X$ be a well-ordered set. Let $A$ be a nonempty subset of $X$. Let $B$ be a nonempty subset of $A$. Thus, $B$ is also a subset of $X$. Thus, $B$ has a min. Thus, $A$ is well-ordered.\\
+    Consider $\R$ and the subset $\Q$. Consider the subset of $\Q$ $A=\{x \in \Q \mid x < \sqrt{2}\}$. The supremum of this set is $\sqrt{2}$
+    \item Let $(a,b),(c,d) \in A \times B$ with $(a,c) \neq (c,d)$. Assume $(a,b) < (c,d)$. Assume for contradiction that $(c,d)<(a,b)$\\
+    Thus, we have that either $a<c$, or $a=c$ and $b<c$, and we have that either $c<a$, or $c=a$ and $c<b$. If $a<c$ then $a \neq c$ thus this implies $c<a$ thus this cannot hold. If $a=c$ and $b<d$ then this also implies $d<b$ which is a contradiction thus if $(a,b)<(c,d)$ then $(c,d)\nless(a,b)$\\
+    Let $(a,b) \in A \times B$ then Assume $(a,b) < (a,b)$ then we have that either $a<a$ or $a=a$ and $b<b$ well in both cases there are contradictions from the ordering of $A$ and $B$ thus $(a,b) \nless (a,b)$\\
+    Let $(a,b),(c,d),(e,f) \in A \times B$. Assume $(a,b) < (c,d)$ and $(c,d) < (e,f)$.\\
+    Thus, either $a<c$ or $a=c$ and $b<d$.\\
+    If $a<c$ then if $c<e$ then $a<c<de$ thus $(a,b)<(e,f)$. If $c=e$ then $a<c=e$ thus $a<e$ thus $(a,b)<(e,f)$\\
+    If $a=c$ and $b<d$ then if $c<e$ then $a=c<e$ thus $a<e$ thus $(a,b)<(e,f)$. If $c=e$ and $d<f$ then $b<d<f$ thus $b<f$ and $a=e$ thus $(a,b)<(e,f)$.\\
+    Thus, that is an order relation.\\
+    Assume $A,B$ are well-ordered. Let $C$ be a nonempty subset of $A \times B$\\
+    Let $C_A=\{a \in A \mid \exists b \in B s.t. (a,b) \in C\}$\\
+    Thus since $A$ is well-ordered we can find a min of $C_A$, and it is nonempty since $C$ is nonempty.\\
+    Let $\alpha$ be the mins of $C_A$. Let $C_B=\{b \in B \mid (\alpha,b) \in C\}$. This is nonempty since $C_A$ is nonempty and that $\alpha$ exists. Thus since $B$ is well-ordered take the min of $C_B$ call it $\beta$. Thus, consider $(\alpha,\beta)$\\
+    For $(c,d) \in C$ s.t. $(c,d) \neq (\alpha, \beta)$ since $\alpha$ is the minimum $A$ in $C$ we know that $\alpha$ is always either less than or equal to $c$ if it is equal then we are done. If they are equal then we know that $\beta\neq d$ since $(\alpha,\beta) \neq (c,d)$. Since $\beta$ is the min $B$ of all 
+    elements of the form $(\alpha,f)$ s.t. $f \in B$ we know that $\beta < d$ thus $(\alpha,\beta)$ is the min element. Thus, $A \times B$ is well-ordered.
+    \item Let $X$ be a well-ordered set. Let $Y=P(X)$\\
+    Let the ordering of $Y$ be for $A,B \in P(X)$ $A<B$ if and only if the least element in $(A \setminus B) \cup (B \setminus A)$ is in $B$ and not $A$ basically the first element where $A$ and $B$ differ determines the order.\\
+    Total order:\\
+    Let $A,B \in P(X)$ s.t. $A \neq B$. If they are the same then since we take out what they overlap in the set $(A \setminus B) \cup (B \setminus A)$ the least will only be in one set. Thus either $A<B$ or $B<A$\\
+    For $A$ by itself we have that $(A \setminus B) \cup (B \setminus A)$ is empty, so it is undefined at this operation.\\
+    Let $C \in P(X)$. Assume $A<B$ and $B<C$.
+    \[(A \setminus c) \cup (C \setminus A)=((A \setminus B) \cup (B \setminus A)) \cup (A \setminus c) \cup (C \setminus A)\]
+\end{enumerate}
+\end{document}

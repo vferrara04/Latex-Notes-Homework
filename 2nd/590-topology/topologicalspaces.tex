@@ -1,0 +1,64 @@
+\section{Topological Spaces}
+\begin{definition}
+    Let $X$ be any set. A topology $T$ on $X$ is a collection of subsets of
+    $X$, which satisfies the following axioms.
+    \begin{itemize}
+        \item $\emptyset$ and $X$ are both in $T$
+        \item Closed under arbitrary unions
+        \item Closed under finite intersections
+    \end{itemize}
+\end{definition}
+\phantom{text}\\
+The sets in $T$ are called open sets.\\
+A set $X$  equipped w/ a topology is called a topological space.
+
+\begin{example}
+    \phantom{text}
+    \begin{itemize}
+        \item $X$ is any set, $T=P(X)$. (discrete topology)
+        \item $X$ is any set, $T=\{\emptyset, X\}$. (indiscrete topology)
+        \item $X=\{a,b,c\}$, $T=\{\emptyset,X,\{a,b\}\}$
+        \item $X=\R$, $T=\{\emptyset,X\} \cup \{U \subset \R \mid \t{ for all } x \in X\t{, } \exists \epsilon > 0 \t{ s.t. } (x-\epsilon,x+\epsilon) \subset U\}$
+        \begin{proposition}
+            This is a topology.
+            \begin{proof}
+                \phantom{text}
+                \begin{itemize}
+                    \item $\emptyset, \R$ are both open
+                    \item Suppose $\{U_j\}_{j \in J}$ is a collection of open sets in $\R$\\
+                    Let $x \in \bigcup_{j \in J}U_j$. Then $x \in U_j$ for some $j \in J$.\\
+                    $U_j$ is open thus there is an open interval in $U_j$ congaing $x$. So it is in the arbitrary union
+                    \item Let $U,V$ be open subsets of $\R$\\
+                    Let $x \in U \cap V$. Because $U,V$ open there are intervals $(a,b) \subset U$, $(c,d) \subset V$ s.t. $x \in (a,b) \cap (c,d)$\\
+                    $(a,b) \cap (c,d)=(\max(a,c),\min(b,d)) \subset U \cap V$. Thus, $x$ is in this interval thus $U \cap V$ is open.
+                \end{itemize}
+            \end{proof}
+        \end{proposition}
+        \item $X$ is any set, let $T$ be the collection of subsets $U \subseteq X$ s.t. either $U=\emptyset$, or $X \setminus U$ is finite.
+        \begin{proposition}
+            This is a topology. (cofinite topology)
+            \begin{proof}
+                \phantom{text}
+                \begin{itemize}
+                    \item The empty set is open, and $X\setminus X = \emptyset$ is finite, so $X \in T$
+                    \item Consider sets $\{U_j\}_{j \in J}$ s.t. $U_j \in T$\\
+                    First: consider the case for some $j'$, $X \setminus U_{j'}$ is finite.\\
+                    $X \setminus \bigcup_{j \in J} U_j=\bigcap_{j \in J}X \cap U_j \subset X \cap U_{j'}$. So the arbitrary union is finite.\\
+                    Second: If the first case does not occur, then $U_j = \emptyset$ for all $j \in J$, so the union is the empty set.
+                    \item Let $U,V \in T$. If either is the empty set then $U \cap V = \emptyset \in T$, so assume that both are not empty. Then consider $X\setminus(U \cap V)=(X\setminus U) \cup (X \setminus V)$, so it is a union of two finite sets
+                    which is finite thus $U \cap V \in T$
+                \end{itemize}
+            \end{proof}
+        \end{proposition}
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    If $X$ is a set with topology $T$, then the complement of an open set in $X$ is called a closed set.
+\end{definition}
+
+\begin{example}
+    If $T$ is cofinite topology, a set in $A \subseteq X$ is closed $\iff$ either finite or $A = X$
+\end{example}
+{\LARGE IMPORTANT:}
+Some sets are neither open nor closed. Some sets are both closed and open.
