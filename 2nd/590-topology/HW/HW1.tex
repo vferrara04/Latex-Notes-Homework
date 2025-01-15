@@ -82,7 +82,7 @@
     Thus $g$ is bijective, thus by proven in class since $\N \times \N$ and has a bijection to $A$ we know that $A$ is countable.
     \item Consider $F_n$ which is all functions from $\{1,\dots,n\}$ to $\N$.\\
     Using a similar proof to $(a)$ we can show that $F_n$ has a bijection to $\N^n$, the Cartesian product of $\N$ taken $n$-times.\\
-    Shown in class that finite number of Cartesian products is finite thus each $F_n$ is countable. Then proven in class we showed that countable union of countable sets is countable,
+    Shown in class that finite number of Cartesian products is countable thus each $F_n$ is countable. Then proven in class we showed that countable union of countable sets is countable,
     and since we only take $|\N|$ number of unions this is a countable number thus the set is countable.
     \item Let $A$ be the set of all functions $f: \N \to \{0,1\}$\\
     Let $g: A \to \{\text{infinite binary sequences}\}$ s.t. $g(f)=(f(1),f(2),\dots)$\\
@@ -144,6 +144,38 @@
 
 \newpage
 \subsection*{Problem 3}
+Assume $f : A \to B$, and $g: B \to A$ are injections. Let $B'=g(B)$. Since $g$ is an injection we have a left inverse. Just restrict the co-domain of $g$ to $B'$, and we get a bijection. Call thus $g':B \to B'$
+Define $f': A \to B'$ s.t. $f'(x)=g' \circ f$. This is an injection since $g'$ is a bijection and $f$ is an injection.\\
+Now Define $A_1=A, B_1=B'$, and for $n>1$, $A_n=f'(A_{n-1})$ and $B_n=f'(B_{n-1})$. Define $h: A \to B'$ s.t.
+\begin{equation*}
+    h(x)=\begin{cases}
+            f'(x) & \text{if } x \in A_n \setminus B_n \text{ for the some n},\\
+            x & \text{otherwise}
+        \end{cases}
+\end{equation*}
+Base Case:\\
+Show $A_2 \subset B' \subset A$ first we have $B' \subset A$. Since $A_2 = f'(A) \subset B'$ we have that this statement is true.\\
+Inductive Step:\\
+Assume for all $n \leq k \in \N$ we have $A_{n+1} \subset B_n \subset A_n$.\\
+By inductive hypothesis we have that $A_{k+1} \subset B_k$ thus $f(A_{k+1}) \subset f(B_k)$ thus $A_{k+2} \subset B_{k+1}$\\
+By inductive hypothesis we have that $B_k \subset A_k$ thus $f(B_{k}) \subset f(A_k)$ thus $B_{k+1} \subset A_{k+1}$\\
+Thus by induction $A_{n+1} \subset B_n \subset A_n$, for all $n \in \N$\\
+Well-Defined:\\
+If $x \in A \setminus B'$ then $h(x)=f'(x) \in B'$\\
+Otherwise $x \in B'$, so $h(x)=x \in B'$\\
+Injective:\\
+Let $x,y \in A$ s.t. $h(x)=h(y)$\\
+If $x \in A_k \setminus B_k$ for $k \in \N$, and $y \in A_m \setminus B_m$ for $m \in \N$ then $f'(x)=f'(y)$ and since $f'$ is injective we get that $x=y$\\
+If $x,y \notin A_n \setminus B_n$ for all $n \in \N$ then $x=y$\\
+If $x \in A_k \setminus B_k$ for $k \in \N$, and $y \notin A_n \setminus B_n$ for all $n \in \N$. Thus, we have that $h(y)=y=f'(x)$.
+Since $x \notin B_k$ by the proof above it is not in $B_{k+1}$, so $f'(x) \in A_{k+1} \setminus B_{k+1}$. However, $y \notin A_n \setminus B_n$ for any $n \in \N$ thus $f'(x) = y$ is a contradiction. Thus, this is never the case.\\
+Thus injective.\\
+Surjective:\\
+Let $y \in B' \subseteq A$\\
+If $y \in A_k \setminus B_k$ for some $k \in \N$. It cannot be $k=1$. Thus, $k >1$. Thus $y \in A_k = f'(A_{k-1})$ thus there exists a $x \in A_{k-1}$ s.t. $f'(x)=y$.\\
+Have to show $x \notin B_{k-1}$. Assume it is. This means that $f'(x)=y \in B_k$ which is a contradiction. Thus, $x \in A_{k-1} \setminus B_{k-1}$ thus $h(x)=f'(x)=y$\\
+If $y \notin A_n \setminus B_n$ for all $n \in \N$ then $h(y)=y$. Thus, surjective.\\
+Thus, $h$ is bijective. Thus $|A|=|B|$
 
 \newpage
 \subsection*{Problem 4}
@@ -152,7 +184,7 @@ Injective:\\
 Let $a,b \in (X^\omega)^\omega$ s.t. $f(a)=f(b)$ thus we know that all items in the sequence $f(a),f(b)$ are the same. Thus, since the function $f$ will map spot $i,j$ to $\pi(i,j)$ we thus know that each $i,j$ in $a,b$ are the same thus $a=b$ thus they are injective.\\
 Surjective:\\
 Let $s \in X^\omega$ consider the element $a \in (X^\omega)^\omega$ s.t. the $(i,j)$th spot of $a$ is equal to $x_{\pi(i,j)}$ in $s$. Thus, $f(a)=s$ thus surjective.\\
-Thus we have found a bijection thus they have the same cardinality.
+Thus, we have found a bijection thus they have the same cardinality.
 
 \newpage
 \subsection*{Problem 5}
@@ -176,11 +208,42 @@ Thus we have found a bijection thus they have the same cardinality.
     For $(c,d) \in C$ s.t. $(c,d) \neq (\alpha, \beta)$ since $\alpha$ is the minimum $A$ in $C$ we know that $\alpha$ is always either less than or equal to $c$ if it is equal then we are done. If they are equal then we know that $\beta\neq d$ since $(\alpha,\beta) \neq (c,d)$. Since $\beta$ is the min $B$ of all 
     elements of the form $(\alpha,f)$ s.t. $f \in B$ we know that $\beta < d$ thus $(\alpha,\beta)$ is the min element. Thus, $A \times B$ is well-ordered.
     \item Let $X$ be a well-ordered set. Let $Y=P(X)$\\
-    Let the ordering of $Y$ be for $A,B \in P(X)$ $A<B$ if and only if the least element in $(A \setminus B) \cup (B \setminus A)$ is in $B$ and not $A$ basically the first element where $A$ and $B$ differ determines the order.\\
+    Let the ordering of $Y$ be for $A,B \in P(X)$ $A<B$ if and only if the least element in $(A \setminus Q) \cup (B \setminus A)$ is in $B$ and not $A$ basically the first element where $A$ and $B$ differ determines the order.\\
     Total order:\\
     Let $A,B \in P(X)$ s.t. $A \neq B$. If they are the same then since we take out what they overlap in the set $(A \setminus B) \cup (B \setminus A)$ the least will only be in one set. Thus either $A<B$ or $B<A$\\
-    For $A$ by itself we have that $(A \setminus B) \cup (B \setminus A)$ is empty, so it is undefined at this operation.\\
-    Let $C \in P(X)$. Assume $A<B$ and $B<C$.
-    \[(A \setminus c) \cup (C \setminus A)=((A \setminus B) \cup (B \setminus A)) \cup (A \setminus c) \cup (C \setminus A)\]
+    For $A$ by itself we have that $(A \setminus A) \cup (A \setminus A)$ is empty, so it is undefined at this operation.\\
+    Let $C \in P(X)$. Assume $A<B$ and $B<C$. Claim:
+    \[(A \setminus C) \cup (C \setminus A)=(((A \setminus B) \cup (B \setminus A)) \setminus ((B \setminus C) \cup (C \setminus B))) \bigcup (((B \setminus C) \cup (C \setminus B)) \setminus ((A \setminus B) \cup (B \setminus A)))\]
+    Call the left $D$ and the right $E$.\\
+    Let $x \in D$ then it is in $A$ or $C$ but not both.\\
+    If $x$ is in $A$ then $x$ is not in $C$.\\
+    If $x$ is in $B$ then since $x$ is not in $C$ thus $x$ is in this set $((B \setminus C) \cup (C \setminus B))$, and since it is in $A$ and $B$ it is not in $((A \setminus B) \cup (B \setminus A))$ thus $x \in (((B \setminus C) \cup (C \setminus B)) \setminus ((A \setminus B) \cup (B \setminus A)))$\\
+    If $x$ is not in $B$ then since $x$ is in $A$ and not in $C$ it is in the set $((A \setminus B) \cup (B \setminus A)) \setminus ((B \setminus C) \cup (C \setminus B))$\\
+    Now if $x$ is in $C$ this means it is not in $A$, and we can do a symmetric argument. Thus, $D \subseteq E$\\
+    \phantom{text}\\
+    Let $x \in E$. Thus, $x \in ((A \setminus B) \cup (B \setminus A))=F$, or $((B \setminus C) \cup (C \setminus B))=G$, but not both.\\
+    If $x \in F$ then it is not in $G$. Thus, we know that $x$ is in $A$ or $B$, but not both, and from not being in $G$ we know that either it is in $B \cap C$ or neither.\\
+    If $x \in A$ then it is not in $B$ then it is not in $B$ and $C$ thus it is in $A \setminus C$ thus it is in $D$.\\
+    If $x \in B$ then it is not in $A$ then it is in $B \cap C$ thus it is in $C$ but not $A$ thus $x \in C \setminus A$ thus in $D$.\\
+    Now if $x \in G$ you can do a symmetric argument thus $E \subseteq D$ thus $E=D$.\\
+    \phantom{text}\\
+    Now let $m$ be the least element of $D=E$. We know that $m$ is in $A$ or $C$, but not both.\\
+    Assume for contradiction it is in $A$ this means it is not in $C$.\\
+    This means the least element looking at $E$ is in either $F$ or $G$, but not both.\\
+    If $m$ is in $F$ but not $G$. This implies it is in $A \setminus B$ which is a contradiction of our assumption that $A < B$.\\
+    If $m$ is in $G$ but not $F$. This means that it is in $B \setminus C$ which is a contradiction of our assumption that $B < C$.\\
+    Thus, this implies that $m \in C \setminus A$ thus $A < C$.\\
+    Thus, we have a total ordering on the power set.\\
+    \phantom{text}\\
+    Assume for contradiction that $f: P(X) \to X$ is an injection. Consider:
+    \[D=\{x \in X \mid x \notin f^{-1}(x)\}\]
+    Since $f$ is injective we can use the fact that it has a left inverse to make this map well-defined, and for $x \notin $Img$(f)$ we know that $f^{-1}(x) = \emptyset$ thus it is in $D$.\\
+    Let $f(D)=y$ for some $y \in X$
+    \begin{itemize}
+        \item If $f(D)=y$, then $f^{-1}(y)=D$, since $f$ is injective.
+        \item If $y \in D$, then $y \notin f^{-1}(y)=D$ which is a contradiction.
+        \item If $y \notin D$, then $y \in f^{-1}(y)=D$ which is a contradiction.
+    \end{itemize}
+    Thus there is an ordered set $P(X)$ which does not inject into $X$.
 \end{enumerate}
 \end{document}
