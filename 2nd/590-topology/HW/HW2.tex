@@ -1,0 +1,199 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{itemize}
+    \item Let $A=\displaystyle{\bigcap_{\alpha \in J}}\T_\alpha$
+    \item Since for all $\mathcal{T}_{\alpha}$ s.t. $\alpha \in J$ are topologies they all have $X \in \mathcal{T}_\alpha$ and $\emptyset \in \mathcal{T}_\alpha$ thus $X, \emptyset \in A$
+    \item Let $U,V \in A$. Thus, $U,V \in \T_\alpha$ for all $\alpha \in J$ thus since these are topologies this implies that $U\cap V \in \T_\alpha$ for all $\alpha \in J$ thus $U \cap V \in A$
+    \item Let $U=\displaystyle{\bigcup_{i \in I}} U_i$ s.t. $U_i \in A$ and $I$ is an indexing set. Since each $U_j \in A$ this means it is in every $\T_\alpha$. Since these are topologies they are closed under arbitrary unions thus $U \in \T_\alpha$ for all $\alpha \in J$ thus $U \in A$.
+\end{itemize}
+Thus, $A$ is a topology on $X$.
+\paragraph*{Counter Example:}
+\phantom{text}\\
+Let $X=\{0,1,2\}$. Define two topologies on $X$:
+\begin{itemize}
+    \item $\T_1 = \{\emptyset, X, \{0\}, \{1,2\}\}$
+    \item $\T_2 = \{\emptyset, X, \{1\}, \{0,2\}\}$
+\end{itemize}
+It is straightforward to check each is a topology.\\
+Now consider
+\[\T_1 \cup \T_2 = \{\emptyset, X, \{0\}, \{1,2\}, \{1\}, \{0,2\}\}\]
+However:
+\[\{1,2\},\{0,2\} \in \T_1 \cup \T_2\ \quad \t{but} \quad \{1,2\} \cap \{0,2\} = \{2\} \notin \T_1 \cap \T_2\]
+So it is not true that unions of topologies are always topologies.
+
+\newpage
+\subsection*{Problem 2}
+Assume $U_1,\dots,U_n$ is a finite collection of open subsets of a topological space $X$.
+\paragraph*{Base Case:}
+\phantom{text}\\
+Let $n=2$, and let $U_1,U_2$ be open. Thus, $U_1 \cap U_2$ are open in $X$ by the definition of a topology.
+\paragraph*{Inductive Step:}
+\phantom{text}\\
+Assume for all $n \leq k$ s.t. $2 \leq k$ and $n,k \in \N$ the union of $n$ open sets is open.\\
+Consider $k+1$:\\
+Let $U_1,\dots,U_{k+1}$ be open. Now consider $U_1 \cap \dots \cap U_k$ by the inductive hypothesis this is open call this set $U$. Thus, consider $U \cap U_{k+1}$ by the definition of topology the intersection of two open sets is open. Thus, by induction the intersection of $n$ open sets of a topological space is open for all $n \in \N$
+
+\newpage
+\subsection*{Problem 3}
+\begin{itemize}
+    \item Let $\{C_\alpha\}_{\alpha \in J}$ be a collection of closed sets in $X$ with indexing set $J$. Thus, by definition of closed the complment is open thus $C_\alpha=X \setminus O_\alpha$ for some open set $O_\alpha$. Consider:
+    \[\bigcap_{\alpha \in J}C_\alpha=\bigcap_{\alpha \in J}(X \setminus O_\alpha)\]
+    By De Morgan's Law:
+    \[=X \setminus \bigcup_{\alpha \in J}O_\alpha\]
+    Thus since open sets are closed under arbitrary union that is an open set thus since the complement of that intersection is open we know that the intersection is closed.
+    \item \begin{itemize}
+        \item Base Case: Let $n=2$. Let $C,V$ be closed. Thus $C=X\setminus O$ and $V=X \setminus U$ for open sets $O,U$. Consider: 
+        \[C \cup V=(X \setminus O) \cup (X \setminus U)\]
+        By De Morgan's Law:
+        \[=X \setminus (O \cap U)\]
+        Since $O \cap U$ is open we know that the complement of $C \cup V$ is open this $C \cup V$ is closed.
+        \item Inductive Step: Assume for all unions of closed sets of less than or equal to $k\geq2$ is closed\\
+        Consider $k+1$ sets. Let $C_1\dots C_{k+1}$ be closed. Thus consider $C_1 \cup \dots \cup C_k$. By the inductive hypothesis this is closed. Thus call this set $C$. Thus, consider $C \cap C_{k}$ by the base case it is also closed. Thus, unions of closed sets of size $n$ is closed for all $n \in \N$.
+    \end{itemize}
+\end{itemize}
+Let $X=\R$ and use the standard topology on $\R$. Consider the collection $U_n = [\frac{1}{n},1]$ for $n \in \N$. These are by definition closed since it is the complement of $(-\infty,\frac{1}{n}) \cup (1,\infty)$.\\
+Consider:
+\[U=\bigcup_{n \in \N}U_n\]
+Let $x \in (0,1]$ thus by the archimedian property there is $n \in \N$ s.t. $1/n < x$ thus $x \in U_n \subseteq U$\\
+Let $x \in U$ thus $x \in U_n$ for some $n \in \N$ thus since $[1/n,1] \subset (0,1]$ thus $x \in (0,1]$ thus $U=(0,1]$\\
+However since $\R \setminus U=(\infty,0] \cup (1,\infty)$ is not open. This means that $U$ is not closed. Thus, this is an example of how closed sets are not closed under arbitrary union.
+
+\newpage
+\subsection*{Problem 4}
+Consider $H=\{(x,y,z) \in \R^3 \mid z >0\}$
+Let $p \in H$. Let $\epsilon = z/2 > 0$\\
+Consider the ball $B_\epsilon(p)$\\
+Let $q \in B_\epsilon(p)$ thus $q=(x',y',z')$. To show that this is in $H$ all we need to show is that $z' >0$.\\
+From the definition of a ball we know that $|z'-z| < \epsilon \implies z-\epsilon < z' \implies z-z/2=z/2 < z'$. Thus since $z>0$ we know that $z/2 > 0$ thus $0 < z'$. Thus $q \in H$.\\
+Thus, for every point we can find a ball that is a subset of $H$. Thus, $H$ is an open subset of $\R^3$
+
+\newpage
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item Let $x \in X$ since $X$ is the unions of sets in $\mathcal{S}$ there exists an $x \in S$ s.t. $S \in \mathcal{S}$. Thus, since $S=S \cap S$, $x$ is in the union of these finite intersections.
+        \item Let $U_1,U_2$ be in the set of the union of these finite intersections. Thus, $U_1 = S_1 \cap S_2 \cap \dots \cap S_n$, and $U_2 = T_1 \cap T_2 \cap \dots \cap T_m$ for some $S_i,T_j \in \mathcal{S}$ for $i \in \{1,\dots,n\}$ and $j \in \{1,\dots,m\}$\\
+        Consider $U_1 \cap U_2$:\\
+        Let $x \in U_1 \cap U_2$. Consider $U_1 \cap U_2 = U_3$. Since $U_1$ and $U_2$ are finite intersections this means $U_3$ is a finite intersection thus it is in our set. Thus $x \in U_3 \subseteq U_1 \cap U_2$
+    \end{itemize}
+    Thus this set is a basis for a topology on $X$.
+    \item Let $\{\T_\alpha\}_{\alpha \in J}$ be all the topologies that contain $\mathcal{S}$. Let\\
+    \[\T = \bigcap_{\alpha \in J}T_\alpha\]
+    Let $B$ be the topology generated by the basis in (a).\\
+    $T$ is the intersection of every topology that contains $\mathcal{S}$ and $B$ contains $\mathcal{S}$ we know that $\T \subseteq B$.\\
+    Since $B$ is the collection of all unions of finite intersections of elements of $\mathcal{S}$, and from problem 1 we know it is a topology. This means we are closed under arbitrary unions and finite intersections thus every element of $B$ is in $\T$.\\
+    Thus, $\T = B$\\
+    Thus we know that $B$ is the coarsest topology that contains $\mathcal{S}$.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 6}
+\begin{enumerate}[(a)]
+    \item Let $\beta_d$ be the basis for the order topology on $\R\times \R$ with dictionary order, and let $\beta_p$ be the basis for the product topology.\\
+    Let $B \in \beta_p$. WLOG let $B=(a,b)\times(c,d)$ since we can create any basis element from unions or intersections of this type of element. Let $p \in B$ s.t. $p=(x,y)$. Consider the basis element $C=((x,y-\frac{y-c}{2}),(x,y+\frac{d-y}{2}))$. Thus, $p \in C \subseteq B$, and $C$ is clearly a basis element for the order topology. Thus, we have shown that the order topology is finer than the product topology.\\
+    Consider the set $A=\{(x,y) \in R\times R \mid x-0 \t{ and } 0 < y < 1\}$. This is open in the order topology since it corresponds to the interval $(0,0)<(0,y)<(0,1)$. However, this is not open in the product topology, since it is equivalent to the set $A=\{0\} \times (0,1)$, and $\{0\}$ is not open in $\R$. Thus, $A$ is not open in the product topology.
+    \item Consider the point $p=(x,y) \in \Z \times \Z$. Consider the open set in the order topology: $((x,y-1),(x,y+1))=\{(x,y)\}$. Thus, every singleton is actually an open set in $\Z \times \Z$. Thus, we can write every subset as a union of singletons thus we are actually in the discrete topology since every subset is open. Consider the open set in the product topology $(x-1,x+1) \times (y-1,y+1)=\{p\}$. Again we have shown all singletons are open thus all subsets are open thus we are in the discrete topology. Thus, these two topologies are the same.
+    \item Consider the point $p=(x,y) \in \N \times \N$. If $x=y=0$ then consider the open set $[0,1) \times [0,1)=\{p\}$. Thus, this singleton is open. Now if $x=0$ consider the open set $(x-1,x+1) \times [0,1)=\{p\}$ now we know this singleton is open and do the same for if $x \neq 0$ and $y=0$. If they are both not zero then consider the open set $(x-1,x+1) \times (y-1,y+1)=\{p\}$. Thus, all singletons are open thus by the same argument as above we are in the discrete topology. Since the discrete topology is equal to all the subsets of $\N \times \N$. This means that any other topology will be coarser than it since any collection of subsets is a subset to the power set. Thus, the dictionary order topology is coarser than the product topology.\\
+    Consider the open set $\{(1,0)\}$ in the product topology. For this to be open in the order toplogy we need a basis element s.t. $((a,b),(c,d))=\{(1,0)\}$. If $a=0$ then we will have all elements $(0,b+1),(0,b+2),\dots$. Thus, $a \neq 0$. If $c>1$, then we will have all elements of the form $(c,x)$ s.t. $x < d$. Thus, $c > 1$. Thus, $a=1=c$, since $a \leq 1 \leq c$. Thus, now consider $b,d$. If $d>1$ then we would have the element $(1,1)$ thus $d=1$. Thus we have the interval $((1,b),(1,1))$. For this set to only have $(1,0)$ this would mean that $d<0$. However that cannot happen since $d \in \N$. Thus this singleton is not open in the order topology. Thus, these two topologies are not equal.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 7}
+\begin{enumerate}[(a)]
+    \item Let $X$ be a finite metrizable space. Let $d$ be a metric on $X$ that induces a topology on $X$.
+    Let $X=\{x_1,\dots,x_n\}$. Thus define $r_i$ for each $i \in \{1,\dots,n\}$ to be the minimum value of $\{d(x_i,x_j \mid i \neq j \in \{1,\dots,n\})\}$. There exists a min since we only have a finite amount of points thus we will only have $n-1$ values.
+    By the definition of metrizable we know that $r_i>0$ for all $i$. Thus consider the open set $B(x_i,r_i/2)=\{x \in X \mid d(x_i,x)<r_i/1\}$. Since $r_i/2<r_i \leq d(x_i,x_j)$ for $j \neq i$. This ball only contains the point $x_i$. Thus we have shown that all singletons are open sets. Thus we can unions any pair of singletons to get any subset of $X$. Thus, we know that all open sets are open.
+    Thus, it is discrete.
+    \item Look at $\Q$ with standard topology. Consider the set $\{1\}$ By definition of the standard topology on $\Q$ for $\{1\}$ to be open there must exists a $\epsilon >0$ s.t. $B(1,\epsilon)=\{x \in \Q \mid |x-1|< \epsilon\}=(1-\epsilon,1+\epsilon)=\{1\}$. However, by the archimedian property there exists a $n \in \N$ s.t. $1/n < \epsilon$. Thus consider the value $1+1/n \in \Q$. Thus since $1-\epsilon < 1+1/n < 1 + \epsilon$ this value is in our ball thus there is no
+    $\epsilon >0$ s.t. $1$ is the only thing in the set. Thus, $\{1\}$ is not open. Thus, $\Q$ is not discrete under the standard topology.
+    \item Let $X$ be a discrete topological space. Consider:\\
+    \begin{equation*}
+        d(x,y)=\begin{cases}
+            0, \quad \t{if } x=y,\\
+            1, \quad \t{if } x\neq y.
+        \end{cases}
+    \end{equation*}
+    \begin{itemize}
+        \item $d(x,y)=0=d(y,x) \iff x=y$ this is given from the definition of $d$.
+        \item Assume $y\neq x$ and $x,y \in X$. Thus $d(x,y)=1=d(y,x)$
+        \item Let $x,y,z \in X$.\\
+        Assume $x \neq z$ since if this is true then $d(x,z)=0 \leq d(x,y)+d(y,z)$ is always true since $d$ is always $0$ or $1$.\\
+        If $x=y\neq z$ then $d(x,z)=1 \leq d(x,y)+d(y,z)=1$\\
+        If $x \neq y \neq z$ then $d(x,z)=1 \leq d(x,y)+d(y,z)=2$\\
+        Thus $d$ is a metric.\\
+        Thus consider the basis for the metric topology. Let $x \in X$, then consider the ball $B_\epsilon(x)$ for $\epsilon = 1/2$. Since all distances are 1 there will only be one thing in this ball and that is $x$ thus we know that all singletons are open. Thus, we can get any subset by unions of singletons. Thus, all subsets of $X$ are open. Thus $X$ is metrizable since we can induce the same topology with a metric.
+    \end{itemize}
+\end{enumerate}
+\end{document}

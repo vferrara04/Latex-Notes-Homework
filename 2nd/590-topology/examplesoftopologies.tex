@@ -1,4 +1,4 @@
-\subsubsection{Examples of topological spaces}
+\subsection{Examples of topological spaces}
 
 \begin{example}[Order Topology]
     \phantom{text}\\
@@ -82,4 +82,66 @@ This definition is valid for products of pairs of sets.
     \begin{rmk}
         There could be more than one metric inducing the same topology.
     \end{rmk}
+\end{example}
+
+\begin{example}[Subspace Topology]
+    Let $X$ be a set with topology $\T$. Let $Y \subseteq X$.\\
+    Thus subspace topology on $Y$ is the collection of sets:
+    \[\{U \cap Y \mid U \in \T\}\]
+    \begin{proposition}
+        This is a topology on $Y$.
+    \end{proposition}
+    We call $Y$ a subspace of topology $X$.
+    \begin{example}
+        Suppose $(X,d)$ is a metric space. $Y \subseteq X$.\\
+        The function $d$ is also a metric on $Y$. We have 2 toploogies on $Y$:
+        \begin{itemize}
+            \item Subspace topology as a subspace of X with metric topology.
+            \item Metric topology on $Y$
+        \end{itemize}
+        \begin{proposition}
+            These two topologies are the same.
+        \end{proposition}
+        \begin{proof}
+            Let $\T_\subseteq$ is subspace topology, and $\T_d$ is metric topology on $Y$.\\
+            \[\T_d \t{ has a basis } \beta_d=\{B_d(y,r) \cap Y \mid y \in Y, \, r>0\}\]
+            \[\T_\subseteq \t{ has a basis } \beta_\subseteq=\{B_d(x,r)\cap Y \mid x\in X, r>0\}\]
+            Subspace Basis is just $X$'s basis but intersected with $Y$.\\
+            Easy to see that $\beta_d \subseteq \beta_\subseteq$ thus $T_d \subseteq T_\subseteq$\\
+            Let $y \in B \in \beta_\subseteq$, so $y \in B_d(x,r) \cap Y$ for some $x \in X$, $r>0$\\
+            Using the triangle inequality, find some $r'>0$ s.t.
+            \[B_d(y,r') \subseteq B_d(x,r)\]
+            Then
+            \[B_d(y,r)\cap Y \subseteq B_d(x,r)\cap Y\]
+        \end{proof}
+    \end{example}
+
+    \begin{example}
+        Let $X,Y$ be nonempty topological spaces. Equip $X \times Y$ with the product topology.
+        For each $y\in Y$, the set $X \times \{y\}$ is a subspace of $X \times Y$, and $X \times \{y\}$ is in bijection with $X$.\\
+        Two topologies on $X$:
+        \begin{itemize}
+            \item Original topology
+            \item Subspace topology on $X \times \{y\}$ identified with $X$.
+        \end{itemize}
+        \begin{proposition}
+            These two topologies are the same.
+        \end{proposition}
+    \end{example}
+\end{example}
+
+\begin{example}
+    Let $X$ be a set with an order $<$. Let $Y \subseteq X$. Then $<$ gives an order relation of $Y$.\\
+    Two topologies on $Y$:
+    \begin{itemize}
+        \item Order topology on $Y$
+        \item Subspace topology
+    \end{itemize}
+    \begin{proposition}
+        These do not have to agree!.
+    \end{proposition}
+    \begin{proof}
+        Let $X=\R \times \R$, with dictionary order and $Y=[0,1] \times [0,1]$. Consider $\{1/2\} \times [0,1]$: This is open in the subspace topology since $\{1/2\} \times (-\epsilon, 1+\epsilon)$ is an interval in $X$.
+        This is not open on the order topology since it has the endpoints.
+    \end{proof}
 \end{example}

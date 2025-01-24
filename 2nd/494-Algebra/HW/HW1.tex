@@ -1,0 +1,278 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+Let $I$ be an ideal in the ring $R$, and $J$ be an ideal in the ring $S$. Consider $I \times J$.\\
+Let $(i,j),(a,b) \in I \times J$. Consider:
+\[(i,j)+(a,b)=(i+a,j+b)\]
+Since $I$ and $J$ are ideals this implies that $i+a \in I$ and $j+b \in J$. Thus, $(i+a,j+b) \in I \times J$\\
+Let $(r,s) \in R \times S$ and $(i,j) \in I \times J$. Consider:
+\[(r,s)(i,j)=(ri,sj)\]
+Since $I$ and $J$ are ideals this implies that $ri \in I$ and $sj \in J$. Thus, $(ri,sj) \in I \times J$\\
+Thus $I \times J$ is an ideal.\\
+Let $K$ be an ideal in $R \times S$. Consider:
+\[I = \{r \in R \mid (r,0) \in K\}\]
+\[J = \{s \in S \mid (0,s) \in K\}\]
+Easy to show that these are ideals. Let $a, b \in I$ then $(a,0),(b,0) \in K \implies (a+b,0) \in K$ thus $a+b \in I$\\
+Let $r \in R, i \in I$ then $(i,0) \in K$ thus $(ri,0) \in K$ thus $ri \in I$ same thing works for $J$.\\
+Let $(i,j) \in I \times J$ thus $(i,0),(0,j)\in K$ thus $(i,0)+(0,j)=(i,j)\in K$.\\
+Let $(r,s) \in K$. Multiply by $(1,0),(0,1)$ thus we get that $(r,0) \in K$, and $(0,s) \in K$. Thus, $r\in I$ and $s \in J$ thus $(r,s) \in I \times J$. Thus, $K=I \times J$ so yes every ideal is in that form.
+
+\newpage
+\subsection*{Problem 2}
+Assume $I$ and $J$ are coprime. Thus, $I+J=(1)$. Thus, there is $i \in I$ and $j \in J$ s.t. $i+j=1$.\\
+Let $a \in IJ$ by $2(a)$ we know that $IJ \subset I \cap J$ thus $a \in I \cap J$\\
+Let $a \in I \cap J$. Thus, $ai+aj=a$. Thus, $a$ can be written as a finite sum of product of elements in $I,J$ thus $a \in IJ$. Thus, $IJ= I \cap J$.\\
+In $\Z$ this is equivalent to saying if $a,b$ are coprime then the least common multiple is equal to $ab$
+
+\newpage
+\subsection*{Problem 3}
+Assume $I, J$ are ideals in $R$.
+\begin{itemize}
+    \item Equality of $r(I \cap J)$ and $r(IJ)$:
+    
+    Let $x \in r(I \cap J)$. Thus, $x^n \in I \cap J$ for some $n \in \mathbb{N}$. Since $x^n \in I \cap J$, we know that $x^n \cdot x^n = x^{2n} \in IJ$, as this is a finite sum of products of elements from $I$ and $J$.
+    
+    Conversely, let $x \in r(IJ)$. Thus, $x^n \in IJ$ for some $n \in \mathbb{N}$. By part 2(a), we know $x^n \in I \cap J$, which implies $x \in r(I \cap J)$.
+    
+    Hence, $r(I \cap J) = r(IJ)$.
+    
+    \item Equality of $r(I \cap J)$ and $r(I) \cap r(J)$:
+    
+    Let $x \in r(I) \cap r(J)$. Then there exist $k, n \in \mathbb{N}$ such that $x^n \in I$ and $x^k \in J$. This implies $x^{k+n} \in I \cap J$, so $x \in r(I \cap J)$.
+    
+    Conversely, let $x \in r(I \cap J)$. Then $x^n \in I \cap J$ for some $n \in \mathbb{N}$. Thus, $x^n \in I$ and $x^n \in J$, which implies $x \in r(I)$ and $x \in r(J)$. Hence, $x \in r(I) \cap r(J)$.
+    
+    Therefore, $r(I \cap J) = r(I) \cap r(J)$.
+    
+    \item Equality of $r(I + J)$ and $r(r(I) + r(J))$:
+    
+    Let $x \in r(r(I) + r(J))$. Then $x^n \in r(I) + r(J)$ for some $n \in \mathbb{N}$. Thus, $x^n = a + b$ for some $a \in r(I)$ and $b \in r(J)$. Since $a \in r(I)$, there exists $j \in \mathbb{N}$ such that $a^j \in I$, and since $b \in r(J)$, there exists $k \in \mathbb{N}$ such that $b^k \in J$. Consider 
+    \[
+    x^{n^{j+k}} = (a+b)^{j+k}.
+    \]
+    By the binomial theorem, every term in this expansion will involve either $a^d$ or $b^c$ with $d \geq j$ and $c \geq k$. Since $a^d \in I$ and $b^c \in J$, every term is in $I + J$. Therefore, $x^{n^{j+k}} \in I + J$, so $x \in r(I + J)$.
+    
+    Conversely, let $x \in r(I + J)$. Then $x^n \in I + J$ for some $n \in \mathbb{N}$. Thus, $x^n = a + b$ for some $a \in I$ and $b \in J$. Since $a \in I$, $a \in r(I)$, and since $b \in J$, $b \in r(J)$. Thus, $x^n \in r(I) + r(J)$, so $x \in r(r(I) + r(J))$.
+    
+    Therefore, $r(I + J) = r(r(I) + r(J))$.
+    
+    \item Combining the results above, we have:
+    \[
+    r(I \cap J) = r(IJ) = r(I) \cap r(J),
+    \]
+    and
+    \[
+    r(I + J) = r(r(I) + r(J)).
+    \]
+    
+\end{itemize}
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item Let $a$ be nilpotent with $a^n=0$ for $n>0$. Consider $1+a$. Thus:
+    \[(a+1)(1-a+a^2+\dots+(-1)^{n-1}a^{n-1})=1\]
+    Thus $1+a$ is a unit. Thus if $u$ is a unit then $u^{-1}a$ is nilpotent. Thus $1+u^{-1}a$ is a unit, thus $u(1+u^{-1}a)=u+1$ is a unit as well.\\
+    Assume $a_0$ is a unit and the rest of the terms are nilpotent then it is easy to see that $a_1x,a_2x^2,\dots,a_nx^n$ are also nilpotent. Thus since things that are nilpotent are closed under addtion we get that $a_1x+\dots+a_nx^n=A$ is nilpotent. Thus by the argument above $a_0+A$ is a unit. Thus $f$ is a unit.\\
+    Assume $f$ is a unit in $R[X]$. Thus, there is a function $g$ s.t. $fg=1$.\\
+    Base Case:\\
+    Let $f=a_0$ well if $f$ is a unit then since it is degree zero $a_0$ must also be a unit.\\
+    Inductive Step:\\
+    Assume for any polynomial of degree $n-1$ that is a unit has a unit constant term and the rest of the terms of nilpotent.\\
+    Consider:
+    \[fg=(a_0+a_1x+\dots+x^n)(b_0+b_1x+\dots+b_mx^m)=1\]
+    It is easy to see that $a_0b_0=1$ thus $a_0$ is a unit.\\
+    It is also easy to see that $a_nb_m=0$. Then consider the $x^{n+m-1}$ term we can see that $a_{n-1}b_m+b_{m-1}a_n=0$. Multiplying by $a_n$ gives $b_{m-1}a_n^2=0$. Then for the $x^{n+m-2}$ term we get $a_{n-2}b_m+a_{n-1}b_{n-1}+a_nb_{n-2}=0$. Multiplying by $a_n^2$ gives $b_{m-2}a_n^3=0$. Continue this patter till you get $b_0a_n^{m+1}=0$. Then since $b_0$ is a unit we can cancel it and get $a_n^{m+1}=0$. Thus, it is nilpotent.\\
+    Now consider $f(x)-a_nx^n$. From the proof above since $a_nx^n$ is nilpotent and $f(x)$ is a unit $f(x)-a_nx^n$ is a unit of degree less than $n$. Thus by the inductive hypothesis we get that all the terms in $f(x)-a_nx^n$ are nilpotent.
+    \item Assume  $a_0,a_1,\dots,a_n$ is nilpotent. Thus it is easy to see that $a_0,a_1x,\dots,a_nx^n$ are also nilpotent. Thus since things that are nilpotent are closed under addition we know that $f(x)=a_0+\dots+a_nx^n$ is nilpotent.\\
+    Assume $f$ is nilpotent. Thus, $f^k=0$ for some $k>0$ Thus, we know that $xf$ is also nilpotent. Then $1+xf$ is a unit by the proof above. Thus, by (a) we know all the terms except the constant one are nilpotent thus we are done.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+    \item \textbf{(Forward direction):}  
+    Assume $f$ is a unit in $R[[x]]$. Thus, there exists a power series $g$ such that $fg = 1$. Since the constant term of the product $fg$ is $a_0b_0 = 1$, it follows that $a_0$ is a unit in $R$. 
+    
+    \textbf{(Converse direction):}  
+    Assume $a_0$ is a unit in $R$. Let $f = a_0 + a_1x + a_2x^2 + \dots$ and define $g = b_0 + b_1x + b_2x^2 + \dots$. We aim to construct $g$ such that $fg = 1$. 
+    
+    Expanding the product $fg$, we have:  
+    \[
+    fg = a_0b_0 + \sum_{n=1}^\infty \left( \sum_{i=0}^n a_i b_{n-i} \right) x^n.
+    \]
+    
+    We need $fg = 1$, which means the constant term satisfies $a_0b_0 = 1$, and all higher-order terms must vanish, i.e.,  
+    \[
+    \sum_{i=0}^n a_i b_{n-i} = 0 \quad \text{for } n \geq 1.
+    \]
+    
+    Let $b_0 = a_0^{-1}$. For $n \geq 1$, recursively define:
+    \[
+    b_n = -a_0^{-1} \sum_{i=1}^n a_i b_{n-i}.
+    \]
+    
+    \textbf{Base Case:} The constant term satisfies $a_0b_0 = 1$, which holds by definition of $b_0 = a_0^{-1}$. 
+    
+    \textbf{Inductive Step:} Assume the formula for $b_k$ holds and makes the $x^k$ term zero for all $k < n$. Consider the $x^n$ term in $fg$:  
+    \[
+    \sum_{i=0}^n a_i b_{n-i} = a_0b_n + \sum_{i=1}^n a_i b_{n-i}.
+    \]
+    Substituting $b_n = -a_0^{-1} \sum_{i=1}^n a_i b_{n-i}$ into the equation:
+    \[
+    a_0b_n + \sum_{i=1}^n a_i b_{n-i} = a_0\left(-a_0^{-1} \sum_{i=1}^n a_i b_{n-i}\right) + \sum_{i=1}^n a_i b_{n-i}.
+    \]
+    Simplifying:
+    \[
+    -a_0 \cdot a_0^{-1} \sum_{i=1}^n a_i b_{n-i} + \sum_{i=1}^n a_i b_{n-i} = 0.
+    \]
+    Thus, the inductive step holds.
+    
+    By induction, we have constructed $g = b_0 + b_1x + b_2x^2 + \dots$ such that $fg = 1$. Therefore, $f$ is a unit in $R[[x]]$.
+    
+    \item Let $f$ be a nilpotent element such that $f^n = 0$ for some $n \in \mathbb{N}$. We aim to show that all coefficients of $f$ are nilpotent.
+
+    \textbf{Base Case:} Since $f^n = 0$, the constant term $a_0^n = 0$. Hence, $a_0$ is nilpotent.
+    
+    \textbf{Inductive Step:} Assume that all coefficients $a_0, a_1, \dots, a_{n-1}$ are nilpotent. Consider the coefficient $a_n$.
+    
+    Since $a_0, a_1x, \dots, a_{n-1}x^{n-1}$ are nilpotent by the inductive hypothesis, it follows that their sum, $a_0 + a_1x + \dots + a_{n-1}x^{n-1}$, is also nilpotent. This is because the sum of nilpotent elements is nilpotent.
+    
+    Now, consider $f - (a_0 + a_1x + \dots + a_{n-1}x^{n-1})$. This simplifies to $a_nx^n + a_{n+1}x^{n+1} + \dots$. Since $f$ is nilpotent, the difference $f - (a_0 + a_1x + \dots + a_{n-1}x^{n-1})$ is also nilpotent. Hence, there exists some $k \in \mathbb{N}$ such that 
+    \[
+    (f - (a_0 + a_1x + \dots + a_{n-1}x^{n-1})\big)^k = 0.
+    \]
+    
+    Expanding this expression, the leading term is $a_n^kx^{nk}$. Since the entire expression equals zero, it follows that $a_n^k = 0$. Therefore, $a_n$ is nilpotent.
+    
+    By induction, all coefficients of $f$ are nilpotent.
+
+    The converse is not true.
+    \item Assume $R$ is Noetherian. Let $\mathfrak{N}$ denote the ideal of nilpotent elements in $R$. By assumption, $\mathfrak{N} = (b_1, b_2, \dots, b_n)$, so every $b_1, \dots, b_n$ is nilpotent. Let \( m \) be the maximum power such that \( b_i^m = 0 \) for all \( i \). 
+
+    We aim to prove that \( f = a_0 + a_1x + a_2x^2 + \dots \in R[[x]] \) is nilpotent by showing \( f^{n(m-1)+1} = 0 \).
+    
+    Consider \( f^{n(m-1)+1} = (a_0 + a_1x + a_2x^2 + \dots)^{n(m-1)+1} \). A general term in this expansion contributing to the coefficient of \( x^k \) is of the form:
+    \[
+    a_{i_1}a_{i_2}\dots a_{i_t}, \quad \text{where } i_1 + i_2 + \dots + i_t = k \quad \text{and } t = n(m-1)+1.
+    \]
+    Each coefficient \( a_{i_j} \) is nilpotent, so \( a_{i_j} \in \mathfrak{N} = (b_1, b_2, \dots, b_n) \). Thus, we can write:
+    \[
+    a_{i_j} = r_{i_j,1}b_1 + r_{i_j,2}b_2 + \dots + r_{i_j,n}, \quad \text{with } r_{i_j,k} \in R.
+    \]
+    
+    Expanding the product \( a_{i_1}a_{i_2}\dots a_{i_t} \), each term is a product of the form:
+    \[
+    rb_1^{\alpha_1}b_2^{\alpha_2}\dots b_n^{\alpha_n}, \quad \text{where $r \in R$ and } \alpha_1 + \alpha_2 + \dots + \alpha_n = t.
+    \]
+    
+    Since \( t = n(m-1)+1 \), by the pigeonhole principle, at least one \( \alpha_i > m-1 \). But \( b_i^m = 0 \), so any such term vanishes. Hence, every term in the expansion of \( f^{n(m-1)+1} \) is zero.
+    
+    Since every term in the expansion of \( f^{n(m-1)+1} \) vanishes, we conclude that \( f^{n(m-1)+1} = 0 \). Thus, \( f \) is nilpotent.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 6}
+\begin{enumerate}[(a)]
+    \setcounter{enumi}{4}
+    \item Since $cos^2(x)+sin^2(x)=1$ this implies that $(cos(x)) + (sin(x)) = (1)$ thus we are done by problem 2.
+    \item Consider $T_i$ such that $T_i = (-\infty, 1/i]$. Thus we have:
+    \[
+    T_1 \supsetneq T_2 \supsetneq T_3 \supsetneq \dots
+    \]
+    By part (d), we know:
+    \[
+    \mathcal{I}(T_1) \subsetneq \mathcal{I}(T_2) \subsetneq \mathcal{I}(T_3) \subsetneq \dots
+    \]
+    These ideals are not equal because we can construct a function $f_n \in \mathcal{I}(T_n)$ such that:
+    \[
+    f_n(x) =
+    \begin{cases}
+    0 & \text{if } x \in T_n, \\
+    x - 1/n & \text{if } x \notin T_n.
+    \end{cases}
+    \]
+    Thus, $f_n$ is zero for all of $T_n$, but it is not zero for $T_{n+1}$. Therefore, $\mathcal{I}(T_n) \subsetneq \mathcal{I}(T_{n+1})$.
+    
+    Now consider the ideal $I = \bigcup_{n=1}^\infty \mathcal{I}(T_n)$. We show that $I$ is indeed an ideal:
+    \begin{itemize}
+        \item Let $a, b \in I$. Then $a \in \mathcal{I}(T_k)$ and $b \in \mathcal{I}(T_m)$ for some $k, m \in \mathbb{N}$. Let $N = \max(k, m)$. Then $a, b \in \mathcal{I}(T_N)$, and since $\mathcal{I}(T_N)$ is an ideal, $a + b \in \mathcal{I}(T_N) \subseteq I$.
+        \item Let $a \in I$. Then $a \in \mathcal{I}(T_k)$ for some $k \in \mathbb{N}$. For any $r \in R$, $ra \in \mathcal{I}(T_k) \subseteq I$.
+        
+    \end{itemize}
+    Thus, $I$ is an ideal.
+    
+    Assume for contradiction that $R$ is Noetherian. Then $I$ must be finitely generated, say $I = (f_1, f_2, \dots, f_k)$ for some $k \in \mathbb{N}$. Each generator $f_j$ must belong to some $\mathcal{I}(T_{i_j})$. Let $N = \max(i_1, i_2, \dots, i_k)$. Then $f_1, f_2, \dots, f_k \in \mathcal{I}(T_N)$, so $I \subseteq \mathcal{I}(T_N)$.
+    
+    However, since $\mathcal{I}(T_N) \subsetneq \mathcal{I}(T_{N+1}) \subsetneq \dots$, we have $I \not\subseteq \mathcal{I}(T_N)$, which is a contradiction. Therefore, $I$ is not finitely generated, and $R$ is not Noetherian.
+\end{enumerate}
+\end{document}
