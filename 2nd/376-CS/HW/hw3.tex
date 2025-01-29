@@ -1,0 +1,538 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{circuitikz}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+In problem 2 (b) I just stated that $d_i=\dfrac{d_{i-1}+1}{2}=\dfrac{d+2^n-1}{2^n}$, which I could have improved on by showing my work on how I got that relation. I can fix it by using induction on this and showing why you 
+would get this relation.
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}[(a)]
+    \item While we have to do $O(b)$ multiplications the problem is $b$ is the value of the number, and we would actaully have to do $O(2^k)$ operations where $k$ is the number of bits used in $b$ thus this algorithm is not efficient.
+    
+    \item Let $p,q,m \in \Z_{>0}$ s.t. $m \geq 2$. By definition of modulo we can write $p,q$ in the form of:
+    \[p=km+(p \mod m),\quad q=lm+(q \mod m)\]
+    s.t. $k,l,(p \mod m),(q \mod m) \in \Z$. Thus, consider:
+    \begin{align*}
+        pq&=(km+(p \mod m))(lm+(q \mod m))\\
+          &=klm^2+km(q \mod m)+lm(p \mod m)+(p \mod m)(q \mod m)
+          \intertext{Now we can look at the equivalence under mod $m$. Thus:}
+        pq&\equiv (p \mod m)(q \mod m) \mod m
+    \end{align*}
+    The statement is:
+    \[\t{if } b \t{ is even, then } (a^{b/2} \mod m)^2 \mod m = a^b \mod m\]
+    This proof comes directly from the one above since $a^{b/2}\cdot a^{b/2}=a^b$. Also, we can divide $b$ by two since it is even.
+
+    \item \begin{algorithm}[H]
+        \caption{Fast Modular Exponentiation}
+        \label{fast-mod-exp}
+        \begin{algorithmic}[1]
+        \Require Positive integers \( a \), \( b \), and \( m \geq 2 \).
+        \Ensure \( a^b \mod m \).
+        \Function{Modular}{$a,b,m$}
+        \If{\( b = 0 \)}
+            \State \Return \( 1 \) \Comment{Base case: \( a^0 = 1 \)}
+        \EndIf
+        \If{\( b = 1 \)}
+            \State \Return \( a \mod m \) \Comment{Base case: \( a^1 = a \mod m \)}
+        \EndIf
+        \If{\( b \) is even}
+            \State \( \text{temp} \gets \Call{Modular}{a, b/2, m} \) \Comment{Recursively compute \( a^{b/2} \mod m \)}
+            \State \Return \( \text{temp}^2 \mod m \) \Comment{Now it becomes $a^b \mod m$}
+        \EndIf
+        \If{\( b \) is odd}
+        \State \( \text{temp} \gets \Call{Modular}{a, (b-1)/2, m} \) \Comment{Recursive call for \( a^{(b-1)/2} \mod m \)}
+        \State \( \text{temp} \gets (\text{temp}^2) \mod m \) \Comment{Now it is $a^{(b-1)} \mod m$}
+        \State \Return \( (\text{temp} \cdot (a \mod m)) \mod m \) \Comment{Now it becomes $a^b \mod m$}
+        \EndIf
+        \EndFunction
+        \end{algorithmic}
+        \end{algorithm}
+
+    \begin{itemize}
+        \item (Proof of Correctness)
+        
+        Base Cases ($b=0,1$):
+        
+        If $b=0,1$ then $a^b \mod m$ is either $a^0=1$ for $b=0$ and $a^1 \mod m$ for $b=1$
+
+        Inductive Step:
+
+        Assume that the algorithm works for all $1<b  \leq n$ for some $n \in \N$. Consider $n+1$.
+
+        If $n+1$ is even the using the proof in (b) we know that $(a^{(n+1)/2} \mod m)^2 \mod m = a^{n+1} \mod m$, so by the induction hypothesis since $(n+1)/2 \leq n$ we recursively call on $a^{(n+1)/2}$ and then use the formula in (b) to get $a^{n+1} \mod m$.
+
+        If $n+1$ is odd then this implies that $n$ is even thus by the induction hypothesis since $n/2 \leq n$ we recursively call on $a^{n/2}$ and then use the formula in (b) to get $a^n \mod m$. We then use the other formula in (b) and we get $a^{n+1} \mod m$.
+
+        Thus, by induction our algorithm works for all $n \in \N$.
+
+        \item (Proof it Stops)
+        
+        Let our potential function be $b$. WLOG let $b \neq 0,1$ since we would halt immediately.
+
+        Thus, if $b$ is even then $b \mapsto b/2 < b$, and the minimum $b$ can be without halting the program immediately is $2$ thus $b-b/2 \geq 2-1= 1$
+
+        If $b$ is odd then $b-1$ is even thus $b \mapsto (b-1)/2 < b$. Again the min odd number without halting immediately is $3$ thus $b-(b-1)/2 \geq 3-1=2$
+
+        Our function is lower bounded by $0$. Thus our functions stops.
+
+        \item (Runtime Analysis)
+        
+        We can ignore the base cases since they are all $O(1)$ operations. Now, if $b$ is even then we call on our function on $b/2$, and this is the same in the odd case, and since we return after the recursive call we only make one each loop. The rest of the lines we can assume do $O(1)$ work thus we end up with the recurrence relation:
+        \[T(b)=T(b/2)+O(1)\]
+        Thus by the Master Theorem we get that $T(b) \in O(\log b)$
+    \end{itemize}
+
+    \item For $b=0$ I would return the identity matrix, but overall I would not change anything the only thing I would have to implement is the matrix multiplication and the matrix modular.
+    
+    The proof of correctness this is basically the same since we are given the equivalent statement in (b) but for matirces, and we can prove that:
+    \[\t{if } b \t{ is even, then } (A^{b/2} \mod m)^2 \mod m = A^b \mod m\]
+    the same way as we did in (b). Thus, since our proof of correctness relies on these two facts we can just do the same proof. Also, we have the same proof for halting. Finally, the runtime analysis is the same, but now we get the recurrence relation as:
+    \[T(b)=T(b/2)+O(n^3)\]
+    Since we would now do $O(n^3)$ work on lines 10,14,15. But since we assume that $n^3$ is a constant it becomes $O(1)$. Thus, we have the same relation thus $T(b) \in O(\log b)$
+
+    \item To find $F_k \mod m$. I would call my function in part (d) on the matrix:
+    $$A= \begin{pmatrix}
+        0 & 1\\
+        1 & 1
+    \end{pmatrix}$$
+    where $b=k-1$
+
+    (Proof of Correctness): I am going to use induction to prove that
+    \[A^k \mod m = \begin{pmatrix}
+        F_{k-1} \mod m & F_k \mod m\\
+        F_k \mod m & F_{k+1} \mod m
+    \end{pmatrix}\]
+
+    Base Case: ($k=1$)
+
+    $A^1$ is correct just look at the matrix.
+
+    Inductive Step: Assume that this works for all $1<k \leq n$ for some $n \in \N$. Consider $n+1$.
+
+    Since by the formula we are given in (d) we know that
+    \[A^{n+1} \mod m = (A^{n} \mod m)(A \mod m) \mod m\]
+    By the inductive hypothesis we know that:
+    \[A^{n} \mod m = \begin{pmatrix}
+        F_{n-1} \mod m & F_n \mod m\\
+        F_{n} \mod m & F_{n+1} \mod m
+    \end{pmatrix}\]
+    \[A^{n+1} \mod m = \begin{pmatrix}
+        0 & 1\\
+        1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        F_{n-1} \mod m & F_n \mod m\\
+        F_{n} \mod m & F_{n+1} \mod m
+    \end{pmatrix}\mod m\]
+    Thus for $A^{n+1} \mod m$ we get
+    \begin{align*}
+        &A^{n+1} \mod m=\\
+        &=\begin{pmatrix}
+            F_n \mod m & F_{n+1} \mod m\\
+            (F_{n-1} \mod m + F_{n} \mod m) \mod m & (F_{n} \mod m + F_{n+1} \mod m)\mod m
+        \end{pmatrix}\\
+        &=\begin{pmatrix}
+            F_n \mod m & F_{n+1} \mod m\\
+            F_{n} \mod m & F_{n+2} \mod m
+        \end{pmatrix}
+    \end{align*}
+
+    Thus, by induction we are done.
+
+    Now we can use the algorithm in (d) input the matrix $A$ and input $b=k-1$ and $m$.
+    We can then use the proof of correctness of the algorithm to correctly get $A^{k-1} \mod m$, and then we just look at the bottom right entry which I proved will be $F_k \mod m$. Also, same proof for why it halts as in (d), and (b).
+
+    (Runtime analysis)
+
+    This is the same runtime analysis but now $b=k-1$ thus we get the algorithm is $O(\log k)$ with the same proof that is in (b), and (d).
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+\begin{enumerate}[(a)]
+    \item \begin{algorithm}[H]
+        \caption{Max in circular shifted Array}
+        \begin{algorithmic}[1]
+        \Require An array $A[1,\dots,n]$ of distinct integers that is sorted but has a circular shift.
+        \Ensure Finds the max element.
+        \Function{FindMax}{$A$}
+            \If{$|A|=1$}
+                \State \Return $A[1]$
+            \EndIf
+            \State $left \gets 1$
+            \State $right \gets n$
+            \While{$left < right$}
+                \State $mid \gets \lceil (left + right)/2 \rceil$
+                \If{$A[mid] > A[(mid +1)\mod n]$} \Comment{Circular indexing for $mid + 1$}
+                    \State \Return $A[mid]$ \Comment{Maximum found}
+                \EndIf
+                \If{$A[mid] > A[left]$} \Comment{Left half is sorted, max is in the right half}
+                    \State $left \gets mid + 1$
+                \Else
+                    \State $right \gets mid - 1$ \Comment{Right half is sorted, max is in the left half}
+                \EndIf
+            \EndWhile
+            \State \Return $A[left]$ \Comment{At convergence, $left = right$ and holds the max}
+        \EndFunction
+        \end{algorithmic}
+        \end{algorithm}
+
+    \begin{itemize}
+        \item (Proof of Correctness):
+        
+        We just get rid of the case when $A$ is a singleton set since it's one element is the max.
+
+        Consider the following cases:
+    
+        Case 1: If $A[mid] > A[(mid + 1) \mod n]$, then by the property of the circularly sorted array and that we have unique values, every element satisfies $A[k] < A[(k + 1) \mod n]$, except for the maximum element. Therefore, if $A[mid] > A[(mid + 1) \mod n]$, the maximum element is $A[mid]$, and the algorithm correctly returns it, and if this is not true then since we have distinct values this implies that $A[mid] < A[(mid+1) \mod m]$ thus it is not the max. We now assume Case 1 did not happen.
+
+        Case 2: If $A[mid] > A[mid]$, the left half of the array is sorted. Specifically:
+        \[
+        A[mid] < A[mid + 1] < A[mid + 2] < \dots < A[mid]
+        \]
+        Since the left half is sorted, the transition point (where the maximum wraps to the minimum) cannot lie in the left half. Thus, we update the search to the right half by setting $mid \gets mid + 1$. We know assume Case 2 did not happen.
+
+        Case 3: If $A[mid] \leq A[mid]$, the right half of the array is sorted. Specifically:
+        \[
+        A[mid] < A[mid + 1] < A[mid + 2] < \dots < A[right] < A[mid]
+        \]
+        Since the right half is sorted, the transition point must lie in the left half. Thus, we update the search to the left half by setting $right \gets mid$.
+
+        Finally, if the while loop terminates without returning (i.e., when $left = right$), the range contains only one element, which must be the maximum. This is because each iteration eliminates half of the array, ensuring the maximum remains in the reduced range. When one element remains, it is guaranteed to be the maximum.
+
+        \item (Halting):
+        
+        Let our potential function be $right - left$. WLOG assume we don't get the case on line 6, and we end up with the one element case at the end, and that $right \neq left$ since we would exit immediately.
+
+        If $A[mid] > A[left]$ then our function becomes: 
+        \[right -left \to right - mid - 1\] 
+        Thus we get the difference is:
+        \begin{align*}
+            right - left - right + mid + 1&=mid + 1 - left\\
+            &\geq (left+right)/2 + 1 - left\\
+            &= left/2 + right/2 + 1 \geq 1 + 1/2
+        \end{align*}
+        since 
+        \[left < right \implies left+1 \leq right \implies right -left \geq 1 \implies right/2 -left/2 \geq 1/2\] We can do this since we know $right,left \in \Z_{>0}$
+
+        If $A[mid] < A[left]$ then our functions becomes: 
+        \[right - left \to mid - 1 - left\]
+        Thus we get the difference is:
+        \begin{align*}
+            right - left + left - mid + 1 &= right - mid + 1\\
+            &\geq right - (left + right)/2 + 1 - 1\\
+            &= right/2 - left/2 \geq 1/2
+        \end{align*}
+        Also, our functions is lower bounded by $0$ since it would stop if $right = left$
+
+        Thus, our function halts.
+        \item (Runtime Analysis):
+        Lines 2, 3, and 15 involve constant-time operations and can be ignored for asymptotic analysis. The main contribution to runtime comes from the while loop.
+
+        Each iteration of the loop performs constant-time operations: computing $mid$, performing comparisons, and updating $mid$ or $right$.
+        
+        The search range is halved on each iteration because the algorithm either sets $left = mid + 1$ and $right = mid -1 $. Thus, our new search is $[left,mid-1]$ or $[mid+1, right]$ and since $right - mid \approx mid-left \approx (right-left)/2$ we half our search.
+
+        This gives the recurrence relation:
+        \[
+        T(n) = T\left(\frac{n}{2}\right) + O(1)
+        \]
+
+        By the Master Theorem the runtime of the algorithm is $O(\log n)$.   
+    \end{itemize}
+
+    \item \begin{algorithm}[H]
+        \caption{Find local Max}
+        \begin{algorithmic}[1]
+        \Require An array $A[1,\dots,n]$ of integers.
+        \Ensure Finds the max element.
+        \Function{FindLocalMax}{$A$}
+            \If{$|A|=1$}
+               \State \Return $A[1]$
+            \EndIf
+            \If{$A[1] > A[2]$}
+                \State \Return $A[1]$
+            \EndIf
+            \If{$A[n] > A[n-1]$}
+                \State \Return $A[n]$
+            \EndIf
+            \State $left \gets 2$
+            \State $right \gets n-1$
+            \While{$left < right$}
+                \State $mid \gets \lceil (left + right)/2 \rceil$
+                \If{$A[mid] \geq A[mid + 1]$ and $A[mid] \geq A[mid - 1]$}
+                    \State \Return $A[mid]$ \Comment{Local Maximum found}
+                \EndIf
+                \If{$A[mid] < A[mid + 1]$} \Comment{To the right is increasing}
+                    \State $left \gets mid + 1$
+                \Else
+                    \State $right \gets mid - 1$ \Comment{To the left is increasing}
+                \EndIf
+            \EndWhile
+            \State \Return $A[left]$ \Comment{At convergence, $left = right$ and holds a local max since a one element set has a local max}
+        \EndFunction
+        \end{algorithmic}
+        \end{algorithm}
+
+        \begin{itemize}
+            \item (Proof of Correctness):
+            
+            Lines 2-6 are just getting rid of the end points and edge cases when we have a one element set which has a local max of that one element.
+
+            Consider the following cases:
+    
+            Case 1: If $A[mid] \geq A[mid + 1]$ and $A[mid] \geq A[mid - 1]$: This is by definition a local max, so we return and thus done. We now assume Case 1 did not happen.
+
+            Case 2: If $A[mid] < A[mid + 1]$: We then know that the array is increasing to the right and since it cannot increase forever since we have a finite set we know that it must have a local max in the interval or on the end. We know assume Case 2 did not happen.
+
+            Case 3: If $A[mid]  \geq A[mid + 1] \implies A[mid] < A[mid - 1]$ since we know Case 1 and 2 did not happen we know that $A[mid] < A[mid + 1]$ or $A[mid] < A[mid-1]$ and since case 2 did not happen we know $A[mid] < A[mid -1]$. Thus using the same argument as in Case 2 we know there will be a local max in the left half of the array.
+            
+            Finally, if the while loop terminates without returning (i.e., when $left = right$), the range contains only one element, which must be the maximum. This is because each iteration eliminates half of the array, ensuring a local maximum remains in the reduced range. When one element remains, it is guaranteed to be a local maximum.
+        
+            \item (Halting):
+            
+            Use the same function and same proof in (a) to show it halts.
+
+            \item (Runtime Analysis):
+            
+            This is the exact same runtime analysis as (a) with just 2 more checks before the function and the same amount of checks in the for loop, but since they are both constant time we get that the program is again $O(\log n)$ for the same reasons as (a).
+        \end{itemize}
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item Let $C(i)$ be the number of ways you can reach the $i$th step of a staircase.
+    
+    Base Cases:
+
+    For $i=0$ there is one way to get to the $0$th step thus $C(0)=1$
+
+    For $i < 0$ there are zero ways to get the $i$th step since we cannot go backwards thus $C(i)=0$ for $i<0$.
+
+    Recurrence:
+
+    For the $i$th step for $i>1$ we get that:
+    \[C(i)=C(i-a)+C(i-b)\]
+    The reason is the only way to get to step $i$ is either with an $a$ step or a $b$ step, and those can only come from the $i-a$th step and $i-b$th step.
+    
+    \item Let $M(i)$ be the most profit you can get from a rod of length $i$.
+    
+    Base Cases:
+
+    For $i = 0$ since we cannot sell any rod we get that $M(i)=0$
+
+    Recurrence:
+
+    To get the most profit of a rod of length $i$ we get that:
+    \[M(i)=\max_{1 \leq j \leq i}(P[j] + M(i - j))\]
+    The reason this works is we look at all possible cuts of size $j \leq i$ and consider the max of cutting at length $j$ and selling it plus the max profit of selling a $i-j$ long rod.
+
+    \item Let $f(i,t)$ be true if we can get a sum of size $t$, with the first $i$ elements and false otherwise.
+    
+    Base Case:
+
+    For $t=0$ we can a sum of zero but taking the empty set.
+
+    For $i=0$ and $t>0$ this is always false, since we can't take any elements.
+
+    For $t < 0$ we cannot get a sum of less than zero since we have non negative elements.
+
+    Recurrence:
+
+    \[f(i,t)=f(i-1,t) \vee f(i-1,t-S[i])\]
+
+    The reason this works is that to get the target sum $t$ with the first $i$ elements either we skipped the $i$th element, so we would just look at if we got $t$ with the first $i-1$ elements, or we took the element thus we look at if we got $t-S[i]$ with the first $i-1$ elements. 
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item Base Cases:
+    
+    For $i=0$ since we do not have to go anywhere for $d_0=0$ we know that $p(0)=0$
+
+    Recurrence:
+
+    \[p(i) =\min_{0 \leq j \leq i}(((200-d_i+d_j)^2+p(j)))\]
+
+    The reason this works is we look at all possibilities of going from point $j$ to $i$ and take the min of going to state $j$ with the expression $p(j)$ then we add the penalty of going from $j \to i$. We take the min of all possibilities to get the true minimum.
+
+    \item \begin{algorithm}[H]
+        \caption{Find min penalty from $0$ to $n$}
+        \begin{algorithmic}[1]
+        \Require An array $A[1,\dots,n]$ of integers s.t. $A[1] < A[2] <\dots < A[n]$
+        \Ensure Finds the min penalty from $0$ to $A[n]$
+        \Function{FindMinPnealty}{$A$}
+            \If{$|A|=0$}
+                \State \Return 0
+            \EndIf
+            \State $P[0,1,\dots,n] \gets [\infty,\infty,\infty\dots,\infty]$ \Comment{Array of length $n+1$ with all $\infty$}
+            \State $P[0] \gets 0$ \Comment{Base Case: $P[0]=0$}
+            \For{$1 \leq i \leq n$} \Comment{Iterate over all states}
+                \For{$0 \leq j \leq i$} \Comment{Find best previous state}
+                    \State $P[i]=\min(P[i],((200-A[i]+A[j])^2+P[j]))$
+                \EndFor
+            \EndFor
+        \EndFunction
+        \Return $P[n]$ \Comment{Return the minimum penalty to reach state $n$}
+        \end{algorithmic}
+        \end{algorithm}
+
+    \begin{itemize}
+        \item (Proof of Correctness):
+        
+        We will prove the correctness of the \textsc{FindMinPenalty} algorithm by induction on $i$. The base case is $P(0) = 0$, which is correctly initialized as there is no penalty at the starting position. 
+
+        For the inductive step, assume that for all $k \leq i-1$, the computed values $P[k]$ correctly represent the minimum penalty required to reach $A[k]$. The algorithm updates $P[i]$ using the recurrence:
+        \[
+        P(i) = \min_{0 \leq j \leq i} \left( (200 - A[i] + A[j])^2 + P[j] \right).
+        \]
+        Since this equation correctly defines the minimum penalty needed to reach $A[i]$, and since the inner loop ensures that all possible transitions from previous states $j$ are considered, the computed $P[i]$ is optimal. The algorithm processes states in increasing order of $i$, ensuring that all dependencies are resolved before $P[i]$ is computed. Thus, by induction, all values $P[i]$ are correctly computed, and the final result $P[n]$ is the minimum penalty to reach $A[n]$.
+
+        \item (Runtime):
+        
+        We can see from the two for loops that we will do:
+
+        \[O(1)+O(2)+O(3)+\dots+O(n)=O(n^2)\]
+    \end{itemize}
+
+    To Find the path that we took to get to hotel $n$ what we can do is take the array $P$, then we start at $i=n$ and let $j=i-1$. We then look for the $j$ s.t. $P(i)-P(j)=(200-A[i]+A[j])^2$. The first spot this is true we then set $j=i$, and we do the loop again till we get to zero. We would then mark the $j$'s for when this is true to find the path. The reason this works is we are just using the definition of the recurrence relation.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+Here, ``$n(d)+1$'' accounts for all integers $1,2,\dots,n(d)$ plus the possibility ``$>n(d)$.''
+
+\begin{enumerate}[(a)]
+    \item With two blocks and $d$ drops, one can handle up to
+    \[
+    n(d) \;=\; \frac{d(d+1)}{2}
+    \]
+    distinct heights. In other words, \(\tfrac{d(d+1)}{2}\) is the maximal $n$ for which we can be sure of determining the LBH (or conclude $>n$) within $d$ total drops.
+    
+    Strategy:
+    
+    \begin{enumerate}[--]
+    \item Make the first drop from height $d$. 
+      \begin{itemize}
+        \item If the block breaks, then you have only 1 block left and $d-1$ drops remaining. You must do a linear search from height 1 up to height $d-1$ (which fits within $d-1$ drops).
+        \item If it does \emph{not} break, proceed to a higher height.
+      \end{itemize}
+    \item Make the second drop from height $d + (d-1)$. 
+      \begin{itemize}
+        \item If it breaks, do a linear search in the interval $(d,d+(d-1))$, using your remaining block and $d-2$ drops. 
+        \item If it does not break, go higher.
+      \end{itemize}
+    \item Continue in this fashion. Generally, after $i$ drops (none of which have broken the block), you drop from height 
+    \[
+    d + (d-1) + (d-2) + \cdots + [d-(i-1)],
+    \]
+    which is the $i$th partial sum of a decreasing sequence. 
+    \end{enumerate}
+    
+    If after $d$ such drops the block never breaks (i.e., the last tested height is $\frac{d(d+1)}{2}$), we conclude $k> \frac{d(d+1)}{2}$. This strategy ensures all possibilities are covered.
+    
+    We can see that the recurrence for $n(d)=d+(d-1)+\dots+1=\dfrac{d(d+1)}{2}$
+    
+    \item Why is this Optimal.
+    
+    Intuitively:
+    \begin{itemize}
+    \item Once one block breaks, you are left with a single block. With only one block, you have no choice but linear search.
+    \item If you have used $r$ drops when the first break occurs, you only have $(d-r)$ drops left. Linear searching $(d-r)$ steps can only cover $(d-r)$ more heights.
+    \item Balancing the increments of your first block's drops as $d, d-1, d-2, \dots$ ensures that in the worst-case scenario (where it breaks late or never breaks), you use all $d$ drops but also maximize coverage.
+    \item Assume that there is an algorithm $\alpha$ that can test $M$ more than $d(d+1)/2$. 
+    
+    Let the algorithm drop first on floor $x$.
+
+    There are two outcomes:
+
+    It breaks then we have $(d-1)$ drops and 1 block left. To get the correct answer we are forced to do a linear search. Therefore, the only way to get the correct answer is to test from $[1,x)$. This implies that $x-1 \leq d-1 \implies x \leq d$
+
+    It does not break. Then the max floor we can read is $x+n(d-1) \implies d \leq n(d-1)$ because if our algorithm is to work every time we have to account for if it breaks at $x$.
+
+    We can then use an inductive argument to show that $x+n(d-1) \leq d + d-1 + d-2+\dots+1 \implies x+n(d-1)=M \leq d(d+1)/2$. This is a contradiction of our assumption that $M > d(d+1)/2$.
+    \end{itemize}
+    
+    Hence, 
+    \[
+    n(d)= \frac{d(d+1)}{2}
+    \]
+    is indeed the maximum number of heights we can handle with 2 blocks and $d$ drops.
+    
+\end{enumerate}
+\end{document}

@@ -1,97 +1,101 @@
-\subsection{Continuous Functions}
-\begin{definition}
+\section{Continuous Functions}
+\begin{definition}{Continuous Function}{}
     Let $X,Y$ be topological spaces. A function $f: X \to Y$ is continuous if,
     for every open $U \subseteq Y$, the set $f^{-1}(U)$ is open in $X$.
 \end{definition}
 
-\begin{definition}
+\begin{definition}{Homeomorphism}{}
     A bijection $f: X \to Y$ is called a homeomorphism if it is continuous and $f^{-1}: Y \to X$ is also continuous.\\
     Equivalently: If $f: X \to Y$ is a bijection, then it induces a bijection $P(X) \to P(Y)$. If $X,Y$ are topological spaces, a bijection $f:X \to Y$ is a homeomorphism if it identifies topology on $X$ with the topology on $Y$.
 \end{definition}
 
-\begin{example}
+\begin{example*}{}{}
     Let $X=\{a,b\}$ and $Y=\{c,d\}$. Let $\T_X=\{\emptyset, X, \{a\}\}$. Let $\T_Y=\{\emptyset, Y\}$\\
     Consider $f: X \to Y$ s.t. it is a bijection this is clearly continuous since $f^{-1}(Y)=(X)$. However for $f^{-1} : Y \to X$ this is not continuous.
-\end{example}
+\end{example*}
 
-\begin{definition}
+\begin{definition}{Embedding}{}
     Let $f: X \to Y$, let $Z \subseteq Y$ be the subspace $f(X)$. If $f:X \to Z$ is a homeomorphism, then we say that $f$ is a topological embedding.
 \end{definition}
 This is not the same as a continuous injective map.
-\begin{example}
+\begin{example*}{}{}
     Let $X=[0,2\pi)$, $f: X \to R^2$ given by $f(t)=(\cos(t),sin(t))$.
-\end{example}
-
-\begin{proposition}
+\end{example*}
+\propp{
     Let $f: X \to Y$ be a map between topological spaces $X,Y$.
     \[f \t{ is continuous } \iff f^{-1}(B) \t{ is open for  every } B \t{ in a basis for } Y.\]
-\end{proposition}
-\begin{proof}
+}{
     $(\implies):$ immediate by the fact that basis sets are open.\\
     $(\impliedby):$ use fact that every open set in $Y$ is a union of basis sets.
-\end{proof}
+}
 
-\begin{definition}
+\begin{definition}{Neighborhood}{}
     Let $X$ be a topological space, $x \in X$. A neighborhood of $x$ is any open set $U \subset X$ containing $x$.
 \end{definition}
-\begin{definition}
+\begin{definition}{Continuous at a Point}{}
     A map $f: X \to Y$ between topological spaces is continuous at $x \in X$ if, for every neighborhood $V$ of $f(x)$, there is a neighborhood $U$ of $x$ s.t. $f(U) \subseteq V$.
 \end{definition}
-\begin{samepage}
-    \begin{proposition}
-        Let $f: X \to Y$ be a map between topological spaces then the following are equivalent.
-        \begin{enumerate}[(i)]
-            \item $f$ is continuous
-            \item $f$ is continuous at every $x \in X$
-            \item $f^{-1}(C)$ is closed for every closed $C \subseteq Y$
-        \end{enumerate}
-    \end{proposition}
-\end{samepage}
-
-\begin{proof}
+\propp{
+    Let $f: X \to Y$ be a map between topological spaces then the following are equivalent.
+    \begin{enumerate}[(i)]
+        \item $f$ is continuous
+        \item $f$ is continuous at every $x \in X$
+        \item $f^{-1}(C)$ is closed for every closed $C \subseteq Y$
+    \end{enumerate}
+}{
     $(i) \iff (iii):$ Let $U \subseteq Y$ be open.\\
     Thus, $X \setminus f^{-1}(U)=f^{-1}(Y) \setminus f^{-1}(U)=f^{-1}(Y \setminus U)$\\
     Thus, $f^{-1}(U)$ is open $\iff f^{-1}(Y \setminus U)$ is closed.\\
     $(i) \implies (ii):$ Let $x \in X$, let $V$ be a neighborhood of $f(x)$. Then $f^{-1}(V)$ is open, so it's a neighborhood of $x$ and $f(f^{-1}(V)) \subseteq V$.\\
     $(ii) \implies (i):$ Let $V \subseteq Y$. For each $x \in f^{-1}(V)$, $f(x) \in V$, so there is a neighborhood $U_x$ of $x$ s.t. $f(U_x) \subseteq V$, meaning $U_x \subseteq f^{-1}(V)$.\\
     Thus, $f^{-1}(V)=\displaystyle\bigcup_{x \in f^{-1}(V)}U_x$, so $f^{-1}(V)$ is open.
-\end{proof}
+}
 
-\begin{definition}
+\begin{definition}{Continuous on Metric Spaces}{}
     Let $X,Y$ be metric spaces. A function $f: X \to Y$ is continuous at $x \in X$ if $\forall \epsilon >0$, $\exists \delta >0$ s.t. whenever $d(x,y) < \delta$, then $d(f(x),f(y)) < \epsilon$.\\
     Also the same as, for every ball $B(f(x),\epsilon), \exists \delta$ s.t. $f(B(x,\delta)) \subseteq B(f(x),\epsilon)$.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}{}{}
     These definition of continuity are equivalent when $X,Y$ are metric spaces.
 \end{proposition}
 
-\begin{lemma}
+\lemp{}{
     Let $f:X \to Y$, $g: Y \to Z$ be continuous between topological spaces. Then $g \circ f$ is continuous.
-\end{lemma}
-\begin{proof}
+}{
     Let $U \subseteq Z$ be open then $(g \circ f)^{-1}(U)=f^{-1}(g^{-1}(U))$. $g^{-1}(U)$ is open, since $g$ is continuous then $^{-1}(g^{-1}(U))$ is open, since $f$ is continuous.
-\end{proof}
+}
 
-\begin{proposition}
+\propp{
     Let $X$ be a topological space, $A \subseteq X$ a subspace then the inclusion $f: A \hookrightarrow X$ is continuous.
-\end{proposition}
-\begin{proof}
+}{
     Let $U \subseteq X$ be open, thus $f^{-1}(U)=U \cap A$ is open in $A$ by definition of subspace topology.
-\end{proof}
-\begin{proposition}
+}
+\begin{proposition}{}{}
     Let $f:X \to Y$ be a map between topological spaces, suppose that $f(X) \subseteq Z$ for some subspace $Z \subseteq Y$. Then $f: X \to Z$ is continuous $\iff$ $f: X \to Y$ is continuous.
 \end{proposition}
-\begin{proposition}
+\begin{proposition}{}{}
     If $f: X \to Y$ is continuous, and $A$ is a subspace of $X$ then $f\mid_A: A \to Y$ is continuous.
 \end{proposition}
-\begin{definition}
+\begin{definition}{Open Covering}{}
     Let $X$ be a topological space. An open covering of $X$ is a collection $\{U_\alpha\}_{\alpha \in J}$ of open sets s.t. $X=\displaystyle\bigcup_{\alpha \in J}U_\alpha$.
 \end{definition}
-\begin{proposition}
+\begin{proposition}{}{}
     Let $f : X \to Y$, let $\{U_\alpha\}_{\alpha \in J}$ be an open covering. Then $f$ is continuous $\iff$ each restriction $f\mid_{U_\alpha}$ is continuous.
 \end{proposition}
-\begin{proposition}
+\begin{proposition}{}{}
     Suppose $X$ is a union of finitely many closed subsets $C_1,\dots,C_n$\\
     Then a map $f: X \to Y$ is continuous $\iff$ each restriction $f\mid_{C_1}: C_1 \to Y$ is continuous.
 \end{proposition}
+\noindent Let $\R$ have std. top.
+\begin{itemize}
+    \item Addition
+    \item Multipilcation
+    \item Division $(x/y)$ for $y \neq 0$
+\end{itemize}
+These are continuous.
+
+\begin{lemma}{}{}
+    If $f_1: X_1 \to Y_2$, $f_2: X_2 \to Y_2$ are continuous maps of top spaces, then the map $X_1 \times X_2 \to Y_1 \times Y_2$ given by $(u,v) \mapsto (f_1(u),f_2(v))$ is continuous.
+\end{lemma}
+

@@ -18,7 +18,7 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{float}
-\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
 \usepackage[nointegrals]{wasysym}
 
@@ -29,23 +29,10 @@
 \usepackage{cleveref}
 \usepackage{multicol}
 \usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
 
-%--------Theorem Environments--------
-%theoremstyle{plain} --- default
-\newmdtheoremenv{theorem}{Theorem}[subsection]
-\newmdtheoremenv{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-\newmdtheoremenv{lemma}[theorem]{Lemma}
-\newtheorem{conj}[theorem]{Conjecture}
-\newtheorem{quest}[theorem]{Question}
-
-\theoremstyle{definition}
-\newmdtheoremenv{definition}[theorem]{Definition}
-\newmdtheoremenv{definitions}[theorem]{Definitions}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{algorithm}[theorem]{Algorithm}
-\newtheorem{rmk}[theorem]{Remark}
-\newtheorem{exercise}[theorem]{Exercise}
+\input{../../theorems.tex}
 
 %----------- my commands -------------
 \newcommand{\C}{\mathbb{C}}
@@ -65,7 +52,7 @@
 \setstretch{1.2}
 
 \begin{document}
-
+\setlength{\parindent}{0pt}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
@@ -75,4 +62,6 @@
 \include{basisfortopology}
 \include{examplesoftopologies}
 \include{continousfunctions}
+\include{closuresofsets}
+
 \end{document}

@@ -1,0 +1,250 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\subsection*{Problem 1}
+\begin{enumerate}[(a)]
+    \item Let $O$ be open in $\R$.
+    Fix $(x,y) \in d^{-1}(O)$, so $d(x,y) \in O$. Thus by definition of open in the standard topology there is an interval $(a,b)$ s.t. $d(x,y) \in (a,b) \subseteq O$.\\ 
+    Fix $\epsilon = \min(d(x,y)-a,b-d(x,y))$.\\
+    Consider $c \in B(x,\epsilon/2)$ and $e \in B(y, \epsilon/2)$ thus:
+    \[d(c,e) \leq d(c,x)+d(y,e) \leq d(c,x)+d(y,e)+d(x,y) < \epsilon + d(x,y)\]
+    Similarly:
+    \[d(c,e) \geq d(x,y)-d(c,x)-d(e,y) \geq \epsilon + d(x,y)\]
+    Thus:
+    \[|d(c,e)-d(x,y)| < \epsilon=\min(d(x,y)-a,b-d(x,y))\]
+    Thus, $d(c,e) \in (d(x,y)-\epsilon, d(x,y)+\epsilon) \subseteq (a,b) \subseteq O$\\
+    Thus $B(x,\epsilon/2) \times B(y,\epsilon/2) \subseteq d^{-1}(O)$. Thus, $d^{-1}(O)$ is open since every point is inside an open set in $X \times X$ thus we can union all of these sets together to get $d^{-1}(O)$.
+
+    Consider the map $d(x, \cdot) : X \to \R$ s.t. $y \mapsto d(x,y)$. Since $d$ is continuous and $\{x\} \times X$ is a subspace of $X \times X$, the restriction $d(x,\cdot)=d(x,y)$ is still a continuous function.\\
+    Let $T'$ be any topology on $X$ s.t. $d$ is continuous. Fix $x \in X$ and $\epsilon > 0$. Consider the open interval $(-\infty,\epsilon)$ thus the preimage of this under our map is $B(x,\epsilon)$. Since this $d$ is continous on $T'$ this implies that $B(x,\epsilon)$ is open in $T'$ thus every ball is open. Thus, we get that the metric topology is a subset of $T'$. Thus, we have shown the metric topology is the coarsest topology s.t. $d$ is continuous.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 2}
+\begin{enumerate}
+    \item Let $C=\{x \in X \mid f(x) \leq g(x)\}$. Consider $X \setminus C= \{x \in X \mid g(x) < f(x)\}$\\
+    Let $x \in X \setminus C$. Let $y \in (g(x),f(x))$. If this interval is not empty then consider $O=g^{-1}((-\infty,y)) \cap f^{-1}((y,\infty))$. Since $f,g$ are continuous we have that these preimages are open thus $O$ is open. Thus, $x \in O$ since $g(x) < y < f(x)$, and if $a \in O$ this implies that $g(a) < y < f(y)$ thus $a \in O$
+    
+    If the interval is empty then let $O=g^{-1}((-\infty,f(x))) \cap f^{-1}((g(x),\infty))$. Again, $O$ is open and $x \in O$. If $a \in O$ then $g(a) < f(x)$ and $g(x) < f(a)$. If $f(a) \leq g(a)$ this implies that $g(x) < f(a) < f(a) \leq g(a) < f(x)$ which is a contradiction of the fact that $(g(x),f(x))$ is empty. Thus $g(a) < f(a)$ thus $a \in X \setminus A$.
+
+    Thus, in all cases we have that $O \subseteq X \setminus C$. Then we can make $X \setminus C$ as a union of all of these open sets. Thus, $X \setminus C$ is open thus $C$ is closed.
+
+    \item Consider $C=\{x \in X \mid f(x) \leq g(x)\}$ and $D=\{x \in X \mid g(x) \leq f(x)\}$. From part one we can see that these are both closed.
+    
+    Let $x \in X$ thus we know that by definition of ordering of $Y$, either $f(x) \leq g(x)$ or $g(x) \leq f(x)$ thus $x \in C \cup D$.\\
+    Let $x \in C \cup D$ thus $x \in X$. Thus, $X = C \cup D$.\\
+    Consider $h \mid_C$, since in $C$ $f(x) \leq g(x)$ we get that $h \mid_D=f$ and the same reasoning for $h \mid_D=g$. Since both $f,g$ are continuous this implies that $h \mid_C,h \mid_D$ are both continuous. Also, for $h \mid_{C \cap D}$ this implies that $h \mid_{C \cap D}=f=g$ thus again this function is continuous. Thus, by the pasting lemma $h$ is continuous.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 3}
+\begin{itemize}
+    \item $(\implies)$ Assume $f$ is continuous.\\
+    Consider the projection map $\pi_X : X \times Y \to X$ s.t. $(x,y) \mapsto x$.
+
+    Let $O$ be open in $X$. Consider $\pi_X^{-1}(O) = \{(x,y) \in X \times Y \mid x \in O\}=O \times Y$. This set is open in the product topology since $O$ is open in $X$ and $Y$ is open in $Y$. Thus, $\pi_X$ is continuous, and same for $\pi_Y$.
+
+    Consider $\pi_X \circ f$. By definition, for $z \in Z$:
+    \[\pi_X \circ f(z)=\pi_X(f_1(z),f_2(z))=f_1(z)\]
+    Thus $\pi_X \circ f=f_1$. Since this is a composition of two continous maps this implies $f_1$ is continuous, and you can do the same for $f_2$.
+    
+    \item $(\impliedby)$ Assume $f_1,f_2$ are Continuous.
+    
+    Let $O$ be a basis set in $X \times Y$ thus $O=U \times V$ s.t. $U$ is open in $X$ and $V$ is open in $Y$, and since open sets are unions of basis elements, it is enough to verify continuity for the preimages of basis elements.
+
+    Thus consider $f^{-1}(O)=\{z \in Z \mid f_1(z) \in U \t{ and } f_2(z) \in V\}=f_1^{-1}(U)\cap f_2^{-1}(V)$.
+
+    Since $f_1,f_2$ are continuous this implies that $f_1^{-1}(U),f_2^{-1}(V)$ are open thus $f^{-1}(O)$ is open. Thus, $f$ is continuous.
+\end{itemize}
+
+\newpage
+\subsection*{Problem 4}
+\begin{enumerate}[(a)]
+    \item In 3, I proved that projections are continuous. Now let $\T$ be a topology on $X \times Y$ s.t. the projections maps are both continuous. Let $O$ be a basis element in $X \times Y$ thus $O=U \times V$ for $U$ open in $X$ and $V$ open in $Y$.
+    Thus, consider $\pi_X^{-1}(U)=U \times Y$ and $\pi_Y^{-1}(V) = X \times V$. Since these functions are continuous we know these are open sets thus consider $(U \times Y) \cap (X \times V)=U \times V$. Thus $U \times V$ is open in $\T$. Since we have all basis elements in our topology this means we have all elements from the product topology. Thus the product topology is the coarsest topology for which the projection maps are both continuous.
+
+    \item Consider $\phi :X \to \phi(X)$ s.t. $x \mapsto (x,f(x))$.
+    \begin{itemize}
+        \item (Continuity) By problem 3, we know that since the identity functions is continuous, and $f$ is continuous this implies that $\phi$ is continuous.
+        \item (Inverse) Consider the projection map $\pi_X : \phi(X) \to X$. This function is well defined since for every pair $(x,f(x)) \in \phi(X)$ we know that $x$ is unique and the second component is determined by $f$ which is a function. Thus, this function is well defined since $x$ uniquely identifies the pair.
+        
+        Let $x \in X$ thus:
+        \[\pi_X(\phi(x))=\pi_X((x,f(x)))=x\]
+        Let $y \in \phi(X)$ thus $y=(x,f(x))$ for some $x \in X$ thus:
+        \[\phi(\pi_X(y))=\phi(x)=(x,f(x))=y\]
+        Thus, $\phi$ is bijection since it has an inverse.
+        
+        Also since the inverse is a projection map we know that it is continuous.
+    \end{itemize}
+    Thus, $\phi$ is a homeomorphism thus it embeds into $X \times Y$.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 5}
+\begin{enumerate}[(a)]
+    \item Fix $y_0 \in \mathbb{R}$.
+
+    If $y_0 = 0$, then the function $f_{y_0}(x)$ is identically zero. Let $O \subset \mathbb{R}$ be an open set. If $0 \in O$, then $f_0^{-1}(O) = \mathbb{R}$. If $0 \notin O$, then $f_0^{-1}(O) = \emptyset$. Thus, $f_0$ is continuous.
+
+    If $y_0 \neq 0$, consider:
+    \[
+    g(x) = \frac{x}{x^2 + y_0^2}.
+    \]
+    Since $f_{y_0}(x) = y_0 \cdot g(x)$, it suffices to show that $g(x)$ is continuous. Observe that $x^2 + y_0^2 > 0$ for all $x$ and that both $x^2 + y_0^2$ and $x$ are continuous functions. Since $g(x)$ is the division of two continuous functions with a non-zero denominator, it follows that $g(x)$ is continuous. Consequently, $f_{y_0}(x)$, being a product of continuous functions, is also continuous.
+
+    The same reasoning can be applied to show that $f_{x_0}(y)$ is continuous.
+
+    \item Consider the neighborhood $V=(-\frac{1}{4},\frac{1}{4})$, and let $U$ be a neighborhood on the point $(0,0)$. Thus, there exists a ball $B((0,0),\epsilon) \subseteq U$. Consider a point $p=(a,a)$ s.t. $|a| < \epsilon/(\sqrt{2})$.
+    
+    Thus $d((0,0),p)=\sqrt{a^2+a^2}=\sqrt{2}|a| < \epsilon$. Thus $p \in B((0,0),\epsilon)$. Now consider $f(p)=1/2$. However $f(U) \nsubseteq V$, thus $f$ is not continuous at the point $(0,0)$ thus it is not continuous.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 6}
+\begin{enumerate}[(a)]
+    \item Base Case: $n=1$
+    
+    If $n=1$ then we are in $1\times1$ matrices which is just real numbers thus the determinant is just the identity function which is continuous.
+
+    Inductive Step: Assume that the determinant is continuous for all matrices of size $k \leq n$. Consider $n+1$.
+
+    For an $n+1 \times n+1$ matrix $A=[a_{ij}]$, the determinant is give by
+    \[\det(A)=\sum_{j=1}^{n+1}(-1)^{1+j}a_{1j}\det(A_{1j})\]
+    where $A_{1j}$ is the $n \times n$ sub-matrix obtained by removing the first row and the $j$-th column of $A$.
+    Since this involves a finite sum  and products of continuous functions we know that $det(A)$ is continuous.\\
+    Thus, by induction $det$ is continuous for matrices of dimension $n^2$ for all $n \in \N$
+
+    \item Consider the open set $(-\infty, 0) \cup (0, \infty) \subseteq \R$. The preimage of this set under $\det$ is exactly $GL_n(\R)$ thus by (a) since $\det$ is continuous $GL_n(\R)$ is open.
+    
+    \item Let $A=(a_{ij})$, where $a_{ij}$ is in the $i$-th row and $j$-th column. We can flatten $A$ into a vector in $\R^{n^2}$:
+    \[A=(a_{11},a_{12},\dots,a_{1n},a_{21},\dots,a_{2n},\dots,a_{nn})\]
+    The product of $A^TA$ is an $n \times n$ matrix where each entry looks like this:
+    \[(A^TA)_{ij}=\sum_{k=1}^na_{ki}a_{kj}\]
+    Now define the function $f_{ij}:R^{n^2} \to \R$ by:
+    \[f_{ij}(a_{11},\dots,a_{nn})=\sum_{k=1}^na_{ki}a_{kj}\]
+    Since this is a polynomial we know it is continuous.
+
+    Now consider the function $f: \R^{n^2} \to \R^{n^2}$ by:
+    \[f(A)=(f_{11}(A),f_{12}(A),\dots,f_{nn}(A))\]
+    By problem 3 this function is continuous. Thus consider the set $\{I_n\}$ which is the identity matrix in $\R^{n^2}$
+
+    Consider the set $\{I_n\}=I \subseteq R^{n^2}$ Consider $U=R^{n^2} \setminus I$. Let $A \in U$. Fix $\epsilon=1/2d(A,I_n) >0$. Consider the ball $B(A,\epsilon)$. Let $C \in B(A, \epsilon)$
+
+    By the traingle inequality we get that $d(C,I_n) \geq d(A,I_n)-d(C,A) > d(A,I_n)-\epsilon > 1/2d(A,I_n) > 0$ thus $B \neq I_n$ since $d(B,I_n) \neq 0$. Thus, $C \in U$. Thus, $B(A,\epsilon) \subseteq U$. Thus, $U$ is open. Thus, $I$ is closed.
+
+    Now consider $f^{-1}(I)$ this is equal to $O_n$, and since preimage of closed sets are closed on continuous functions we know that $O_n$ is closed.
+\end{enumerate}
+
+\newpage
+\subsection*{Problem 7}
+\begin{enumerate}[(a)]
+    \item Let $x \in R^{m+1} \setminus S^m$.
+    
+    If $d(0,x)=r<1$ then fix $\epsilon=(1-r)/2$. Consider $B(x,\epsilon)$. Let $y \in B(x,\epsilon)$
+
+    Thus, $d(0,y)=d(0,y-x+x)\leq d(0,y-x)+d(0,x)< \epsilon + r = (1+r)/2 < 1$ since $r<1$. Thus $B(x,\epsilon) \subseteq R^{m+1} \setminus S^m$
+
+    If $d(0,x)=r>1$ then fix $\epsilon=(r-1)/2$. Consider $B(x,\epsilon)$. Let $y \in B(x,\epsilon)$
+
+    Thus, $d(0,y)=d(0,y-x+x)\geq d(0,x)-d(0,y-x) > r - \epsilon = (1+r)/2 > 1$ since $r<1$. Thus $B(x,\epsilon) \subseteq R^{m+1} \setminus S^m$
+
+    Thus, by definition of being open in $R^{m+1}$ the set $R^{m+1} \setminus S^m$ is open thus $S^m$ is closed.
+
+    \item Let $A$ be the upper hemisphere and $B$ be the disk. 
+    
+    Consider $f: A \to B$ s.t. $(x_1,x_2,\dots,x_m.x_{m+1}) \to (x_1,\dots,x_m)$
+
+    \begin{itemize}
+        \item (Bijective)
+        
+        Injective:
+        
+        Let $x,y \in A$ s.t. $f(x)=f(y)$ thus:
+        \[(x_1,x_2,\dots,x_m)=(y_1,\dots,y_m)\]
+        Since $x$ and $y$ are both on the unit sphere we can get the last coordinate by:
+        \[x_{m+1}=\sqrt{1-d(x_1,x_2,\dots,x_m,0)^2}, \quad y_{m+1}=\sqrt{1-d(y_1,y_2,\dots,y_m,0)^2}\]
+        We know that the sqrt is positive since we are in the upper hemisphere. Thus $x=y$.
+
+        Surjective:
+
+        Let $y \in B$ consider $x=(y_1,y_2,\dots,\sqrt{1-d(y_1,y_2,\dots,y_m,0)^2}) \in A$, since $d(0,z) \leq 1$ the last coordinate will satisfy $x_{m+1} \geq 0$ thus $f(x)=z$
+
+        Thus, this function is Bijective
+
+        \item (Continuity) The map $f(x)$ is continuous since it is a projection and since the standard topology and the product topology is the same under $\R^{m+1}$ projection maps are continuous by 4.
+        
+        Define the inverse $f^{-1}(x_1,\dots,x_m)=(x_1,\dots,\sqrt{1-d(x_1,x_2,\dots,x_m,0)^2})$. This map is continuous since the first $m$ terms are identity functions, so they are continuous and $\sqrt{1-d(y_1,y_2,\dots,y_m,0)^2}$ is continuous since $|d(y_1,y_2,\dots,y_m,0)| \leq 1$. Thus by problem 3 we know this whole function is continuous.
+    \end{itemize}
+    Thus $A \cong B$
+\end{enumerate}
+\end{document}

@@ -1,0 +1,211 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{circuitikz}
+
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara (vferrara)}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+\begin{enumerate}
+    \item 
+    $\overline{A}*B + \overline{C * B}$
+    \begin{center}
+        \begin{circuitikz}[american]
+            % Inputs
+            \node (A) at (0,2) {$A$};
+            \node (B) at (0,0) {$B$};
+            \node (C) at (0,-2) {$C$};
+            \node (D) at (0,-4) {$D$};
+    
+            % NOT gates
+            \node[not port] (notA) at (1.5,2) {};
+            \node[not port] (notCD) at (3.5,-3) {};
+    
+            % AND gates
+            \node[and port] (and1) at (4,1) {};
+            \node[and port] (and2) at (2.5,-3) {};
+    
+            % OR gate
+            \node[or port] (or1) at (6,-1) {};
+    
+            % Connections
+            \draw (A) -- (notA.in);
+            \draw (notA.out) -- ++(right:0) -| (and1.in 1);
+            \draw (B) -- ++(right:1) -| (and1.in 2);
+            
+            \draw (C) -- ++(right:1) -| (and2.in 1);
+            \draw (D) -- ++(right:1) -| (and2.in 2);
+            \draw (and2.out) -- (notCD.in);
+            
+            \draw (notCD.out) -- ++(right:0.37) |- (or1.in 2);
+            \draw (and1.out) -- ++(right:0.4) |- (or1.in 1);
+    
+            % Output
+            \node (output) at (8,-1) {$\overline{A}*B + \overline{C * B}$};
+            \draw (or1.out) -- (output);
+        \end{circuitikz}
+    \end{center}
+
+    \item Truth Table for MUX
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        A & B & S & X \\ \hline
+        0 & 0 & 0 & 0 \\ \hline
+        0 & 0 & 1 & 0 \\ \hline
+        0 & 1 & 0 & 0 \\ \hline
+        0 & 1 & 1 & 1 \\ \hline
+        1 & 0 & 0 & 1 \\ \hline
+        1 & 0 & 1 & 0 \\ \hline
+        1 & 1 & 0 & 1 \\ \hline
+        1 & 1 & 1 & 1 \\ \hline
+        \end{tabular}
+        \end{table}
+\end{enumerate}
+
+\q
+
+\begin{enumerate}
+    \item Define Moore's Law in your own words.
+    
+    It states that the number of transitions on a microchip doubles every two years.
+
+    \item Define Dennard Scaling in your own words.
+    
+    It states that even though transistors get smaller, their power density stays constant.
+
+    \item Moore’s Law and Dennard Scaling historically enabled rapid advancements in computing by driving exponential growth in transistor density and efficiency. This led to continuous improvements in processing power, energy efficiency, and overall system performance, fueling innovations in everything from personal computers to large-scale data centers.
+
+    However, these trends have slowed in recent years. As transistor sizes approach atomic limits, fabrication becomes more complex and expensive, making it harder to sustain Moore’s Law. Similarly, the breakdown of Dennard Scaling in the early 2000s led to power and thermal constraints, limiting further increases in clock speed. As a result, modern computing advancements now focus on alternative strategies such as multi-core architectures, parallel processing, and domain-specific accelerators (e.g., GPUs and AI chips).
+\end{enumerate}
+
+\q
+\begin{enumerate}
+    \item Convert the following numbers to 8-bit binary two's complement representation.
+    \begin{enumerate}[a.]
+        \item $-12=1111\;\;0100$
+        \item $101=0110\;\;0101$
+    \end{enumerate}
+    \item Convert the following 12-bit binary 2's complement numbers to decimal.
+    \begin{enumerate}[a.]
+        \item $1010\;\;0110\;\;1111=-2048+512+64+32+8+4+2+1=-1425$
+        \item $0001\;\;1101\;\;1100=256+128+64+16+8+4=476$
+    \end{enumerate}
+    \item Convert the following 16-bit binary number to hex.
+    \begin{enumerate}[a.]
+        \item $1111\;\;1000\;\;0101\;\;1010=\text{F85A}$
+        \item $0101\;\;1010\;\;1000\;\;0101=\text{5A85}$
+    \end{enumerate}
+\end{enumerate}
+
+\q
+\begin{enumerate}
+    \item $B$ since $\text{nor}(R_0,R_0)=\sim R_0=\sim0$
+    \item $B,C,D,E$
+    \item \begin{itemize}
+        \item 2's Complment: (D)
+        \item Fixed Point: (A)
+        \item IEEE 754: (C)
+        \item Double Precision: (E)
+    \end{itemize}
+\end{enumerate}
+
+\q
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.3} % Adjusts row spacing
+    \centering
+    \resizebox{4in}{!}{
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Initial Register State}} & \multicolumn{2}{c|}{\textbf{Initial Memory State}} \\
+        \hline
+        \textbf{Register} & \textbf{Value} & \textbf{Address} & \textbf{Value} \\
+        \hline
+        X0 & 0xD & 0x00001000 & 0x44 \\ \hline
+        X1 & 0x1001 & 0x00001001 & 0x12 \\ \hline
+        X2 & 0x6E & 0x00001002 & 0x44 \\ \hline
+        X3 & 0x3CB1 & 0x00001003 & 0x2E \\ \hline
+        X4 & 0x1000 & 0x00001004 & 0xA1 \\ \hline
+        X5 & 0x5 & 0x00001005 & 0x72 \\
+        \hline
+    \end{tabular}
+    }
+\end{table}
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.3} % Adjusts row spacing
+    \centering
+    \resizebox{4in}{!}{
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Initial Register State}} & \multicolumn{2}{c|}{\textbf{Initial Memory State}} \\
+        \hline
+        \textbf{Register} & \textbf{Value} & \textbf{Address} & \textbf{Value} \\
+        \hline
+        X0 & 0x1002 & 0x00001000 & 0x44 \\ \hline
+        X1 & 0x1001 & 0x00001001 & 0x12 \\ \hline
+        X2 & 0x44   & 0x00001002 & 0x44 \\ \hline
+        X3 & 0x3CB1 & 0x00001003 & 0xB1 \\ \hline
+        X4 & 0xFFFF-FFFF-B144-1244 & 0x00001004 & 0x44 \\ \hline
+        X5 & 0x5    & 0x00001005 & 0x12 \\
+        \hline
+    \end{tabular}
+    }
+\end{table}
+
+\q
+\begin{verbatim}
+    lw 4 5 4    # load from address Gold+4=Gold[4] into r5
+    add 1 3 7   # add address Go+a=G[a]
+    add 5 2 6   # add b+Gold[4]
+    sw  7 6 0   # store at r7+0=G[a] the contents of r6=b+Gold[4]
+\end{verbatim}
+\end{document}

@@ -1,0 +1,400 @@
+% Theorem System
+% The following boxes are provided:
+%   Definition:     \defn 
+%   Theorem:        \thm 
+%   Lemma:          \lem
+%   Corollary:      \cor
+%   Proposition:    \prop   
+%   Claim:          \clm
+%   Proof:          \pf
+%   Example:        \ex
+%   Remark:         \rmk (sentence), \rmkb (block)
+% Suffix
+%   r:              Allow Theorem/Definition to be referenced, e.g. thmr
+%   p:              Add a short proof block for Lemma, Corollary, Proposition or Claim, e.g. lemp
+%                   For theorems, use \pf for proof blocks
+
+% ======= Real examples : 
+
+% \defn{Definition Name}{
+%     A defintion.
+% }
+
+% \thmr{Theorem Name}{mybigthm}{
+%     A theorem.
+% }
+
+% \lem{Lemma Name}{
+%     A lemma.
+% }
+
+
+% \cor{
+%     A corollary.
+% }
+
+% \prop{
+%     A proposition.
+% }
+
+% \clmp{}{
+%     A claim.
+% }{
+%     A reference to Theorem~\ref{thm:mybigthm}
+% }
+
+% \pf{
+%    proof.
+
+% \ex{
+%     some examples. 
+% }
+
+% \rmk{
+%     Some remark.
+% }
+
+% \rmkb{
+%     Some more remark.
+% }
+
+\usepackage{xcolor}
+
+% Define custom colors
+\definecolor{thmscol}{HTML}{F4565B} %For Theorems
+\definecolor{lemscol}{HTML}{FE844C} %For Lemmes
+\definecolor{prpscol}{HTML}{00A7EF} %For proposition
+\definecolor{corscol}{HTML}{23DAFF} %For corrolaries
+\definecolor{rmkscol}{HTML}{6DEEC5} %For remarks
+
+\definecolor{defscol}{HTML}{18C991} %For definitions
+
+\definecolor{exmscol}{HTML}{7DB800} %For examples
+
+\definecolor{clmscol}{HTML}{165c58} %For claims
+
+
+% ============================
+% Definition
+% ============================
+\newtcbtheorem[number within=section]{definition}{Definition}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=defscol!70!white,
+    colback=defscol!35!white,
+}{defn}
+
+\NewDocumentCommand{\defn}{m+m}{
+    \begin{definition}{#1}{}
+        #2
+    \end{definition}
+}
+
+\NewDocumentCommand{\defnr}{mm+m}{
+    \begin{definition}{#1}{#2}
+        #3
+    \end{definition}
+}
+
+% ============================
+% Theorem
+% ============================
+
+\newtcbtheorem[use counter from=definition]{theorem}{Theorem}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=thmscol!80!white,
+    colback=thmscol!38!white,
+}{thm}
+
+\NewDocumentCommand{\thm}{m+m}{
+    \begin{theorem}{#1}{}
+        #2
+    \end{theorem}
+}
+
+\NewDocumentCommand{\thmr}{mm+m}{
+    \begin{theorem}{#1}{#2}
+        #3
+    \end{theorem}
+}
+
+\newenvironment{thmpf}{
+	{\noindent{\it \textbf{Proof.}}}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{thmscol!80!white}]
+}{
+    \textcolor{thmscol!80!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\thmp}{m+m+m}{
+    \begin{theorem}{#1}{}
+        #2
+    \end{theorem}
+
+    \begin{thmpf}
+        #3
+    \end{thmpf}
+}
+
+% ============================
+% Lemma
+% ============================
+
+\newtcbtheorem[use counter from=definition]{lemma}{Lemma}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=lemscol!80!white,
+    colback=lemscol!40!white,
+}{lem}
+
+\NewDocumentCommand{\lem}{m+m}{
+    \begin{lemma}{#1}{}
+        #2
+    \end{lemma}
+}
+
+\newenvironment{lempf}{
+	{\noindent{\it \textbf{Proof.}}}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{lemscol!50!white}]
+}{
+    \textcolor{lemscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\lemp}{m+m+m}{
+    \begin{lemma}{#1}{}
+        #2
+    \end{lemma}
+
+    \begin{lempf}
+        #3
+    \end{lempf}
+}
+
+% ============================
+% Corollary
+% ============================
+
+\newtcbtheorem[use counter from=definition]{corollary}{Corollary}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=corscol!50!white,
+    colback=corscol!20!white,
+}{cor}
+
+\NewDocumentCommand{\cor}{+m}{
+    \begin{corollary}{}{}
+        #1
+    \end{corollary}
+}
+
+\newenvironment{corpf}{
+	{\noindent{\it \textbf{Proof.}}}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{corscol!50!white}]
+}{
+    \textcolor{corscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\corp}{m+m+m}{
+    \begin{corollary}{#1}{}
+        #2
+    \end{corollary}
+
+    \begin{corpf}
+        #3
+    \end{corpf}
+}
+
+% ============================
+% Proposition
+% ============================
+
+\newtcbtheorem[use counter from=definition]{proposition}{Proposition}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=prpscol!70!white,
+    colback=prpscol!20!white,
+}{prop}
+
+\NewDocumentCommand{\prop}{+m}{
+    \begin{proposition}{}{}
+        #1
+    \end{proposition}
+}
+
+\newenvironment{proppf}{
+	{\noindent{\it \textbf{Proof.}}}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{prpscol!50!white}]
+}{
+    \textcolor{prpscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
+    \endtcolorbox
+}
+
+
+
+\NewDocumentCommand{\propp}{+m+m}{
+    \begin{proposition}{}{}
+        #1
+    \end{proposition}
+
+    \begin{proppf}
+        #2
+    \end{proppf}
+}
+
+% ============================
+% Claim
+% ============================
+
+\newtcbtheorem[use counter from=definition]{claim}{Claim}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=clmscol!50!white,
+    colback=clmscol!20!white,
+}{clm}
+
+\NewDocumentCommand{\clm}{m+m}{
+    \begin{claim*}{#1}{}
+        #2
+    \end{claim*}
+}
+
+\newenvironment{clmpf}{
+	{\noindent{\it \textbf{Proof.}}}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{clmscol!50!white}]
+}{
+    \textcolor{clmscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\clmp}{m+m+m}{
+    \begin{claim*}{#1}{}
+        #2
+    \end{claim*}
+
+    \begin{clmpf}
+        #3
+    \end{clmpf}
+}
+
+
+% ============================
+% Proof
+% ============================
+
+\NewDocumentCommand{\pf}{+m}{
+    \begin{proof}
+        [\noindent\textbf{Proof.}]
+        #1
+    \end{proof}
+}
+
+% ============================
+% Example
+% ============================
+
+\newtcbtheorem[use counter from=definition]{example}{Example}
+{
+    blanker,
+    breakable,
+    left=5mm,
+    parbox=false,
+	borderline west={1mm}{0pt}{exmscol!50!white},
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle={\bfseries\itshape},
+    after skip=10pt,
+    top=1mm,
+    coltitle=black
+}{exm}
+
+\NewDocumentCommand{\exm}{+m+m}{
+    \begin{example*}{#1}{} 
+        #2
+        \textcolor{exmscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$}
+    \end{example*}
+}
+
+
+% ============================
+% Remark
+% ============================
+
+
+\NewDocumentCommand{\rmk}{+m}{
+    {\it \color{rmkscol!100!white}#1}
+}
+
+\newenvironment{remark}{
+    \par
+    \vspace{5pt}
+    \begin{minipage}{\textwidth}
+        {\par\noindent{\textbf{Remark.}}}
+        \tcolorbox[blanker,breakable,left=5mm,
+        before skip=10pt,after skip=10pt,
+        borderline west={1mm}{0pt}{rmkscol!80!white}]
+}{
+        \endtcolorbox
+    \end{minipage}
+    \vspace{5pt}
+}
+
+\NewDocumentCommand{\rmkb}{+m}{
+    \begin{remark}
+        #1
+    \end{remark}
+}

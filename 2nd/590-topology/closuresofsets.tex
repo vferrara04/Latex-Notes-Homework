@@ -1,0 +1,117 @@
+\section{Closures of Sets in Topological Spaces}
+\begin{definition}{Closure of a set}{}
+    Let $X$ be a topological spaces, $A \subseteq X$. The closure of $A$ in $X$,
+    denoted $\bar{A}$, is the intersection of all closed subsets of $X$ containing $A$. (The "smallest" closed subset containing $A$)
+\end{definition}
+
+\begin{definition}{Interior of a set}{}
+    The interior of $A$ is the unions of all open subsets contained in $A$.
+
+    $Int(A)=X \setminus \overline{X \setminus A}$
+\end{definition}
+
+\thmp{}{
+    Let $X$ be a top. space, let $A \subseteq X$. Then $x \in \bar{A} \iff$ every neighborhood of $x$ intersects $A$.
+}{
+    This is the same as $x \notin \bar{A} \iff$ there is some neighborhood of $x$ which does not intersect $A \iff$ there exists a closed subset of $X$ containing $A$, and not $x$.\\
+    This is equivalent to $x \notin \bar{A}$ since it is not in some closed set containing $A$.
+}
+
+\corp{}{
+    Suppose $\beta$ is a basis for topology on $X$. Then $x \in \bar{A} \iff$ every $B \in \beta$ containing $x$ intersects $A$.
+}{
+    $(\implies)$ this is proved from the last theorem since basis sets are open.\\
+    $(\impliedby)$ Let $U$ be a neighborhood of $X$. Then, there is some $B \in \beta$ s.t. $x \in B \subseteq U$. Know $B$ intersects $A$, so $U$ also intersects $A$. This means every neighborhood of $x$ intersects $A$, so $x \in \bar{A}$
+}
+
+\exm{
+    Let $X= \R^2$, let $A=B(0,1)$ then $\bar{A}=\bar{B}(0,1)=\{x \in \R^2 \mid d(0,x) \leq 1\}$
+}{
+
+First, supposed $x \notin \bar{B}(0,1)$. Then $d(0,x)=r>1$. Using the triangle inequality, can see  that $B(x,r-1)$ does not intersect $B(0,1)$. Thus, $x \notin \overline{B(0,1)}$.\\
+Suppose $x \in \bar{B}(0,1)$. Then $d(0,x) \leq 1$. Fix $\epsilon >0$. Consider the point $y=(1-\epsilon)x$. Thus, $d(x,y)=d(x,(1-\epsilon)x)=d(x,x-\epsilon x)=d(0,-\epsilon x)$ is given by $||\epsilon x||=\epsilon||x|| \leq \epsilon$\\
+$y \in B(x, 2\epsilon)$. Also, $d(0,y)=d((1-\epsilon)x,0)=(1-\epsilon)||x|| \leq 1-\epsilon < 1$, so $y \in B(0,1)$. Thus, every ball about $x$ intersects $B(0,1)$, so $x \in \overline{B(0,1)}$
+}
+
+\rmkb{
+    \begin{enumerate}[--]
+        \item $\bar{\bar{A}}=\bar{A}$
+        \item $A$ is closed $\iff$ $A=\bar{A}$
+    \end{enumerate}
+}
+
+\defn{
+    Accumulation Point
+}{
+    Let $A$ be a subset of a space $X$. An accumulation point of $A$ is a point $x\in X$ s.t. every neighborhood of $x$ intersects $A$ in a point not equal to $x$.
+}
+\exm{}{
+    Every point in $\R$ is an accumulation point of $\Q$.
+
+    No points in $\R$ are accumulation points in $\N$.
+
+    If $A=\{1/n \mid n \in \N\}$, then $0$ is the only accumulation point of $A$.
+}
+
+\thmp{}{
+    Let $X$ be a topological space, let $A \subseteq X$, and $A'$ be the set of all accumulation points of $A$. Then $\bar{A}=A \cup A'$.
+}{
+    Show: $A \cup A' \subseteq \bar{A}$
+
+    \noindent Know: $A \subseteq \bar{A}$. So let $x \in A'$
+
+    \noindent Then every neighborhood of $x$ intersects $A$, so $x \in \bar{A}$.
+
+    \noindent Show: $\bar{A} \subseteq A \cup A'$. Let $x \in \bar{A}$. If $x \in A$, we are done. So, assume $x \notin A$. Know every neighborhood of $x$ intersects $A$. Since $x \notin A$, this neighborhood must actually intersect $A \setminus \{x\}=A$
+}
+
+\defn{
+Converges
+}{
+    Let $x_n$ be a sequence in a space $X$. We say that $x_n$ converges to $x \in X$ if, for all neighborhoods $U$ of $x$, $\exists N \in \N$ s.t. $x_n \in U$ for all $n \geq N$.
+}
+
+\exm{}{
+    Let $X = \{a,b,c\}$. Let $\T=\{\emptyset,X,\{a,b\}\}$.
+
+    Consider the sequence $x_n=a$ converges to $a$, since it is in every neighborhood of $a$, but it also converges
+    to $b$ since $x_n$ is in every neighborhood of $b$. It also converges to $c$ since $x_n$ is in every neighborhood of $c$.
+}
+
+\exm{}{
+    If $X$ is a space with indiscrete topology then every sequence converges to every point in $X$.
+}
+
+\defn{Hausdorff Space}{
+    A topological space is called Hausdorff if it satisfies the following:
+    \begin{enumerate}[--]
+        \item For every pair of distinct points $x_1$ and $x_2$, there are neighborhoods of $U_1$ of $x_1$ and $U_2$ of $x_2$ s.t. $U_1 \cap U_2 = \emptyset$.
+    \end{enumerate}
+}
+
+\thmp{}{
+    Let $x_n$ be a sequence in a Hausdorff space. Then $x_n$ converges to at most one point.
+}{
+    Suppose $x_n$ converges to $x$. Let $y$ be any point distinct from $x$.
+
+    \noindent WTS: $x_n$ does not converge to $y$.
+
+    \noindent Fix neighborhoods $U$ of $x$ and $V$ of $y$ s.t. $U \cap V= \emptyset$. For all but finitely many $n$, $x_n \in U$. This means $x_n \in V$ for only finitely many $n$, so $x_n$ cannot converge to $y$.
+}
+
+\thmp{}{
+    Let $X$ be a Hausdorff space. Then any singleton $\{x\}$ is a closed subset of $X$.
+}{
+    WTS: $X \setminus \{x\}$ is open.
+
+    For each $y \in X \setminus \{x\}$, there is a neighborhood $U_y$ of $x$ and $V_y$ of $y$ s.t. $U_y \cap V_y = \emptyset$. In particular $V_y \subseteq X \setminus \{x\}$. Thus:
+    \[X \setminus \{x\} = \bigcup_{y \in X \setminus \{x\}} U_y\]
+    is open.
+}
+In that proof we really only needed: for every pair of distinct points $x,y \in X$, there exists a neighborhood $U$ of $x$ not containing $y$. ($T_1$ property)
+
+\propp{
+    Every metrizable spaced $X$ is Hausdorff.
+}{
+    Let $x,y \in X$. Set $r=d(x,y)$, then by the triangle inequality, $B(x,r/2) \cap B(y,r/2)=\emptyset$.
+}
