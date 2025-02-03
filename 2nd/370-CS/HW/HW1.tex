@@ -192,10 +192,10 @@
         \hline
         X0 & 0x1002 & 0x00001000 & 0x44 \\ \hline
         X1 & 0x1001 & 0x00001001 & 0x12 \\ \hline
-        X2 & 0x44   & 0x00001002 & 0x44 \\ \hline
+        X2 & 0x0 & 0x00001002 & 0x44 \\ \hline
         X3 & 0x3CB1 & 0x00001003 & 0xB1 \\ \hline
-        X4 & 0xFFFF-FFFF-B144-1244 & 0x00001004 & 0x44 \\ \hline
-        X5 & 0x5    & 0x00001005 & 0x12 \\
+        X4 & 0xFFFFFFFFB1441244 & 0x00001004 & 0x44 \\ \hline
+        X5 & 0x5 & 0x00001005 & 0x12 \\
         \hline
     \end{tabular}
     }
@@ -208,4 +208,12 @@
     add 5 2 6   # add b+Gold[4]
     sw  7 6 0   # store at r7+0=G[a] the contents of r6=b+Gold[4]
 \end{verbatim}
+
+\q
+\begin{enumerate}[(a)]
+    \item It will get executed once.
+    \item $r7=4$
+    \item $r5=3$
+    \item It returns the number of zeros in the array from $[0,Num-1]$
+\end{enumerate}
 \end{document}

@@ -115,3 +115,23 @@ In that proof we really only needed: for every pair of distinct points $x,y \in 
 }{
     Let $x,y \in X$. Set $r=d(x,y)$, then by the triangle inequality, $B(x,r/2) \cap B(y,r/2)=\emptyset$.
 }
+
+\propp{
+    Let $X$ be a top. space, let $A \subseteq X$. Suppose $x_n$ is a sequence in $A$, and $x_n \to x$ in $X$. Then $x \in \bar{A}$
+}{
+    Let $U$ be a neighborhood of $x$. Then $x_n \in U$ for all but finitely many $n$, so $U \cap A \neq \emptyset \implies x \in \bar{A}$ 
+}
+
+\propp{
+    Assume $X$ is metrizable. Then, every $x \in \bar{A}$ is a limit of a sequence $x_n$ for $x_n \in A$
+}{
+    Let $x \in \bar{A}$. For every $n \in \N$, the ball $B(x,1/n)$ intersects $A$. So, let $x_n \in A \cap B(x,1/n)$. If $U$ is any neighborhood of $x$, then $U$ contains $B(x,\epsilon)$ for some $\epsilon>0$. Then $x_n \in B(x,\epsilon)$ whenever $n > 1/\epsilon$. Thus, $x_n \to x$.
+}
+
+\thm{}{
+    Let $f:X \to Y$ be a map of topological spaces. Then
+   
+    f is continuous $\implies$ for any sequence $x_n$ in $X$ converging to a point $x \in X$ we have $f(x_n) \to f(x)$
+
+    If $X$ is metrizable $\impliedby$ holds.
+}

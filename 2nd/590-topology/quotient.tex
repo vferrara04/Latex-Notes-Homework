@@ -1,0 +1,32 @@
+\section{Quotient Topology}
+
+Let $X$ be a top. space, let $\sim$ be an equivalence relation on $X$.
+There is a surjective map $\rho: X \to X \diagup \sim$ $x \mapsto [x]$\\
+$X \diagup \sim$ is the set of equivalence classes with respect to $\sim$.
+
+\defn{Quotient Topology}{
+    The quotient topology on $X \diagup \sim$ is the collection of sets
+    $U \subseteq X \diagup \sim$ s.t. $\rho^{-1}(U)$ is open in $X$.
+}
+This is the finest topology on $X \diagup \sim$ s.t. $\rho : X \to X \diagup \sim$ is continuous.
+
+\defn{Quotient Map}{
+    In general, if $X,Y$ are top. spaces, a surjective map $\rho: X \to Y$ is a quotient map if it satisfies:
+    \[U \subseteq Y \t{ open} \iff \rho^{-1}(U) \t{ open}\]
+    When this occurs, $Y$ can be identified homeomorphically to a quotient space for $X$, under the relation $x_1 \sim x_2 \iff \rho(x_1)=\rho(x_2)$
+}
+If $X,Y$ are top. spaces, can form disjoint union $X \sqcup Y$. Topology on $X \sqcup Y$ is the collection $U \sqcup V$ for $U \subseteq V, V \subseteq Y$ open.
+
+Suppose $X_1,X_2$ spaces, $Y_1 \subseteq X_1$, $Y_2 \subseteq X_2$ subspaces, $\phi: Y_1 \to Y_2$ is a homeomorphism.
+
+Can form space $X_1 \sqcup_{\phi} X_2 = X_1 \sqcup X_2 \diagup \sim_\phi$
+
+$\sim_\phi$ is relation given by:
+$x \sim_\phi x$ and $y \sim \phi(y)$ and $\phi(y) \sim y$ for every $y \in Y_1$
+
+\thm{}{
+    Suppose $f: X \to Y$ is map, and $\sim$ is an equivalence relation. There is a map $X \diagup \sim \to Y$ is $f(x)=f(y)$
+    whenever $x \sim Y$
+
+    If $X \diagup \sim$ has the quotient topology, then $f$ is continuous $\iff$ $f': X \diagup \sim to Y$ is continuous.
+}
