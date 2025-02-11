@@ -1,0 +1,265 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usetikzlibrary{positioning}
+
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item $(\implies)$ Assume $f$ is continuous. Let $A \subseteq X$
+        
+        Let $x \in \bar{A}$ thus $f(x) \in f(\bar{A})$. Let $U$ be a neighborhood of $f(x)$. Since $f$ is continuous we know that $f^{-1}(U)$ is open and thus a neighborhood of $x$. From class since $x \in \bar{A} \implies f^{-1}(U) \cap A \neq \emptyset$.
+        Let $y \in f^{-1}(U) \cap A$ thus, $f(y) \in U \cap f(A)$. Thus, $U$ intersects $f(A)$. Therefore, since every neighborhood of $f(x)$ intersects $f(A)$, $f(x) \in \overline{f(A)}$.
+
+        \item $(\impliedby)$ Assume for $A \subseteq X$ that $f(\bar{A}) \subseteq \overline{f(A)}$
+        
+        Let $C$ be a closed set in $Y$. Let $A=f^{-1}(C)$. Thus we know that $f(\bar{A}) \subseteq \overline{f(A)}$. Since $f(A) \subseteq C$. Let $x \in \overline{f(A)}$ thus for a neighborhood $U$ of $x$ we know that $U \cap f(A) \neq \emptyset$ and since $f(A) \subseteq C$ we know that $U \cap C \neq \emptyset$. Thus, $x \in \bar{C}=C$. Thus, $\overline{f(A)} \subset C$.
+        Therefore, $f(\bar{A}) \subseteq C$. Let $x \in \bar{A}$. Then $f(x) \in C$. Thus, $x \in f^{-1}(C)=A$. Thus, $x \in \bar{A}$. Thus, $\bar{A} \subseteq A \implies \bar{A}=A$. Therefore, $A$ is closed and thus $f$ is continuous.
+    \end{itemize}
+
+    \item Assume $X$ is metrizable with the metric $d$ that induces its topology
+    \begin{itemize}
+        \item $(\implies)$ Assume $f$ is continuous. Let $x_n$ be a sequence in $X$ that converges to $x$. Let $U$ be a neighborhood of $f(x)$. Thus, $f^{-1}(U)$ is open neighborhood of $x$. Thus there exists $\epsilon >0$ s.t. $B_d(x,\epsilon) \subseteq f^{-1}(U)$, and
+        since $x_n \to x$ we know that $\exists N \in \N$ s.t. $x_n \in B_d(x,\epsilon)$ for all $n \geq N$. Thus consider $f(B_d(x,\epsilon)) \subseteq U$. Thus the same $N$ works s.t. $f(x_n) \in U$ for all $n \geq N$. Thus $f(x_n) \to f(x)$.
+
+        \item $(\impliedby)$ Assume $f$ is not continuous this means that $f$ is not continuous at some point $x \in X$. Thus, there exists an open neighborhood $V$ of $f(x)$ s.t. for every $\epsilon>0$ there is a point $y \in B_d(x,\epsilon)$ but $f(y) \notin V$.
+        Construct the sequence s.t. $x_n \in B_d(x,1/n)$ and $f(x_n) \notin V$. Let $U$ be an open neighborhood of $x$ thus there is a $\epsilon>0$ s.t. $B_d(x,\epsilon) \subseteq U$. Fix $N \in \N$ s.t. $1/N < \epsilon$ thus for all $n \geq N$ we have that $x_n \in B_d(x,1/n) \subseteq B_d{x,1/N} \subseteq B_d{x,\epsilon} \subseteq U$. Thus $x_n \to x$. However $f(x_n)$ does not converge to $f(x)$ since for all $n \in \N$ we have that $f(x_n) \notin V$.
+    \end{itemize}
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item $\emptyset \in \T$ and $\R \setminus \R = \emptyset$ which is countable thus $\R \in \T$
+    
+        \item Let $\{U_\alpha\}_{\alpha \in J}$ be a collection of open sets. Consider:
+        \[U=\bigcup_{\alpha \in J}U_\alpha\]
+        Thus,
+        \[\R \setminus \bigcup_{\alpha \in J}U_\alpha= \bigcap_{\alpha \in J}(\R \setminus U_\alpha)\]
+        Since $\R\setminus U_\alpha$ is countable we know that the arbitrary intersection of countable sets is countable thus we know that $U$ is open.
+        
+        \item Let $U,V$ be open sets consider $U \cap V$. Thus $\R \setminus U \cap V = (\R \setminus U) \cup (\R \setminus V)$, and since finite unions of countable sets is countable we know that $U \cap V$ is open.
+    \end{itemize}
+
+    \item Let $A=\R$ and $0 \in \bar{\R}=\R$. Assume there is a sequence $(x_n) \in \R$ s.t. $x_n \to 0$. Let $S=\{x_n \mid n \in \N\}$. Consider $U=\R \setminus S$. Since $S$ is countable $U$ is open.
+    
+    If $0 \notin S$ then $0 \in U$ then $U$ is an open neighborhood of $0$. However, for all $n \in \N$ $x_n \notin U$ thus $x_n$ does not converge to 0.
+
+    If $0 \notin U$ then $0 \in S$ consider the open set $U'=\R \setminus(S \setminus \{0\})$ since $S \setminus \{0\}$ is countable. Thus use the same logic as the last part since $x_n \notin U$ for all $n$ we know that $x_n$ does not converge to 0.
+\end{enumerate}
+
+\q
+Assume $A$ is a subspace of a Hausdorff space $X$. Let $u,v \in A \subseteq X$ thus since $X$ is Hausdorff we know that there are neighborhoods $U$ of $u$ and $V$ of $v$ s.t. $U \cap V = \emptyset$. Thus consider the open neighborhoods $U \cap A$ of $u$ and $V \cap A$ of $v$ in $A$. Thus consider $(U \cap A) \cap (V \cap A)=(U \cap V) \cap A=\emptyset$. Thus, the subspace $A$ is Hausdorff.
+
+Consider $\R$ with standard topology and consider the equivalence relation $x \sim y$ s.t. $x,y \in [0,\infty)$ or $x,y \in (-\infty,0)$.
+\begin{itemize}
+    \item $x \sim x$ since $x$ will be in the same set as itself
+    \item If $x \sim y$ then $y \sim x$ since $x,y$ are in the same set, so the definition works for both.
+    \item If $x \sim y$ and $y \sim z$ then $x,y$ are in the same set, and $y,z$ are in the same set thus $x,z$ are in the same set.
+\end{itemize}
+Thus $\R \diagup \sim = \{A,B\}$ s.t. $\varphi_\sim^{-1}(\{A\})=A=(-\infty,0)$ and $\varphi_\sim^{-1}(\{B\})=B=[0,\infty)$. Thus we can see that the only open sets are $\{A\},\{A,B\},\emptyset$. Thus take points $A,B$ the only open neighborhood of $B$ is $\{A,B\}$ and the open neighborhoods of $A$ are $\{A\},\{A,B\}$ thus there are no neighborhoods s.t. $U \cap V= \emptyset$. Thus this space is not Hausdorff.
+
+\q
+\begin{enumerate}[(a)]
+    \item \begin{itemize}
+        \item $(\implies)$ Assume $X$ is Hausdorff.
+        
+        Let  $z \in X \times X \setminus \Delta$ thus $z = (x,y)$ for $x \neq y$. Since $X$ is Hausdorff there are open sets $U,V$ with $x \in U$ and $y \in V$ s.t. $U \cap V = \emptyset$. Thus, $(x,y) \in U \times V$ which is a basis set in $X \times X$. Let $(u,v) \in U \times V$ thus $u \neq v$ since $U \cap V = \emptyset$. Thus $U \times V \subseteq X \times X \setminus \Delta$. Thus, $X \times X \setminus \Delta$ since every basis element is contained in a basis element that is a subset of $X \times X \setminus \Delta$. Therefore, $\Delta$ is closed.
+
+        \item $(\impliedby)$ Assume $\Delta$ is closed; therefore, $X \times X \setminus \Delta$ is open. Let $x,y \in X$ s.t. $x \neq y$. Consider $(x,y) \in X \times X \setminus \Delta$ since this set is open there is a basis element $U \times V$ with $U,V$ be open in $X$ s.t. $(x,y) \in U \times V \subseteq X \times X \setminus \Delta$. Therefore, $U \cap V= \emptyset$, since if it wasn't empty then $(U \times V) \cap \Delta \neq \emptyset$. Thus, $x \in U$ and $y \in V$ s.t. $U \cap V= \emptyset$. Thus, $X$ is Hausdorff.
+    \end{itemize}
+    \item Assume $f,g$ are continuous maps $X \to Y$ s.t. $f(x)=g(x)$ for all $x \in U$, and that $U$ is dense. Consider the map $h: X \to Y \times Y$ s.t. $h(x)=(f(x),g(x))$. Since $f,g$ are continuous we know that $h$ is continuous. From part (a) since $Y$ is Hausdorff we know that $\Delta \subset Y \times Y$ is closed. Thus, we know that $h^{-1}(\Delta)$ is also closed. Since $h^{-1}(\Delta)=\{x \in X \mid (f(x),g(x)) \in \Delta\}=\{x \in X \mid f(x)=g(x)\}$. Thus, $U \subseteq h^{-1}(\Delta)$. However, $h^{-1}(\Delta)$ is a closed set that contains $U$ we know that $\bar{U}=X \subseteq h^{-1}(\Delta)$. Therefore, $h^{-1}(\Delta)=X$.
+    Thus $f=g$
+\end{enumerate}
+
+\q
+Define $f': Z \to Y$ s.t. $f'([x])=f(x)$
+
+Well Defined:
+
+Since $p$ is surjective, if $[x]=[a]$ this means that $p(x)=p(a)$ thus this means that $f(x)=f(a)$ thus $f'([x])=f(x)=f(a)=f'([a])$
+
+Consider $f' \circ p$. Let $x \in X$. Thus, $f' \circ p(x)= f'([x])=f(x)$. Thus $f' \circ p = f$.
+
+Uniqueness:
+
+Assume there is another map $g$ s.t. $g \circ p = f$. Let $[x] \in \Z$. Thus, $p(x)=[x]$
+\[g([x])=g(p(x))=f(x)\]
+Also,
+\[f'([x])=f'(p(x))=f(x)\]
+Thus $g=f'$
+
+Assume $f'$ is continuous. Since $p$ is continuous and $f=f' \circ p$ we know that $f$ is continuous.
+
+Assume $f$ is continuous. Let $V$ be open in $Y$. Consider $(f')^{-1}(V)=U$. For this to be open $p^{-1}(U)$ has to be open. However, since $p^{-1}(U)=\{x \in X \mid f'(p(x)) \in V\}=\{x \in X \mid f(x) \in V\}=f^{-1}(V)$. Since $f$ is continuous we know that $f^{-1}(V)$ is open thus $p^{-1}(U)$ is open thus $U$ is open. Therefore, $f'$ is continuous.
+
+\q
+Let $p$ be the point $[(x,y,0)]$ in $X$.
+
+Let $y,y'=[(0,0,-1)]$.
+
+Define a function $f_1: Y_1 \to X$ s.t. 
+\begin{equation*}
+    f_1(x,y,z)=\begin{cases}
+        (x,y,(1+z)/2)/\sqrt{x^2+y^2+((1+z)/2)^2} \quad (x,y,z)\neq (0,0,-1),\\
+        p, \quad (x,y,z) = (0,0,-1).
+    \end{cases}
+\end{equation*}
+Define a function $f_1: Y_2 \to X$ s.t. 
+    \begin{equation*}
+        f_2(x,y,z)=\begin{cases}
+            (x,y,-(1+z)/2)/\sqrt{x^2+y^2+(-(1+z)/2)^2} \quad (x,y,z)\neq (0,0,-1),\\
+        p, \quad (x,y,z) = (0,0,-1).
+        \end{cases}
+    \end{equation*}
+
+\begin{itemize}
+    \item (Well Defined) for $(x,y,z) \in Y_1 \setminus (0,0,-1)$ we have that $x^2+y^2+z^2=1$ and $-1 < z \leq 1$. Thus $(1+t)/2 > 0$ so then this point $(x,y,(1+z)/2)$ is on the upper hemisphere once you normalize it.
+    
+    Then the south pole is well defined.
+    
+    \item (Injective) Let $a,b$ be points in $Y_1$ not the south pole s.t. $F(a)=F(b)$ then these only differ by a normalization factor thus $(a_1,a_2,(1+a_3)/2)=k(b_1,b_2,(1+b_3)/2)$ for $k \in \R$. However since they both have the same magnitude before the function this implies that $a=b$
+    
+    Also since no other point other than $(0,0,-1)$ goes to $p$ it does not conflict.
+
+    Thus Injective
+
+    \item (Continuous for $Y_1 \setminus (0,0,-1)$) Since this is just a division of polynomials where the divisor is not zero since the magintude is $1$ we get that $f_1$ is continuous.
+    
+    \item (Continuous at (0,0,-1)) Let $p$ be the quotient map for $X$. Let $U$ be an open neighborhood of $p$ thus $p^{-1}(U)$ is open in $S^2$ which contains the entire equator. Fix $\epsilon >0$ s.t. $B(s,\epsilon) \cap S^2 \subseteq q^{-1}(U)$ where $s$ is on the equator. Now do this for all the things on the equator and build a new set s.t. $S^2 \cap \bigcup_{s \in E} B(s, \epsilon_s) \subseteq q^{-1}(U)$. Where $E$ is the equator.
+    
+    Fix delta s.t. $\delta < \min(1,\sqrt{10}\epsilon)$ where epsilon is the min of all the balls made up in that union. 
+
+    Thus, if $\sqrt{x^2+y^2+(z+1)^2}=r < \delta$. Thus, $|z+1|=z+1 < \delta \leq 1$ since $-1 \leq z < 1$. Let $h=z+1$ thus $z=-1+h$ Since $x^2+y^2+z^2=1$ thus $x^2+y^2=2h-h^2$. Thus, $r^2=2h-h^2+h^2$. Thus, $r^2=2h$. Thus, $h=r^2/2$ since $h < 1$ we know that
+    \[1-3h/8 \geq 5/8\]
+    Thus,
+    \[2h-3h^2/4 \geq 10h/8=5h/4\]
+    Thus,
+    \[\sqrt{2h-3h^2/4} \geq \sqrt{5h}/2\]
+
+    Thus $|(f_1(x,y,z))_3|=(h/2)/\sqrt{2h-3h^2/4} \leq (h/2)/(\sqrt{5h}/2)=h/\sqrt{5h}=\sqrt{h}/\sqrt{5} \leq r/\sqrt{10} \leq \delta/\sqrt{10} < \epsilon$
+
+    Thus, the $z$ coordinate is less than epsilon away from the $0$. Thus, $f_1(x,y,z) \in \bigcup_{s \in E}B(s,\epsilon_e) \subseteq q^{-1}(U)$. This makes sense because we are only looking at when $f_1$ maps to the non-equivalence relation part of $X$. 
+    Thus, since $q$ surjective and $f_1(x,y,z)$ is away from the south pole thus $q(f_1(x,y,z))=[f_1(x,y,z)]=\{f_1(x,y,z)\}$. Thus, we get $q(f_1(x,y,z))=f_1(x,y,z) \in q(\bigcup_{s \in E}B(s,\epsilon_e)) \subset U$. 
+    Thus let $V$ be the open neighborhood in $Y_1$ s.t. $V=\{(x,y,z) \in Y_1 \mid |z+1| < \delta\}$. By aboce we know this means that the third coordinate of $|f_(x,y,z)| < \epsilon$ which implies $f_1(x,y,z) \in \bigcup_{s \in E}B(s,\epsilon_e) \subseteq q^{-1}(U)$. Thus, $q(f_1(x,y,z))=f_1(x,y,z) \in q(\in \bigcup_{s \in E}B(s,\epsilon_e)) \subseteq U$ since $q$ is surjective. Thus, $f_1(V) \subseteq U$. Thus, we are continuous at (0,0,-1).
+
+    Thus, $f_1$ is continuous.
+
+    \item (Embedding) Look at $f_1^{-1}: f_1(Y_1) \to Y_1$ s.t.
+    \begin{equation*}
+        f_1^{-1}(u,v,w)\begin{cases*}
+            (4wu/(1+3w^2),4wv/(1+3w^2),(5w^2-1)/(1+3w^2)) \quad \t{if } $w > 0$,\\
+            (0,0,-1) \quad \t{if } $w = 0$.
+        \end{cases*}
+    \end{equation*}
+
+    $f^{-1}_1 \circ f_1 (x)=x$ and $f \circ f^{-1}_1(x)=x$
+
+    Thus, $f^{-1}$ is continuous on $f_1(Y_1) \setminus [(1,0,0)]$ since it is polynomials and rational functions where the denominator is not zero.
+
+    Since $X$ is a subspace of $\R^3$ it is metrizable therefore we can check continuous with sequences. Thus consider a sequence $(u_n,v_n,w_n) \to (u_0,v_0,0)$. Consider $f_1^{-1}(u_n,v_n,w_n)$. As $w_n \to 0$ we get that $4w_nu_n \setminus (1+3w_n^2) \to 0$ and same for the second coordinate. For the third we get that $(5w_n^2-1)/(1+3w_n^2) \to -1/1 = -1$ as $w_n \to 0$. Thus $f_1^{-1}$ is continuous at all points on the equator.
+
+    Thus, $f_1$ is an embedding on to the upper hemisphere of $X$.
+\end{itemize}
+Ok do the same thing for $f_2$
+
+Define $f : Y \to X$ s.t.
+\begin{equation*}
+    f(x)=\begin{cases}
+        f_1(x) \quad \t{if } x \in Y_1\\
+        f_2(x) \quad \t{if } x \in Y_2
+    \end{cases}
+\end{equation*} 
+
+$Y_1$ is closed in $Y$ since it is the complement of $Y_2 \setminus \{0,0,-1\}$. Then when we bring it back to $Y_1 \sqcup Y_2$ we get that $q^{-1}(Y_2 \setminus \{0,0,-1\})=\emptyset \sqcup Y_2 \setminus \{0,0,-1\}$. This is open since $Y_2 \setminus \{0,0,-1\}$ is open in $Y_2$, since it is equal to $A=\{(x,y,z) \in \R^3 \mid z > -1\} \cap Y_2$ since $A$ is open in $\R^3$ we get that $A \cap Y_2$ is open in $Y_2$ thus we bring it back and see that $\emptyset \sqcup (A \cap Y_2)=q^{-1}(Y_2 \setminus \{0,0,-1\})$ is open thus $Y_2 \setminus \{0,0,-1\}$ is open thus $Y_1$ is closed.
+
+Do the same for $Y_2$ thus,
+
+Using the pasting lemma since $f_1$ is continuous and $f_2$ is continuous and $f_1,f_2$ are continuous on $Y_1 \cap Y_2$. $f$ is continuous.
+
+Injective:
+
+Let $a,b \in Y$ s.t. $f(x)=f(y)$ this either means that $f_1(x)=f_2(y)$ or $f_i(x)=f_i(x)$ where $i \in \{1,2\}$. If $f_1(x)=f_2(y)$ then this is only true when $x=(0,0,-1)=y$. Thus done. If $f_i(x)=f_i(y)$. Then this means $x,y \in Y_i$. Since $f_i$ is injective on $Y_i$. $x=y$.
+
+Surjective:
+
+Let $x \in X$. If $x$ is in the either the upper hemisphere or lower hemisphere and not the equator. This means that there is a $y \in Y_i$ s.t. $f_i(y)=x$. This is because $f_i$ is bijective from $Y_i\setminus \{(0,0,-1)\} \to H$ where $H$ is the open hemisphere, and since $x$ is not on the equator we know that $y \neq (0,0,-1)$.
+
+If $x$ is on the equator then pick $f_1(0,0,-1)=x$.
+
+Thus $f$ is bijective.
+
+Let $U$ be open in $Y$ consider $(f^{-1})^{-1}(U)=f(U)$ since $f$ is bijective, since $f$ agress with $f_1$ on $Y_1$ and $f_2$ on $Y_2$ we get that $f(U)=f((U \cap Y_1) \cup (U \cap Y_2))=f_1(U \cap Y_1) \cup f_2(U \cap Y_2)$.
+
+Since $f_1,f_2$ are embedding's of $Y_1,Y_2$ onto the hemispheres we get that $f_1(U \cap Y_1)$ is open and $f_2(U \cap Y_2)$ is open since $U \cap Y_1$, and $U \cap Y_2$ are open in their topologies. Thus, $f_1(U \cap Y_1) \cup f_2(U \cap Y_2)$ is open thus $f(U)$ is open. Thus, $f$ is a homeomorphism.
+
+\q
+Let $x,y \in Y$ s.t. $x \neq y$.
+
+If $x,y$ are in the same sphere lets say $Y_1$ then since $Y_1$ is a sub space of $\R^3$ and $\R^3$ is metrizable thus Hausdorff we know that there are sets $x \in U \subseteq \R^3$ and $y \in V\subseteq \R^3$ that are open s.t. $U \cap V = \emptyset$. Thus $(U \cap Y_1) \cap (V \cap Y_1) = \emptyset$. Thus, $(U \cap Y_1) \sqcup \emptyset$ and $\emptyset \sqcup (U \cap Y_2)$. Thus, $q(U \cap Y_1) \cap q(V \cap Y_1) = \emptyset$, and these are open sets with $[x],[y]$ in them since $q$ is surjecitve and $q^{-1}(q(H))=H$
+
+If $x,y$ are in different spheres and are not the gluing point. Let $x \in U$ be open in $Y_1$ and $y \in V$ be open in $Y_2$ and since the spheres are subspaces of a Hausdorff space we do similar to case 1, and we can pick the open sets s.t. $U \cap K$ and open neighborhood of $\{0,0,-1\}$ is empty. Do the same for $V$ thus now we know that $U \sqcup \emptyset$ is open in $Y_1 \sqcup Y_2$ and same for $\emptyset \sqcup V$. Thus the intersection of these is empty then we apply $q$ and do the same thing as the last case.
+
+If one of $x,y$ is the gluing point. Then they are in the same sphere, and since it is a subspace of a Hausdorff space we do the same thing as case 1 and pick $x \in U$ open in $Y_1$ and $y \in V$ open in $Y_1$ s.t. $U \cap V$ is empty. Thus, now if $y$ is the gluing point then consider the set $U \sqcup \emptyset$ and $V \sqcup Y_2$ thus these are open in $Y_1 \sqcup Y_2$ with an empty intersection then apply $q$ to them and we get that they are open with empty intersection with $[y] \in q(V \sqcup Y_2)$ and $[x] \in q(U \sqcup \emptyset)$
+\end{document}

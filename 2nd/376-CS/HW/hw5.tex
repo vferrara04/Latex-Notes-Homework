@@ -1,0 +1,457 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{circuitikz}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newmdtheoremenv{theorem}{Theorem}[subsection]
+\newmdtheoremenv{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newmdtheoremenv{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{quest}[theorem]{Question}
+
+\theoremstyle{definition}
+\newmdtheoremenv{definition}[theorem]{Definition}
+\newmdtheoremenv{definitions}[theorem]{Definitions}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{rmk}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+
+%----------- my commands -------------
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+
+\setlength\parindent{0pt}
+\setstretch{1.2}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+\begin{algorithm}[H]
+    \caption{Min Cost}
+    \begin{algorithmic}[1]
+    \Require Two Strings $X,Y$ s.t. $|X| \leq |Y|$
+    \Ensure Fins the min length of combining the two strings, so they are both subs sequences in order in our new string.
+    \Function{MinCost}{$X[0,\dots,n-1],Y[0,\dots,m-1]$}
+        \If{$|X|=0$}
+            \State \Return $|Y|$
+        \EndIf
+        \If{$|Y|=0$}
+            \State \Return $|X|$
+        \EndIf
+        \State $prev[0,\dots,n]$
+        \State $curr[0,\dots,n]$
+        \For{$j \in \{0,\dots,n\}$}
+            \State $prev[j] \gets j$
+        \EndFor
+        \For{$i \in \{1,\dots,m\}$}
+            \State $curr[0] \gets i$
+            \For{$j \in \{1,\dots,n\}$}
+                \If{$X[i-1]=Y[j-1]$}
+                    \State $curr[j] \gets 1 + prev[j-1]$
+                \Else
+                    \State $curr[j] \gets 1 + \min(prev[j], curr[j-1])$
+                \EndIf
+            \EndFor
+            \State $prev \gets curr$
+        \EndFor
+        \State \Return $P[n]$
+    \EndFunction
+    \end{algorithmic}
+    \end{algorithm}
+For the last extra credit problem I said to return $P[n]$ when I should have returned $curr[n]$.
+
+\q
+\begin{enumerate}[(a)]
+    \item 5,6,9,15,18
+    
+    Total Weight:53
+
+    \item The proof is flawed because it mistakes the determinism of Kruskal's algorithm for a proof of the MST's uniqueness. Just because the algorithm always produces the same tree doesn't rule out the possibility that another spanning tree with the same total weight exists. A correct argument must demonstrate that any other spanning tree would have a greater total weight, not merely that one algorithm always picks the same edges.
+    
+    \item Assume for contradiction that there are two distinct minimal spanning trees $T_1$, $T_2$ on a graph with unique edge weights.
+    
+    Let $e$ be the min edge that appears in one tree but not the other. WLOG let $e$ be in $T_1$.
+
+    Thus, in $T_2$ if we add $e$ to it there will be a cycle call this $C$. Since $T_1$ does not have a cylce this means that $C$ has an edge $f$ that is in $T_2$, but not $T_1$, since the edge weights are unique we get that $w(e) < w(f)$. This leads to a contradiction since we can take $f$ out of $T_2$ then add $e$. This leads to a contradiction because we create a spanning tree with less weight than the orignial $T_2$.
+
+    Therefore, if a graph has unique edge weights it has a unique MST.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item \begin{algorithm}[H]
+        \caption{Min Refills}
+        \begin{algorithmic}[1]
+        \Require $R$ is the distance she can go without refill, $D$ array of distances of trails.
+        \Ensure Finds min number of times she needs to stop and refill water.
+        \Function{MinRefills}{$R,D$}
+            \State $refill \gets 0$
+            \State $currWater \gets R$
+            \For{$i \in \{1,\dots,n\}$}
+                \If{$currWater < D[i]$}
+                    \State $refills \gets refills + 1$
+                    \State $currWater \gets R$
+                \EndIf
+                \State $currWater \gets currWater - D[i]$
+            \EndFor
+            \State \Return $refills$
+        \EndFunction
+        \end{algorithmic}
+        \end{algorithm}
+
+        This runs in $O(n)$ time due to just looping $n$ times on $O(1)$ operations.
+
+    \item Let $Alg=\{i_1,i_2,\dots,i_k\}$ be the set of trail indices chosen by the algorithm, and let $Opt$ be an optimal solution. If they are the same we are done. If not let $i_{diff}$ be the first index they differ.
+    
+    Thus
+    \[Alg=\{i_1,i_2,\dots,i_{diff-1},i_{diff},i_{diff+1},\dots,i_k\}\]
+    \[Opt=\{i_1,i_2,\dots,i_{diff-1},j,\dots\}\]
+    Now consider $Opt'$ s.t. we switch out $j$ for $i_{diff}$
+
+    This is still optimal because the algorithm selects $i_{diff}$ because it is the last trail reachable with the current water supply before running out. This means that refilling at $i_{diff}$ guarantees that the segment from the previous refill to $i_{diff}$ and then from $i_{diff}$ onwards remains within the allowed distance $R$. Replacing $j$ with $i_{diff}$ in $Opt$ does not create any gap that would violate the constrains because $i_{diff}$ is the last possible trail to take water from so $j \leq i_{diff}$.
+
+    Thus $Opt'$ and $OPT$ have the same number of refills thus $Opt'$ is an optimal solution.
+
+    This guarantees that our algorithm is correct because we can keep repeating this process on $Opt'$ and get a new solution that agrees on more variables, we then keep repeating till the $Opt'$ we are creating becomes $Alg$.
+
+    \item This is false here is a counter example $R=4$, $D=[1,2,2]$, $C=[1,1,100]$. In the greedy algorithm we will go as far as possible, so she will do trail $1,2$ then stop on 3 and pay the $100$. However, there is a better way do trail 1 then refill at trail 2 then do trail 2,3. This will cost $1$ dollar.
+    
+    In the original problem (minimizing the number of refills) our exchange/induction proof showed that delaying a refill until forced is optimal. That proof depended solely on the distances and the fact that you want to minimize stops. When refill costs differ, however, “waiting as long as possible” might force you to refill at a very expensive station (as in our counterexample, where the greedy rule made you refill at trail 3 for \$100). Thus, the exchange argument breaks down because you can sometimes reduce the total cost by taking an extra refill at a cheaper station, even if it is not the “last possible stop.”
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item Every 0-1 knapsack solution is also a feasible solution to the fractional knapsack problem, so the fractional version's optimal value cannot be lower than that of the 0-1 version. Moreover, because the fractional knapsack allows you to take portions of items to exactly fill the knapsack's capacity (which you wouldn't be able to in 0-1 knapsack), it can only achieve a higher or equal total value.
+    
+    \item Consider $V=[1,1,20,30,100]$ is the values and $W=[1,1,4,2,50]$ is the weights, and with a capacity of $1$. The value greedy algorithm will only get a value of $2$ since it will put $100/50$ into the sack and be done. The weight greedy algorithm will give a value of $1$ since it will just put the smallest weight of $1$ into the sack. However, these are both not optimal here is a better solution take $1/2$ of the $30$ item thus we get a value of $15$.
+    
+    \item WLOG suppose that the items are in sorted order by relative value, from largest to smallest. Let $Alg=p_1,p_2,\dots,p_n$ be the fractions of items $1,2,\dots,n$ chosen. Let $Opt=q_1,q_2,\dots,q_n$ be an optimal solution. If $Alg=Opt$ then we are done. If not consider the smallest index $j$ s.t. they are different.
+    
+    Since $Alg$ is greedy and takes the most fraction it can take from the highest relative value to lowest we know that $p_j > q_j$ since the solutions are not equal.
+
+    Define the extra weight $Alg$ took as
+    \[\Delta=(p_j-q_j)w_j\]
+
+    WLOG assume that the knapsacks are full since if they are not, and we still have an Opt solution that means we could fit all objects in the sack. Thus, since both solutions fill the knapsack we must have taken more weight from later index in $Opt$ to fill in the $\delta$ we didn't take from item $j$.
+
+    Let $S=\{i > j \mid q_i > p_i\}$ be the set of extra weight we took to compensate.
+
+    Thus,
+
+    \[\sum_{i \in S}(q_i-p_i)w_i=\Delta\]
+
+    Now for $Opt'$ for item $j$ let $q_j'=p_j$ then for each $i \in S$ let $q_i'=p_i$, and leave the other fractions unchanged.
+
+    Thus overall we have not changed the weight of the new $Opt'$ solution we just shifted where we took the weight from.
+
+    Thus the change of value of $Opt$ to $Opt'$ is
+    \[\Delta \dfrac{v_j}{w_j}-\sum_{i \in S}(q_i-p_i)v_i=\Delta \dfrac{v_j}{w_j}-\sum_{i \in S}(q_i-p_i)\dfrac{v_i w_i}{w_i}\]
+    
+    Since for each $i \in S$ we have $v_i/w_i \leq v_j/w_j$
+    \[\Delta \dfrac{v_j}{w_j}-\sum_{i \in S}(q_i-p_i)\dfrac{v_i w_i}{w_i} \geq \Delta \dfrac{v_j}{w_j}-\sum_{i \in S}(q_i-p_i)\dfrac{v_j w_i}{w_j}=\Delta \dfrac{v_j}{w_j}-\Delta\dfrac{v_j}{w_j}=0\]
+
+    Thus, the change of value of $Opt'$ is $\geq 0$ thus $Opt'$ is also optimal.
+
+    Thus we have produced an optimal solution that agrees with $Alg$ on $1-j$ items thus we keep repeating this to show that $Alg$ is an optimal solution.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item This is true if the string has at least two $a$'s anywhere in it. $(a|b)^*a(a|b)^*a(a|b)^*$
+    
+    \item This is true if the string starts with a $b$ has a nonegative number of consecutive $a$'s which is divisible by $3$ then finished by a $b$. $b(aaa)^*b$
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item \begin{center}
+        \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (28.6,-23.9) circle (3);
+        \draw (28.6,-23.9) node {$start$};
+        \draw [black] (44,-23.9) circle (3);
+        \draw (44,-23.9) node {$end$};
+        \draw [black] (44,-23.9) circle (2.4);
+        \draw [black] (31.6,-23.9) -- (41,-23.9);
+        \fill [black] (41,-23.9) -- (40.2,-23.4) -- (40.2,-24.4);
+        \draw (36.3,-24.4) node [below] {$1$};
+        \draw [black] (27.277,-21.22) arc (234:-54:2.25);
+        \draw (28.6,-16.65) node [above] {$0$};
+        \fill [black] (29.92,-21.22) -- (30.8,-20.87) -- (29.99,-20.28);
+        \draw [black] (41,-23.9) -- (31.6,-23.9);
+        \fill [black] (31.6,-23.9) -- (32.4,-24.4) -- (32.4,-23.4);
+        \draw [black] (42.677,-21.22) arc (234:-54:2.25);
+        \draw (44,-16.65) node [above] {$0$};
+        \fill [black] (45.32,-21.22) -- (46.2,-20.87) -- (45.39,-20.28);
+        \end{tikzpicture}
+        \end{center}
+        \vspace{1in}
+    \item \begin{center}
+        \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (22.6,-24.1) circle (3);
+        \draw (22.6,-24.1) node {$start$};
+        \draw [black] (33,-13.6) circle (3);
+        \draw (33,-13.6) node {$b_{odd}$};
+        \draw [black] (33,-39.6) circle (3);
+        \draw (33,-39.6) node {$a_1$};
+        \draw [black] (55.3,-25) circle (3);
+        \draw (55.3,-25) node {$end$};
+        \draw [black] (55.3,-25) circle (2.4);
+        \draw [black] (65.7,-25) circle (3);
+        \draw (65.7,-25) node {$even$};
+        \draw [black] (33,-25) circle (3);
+        \draw (33,-25) node {$b_{even}$};
+        \draw [black] (45.5,-13.6) circle (3);
+        \draw (45.5,-13.6) node {$a_2$};
+        \draw [black] (24.27,-26.59) -- (31.33,-37.11);
+        \fill [black] (31.33,-37.11) -- (31.3,-36.17) -- (30.47,-36.72);
+        \draw (27.19,-33.19) node [left] {$a$};
+        \draw [black] (53.977,-22.32) arc (234:-54:2.25);
+        \draw (55.3,-17.75) node [above] {$a$};
+        \fill [black] (56.62,-22.32) -- (57.5,-21.97) -- (56.69,-21.38);
+        \draw [black] (62.7,-25) -- (58.3,-25);
+        \fill [black] (58.3,-25) -- (59.1,-25.5) -- (59.1,-24.5);
+        \draw (60.5,-24.5) node [above] {$b$};
+        \draw [black] (58.3,-25) -- (62.7,-25);
+        \fill [black] (62.7,-25) -- (61.9,-24.5) -- (61.9,-25.5);
+        \draw [black] (64.377,-22.32) arc (234:-54:2.25);
+        \draw (65.7,-17.75) node [above] {$a$};
+        \fill [black] (67.02,-22.32) -- (67.9,-21.97) -- (67.09,-21.38);
+        \draw [black] (64.74,-27.84) arc (-22.41426:-109.46583:23.045);
+        \fill [black] (64.74,-27.84) -- (63.97,-28.39) -- (64.9,-28.77);
+        \draw (53.87,-40.61) node [below] {$a$};
+        \draw [black] (24.71,-21.97) -- (30.89,-15.73);
+        \fill [black] (30.89,-15.73) -- (29.97,-15.95) -- (30.68,-16.65);
+        \draw (28.32,-20.33) node [right] {$b$};
+        \draw [black] (33,-16.6) -- (33,-22);
+        \fill [black] (33,-22) -- (33.5,-21.2) -- (32.5,-21.2);
+        \draw [black] (33,-22) -- (33,-16.6);
+        \fill [black] (33,-16.6) -- (32.5,-17.4) -- (33.5,-17.4);
+        \draw (33.5,-19.3) node [right] {$b$};
+        \draw [black] (33,-28) -- (33,-36.6);
+        \fill [black] (33,-36.6) -- (33.5,-35.8) -- (32.5,-35.8);
+        \draw (32.5,-32.3) node [left] {$a$};
+        \draw [black] (36,-13.6) -- (42.5,-13.6);
+        \fill [black] (42.5,-13.6) -- (41.7,-13.1) -- (41.7,-14.1);
+        \draw (39.25,-14.1) node [below] {$a$};
+        \draw [black] (47.46,-15.87) -- (53.34,-22.73);
+        \fill [black] (53.34,-22.73) -- (53.2,-21.79) -- (52.44,-22.44);
+        \draw (49.85,-20.75) node [left] {$a$};
+        \draw [black] (44.2,-16.3) -- (34.3,-36.9);
+        \fill [black] (34.3,-36.9) -- (35.1,-36.39) -- (34.2,-35.96);
+        \draw [black] (34.3,-36.9) -- (44.2,-16.3);
+        \fill [black] (44.2,-16.3) -- (43.4,-16.81) -- (44.3,-17.24);
+        \draw (39.96,-27.67) node [right] {$b$};
+        \end{tikzpicture}
+        \end{center}
+        \vspace{1in}
+        \item\begin{center}
+            \begin{tikzpicture}[scale=0.2]
+            \tikzstyle{every node}+=[inner sep=0pt]
+            \draw [black] (29.2,-37.9) circle (3);
+            \draw (29.2,-37.9) node {$start$};
+            \draw [black] (29.2,-37.9) circle (2.4);
+            \draw [black] (51.2,-30.1) circle (3);
+            \draw (51.2,-30.1) node {$end_{b1}$};
+            \draw [black] (51.2,-30.1) circle (2.4);
+            \draw [black] (51.2,-17.3) circle (3);
+            \draw (51.2,-17.3) node {$end_a$};
+            \draw [black] (51.2,-17.3) circle (2.4);
+            \draw [black] (29.2,-17.3) circle (3);
+            \draw (29.2,-17.3) node {$a_1$};
+            \draw [black] (40.3,-17.3) circle (3);
+            \draw (40.3,-17.3) node {$a_2$};
+            \draw [black] (40.3,-4.4) circle (3);
+            \draw (40.3,-4.4) node {$end_{b2}$};
+            \draw [black] (40.3,-4.4) circle (2.4);
+            \draw [black] (51.2,-37.9) circle (3);
+            \draw (51.2,-37.9) node {$end_{b0}$};
+            \draw [black] (51.2,-37.9) circle (2.4);
+            \draw [black] (29.2,-34.9) -- (29.2,-20.3);
+            \fill [black] (29.2,-20.3) -- (28.7,-21.1) -- (29.7,-21.1);
+            \draw (29.7,-27.6) node [right] {$a$};
+            \draw [black] (32.2,-17.3) -- (37.3,-17.3);
+            \fill [black] (37.3,-17.3) -- (36.5,-16.8) -- (36.5,-17.8);
+            \draw (34.75,-17.8) node [below] {$a$};
+            \draw [black] (43.3,-17.3) -- (48.2,-17.3);
+            \fill [black] (48.2,-17.3) -- (47.4,-16.8) -- (47.4,-17.8);
+            \draw (45.75,-17.8) node [below] {$a$};
+            \draw [black] (53.88,-28.777) arc (144:-144:2.25);
+            \draw (58.45,-30.1) node [right] {$b$};
+            \fill [black] (53.88,-31.42) -- (54.23,-32.3) -- (54.82,-31.49);
+            \draw [black] (53.88,-15.977) arc (144:-144:2.25);
+            \draw (58.45,-17.3) node [right] {$b$};
+            \fill [black] (53.88,-18.62) -- (54.23,-19.5) -- (54.82,-18.69);
+            \draw [black] (51.2,-20.3) -- (51.2,-27.1);
+            \fill [black] (51.2,-27.1) -- (51.7,-26.3) -- (50.7,-26.3);
+            \draw (50.7,-23.7) node [left] {$a$};
+            \draw [black] (42.98,-3.077) arc (144:-144:2.25);
+            \draw (47.55,-4.4) node [right] {$b$};
+            \fill [black] (42.98,-5.72) -- (43.33,-6.6) -- (43.92,-5.79);
+            \draw [black] (40.3,-14.3) -- (40.3,-7.4);
+            \fill [black] (40.3,-7.4) -- (39.8,-8.2) -- (40.8,-8.2);
+            \draw (40.8,-10.85) node [right] {$b$};
+            \draw [black] (42.24,-6.69) -- (49.26,-15.01);
+            \fill [black] (49.26,-15.01) -- (49.13,-14.07) -- (48.37,-14.72);
+            \draw (45.2,-12.29) node [left] {$a$};
+            \draw [black] (31.79,-18.81) -- (48.61,-28.59);
+            \fill [black] (48.61,-28.59) -- (48.17,-27.76) -- (47.66,-28.62);
+            \draw (39.09,-24.2) node [below] {$b$};
+            \draw [black] (49.25,-27.82) -- (42.25,-19.58);
+            \fill [black] (42.25,-19.58) -- (42.38,-20.52) -- (43.14,-19.87);
+            \draw (46.3,-22.26) node [right] {$a$};
+            \draw [black] (53.88,-36.577) arc (144:-144:2.25);
+            \draw (58.45,-37.9) node [right] {$b$};
+            \fill [black] (53.88,-39.22) -- (54.23,-40.1) -- (54.82,-39.29);
+            \draw [black] (32.2,-37.9) -- (48.2,-37.9);
+            \fill [black] (48.2,-37.9) -- (47.4,-37.4) -- (47.4,-38.4);
+            \draw (40.2,-38.4) node [below] {$b$};
+            \draw [black] (48.426,-36.76) arc (-114.56259:-151.67284:38.544);
+            \fill [black] (30.52,-19.99) -- (30.46,-20.93) -- (31.34,-20.46);
+            \draw (37.02,-30.32) node [below] {$a$};
+            \end{tikzpicture}
+            \end{center}
+        \vspace{1in}
+        \item \begin{center}
+                \begin{tikzpicture}[scale=0.2]
+                \tikzstyle{every node}+=[inner sep=0pt]
+                \draw [black] (21,-31.7) circle (3);
+                \draw (21,-31.7) node {$start$};
+                \draw [black] (32.6,-15.8) circle (3);
+                \draw (32.6,-15.8) node {$end$};
+                \draw [black] (32.6,-15.8) circle (2.4);
+                \draw [black] (32.6,-31.7) circle (3);
+                \draw (32.6,-31.7) node {$mod_1$};
+                \draw [black] (45,-31.7) circle (3);
+                \draw (45,-31.7) node {$mod_2$};
+                \draw [black] (22.77,-29.28) -- (30.83,-18.22);
+                \fill [black] (30.83,-18.22) -- (29.96,-18.58) -- (30.76,-19.16);
+                \draw (27.38,-25.13) node [right] {$0$};
+                \draw [black] (24,-31.7) -- (29.6,-31.7);
+                \fill [black] (29.6,-31.7) -- (28.8,-31.2) -- (28.8,-32.2);
+                \draw (26.8,-32.2) node [below] {$1$};
+                \draw [black] (32.6,-28.7) -- (32.6,-18.8);
+                \fill [black] (32.6,-18.8) -- (32.1,-19.6) -- (33.1,-19.6);
+                \draw (33.1,-23.75) node [right] {$1$};
+                \draw [black] (31.277,-13.12) arc (234:-54:2.25);
+                \draw (32.6,-8.55) node [above] {$0$};
+                \fill [black] (33.92,-13.12) -- (34.8,-12.77) -- (33.99,-12.18);
+                \draw [black] (35.6,-31.7) -- (42,-31.7);
+                \fill [black] (42,-31.7) -- (41.2,-31.2) -- (41.2,-32.2);
+                \draw (38.8,-32.2) node [below] {$0$};
+                \draw [black] (32.6,-18.8) -- (32.6,-28.7);
+                \fill [black] (32.6,-28.7) -- (33.1,-27.9) -- (32.1,-27.9);
+                \draw [black] (42,-31.7) -- (35.6,-31.7);
+                \fill [black] (35.6,-31.7) -- (36.4,-32.2) -- (36.4,-31.2);
+                \draw [black] (43.677,-29.02) arc (234:-54:2.25);
+                \draw (45,-24.45) node [above] {$1$};
+                \fill [black] (46.32,-29.02) -- (47.2,-28.67) -- (46.39,-28.08);
+                \end{tikzpicture}
+            \end{center}
+\end{enumerate}
+
+\q
+
+\q
+\begin{enumerate}[(a)]
+    \item Assume $n=2$ and WLOG let $(a_1-1)b_1 \geq (a_2 -1)/b_2 \implies a_1b_2-b_2  \geq a_2b_1-b_1 \implies a_1b_2-b_2 - a_2b_1 + b_1 \geq 0$
+    
+    Thus consider $a_1(a_2+b_2)+b_1-a_2(a_1+b_1)-b_2$. This is the difference between applying magic 1 first or magic 2 first.
+    \[a_1(a_2+b_2)+b_1-a_2(a_1+b_1)-b_2=a_1b_2-b_2-a_2b_1+b_1 \geq 0\]
+    Thus since this is a non negative sum we know that applying magic 2 first is better in this situation.
+
+    \item \begin{algorithm}[H]
+        \caption{MaxMoney}
+        \begin{algorithmic}[1]
+        \Require $M=[a_1,b_1] \times [a_2,b_2] \times \dots$ a magic $2 \times n$ matrix of magic s.t. $a_i,b_i \geq 1$. 
+        \Ensure Finds max money you can get from applying the magic.
+        \Function{MaxMoney}{$M$}
+            \If{$|M|=0$}
+                \State \Return 1
+            \EndIf
+            \State $money \gets 1$
+            \State $maxMagic[1,\dots,n] \gets [1,2,3,\dots,n]$ \Comment{Array of indices}
+            \State $Sort(maxMagic)$ s.t. $i < j \iff (a_i-1)/b_i \leq (a_j-1)/b_j$ \Comment{Sort indices based on the value of $(a_i-1)/b_i$, the biggest goes last}
+            \For{$i \in \{1,\dots,n\}$}
+                \State $money \gets M[maxMagic[i]][1]money + M[maxMagic[i]][2]$
+            \EndFor
+            \State \Return $money$
+        \EndFunction
+        \end{algorithmic}
+        \end{algorithm}
+
+        Let $Alg=\{i_1,\dots,i_n\}$ be the magic we applied at step $j \in \{1,\dots,n\}$. Assume $Opt=\{k_1,\dots,k_n\}$ is an optimal solution that if you apply the magic in the steps it gives it will give you the max money to get. If $Alg=Opt$ then we are done so assume not.
+
+        Let $j$ be the first index where $Alg$ and $Opt$ differ.
+
+        Thus consider $Opt'$ first set it equal to $Opt$. Then find where $i_j$ is in $Opt$ then swap it up till you get it in spot $j$. The reason we can do this is that $Alg$ is greedy we know that $(a_{i_j}-1)/b_{i_j} \leq (a_{k_l}-1)/b_{k_l}$ for $l > j$. This implies that
+        \begin{align*}
+            a_{k_l}(a_{i_j}m+b_{i_j})+b_{k_l}-a_{i_j}(a_{k_l}m+b_{k_l})b_{i_j}=(a_{k_l}-1)b_{i_j}-(a_{i_j}-1)b_{k_l} \geq 0
+        \end{align*}
+        Where $m$ is the starting money before applying $i_j$. Thus applying $i_j$ before always produces at least as much money as if doing $k_l$ first. Thus, we can swap it up till we get to spot $j$. Thus $Opt'$ is an optimal solution because its money is $\geq Opt$'s money.\
+
+        Thus, we found an optimal solution that agrees with $Alg$ on $1-j$ spots, and we can keep doing this till we get an one that agrees on $1-n$.
+
+        Also, this algorithm is $O(n\log n)$ do to the sorting we do on line $6$, but then we do a for loop which is $O(n)$, so overall it is $O(n \log n)$.
+\end{enumerate}
+\end{document}

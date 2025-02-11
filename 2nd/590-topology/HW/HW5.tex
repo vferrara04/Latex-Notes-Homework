@@ -1,0 +1,183 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usetikzlibrary{positioning}
+
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+\begin{enumerate}[(a)]
+    \item Shown in class the basis for the product topology of $\R^\omega$ are of the form 
+    \[U_1 \times U_2 \times \dots \times U_n \times \R \times \R \times \dots\]
+    s.t. $U_i$ are open sets in $\R$. Let $x \in \R^\omega$. Let $U$ be an open neighborhood of $x$. It suffices to show for just a basis set, so let $U$ just be a basis element.
+
+    Define a sequence $y=(y_1,y_2,\dots)$ s.t.
+    \begin{equation*}
+        y_i=\begin{cases}
+            x_i, \quad \t{if } 1 \leq i \leq n,\\
+            0, \quad \t{if } i > n.
+        \end{cases}
+    \end{equation*}
+    Thus, $y \in U \cap R^\infty$
+
+    Thus, every open neighborhood of every point $x \in \R^\omega$ intersects $\R^\infty$. Thus $\overline{\R^\infty}=\R^\omega$ in the product topology.
+
+    \item Let $x=(x_1,x_2,\dots) \notin \R^\infty$ this means that there is no $n \in \N$ s.t. it is all zeros after. Thus consider the neighborhood of $x$
+    \[U=\prod_{i=0}^{\infty}U_i\]
+    s.t.
+    \begin{equation*}
+        U_i=\begin{cases*}
+            (-1,1), \quad \t{if } x_i=0,\\
+            (x_i-\epsilon_i, x_i+\epsilon_i), \quad \t{if } x_i \neq 0.
+        \end{cases*}
+    \end{equation*}
+    $\epsilon_i=|x_i|/2$. This makes sure that the interval does not intersect zero.
+
+    This is open since it is made up of open intervals of $\R$.
+
+    Let $y \in U$. By definition of $U$, for each $n$ we have $y_n \in U_n$.
+
+    If $x_n \neq 0$ then $y_n \neq 0$, and since there is no $n$ where it ends it infinitely many zeros this means $y$ can't also have infinitely many zeros. Thus $y \notin \R^\infty$
+
+    Thus, $U \cap \R^\infty=\emptyset$.
+
+    Thus, $\overline{\R^\infty}=\R^\infty$, since any point outside we can create a neighborhood that does not intersect $\R^\infty$
+
+    \item Let $C=\{x=(x_1,x_2,\dots) \in \R^\omega \mid (x_n)\to 0\}$
+    
+    Let $x \notin C$ this means $x_n$ does not converge to 0. Thus, there is a $\epsilon_0>0$ s.t. for all $N \in \N$ there is some $n \geq N$ with
+    \[d(x_n,0)\geq \epsilon_0\]
+    Fix $\epsilon=\min\{1,\epsilon_0/2\}$. Consider the open ball
+    \[B(x,\epsilon)=\{y \in \R^\omega \mid d(x,y) < \epsilon\}\]
+    since $\epsilon < 1$ we get that 
+    \[B(x,\epsilon)=\{y \in \R^\omega \mid d(x_n,y_n) < \epsilon \t{ for all } n \in \N\}\]
+    Assume for contradiction that $y  \in B(x,\epsilon) \cap \R^\infty$
+
+    Fix $M \in \N$ s.t. $y_n=0$ for all $n \geq M$.
+
+    However, since $x \notin C$ we have that $d(x_n,0)\geq \epsilon_0$ for infinitely many $n \in \N$ thus pick index $n_0 \geq M$ s.t.
+    \[d(x_{n_0} \geq \epsilon_0)\]
+    Then since $y_{n_0}=0$ we have
+    \[d(x_{n_0},y_{n_0})=d(x_{n_0},0) \geq \epsilon_0 > \epsilon\]
+    Thus $y \notin B(x,\epsilon)$ which is a contradiction therefore $x \notin \overline{\R^\infty}$, since there is a neighborhood of $x$ that does not intersect $\R^\infty$
+
+    Let $x \in C$ thus $(x_n) \to 0$
+
+    Let $U$ be an open neighborhood of $x$. Thus there exists an $\epsilon > 0$ s.t. 
+    \[B(x,\epsilon) \subseteq U\]
+    If $\epsilon >1$ just fix $0 < \delta < 1$ s.t. $B(x,\delta) \subseteq B(x,\epsilon) \subseteq U$, so WLOG let $\epsilon <1$.
+
+    Since $(x_n) \to 0$ there is an $N \in \N$ s.t. for all $n \geq N$ we have
+    \[d(x_n,0) < \epsilon/2\]
+
+    Define a sequence $y=(y_1,y_2,\dots)$ s.t.
+    \begin{equation*}
+        y_n=\begin{cases}
+            x_n, \quad n < N,\\
+            0, \quad n \geq N.
+        \end{cases}
+    \end{equation*}
+
+    For $n < N$ we have that $y_n=x_n$ so $d(x_n,y_n)=0 < \epsilon$
+
+    For $n \geq N$ we have that $y_n=0$ and since $d(x_n,0) < \epsilon/2$ we have that
+    \[d(x_n,y_n)=d(x_n,0)<\epsilon/2<\epsilon\]
+    Thus for all $n \in \N$ we have $d(x_n,y_n) < \epsilon$ so
+    \[d(x,y)=\sup_{n \in \N}d(x_n-y_n)< \epsilon\]
+    Thus $y \in B(x,\epsilon) \subseteq U$
+
+    Thus $x \in \overline{\R^\infty}$ 
+
+    Thus $\overline{\R^\infty}=C$
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item Assume $f_n$ converges uniformly to $f$. Let $O$ be open in $Y$. Consider $f^{-1}(O)$.
+    
+    Let $z \in f^{-1}(O)$. Thus $f(z) \in O$. Thus there exists some $\epsilon > 0$ s.t.
+    \[B(f(z), \epsilon) \subseteq O\]
+    By defintion of uniform convergence there is an $N \in \N$ s.t. for $n \geq N$ we have
+    \[d(f_n(x),f(x)) < \epsilon/3\]
+    for all $x \in X$
+
+    Since $f_N(x)$ is continuous at $z$ there exists an open neighborhood of $U$ of $z$ s.t. for all $x \in U$
+    \[d(f_N(z),f_N(x)) < \epsilon/3\]
+
+    Thus, for every $x \in U$, we have
+    \[d(f(x),f(z)) \leq d(f(x),f_N(x))+d(f_N(x),f_N(z))+d(f_N(z),f(z)) < \epsilon/3+\epsilon/3+\epsilon/3=\epsilon\]
+    Thus for every $x \in U$, we have
+    \[f(x) \in B(f(z),\epsilon) \subseteq O\]
+    Thus $U \subseteq f^{-1}(O)$
+
+    Thus for any $z \in f^{-1}(O)$  there exists an open neighborhood $U$ in $x$ s.t. $U \subseteq f^{-1}(O)$. This shows that $f^{-1}(O)$ is open. Thus $f$ is continuous.
+
+    \item Classic Example: Let $f_n(x)=x^n$ on $[0,1] \to \R$.
+    
+    If $0 \leq x < 1$
+
+    If $x=0$ then let $O$ be an open neighborhood of $0$. Thus there is an $\epsilon > 0$ s.t. 
+    \[B(0,\epsilon) \subseteq O\]
+    Since $x^n \geq 0$ for all $n$ on the interval $[0,1]$ we get that $d(x^n,0) < \epsilon$
+
+    If\end{enumerate}
+\end{document}

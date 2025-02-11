@@ -1,0 +1,310 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usetikzlibrary{positioning}
+
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+\begin{enumerate}[(a)]
+    \item Base Case:
+    
+    For $n=1$ it is trivial since $I \subseteq p_1$.
+
+    Inductive Step: Assume true for $2 \leq n-1$. Consider $n$.
+    
+    If $I$ is a subset of any $n-1$ unions of primes then we are done thus we can assume
+    \[I \nsubseteq \bigcup_{j \neq i}p_j\]
+    for all $i \in \{1,\dots,n\}$
+    
+    Thus let
+    \[x_i \in I \setminus \bigcup_{j \neq i}p_j\]
+
+    If $x_i \in p_i$ since $I \subseteq p_1 \dots p_2$
+
+    Consider $x=x_1+x_2x_3\dots x_n$
+
+    If $x \in p_i$ for $1 < i \leq n$ then $x-x_2x_3\dots x_n = x_1 \in p_i$ since $x_2x_3\dots x_n \in p_2 \cap p_3 \cap \dots \cap p_n$.
+
+    This is a contraction since $x_1 \notin p_2 \cup p_3 \dots \cup p_n$.
+
+    If $x \in p_1$ then $x-x_1=x_2x_3\dots x_n \in p_1$ this is a contraction since $p_1$ is a prime ideal this means that some $x_i \in p_1$ for $i \neq 1$.
+
+    This $x \notin p_1 \cup p_2 \cup \dots \cup p_n$ which is a contraction thus
+    \[I \subset \bigcup_{j \neq i}p_j\]
+    for some $i \in \{1,\dots,n\}$
+    Thus by the Inductive Hypothesis we are done.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item Let $\varphi: A \to A[x] \diagup (fX-1)$ s.t. $\varphi(a)=[a]$.
+    
+    Consider $\varphi(f^k)$ for $k \in \N\cup \{0\}$.
+
+    $\varphi(f^k)=\varphi(f)^k=[f]^k$.
+
+    Consider $[f]^kX^k=([f]X)^k=1$ since $fX-1=0 \implies fX=1$.
+
+    Thus, $f^k$ is a unit.
+
+    Let $g(x) \in A[X] \diagup (fX-1)$. Thus $g(x)=a_0+a_1X+\dots+a_nX^n$ for $a_i \in A$
+
+    since $X=\varphi(f)^{-1}$ we get that 
+    \[g(X)=a_0+a_1+f^{-1}+\dots+a_nf^{-n}\]
+    Now combining terms we get
+    \[g(X)=\dfrac{a_0f^n+a_1f^{n-1}+\dots+a_n}{f^{n}}\]
+    Thus
+    \[g(X)=\varphi(a')\varphi(f^n)^{-1}\]
+    Thus every thing is written in the form $\varphi(a)\varphi(s)^{-1}$ for $s \in \{1,f,f^2,\dots\}$
+
+    Let $b \in \ker{\varphi}$ thus $\varphi(b)=(fX-1)g(X)$ for some $g(X)=g_0+g_1X+\dots+g_nX^n \in A[X]$
+    \[b=-g_0+(fg_0-g_1)X+(fg_1-g_2)X^2+\dots+(fg_{n-1}-g_n)X^n+fg_nX^{n+1}\]
+
+    \begin{itemize}
+        \item (Constant)\[g_0=-b\]
+        \item ($X$) $fg_0-g_1=0$ \[g_1=fg_0=-fb\]
+        \item ($X^i$) $fg_{i-1}-g_{i}=0$ \[g_i=fg_{i-1}=fg_{i-1}=f^{i}g_0=-f^ib\]
+        \item ($X^{n+1}$) $fg_n=0$ \[fg_n=-f^{n+1}b=0\]
+        Thus
+        \[f^{n+1}b=0\]
+    \end{itemize}
+    Thus $\ker{\varphi} \subseteq \{a \in A \mid \exists k \geq 0,\; f^k[a]=0\}$
+
+    Let $b \in \{a \in A \mid \exists k \geq 0,\; f^ka=0\}$ thus $f^kb=0$ for $k \geq 0$
+
+    Consider $-b(1+fX+f^2X^2+\dots+f)(fX-1)$
+    \begin{align*}
+        -b(1+fX+f^2X^2+\dots+f^{k-1}X^{k-1})(fX-1)=-b((fX)^k-1) \intertext{finite geometric series}
+        =b-bf^kX^k=b
+    \end{align*}
+    Thus $b \in (fX-1)$ thus $\varphi(b)=0$ thus $b \in \ker{\varphi}$.
+
+    Thus, there is a unique isomorphism between $A_f$ and $A[X] \diagup (fX-1)$
+
+    Therefore,
+    \[\Z[X] \diagup (2X-1) \cong \{1,2,4,\dots\}^{-1}\Z=A\]
+    
+    Let $\varphi: A \to \Q$ s.t. $\varphi(a/2k)=a/2k$
+
+    Injective: This is clearly injective since $a/2k = b/2m$ in $\Q$ then $a2m=b2k \implies 1(a2m-b2k)=0$ which satisfies the equivalence relation in $A$.
+
+    Surjective:
+
+    Let $a/b \in \Q$ then $a/b=2a/2b$. Since $2b \in \{1,2,4,\dots\}$, we get that $2a/2b \in A$. Thus $\varphi(2a/2b)=a/b$.
+
+    Homomorphism:
+
+    $\varphi(a/b)\varphi(c/d)=(a/b)(c/d)=ac/bd=ac/bd=\varphi(ac/bc)$
+
+    $\varphi(a/b)+\varphi(c/d)=(ad+cb)/bd=\varphi((ad+cb)/bd)=\varphi(a/b+c/d)$
+
+    $\varphi(1/1)=1/1$
+
+    Thus $A \cong \Q$
+
+    \[(\Z \diagup 6 \Z)[X] \diagup(2X-1) \cong \{1,2,4\}^{-1}(\Z \diagup 6\Z) \cong \Z \diagup 3\Z\]
+    We showed the last part in class
+
+    \item Let $\varphi$ be the natural homomorphism from $A \to S^{-1}A$
+    
+    Injective: Let $a \in \ker(\varphi)$. Thus, $\varphi(a)=0$. Thus, by definition of $S^{-1}A$ there is a $u \in S$ s.t. $ua=0$ since $u \in S$ it is a unit thus we can multiply its inverse on both sides and get $a=0$.
+
+    Thus injective
+
+    Surjective: The map is by definition surjective.
+
+    Homomorphism:
+
+    Proven in class it is a homomorphism
+
+    Thus $A \cong S^{-1}A$
+
+    If $K$ is a field then $S^{-1}K$ where $S$ is all units is actually just $(K\setminus \{0\})^{-1}K$ since all things in $K$ are units except zero. Thus, by definition this is the same as $Frac(K)$ thus by the proof above $Frac(K) \cong K$
+
+    Consider $Frac(R)=(R \setminus \{0\})^{-1}R$
+
+    \begin{itemize}
+        \item We get Associativity, Commutativity, Additive/Multiplicative Inverse, Additive inverses, Distributivity for free.
+        \item (Multiplicative Inverses) Let $x \in Frac(R)$ s.t. $x \neq 0$. Thus, $x=\varphi(a)\varphi(b)^{-1}$ for $a,b \in R \setminus \{0\}$
+        
+        Consider $y = \varphi(b)\varphi(a)^{-1}$ this is well-defined since $a \neq 0$.
+
+        Thus $xy=\varphi(a)\varphi(a)^{-1}\varphi(b)\varphi(b)^{-1}=\varphi(1)\varphi(1)^{-1}=1$.
+
+        \item ($0 \neq 1$) Since two non zero things in $R$ never multiply to zero we get that there is no element $s \in R \setminus \{0\}$ s.t. $s(1-0)=0$. 
+    \end{itemize}
+    Thus, $Frac(R)$ is a field thus $Frac(Frac(R))=Frac(R)$
+
+    \addtocounter{enumi}{2}\item Seperate Proof: Show $S^{-1}R \cong S'^{-1}R$ where $S'=(S \setminus{\t{units of } S}) \cup \{1\}$ for non zero rings.
+    
+    Assume that $S'$ has more than just 1 since if it has just one then $S$ is all units, so then you can look at (b).
+
+   \begin{itemize}
+    \item  Show $S'$ is multiplicative set with $1$
+ 
+     It has $1$ by definition.
+ 
+     Let $a,b \in S' \setminus {1}$ then since $a,b \in S \implies ab \in S$
+
+     Assume $ab$ is a unit in $R$ with inverse $c \in R$ this means that
+     \[(ab)c=1 \implies a(bc)=1\]
+     Thus $a$ is a unit which is a contraction. Thus, $ab \in S'$
+
+     Also multiplicative with 1 is trivial.
+   \end{itemize}
+
+   Let $r/s \in S^{-1}R$
+
+   If $s \in S'$ then there is nothing to do.
+
+   If $s$ is a unit, then choose any element $t \in S' \setminus \{1\}$ thus $st \in S$.
+
+   Assume $st$ is also a unit then $(st)c=1 \implies s(tc)=1 \implies t=s^{-1}c^{-1}$ this $t$ is a unit which is a contraction.
+
+   Thus $st \in S'$ now we can represent $r/s=rt/st$
+
+   Thus every element in $S^{-1}R$ can written in the form of $r/s'$ for $s' \in S'$
+
+   Now using the classifications as above take the natural map $\varphi:(S'^{-1})R \to S^{-1}R$ s.t. $\varphi(r/s')=r/s'$.
+
+   This is well defined for the reasons above.
+   
+   This is a homomorphism since we're using the same multiplication and addition rules.
+
+   This is surjective for the reasons above.
+
+   Injective:
+
+   Assume consider $r/s',r'/s'' \in S^{-1}R$ s.t. $\varphi(r/s')=\varphi(r'/s'')$ thus $r/s'=r'/s''$ in $S^{-1}R$ thus there is an element in $t \in S$ s.t.
+   \[t(rs''-r's')=0\]
+   If $t \in S'$ then we are done.
+
+   If $t$ is not in that set then we know it is a unit thus we can get $rs''-r's'=0$ since $1$ is in $S'$ we know thus means that these elements are equivalent in $S'^{-1}R$
+
+   Thus injective.
+
+   Thus $S^{-1}R \cong S'^{-1}R$
+
+   Now for $\Z \diagup 60\Z$ using the proof above all the units are things that are co prime with $60$. Thus, we only have to look at things that divide 60, which are in the form $2^a3^b5^c$ where $a,b,c \geq 0$.
+
+    \item
+
+    \addtocounter{enumi}{2} \item 
+
+    \item Let $x \in \mathfrak{N}(A)$ thus $x^n=0$ for $n \in \N$ but since $0 \in p$ for all $p \in Spec(A)$ this implies by the definition of a prime ideal that $x \in p$ since for $x^n=0 \in p$ some factor of $x^n$ has to be in $p$ but all the factors are $x$ thus $x \in p$ for all $p \in Spec(A)$
+    
+    Let $x \in p$ for all $p \in Spec(A)$. Assume for contraction that $x$ is not nilpotent thus consider $A_x$. Since $0$ was not in our multiplicative set we know that $A_x$ is not the zero ring thus there exists a maximal ideal $m$ thus prime. However this is a contradiction since there is a bijection from primes ideals in $A_x$ to ideals prime ideals of $A$ that do not meet $\{1,x,x^2,\dots\}$. Since $x \in p$ for all $p \in Spec(A)$. This means that $x$ must be nilpotent.
+
+    Therefore, the intersection of all prime ideals is the nilradical.
+
+    Let $I$ be an ideal in $A$. Let $P$ be the intersection of all prime ideals of $A$ containing $I$.
+
+    Let $x \in r(I)$ thus $x^n \in I$ for $n \in \N$. Thus, $x \in P$ by the same reason as above.
+
+    Let $x \notin r(I)$ thus no power of $x$ is in $I$. Consider $A \diagup I$ s.t. the image of $x$ is $y$ consider the set $S=\{1,y,y^2,\dots\}$. Since $x \notin r(I)$ this means that $y$ will not be nilpotent. Thus $(A \setminus I)_{y}$ is non zero thus we can get a maximal ideal $m$ which is prime. Thus, this corresponds to a prime ideal in $A \diagup I$ that does not meet $S$. Now contract this prime in $A \diagup I$ to $A$ and we get a prime ideal in $A$ that contains $I$ but not $x$. Since if it did have $x$ then we can take its image then the prime ideal in $A \diagup I$ would have $y$ which is a contraction of it not having $S$. Thus, $x \notin P$.
+
+    Therefore $r(I)=P$
+    
+    \item If $A=(0)$ then $Spec(0)=\emptyset$, so it is Hausdorff.
+    
+    Assume $Spec(A)$ where $A \neq (0)$ is Hausdorff. Assume for contradiction there is a $p \in Spec(A)$ that is not maximal. Thus, there is a maximal ideal $q$ s.t. $p \subsetneq q$. Thus, there are open sets $p \in U$ and $q \in V$ s.t. $U \cap V= \emptyset$. Using the basis for this space we get that there is an $f \in A$ s.t. $q \in X_f \subseteq V$.
+
+    Since $p \subseteq q \implies f \notin p$. Thus, $p \in X_f$ which is a contraction that $U \cap V =\emptyset$. Thus all prime ideals are maximal.
+
+    Assume every prime ideal of $A$ is maximal. Let $p,q \in Spec(A)$. Since $p,q$ are maximal you can find an element $f \in A$ s.t. $f \in p$ and $f \notin q$. Thus $q \in X_f$ but $p$ is not. You can do the same for $q$ and get $p \in X_g$ and $q \notin X_g$.
+
+    Consider $X_g \cap X_f$ from (a) we get $X_g \cap X_f = X_{fg}$. Since $p,q$ are maximal this means that $fg$ is in every other maximal ideal thus $X_{fg}=\emptyset$. Thus $Spec(A)$ is Hausdorff.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]\addtocounter{enumi}{1}
+    \item Assume $f$ is a unit. Consider $X_f=\{p \in X \mid f \notin p\}$. Let $fg=1$. If $f \in p \implies fg=1 \in p$, but since $p$ is proper ideal this means $f \notin p$. Thus $X_f=X$
+    
+    Assume $X=X_f$. Thus, $f \notin p$ for all $p \in X$. Thus, $f$ is not in any maximal ideal, since all maximal ideals are prime. Consider $(f)$. Assume for contraction it is a proper ideal. By Zorn's Lemma we know that $(f) \subseteq (m)$ where $(m)$ is maximal but $f$ is not in any maximal ideal thus $(f)=A$. Thus $fa=1$ for $a \in A \implies f$ is a unit.
+
+    \item Assume $f$ is nilpotent. Thus $f^k=0$ for $k \in \N$. Since $0 \in p$ for all $p \in X$. This means that $f^k \in p$. By definition of a prime ideal the only way for $f^k \in p$ is if one of its factors is in $p$, but since all of its factors are $f$ this means $f \in p$.
+    
+    Assume $X_f=\emptyset$ Thus $f$ is in the intersection of all the prime ideals which shown in problem $2$ is the nilradical. Thus, $f$ is nilpotent.
+
+    \addtocounter{enumi}{1}\item Proven in last homework that those basic open sets form a basis thus we only have to consider open covers of the form $\{X_{f_i}\}_{i \in I}$ since every open set can be written as a union of basis sets.
+
+    So let $\{X_{f_i}\}_{i \in I}$ be an open cover for $X$.
+
+    Thus,
+    \[X=\bigcup_{i \in I}X_{f_i}=\bigcup_{i \in I}(X \setminus V(f_i))=X \setminus \bigcap_{i \in I}V(f_i)\]
+    Shown in last homework this becomes
+    \[X=X \setminus \bigcap_{i \in I}V(f_i)=X \setminus V(\bigcup_{i \in I} \{f_i\})=X \setminus V((f_i \mid i \in I))\]
+    Since $X=X \setminus V((f_i \mid i \in I))$. This means that $V((f_i \mid i \in I))=\emptyset$. If the ideal $(f_i \mid i \in I)$ is proper, then by Zorn's lemma it is contained in a maximal ideal $m$, but maximal ideals are prime so $m \in V((f_i \mid i \in I))$ which is a contraction thus $(f_i \mid i \in I)=A$.
+
+    This means there exists a finite combination of $f_i$ and $a_i \in A$ s.t. $1=a_1f_{i_1}+a_2f_{i_2}+\dots+a_nf_{i_n}$
+
+    Let $p \in X$. Suppose $p \notin X_{f_{i_1}} \cup \dots \cup X_{f_{i_n}}$
+
+    Thus, $f_{i_j} \in p$ for all $j \in \{1,\dots,n\}$ thus $a_1f_{i_1}+a_2f_{i_2}+\dots+a_nf_{i_n}=1 \in p$ which is a contraction thus $p \in X_{f_{i_1}} \cup \dots \cup X_{f_{i_n}}$
+
+    Thus $X \subseteq X_{f_{i_1}} \cup \dots \cup X_{f_{i_n}}$
+
+    Therefore, $X=X_{f_{i_1}} \cup \dots \cup X_{f_{i_n}}$ thus $X$ is quasi compact.
+\end{enumerate}
+\end{document}
