@@ -1,0 +1,80 @@
+\subsection{Sequential Compactness}
+
+\defn{Subsequence}{
+    Let $x_n$ be a sequence in some $X$.
+
+    If $n_1 < n_2 < n_3 < \dots$ is a sequence of strictly increasing indices, then the sequence $x_{n_1},x_{n_2},\dots$ is a subsequence of $x_n$.
+}
+
+\defn{Sequentially Compact}{
+    A topological space $X$ is sequentially compact if every sequence of $X$ has a convergent subsequence.
+}
+
+\thmp{}{
+    Suppose $X$ is a metrizable space. Then $X$ is compact if and only if $X$ is sequentially compact.
+}{
+    $(\implies)$
+
+    Suppose $X$ is not sequentially compact, then let $x_n$ be a sequence with no convergent subsequence.
+
+    Let $A$ be the set of elements appearing in the sequence $x_n$.
+
+    \clmp{}{$A$ is closed}{
+        Let $x \in \bar{A}$. Then, because $X$ is metrizable, $x$ is a limit of a sequence of elements $y_n \in A$.
+
+        \noindent If $x \notin A$, then a subsequence of $y_n$ is also a subsequence of $x_n$.
+
+        \noindent Know $y_1=x_{n_1}$. Assume,
+        \[y_{m_1}=x_{n_1},\dots,y_{m_j}=x_{n_j}\]
+        for indices
+        \[m_1<m_2,\dots<m_j\]
+        \[n_1<n_2<\dots<n_j\]
+        The set $\{y_m \mid m > m_j\}$ is infinite since if it were finite we would get a constant subsequence which implies that $x \in A$
+
+        \noindent This intersects $A \setminus \{x_1,\dots,x_{n_j}\}$.
+
+        \noindent So take $y_{m_{j+1}}=x_{n_{j+1}}$ to be any elt in this set.
+
+        \noindent Build a subseq. of $y_n$ converging with subsequence of $x_n$ This is a contradiction thus $x \in A \implies \bar{A}=A$ thus $A$ is closed.
+    }
+    For each $m$ we know $x_m$ is not the limit of a subsequence of $x_n$. So, there exists a neighborhood of $x_m$ which contains only finitely many elements from $A$.
+
+    Also know $X$ is Hausdorff, so there is a neighborhood $U_n$ of $x_n$ s.t. $U_n$ contains no other elements of $A$.
+
+    Covering:
+    \[(X \setminus A) \sqcup \bigcup_{n=1}^\infty U_n\] has no finite subcover. Thus, $X$ is not compact.
+
+    $(\impliedby)$
+    Assume $X$ is sequentially compact and metrizable.
+    \clmp{1}{
+        Any open covering of $X$ has a Lebesgue number.
+    }{
+        Let $\mathcal{C}$ be an open cover of $X$. Assume for contradiction no Lebesgue number exists.
+
+        \noindent So, for all $n \in \N$ there is a set $D_n$ s.t. diam$(D_n) < 1/n$, and $D_n \nsubseteq C$ for any $C \in \mathcal{C}$.
+
+        \noindent Fix $x_n \in D_n$. Let $x$ be the limit of a subsequence of $x_n$. $x \in C \subseteq \mathcal{C}$, so $x \in B(x,\epsilon) \subseteq C$ for some $\epsilon > 0$.
+
+        \noindent For some large $n$, we have $d(x,x_n)< \epsilon/2$ and $1/n < \epsilon/2$.
+
+        \noindent $x_n \in D_n$, and diam$(D_n) < 1/n < \epsilon/2$ by triangle inequality, $D_n \subseteq B(x,\epsilon) \subseteq C$. This is a contradiction.
+    }
+    \clmp{2}{
+        Given any $\epsilon > 0$, there exists a finite collection of points $x_1,\dots,x_n$ s.t.
+        \[\bigcup_{i=1}^nB(x_i,\epsilon)=X\]
+    }{
+        Assume for contradiction that the claim is not possible. Fix $x_1 \in X$. $B(x_1, \epsilon) \neq X$, so let $x_2 \in X \setminus B(x_1,\epsilon)$.
+
+        \noindent Now define sequence s.t. $x_i \notin B(x_1,\epsilon) \cup \dots \cup B(x_{i-1},\epsilon)$.
+        
+        \noindent We know that the union of these $j$ balls is not equal to $X$, so let $x_{j+1}$ be in the complement of the union of the $j$ balls.
+
+        \noindent This sequence $x_n$ has no convergent subsequence since $d(x_i,x_j) > \epsilon$ for all $i \neq j$. This means that no subsequence is Cauchy. Thus, no subsequence converges.
+    }
+
+    Let $\mathcal{C}$ be an open covering of $X$. Let $\delta > 0$ be a Lebesgue number for the covering. Cover $X$ by finitely many balls with radius $\epsilon=\delta/3$.
+
+    Thus, diam$(B(x,\epsilon)) \leq 2\epsilon = 2\delta/3 < \delta$, so each ball in this finite covering is contained in some $C \in \mathcal{C}$.
+
+    Pick some $C$ containing each ball in the cover by $\epsilon$-balls, so this is a finite subscover of $X$ by sets in $\mathcal{C}$.
+}

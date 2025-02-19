@@ -1,0 +1,68 @@
+\section{Compactness}
+\defn{Compact}{
+    A space $X$ is compact if every open covering $\mathcal{C}$ of $X$ has a finite sub cover, i.e. $\exists$ sets $U_1,\dots,U_n \in \mathcal{C}$ s.t. $X=U_1 \cup \dots \cup U_n$
+}
+
+\exm{
+    $\R$ is not compact. Also, any unbounded subspace of a metric space is not compact.
+}{
+    $(X,d)$ metric space, $Y \subseteq X$ unbounded, then $\{B(x,n) \mid n \in \N\}$ is an open conering of $Y$, but you cannot pick a finite among since you can always find bigger things in $Y$ that are not in your finite set.
+}
+
+\exm{$X=\{0\} \cup \{1/n \mid n \in \N\}$ is compact}{
+    Let $\mathcal{C}$ be an open covering. Then $0 \in U$ for $U \in \mathcal{C}$.
+    
+    $U$ is open, so it contains an interval $(-\epsilon, \epsilon)$. Since $1/n \to 0$ we know that for all but finitely many $n$, $1/n \in (-\epsilon, \epsilon)$. Then take the reaming not inside that ball, and you can just pick an open set for each remaining point. 
+}
+
+\propp{Every closed subset of a compact space is compact.}{
+    Let $X$ be a compact, let $Y \subseteq X$ be closed.
+
+    Fix an open covering $\mathcal{C}$ of $Y$
+
+    Consider family of sets $\mathcal{C} \cup \{X \setminus Y\}$.
+
+    $X \setminus Y$ is open, so this is an open covering of $X$.
+
+    $X$ is compact $\implies$ has a finite subcover, call it $\mathcal{C}' \cup \{X \setminus Y\}$, $\mathcal{C}' \subseteq \mathcal{C}$ finite. $\mathcal{C'}$ finite open covering of $Y$, subcover of $\mathcal{C}$
+}
+
+\thmp{}{
+    Let $X$ be Hausdorff space. If $Y \subseteq X$ is compact, then it's closed in $X$.
+}{
+    Let $x_0 \in X \setminus Y$.
+    
+    For each $y \in Y$, $\exists U_y$ open of $x_0$, $V_y$ of $y$ s.t. $U_y \cap V_y = \emptyset$
+    
+    Look at the collection $\{V_y\}_{y \in Y}$. This is an open covering of $Y$, has finite subcover
+
+    $V_{y_1},V_{y_2},\dots,V_{y_n}$.
+
+    $V_{y_i} \cap U_{y_i} = \emptyset$, so if $V=V_{y_1}\cup V_{y_2} \cup \dots \cup V_{y_n}$ and $U=U_{y_1} \cap U_{y_2} \cap \dots \cap U_{y_n}$ thus $U \cap V = \emptyset$.
+
+    Since $U$ is open, and $V$ contains $Y$, so $U \cap Y=\emptyset$, $U$ is open subset contained in $X \setminus Y$, and $U$ contains $x_0$ thus $X \setminus Y$ is open.
+}
+
+\thmp{}{
+    If $X$ compact, and $f: X \to Y$ is continuous, then $f(X)$ is compact.
+}{
+    Let $\mathcal{C}$ be an open covering of $f(X)$. Consider $\{f^{-1}(U) \mid U \in \mathcal{C}\}$ is an open covering of $X$, thus there is a finite amount $U_1,U_2,\dots,U_n$ in $\mathcal{C}$ s.t. $f^{-1}(U_1),\dots,f^{-1}(U_n)$ covers $X$. Then $U_1,\dots,U_n$ covers $f(X)$.
+}
+
+\thmp{}{
+    Let $f: X \to Y$ be a continuous bijection.
+
+    If $X$ is compact, and $Y$ is Hausdorff, then $f$ is a homeomorphism.
+}{
+    Let $g: Y \to X$ be inverse map. Let $A \subset X$ be closed. Thus, $A$ is compact. Thus, $f(A)$ is compact, since $g^{-1}(A)=f(A)$. We know that since $Y$ is Hausdorff that $g^{-1}(A)=f(A)$ is closed. Therefore, $g$ is continuous.
+}
+
+\corp{}{
+    If $X$ is compact, and $f: X \to \R$, then $f$ is bounded.
+}{
+    Then we know that $f(X)$ is compact, thus there is a finite amount of intervals that can cover, so there is a finite radius thus $f$ is couned.
+}
+
+\defn{Proper}{
+    A metric space $(X,d)$ is proper if every closed ball in $X$ is compact.
+}

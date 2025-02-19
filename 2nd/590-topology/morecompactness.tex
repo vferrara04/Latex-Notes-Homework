@@ -1,0 +1,119 @@
+\subsection{More on Compactness}
+\thmp{Extreme Value Theorem}{
+    Let $X$ be a compact space. Let $f: X \to \R$ be a continuous function. Then $f$ achieves its minimum and maximum values. i.e. $\exists a,b \in X$ s.t. $f(a) \leq f(x) \leq f(b)$ for all $x \in X$
+}{
+    $f(X)$ is a compact subset of $\R$. It is closed and bounded. Let $s=\sup f(X)$
+
+    Consider the family of intervals $\{(-\infty, t) \mid t < s\}$
+
+    If $s \notin f(X)$
+
+    This is an open covering of $f(X)$ which has no finite subcover, since 
+}
+
+\defn{Uniformly Continuous}{
+    Let $(X,d_X)$, $(Y,d_Y)$ be metric spaces.
+    
+    A function $f: X \to Y$ is uniformly continuous if $\forall \epsilon > 0$, $\exists \delta > 0$ s.t. 
+    \[d_X(x_1,x_2) < \delta \implies d_Y(f(x_1),f(x_2))<\epsilon\]
+}
+
+\thm{Uniform Continuity Theorem}{
+    Let $X,Y$ be metric spaces, and suppose $X$ is compact.
+
+    Then any continuous function $f: X \to Y$ is uniformly continuous.
+}
+
+\thmp{}{
+    Let $\mathcal{C}$ be an open covering of a compact metric space $X$. Then there is some $\delta > 0$ s.t. every subset of $X$ with diameter $< \delta$ is contained in some set $C \in \mathcal{C}$
+
+    $\delta$ is called a Lebesgue number for the cover $\mathcal{C}$
+}{
+    For each $x \in X$, let $C_x$ be a set in $\mathcal{C}$ containing $x$.
+    There is a ball $B(x,r_x) \subset C_x$ for some $r_x > 0$.
+
+    Consider the open covering of $X$ give by the set of balls
+    \[\{B(x,\frac{r_x}{2}) \mid x \in X\}\]
+    $X$ is compact, so take a finite subcover
+    \[B(x_1,\frac{r_1}{2}),\dots,B(x_n,\frac{r_n}{2})\]
+    Let $\delta=\min(\frac{r_1}{2},\dots,\frac{r_n}{2}) > 0$
+    
+    Let $A \subset X$ have diameter $< \delta$. Then for $z \in A$ is contained in a ball $B(x_i, \frac{r_i}{2})$.
+
+    For any $y \in A$, $d(y,z) < \delta$, so $d(x_i,y)<d(x_i,z)+d(z,y)<\frac{r_i}{2}+\delta \leq r_i$.
+
+    Thus $A \subseteq B(x_i,r_i) \subseteq C_{x_i}$
+}
+
+\begin{thmpf}[Uniform Continuity Theorem]:
+
+    Let $\epsilon > 0$. Consider open covering of $Y$ given by
+    \[\{B(y,\frac{\epsilon}{2}) \mid y \in Y\}\]
+    The sets
+    \[\{f^{-1}(B(y,\frac{\epsilon}{2})) \mid y \in Y\}\]
+    give an open covering of $X$.
+
+    Let $\delta$ be a Lebesgue number for this covering. 
+    
+    If $x_1,x_2 \in X$ s.t. $d(x_1,x_2) < \delta$, diam$\{x_1,x_2\} < \delta$, so $x_1,x_2$ both lie in some 
+    
+    $f^{-1}(B(y,\frac{\epsilon}{2})) \implies f(x_1),f(x_2) \in B(y, \frac{\epsilon}{2}) \implies d(f(x_1),f(x_2)) < \epsilon$.
+\end{thmpf}
+
+\subsubsection{The Cantor Set}
+Let $C_0=[0,1]$
+
+Let $C_1=C_0$ minus middle third of interval
+
+Let $C_2=C_1$ minus middle third of each component interval of $C_1$
+
+In general,
+
+$C_i$ is a union of closed intervals
+
+$C_{i+1}$ is the set obtained by deleting "middle third" interval of each connected component of $C_i$
+
+The Cantor set is $C=\displaystyle\bigcap_{i=0}^\infty C_i$
+
+No endpoint of an interval in any $C_i$ is deleted. In particular, $0,1$ all in $C$, $3^{-n} \in C$ always.
+
+Each $C_i$ is closed in $\R$ finite union of closed intervals thus $C$ is closed, and bounded by $0,1$, so it is compact.
+
+It contains many embedded copies of itself.
+
+\defn{Isolated}{
+    A point $x$ in a space $X$ is called isolated if $\{x\}$ is open in $X$.
+}
+
+Cantor set contains no isolated points.
+
+\thm{}{
+    Let $X$ be any compact Hausdorff space.
+
+    If $X$ has no isolated points, then it is uncountable.
+}
+
+$C$ shows up all the time.
+
+Let $\{X_j\}_{j \in \N}$ be a family of spaces s.t. each $X_j$ is finite, discrete, and non-empty.
+\[\prod_{j \in \N}X_j\]
+is always homeomorphic to Cantor set.
+
+$\{0,1\}^\omega$ is homeomorphic to Cantor set.
+
+Can specify a point in Cantor set by specifying which components of each $C_i$ it belongs to, same as a sequence of left right choices.
+
+\thm{}{
+    Let $X$ be any space satisfying the following:
+    \begin{itemize}
+        \item $X$ is compact
+        \item $X$ is metrizable
+        \item $X$ has no isolated points
+        \item $X$ is totally disconnected
+    \end{itemize}
+    $X$ is homeomorphic to the Cantor set.
+}
+
+\thm{}{
+    Let $X$ be any compact metrizable space. Then $X$ is homeomorphic to a quotint $C \diagup \sim$ where $C$ is the Cantor set.
+}

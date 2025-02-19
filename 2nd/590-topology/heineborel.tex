@@ -1,0 +1,94 @@
+\subsection{Heine-Borel Theorem}
+\thm{Heine-Borel Theorem}{
+    Let $Y \subseteq \R^n$. Then $Y$ is compact $\iff$ $Y$ is closed and bounded
+}
+
+\propp{
+    Let $A$ be a compact subset of a metric space. Then $A$ is closed and bounded
+}{
+    Closed because space is Hausdorff. Bounded because ball $B(x_0,n)$ give an open covering which then has a finite subcover, so it is bounded by the biggest ball in the subcover.
+}
+
+\thmp{}{
+    Let $X$ be any ordered set with least upper bound property. Then any closed interval $[a,b] \subseteq X$ is compact.
+}{
+    In case $X=\R$
+
+    Let $\mathcal{C}$ be an open covering of closed interval $[a,b]$
+
+    \clmp{1}{
+        For any $x \in [a,b)$, $\exists y > x$ in $[a,b]$ s.t. $[x,y]$ is contained in an element of $\mathcal{C}$
+    }{
+        Let $C \in \mathcal{C}$ contain $x$.
+
+        $C$ is open, so it contains an interval $[x,c)$, for $c>x$, $c \in [a,b]$.
+
+        Let $y \in (x,c)$. Then $C$ contains $[x,y]$
+    }
+
+    Let $A$ be set of all points $y \in [a,b]$ s.t interval $[a,y]$ can be convered by finitely many elements in $\mathcal{C}$
+
+    $A$ is nonempty, and contains a point $>a$ by the claim above.
+
+    Let $s= \sup A \subseteq [a,b]$. This is an element in $(a,b]$.
+
+    \clmp{2}{
+        $s \in A$
+    }{
+        Let $C \in \mathcal{C}$ contains $s$. $C$ contains an interval $(d,s]$, for $d<s$.
+
+        $(d,s) \cap A$ is nonempty. (if it is empty then $d$ would be an upper bound for $A$).
+
+        Let $z \in (d,s) \cap A$, t hen $[z,c]$ is in $C$. Since $z \in A$, $[a,z]$ is covered by finitely many elements of $\mathcal{C}$
+
+        Thus, $[a,s]$ is in the unions of fin. many elts. in $\mathcal{C}$, so $s \in A$.
+    }
+
+    If $s<b$, by Claim 1, $\exists y \in (s,b]$ s.t. $[s,y]$ is in a single element in $\mathcal{C}$.
+
+    $[a,s]$ is covered by fin. many elts. of $\mathcal{C}$, $[s,y]$ is in one element of $\mathcal{C}$, so $[a,y]$ is in finitely many elts. of $\mathcal{C}$ thus $y \in A$ contradicts $s=\sup A$.
+
+    Thus $A=[a,b]$, thus $[a,b]$ is compact.
+}
+
+\lemp{}{
+    Suppose $X,Y$ spaces, $Y$ compact. Let $N \subseteq X \times Y$ be an open set containing $\{x_0\} \times Y$. Then theres exists an open set $W$ in $X$ s.t. $\{x_0\} \times Y \subseteq W \times Y \subseteq N$.
+}{
+    Know $N$ is a union of sets of the form $U \times V$, for $U,V$ open.
+
+    $\{x_0\} \times Y$ is covered by sets of this form, contained in $N$, since $\{x_0\} \times Y \cong Y$ it will be contained in a finite union 
+    \[(U_1 \times V_1)\cup\dots \cup(U_n \times V_n)\]
+    where $U_i \times V_i$ is in $N$.
+
+    WLOG every $U_i \times V_i$ intersects $\{x_0\} \times Y$. This means that each $U_i$ contains $x_0$, so the intersection of $U_i$'s called $W$ is an open set containing $x_0$.
+
+    Then $\{x_0\} \times Y \subseteq W \times Y$.
+
+    Let $(x,y) \in W \times Y$. Then $(x_0, y) \in \{x_0\} \times Y$. So $(x_0,y) \in U_i \times V_i$ for some $i$, so $(x,y) \in U_i \times V_i$ since $x$ is in every $U_i$.
+
+    Thus $\{x_0\} \times Y \subseteq W \times Y \subseteq N$
+}
+
+\thmp{}{
+    Let $X,Y$ be compact spaces. Then $X \times Y$ is compact.
+}{
+    Let $X,Y$ be compact, let $\mathcal{C}$ be an open covering of $X \times Y$. 
+    
+    Fix $x \in X$. Since $\{x\} \times Y$ is compact, it is covered by finitely many sets $U_1,\dots,U_n$ in $\mathcal{C}$.
+
+    Let $N$ be the unions of all the $U_i$'s then by above there is a tube $W_x \times Y \subseteq N$.
+
+    Thus, $W_x \times Y$ is in finitely many sets in $\mathcal{C}$.
+
+    Since $X$ is compact, and the sets $\{W_x\}_{x \in X}$ cover $X$, can find finitely many tubes $W_{x_1} \times Y,\dots,W_{x_n} \times Y$ s.t. $W_{x_1},\dots,W_{x_n}$ cover $X$.
+
+    This collection of tubes is a cover of $X \times Y$, and each tube is convered by finitely many sets in my cover, thus $X \times Y$ is covered by finitely many sets in $\mathcal{C}$.
+}
+
+\begin{thmpf}Pf of Heine-Borel
+
+($\implies$): done by proposition.
+
+($\impliedby$): If $A$ bounded, it is contained in a box. $[-M,M]$. This is compact by theorem above thus $[-M,M]^n$ is compact. $A$ is a closed subset of a compact space thus $A$ is compact.
+
+\end{thmpf}

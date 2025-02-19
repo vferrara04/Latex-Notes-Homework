@@ -137,6 +137,7 @@
     before upper={\parindent15pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{thmscol!80!white}]
+	\setlength{\parindent}{0pt}
 }{
     \textcolor{thmscol!80!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
     \endtcolorbox
@@ -181,6 +182,7 @@
     before upper={\parindent15pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{lemscol!50!white}]
+	\setlength{\parindent}{0pt}
 }{
     \textcolor{lemscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
     \endtcolorbox
@@ -225,6 +227,7 @@
     before upper={\parindent15pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{corscol!50!white}]
+	\setlength{\parindent}{0pt}
 }{
     \textcolor{corscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
     \endtcolorbox
@@ -269,6 +272,7 @@
     before upper={\parindent15pt},
     after skip=10pt,
 	borderline west={1mm}{0pt}{prpscol!50!white}]
+	\setlength{\parindent}{0pt}
 }{
     \textcolor{prpscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$} 
     \endtcolorbox
@@ -310,7 +314,9 @@
 }
 
 \newenvironment{clmpf}{
-	{\noindent{\it \textbf{Proof.}}}
+	{\noindent{\it \textbf{Proof.}}
+	\setlength{\parindent}{0pt}
+	}
 	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
     before upper={\parindent15pt},
     after skip=10pt,
@@ -363,8 +369,9 @@
 }{exm}
 
 \NewDocumentCommand{\exm}{+m+m}{
-    \begin{example*}{#1}{} 
+    \begin{example*}{#1}{}
         #2
+        \setlength{\parindent}{0pt}
         \textcolor{exmscol!50!white}{\hbox{}\nobreak\hfill$\blacksquare$}
     \end{example*}
 }

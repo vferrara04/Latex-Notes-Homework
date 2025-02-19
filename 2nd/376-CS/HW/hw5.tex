@@ -411,7 +411,11 @@ For the last extra credit problem I said to return $P[n]$ when I should have ret
 \end{enumerate}
 
 \q
+Assume for contradiction there is a DFA $M$ s.t. it can decide if an Oreo is balance or not. Let $s$ be the number of states of $M$, which is finite. Consider the execution of $M$ on and input that begins with $\overline{O}^{s+1}$.
 
+By pigeonhole pricible since $M$ has $s$ states this means there was at least one state that was visited twice while reading the $\overline{O}$'s. Thus let $0 \leq i < j \leq s+1$ be the two times when we repeated a state.
+
+Now consider $\overline{O}^iRE\underline{O}^i$ and $\overline{O}^jRE\underline{O}^i$. Since $M$ will be on the same state when we get to $RE$ for both strings then they will give the same output since the last half of the strings is the same. However, one of these strings is balanced, but the other is not, so $M$ gives the wrong output for one of them therefore this is a contradiction, and there is no $DFA$ that can determine a balanced oreo.
 \q
 \begin{enumerate}[(a)]
     \item Assume $n=2$ and WLOG let $(a_1-1)b_1 \geq (a_2 -1)/b_2 \implies a_1b_2-b_2  \geq a_2b_1-b_1 \implies a_1b_2-b_2 - a_2b_1 + b_1 \geq 0$

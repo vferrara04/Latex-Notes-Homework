@@ -1,0 +1,361 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+
+\newcounter{problem}
+
+% Define a new command for problems
+\newcommand{\q}{
+    \newpage % Start a new page
+    \stepcounter{problem} % Increment problem counter
+    \subsection*{Problem \arabic{problem}} % Display the problem counter
+}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\thepage}
+
+\q
+Let $a,b \in X$. Then consider $f(x) : X \to \R$ s.t. $f(x)=d(a,x)$. This is continuous since $d$ is continuous.
+
+Since $X$ is connected we know that $f(a)=0,f(b)=d(a,b) \in f(X)$ with $0 < d(a,b)$ this means that $[0,d(a,b)] \subseteq f(X)$.
+
+However, in $\R$ this interval has an uncountable number of elements. This means that $X$ is uncountable. Since if $X$ were countable then this would imply $f(X)$ is countable which it is not thus $X$ is uncountable. Meaning it has an uncountable number of points.'
+
+\q
+Let $x,y \in \R^\omega$ consider $f: [0,1] \to \R^\omega$ s.t.
+\[f(t)=(1-t)x+ty\]
+This is continuous path since $f(t)=((1-t)x_1+ty_1,(1-t)x_2+ty_2+\dots)$ we know that each coordinate is continuous since it is made up of polynomails thus $f$ is continous with $f(0)=x$ and $f(1)=y$. 
+
+Thus, $\R^\omega$ is path connected.
+
+\q
+\begin{enumerate}[(a)]
+    \item Consider:
+    \[A=\{0\} \cup \{1/n \mid n \in \N\}\]
+    Let $x \in \R \setminus A$.
+
+    If $x < 0$:
+
+    Then fix $\epsilon=|x|/2 > 0$ thus $x+\epsilon < 0$ thus $B(x,\epsilon) \cap A = \emptyset$.
+
+    If $x > 1$:
+
+    Then fix $\epsilon=|x-1|/2 > 0$ thus $x-\epsilon > 1$ thus $B(x,\epsilon) \cap A = \emptyset$
+
+    If $x \in (0,1) \setminus A$:
+
+    Then there is an $n \in \N$ s.t.
+    \[\dfrac{1}{n+1} < x < \dfrac{1}{n}\]
+    Fix $\epsilon=1/n \min(x-\dfrac{1}{n+1}, \dfrac{1}{n}-x)$
+
+    Thus,
+    \[\dfrac{1}{n+1} < x-\epsilon < x < x+\epsilon < \dfrac{1}{n}\]
+    $B(x,\epsilon) \cap A =\emptyset$
+
+    Thus, $\R \setminus A$ is open thus $A$ is closed. Since $A$ is bounded by Heine-Borel $A$ is compact in $\R$.
+
+    Consider $\{1/n\}$ for $n \in \N$ this is trivially connected.
+
+    Fix $\epsilon>0$ small enough s.t. $1/(n+1) < 1/n - \epsilon < 1/n + \epsilon < 1/(n-1)$ thus $(1/n-\epsilon,1/n+\epsilon) \cap A = \{1/n\}$ thus $\{1/n\}$ is open.
+
+    Also, $((-\infty, 1/n) \cup (1/n, \infty)) \cap A = A \setminus \{1/n\}$ thus $\{1/n\}$ is also closed.
+
+    Assume for contradiction there is a connected subset $C$ of $A$ s.t. $1/n,a \in C$ s.t. $a \neq 1/n$.
+
+    Thus, $C=\{1/n\} \cup A \setminus C$ which contradicts the fact that $C$ is connected.
+
+    Thus, $\{1/n\}$ is a connected component. Therefore, $A$ is compact and has infinite connected components.
+
+    \item Assume $X,Y$ are path connected spaces. Consider $(x,y),(a,b) \in X \times Y$.
+    
+    Since $X$ is path connected there is a continuous function $f:[c,d] \to X$ s.t. $f(c)=x$ and $f(d)=a$.
+
+    Since $Y$ is path connected there is a continuous function $g:[s,t] \to Y$ s.t. $g(s)=y$ and $g(t)=b$
+
+    Consider $\varphi:[0,1] \to [c,d]$ s.t. $\varphi(t)=c+t(d-c)$.
+
+    This is a continuous function thus $f \circ \varphi$ is continuous. Also $f \circ \varphi(0)=f(c)=a$ and $f \circ \varphi(1)=f(d)=a$
+
+    Do something similar for $g$. Call these new functions $\bar{g},\bar{f}$.
+
+    Consider $h: [0,1] \to X \times Y$ s.t. $h(t)=(\bar{g},\bar{f})$. $h$ is continuous since $\bar{g}$ and $\bar{f}$ are continuous.
+
+    Thus, $h(0)=(\bar{g}(0),\bar{f}(0))=(x,y)$ and $h(1)=(\bar{g}(1),\bar{f}(1))=(a,b)$
+
+    Therefore, $X \times Y$ is path connected.
+
+    \item Assume $X$ is compact, and $\sim$ is an equivalence relation on $X$.
+    
+    Let $q$ be the quotient function.
+
+    Let $\{U_i\}_{i \in J}$ be an open cover of $X \diagup \sim$. This means that $\{q^{-1}(U_i)\}_{i \in J}$ is an open cover of $X$ since $q$ is continuous thus $q^{-1}(U_i)$ is open.
+
+    Since $X$ is compact there is a finite subcover. Thus $X=q^{-1}(U_1) \cup \dots \cup q^{-1}(U_n)$. Since $q$ is surjective $q(q^{-1})=U_1$. Thus $q(X)=X \diagup \sim = U_1 \cup \dots \cup U_n$.
+
+    Therefore, $X \diagup \sim$ is compact.
+\end{enumerate}
+
+\q
+Let \( A, B \) be disjoint compact subsets of a Hausdorff space \( X \). For every \( a \in A \) and \( b \in B \), since \( X \) is Hausdorff, there exist open sets \( U_{a,b} \) and \( V_{a,b} \) such that 
+\[
+a \in U_{a,b}, \quad b \in V_{a,b}, \quad \text{and} \quad U_{a,b} \cap V_{a,b} = \emptyset.
+\]
+
+Now, fix \( a \in A \) and consider the collection 
+\[
+\{ V_{a,b} \}_{b \in B}.
+\]
+This forms an open cover of \( B \). Since \( B \) is compact, there exists a finite subcover
+\[
+V_{a,b_1}, V_{a,b_2}, \dots, V_{a,b_n}.
+\]
+Define
+\[
+V_a = V_{a,b_1} \cup V_{a,b_2} \cup \cdots \cup V_{a,b_n},
+\]
+which is open. Also define
+\[
+U_a = U_{a,b_1} \cap U_{a,b_2} \cap \cdots \cap U_{a,b_n},
+\]
+which is also open.
+
+We claim that
+\[
+U_a \cap V_a = \emptyset.
+\]
+To see this, assume for contradiction that there exists \( x \in U_a \cap V_a \). Then \( x \in U_a \) and \( x \in V_a \). Hence, there is some \( i \) (with \( 1 \le i \le n \)) such that \( x \in V_{a,b_i} \) and \( x \in U_{a,b_i} \). But this contradicts the fact that 
+\[
+U_{a,b_i} \cap V_{a,b_i} = \emptyset.
+\]
+Thus, we must have \( U_a \cap V_a = \emptyset \).
+
+Since \( \{ U_a \}_{a \in A} \) is an open cover of \( A \) and \( A \) is compact, there exists a finite subcover
+\[
+U_{a_1}, U_{a_2}, \dots, U_{a_m}.
+\]
+Now, define
+\[
+U = U_{a_1} \cup U_{a_2} \cup \cdots \cup U_{a_m}
+\]
+and
+\[
+V = V_{a_1} \cap V_{a_2} \cap \cdots \cap V_{a_m}.
+\]
+
+Since each \( V_{a_i} \) is a union of finitely many open sets that cover \( B \), we have
+\[
+B \subseteq V.
+\]
+Similarly, since \( U \) is a union of open sets covering \( A \), it follows that
+\[
+A \subseteq U.
+\]
+
+Assume for contradiction that there exists \( x \in U \cap V \). Then, \( x \in U_{a_i} \) for some \( i \) (with \( 1 \le i \le m \)) and \( x \in V_{a_i} \). This contradicts the established fact that 
+\[
+U_{a_i} \cap V_{a_i} = \emptyset.
+\]
+Thus, \( U \cap V = \emptyset \).
+
+In conclusion, there exist disjoint open sets \( U \) and \( V \) in \( X \) such that
+\[
+A \subseteq U \quad \text{and} \quad B \subseteq V.
+\]
+This completes the proof.
+
+
+\q
+\begin{enumerate}
+    \item Consider $f: \R \to \{0,1\}$ where $\{0,1\}$ has the discrete topology. This is an open map since everything is open in the codomain.
+    \begin{equation*}
+        f(x)=\begin{cases*}
+            0 \quad \t{if } x \leq 0,\\
+            1 \quad \t{if } x > 0.
+        \end{cases*}
+    \end{equation*}
+    Consider $f^{-1}(0)=(-\infty,0]$ this is closed thus $f$ is not continuous.
+
+    \item Assume $f: X \to Y$ is a surjective continuous open map.
+    
+    Let $U \subseteq Y$ be open then $f^{-1}(U)$ is open by definition of continuous.
+
+    Let $U \subseteq Y$ s.t. $f^{-1}(U)$ is open. Since $f$ is surjective $f(f^{-1}(U))=U$. Also since it is an open map this implies that $U$ is open.
+
+    Thus, $f$ is a quotient map.
+
+    \item Consider $\pi \mid_A : A \to \R$
+    
+    $\pi \mid_A$ is surjective since for $x \in \R$ consider $(x,0) \in A$ thus $\pi \mid_A(x,0)=x$
+    
+    Let $U \subseteq \R$ be open then $(\pi \mid_A)^{-1}(U)=\pi^{-1}(U) \cap A$ this is open in $A$ since $\pi$ is continuous thus $\pi^{-1}(U)$ is open in $X$.
+
+    Let $U \subseteq \R$ s.t. $(\pi \mid_A)^{-1}(U)$ is open in $A$. Let $a \in U$, and fix $b \in \R$ s.t. $\pi(a,b)=a$ and $(a,b) \in A$.
+
+    Since $(\pi \mid_A)^{-1}(U)$ is open there is an $\epsilon > 0$ s.t. $B((a,b),\epsilon) \cap A \subseteq (\pi \mid_A)^{-1}(U)$.
+
+    If $a < 0$ then we know that $b=0$. 
+
+    Fix $\delta = \min(|a|/2, \epsilon/2)$
+
+    Consider $B(a,\delta) \subseteq \R$. Let $x \in B(a,\delta)$ then $x < 0$ 
+    
+    thus $(x,0) \in B((a,b),\epsilon) \cap A \subseteq (\pi \mid_A)^{-1}(U)$. Therefore, $x \in U$ since $\pi \mid_A((\pi \mid_A)^{-1}(U))=U$ since $\pi \mid_A$ is surjective.
+
+    If $a \geq 0$ then $b \in \R$
+
+    If $a > 0$ fix $\delta = \min(|a|/2, \epsilon/2)$
+
+    If $a = 0$ fix $\delta = \epsilon/2$
+
+    If $b > 0$ fix $\alpha = \min(|a|/2, \epsilon/2)$
+
+    If $b = 0$ fix $\alpha = \epsilon/2$
+
+    Consider $B(a,\delta) \times B(b, \alpha) \subseteq B((a,b),\epsilon)$
+
+    Let $x \in B(a,\delta)$ and $y \in B(b, \alpha)$ since $x \geq 0$ this implies that $(x,y) \in A$ thus $(x,y) \in B((a,b),\epsilon) \cap A$. Thus, $x \in U$ for same reason as above.
+
+    Thus, in all cases we can find an open ball around $a \in U$ s.t. it is a subset of $U$. Thus, $U$ is open.
+
+    Therefore, $\pi \mid_A$ is a quotient map.
+
+    Consider $U=A \cap \{(x,y) \in \R^2 \mid y > 0\}$ which is open in $A$.
+
+    $\pi \mid_A(U)=[0,\infty)$ thus $\pi \mid_A$ is not an open map.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item First since $\Vert x \Vert_{Euc}$ is made up of additions and multiplications and non-negatice square roots we know that it is continuous.
+    
+    Let $\{e_1,\dots,e_n\}$ be the standard basis for $\{e_1,\dots,e_n\}$. Thus, for $x \in \R^n$:
+    \[x = \sum_{i=1}^n x_ie_i\]
+    Thus by properties of norm:
+    \[\Vert x \Vert = \Vert \sum_{i=1}^n x_ie_i \Vert \leq \sum_{i=1}^n |x_i|\Vert e_i \Vert \]
+    By Cauchy-Schwarz inequality,
+    \[\sum_{i=1}^n |x_i|\Vert e_i \Vert \leq \left( \sum_{i=1}^n \Vert e_i \Vert \right)^{1/2}\left( \sum_{i=1}^n |x_i| \right)^{-1}=\left( \sum_{i=1}^n \Vert e_i \Vert \right)^{1/2}\Vert x \Vert_{Euc}\]
+    Define:
+    \[B=\left( \sum_{i=1}^n \Vert e_i \Vert \right)^{1/2}\]
+    Thus,
+    \[\Vert x \Vert \leq B \Vert x \Vert_{Euc}\]
+
+    Fix $\epsilon > 0$ pick $\delta = \epsilon/B$.
+
+    Let $x \in R^n$:
+
+    If $\Vert x-y \Vert < \delta$ then by reverse triangle inequality
+    \[|\Vert x \Vert - \Vert y \Vert| \leq \Vert x -y \Vert \leq B\Vert x-y \Vert_{Euc} < e\]
+    Thus $f$ is continuous.
+
+    \item $\Vert \cdot \Vert_{Euc}$ is standard norm.
+    
+    Consider $f:S^{n-1}=\{x \in \R^n \mid \Vert x \Vert_{Euc} = 1\} \to S$ s.t.
+    \[f(x)=\dfrac{x}{\Vert x \Vert}\]
+    This is continuous since by (a) $\Vert x \Vert$ is continuous and since $x \neq 0$ for $x \in S^{n-1}$ thus $\dfrac{x}{\Vert x \Vert}$ is continuous.
+
+    Since $S^{n-1}$ is closed and bounded it is compact.
+
+    Consider $f(S^{n-1})$. 
+    
+    Let $x \in f(S^{n-1})$ then there is a $y \in S^{n-1}$ s.t. $f(y)=x \implies x=y/(\Vert y \Vert)$. Thus, $\Vert x \Vert= \Vert y/\Vert y \Vert \Vert=\Vert y \Vert/\Vert y \Vert=1$. Thus, $x \in S$.
+
+    Let $x \in S$. Consider $y=x/\Vert x \Vert_{Euc}$
+
+    $f(y)=y/ \Vert y \Vert = \frac{x/\Vert x \Vert_{Euc}}{\Vert x/\Vert x \Vert_{Euc} \Vert}=x$
+
+    Thus, $S=f(S^{n-1})$
+
+    Thus, $S$ is compact since it is the image of a compact set from a continuous function.
+
+    \item Consider the function $f: S \to \R$ by $f(x)=\Vert x \Vert_2$ where $S=\{x \in \R^n \mid \Vert x \Vert_1 = 1\}$.
+    
+    By (a) we know that $f$ is continuous, and since the domain of $f$ is compact we know that $f$ achieves a max and min on $\R$.
+
+    Let $\max=M$ and $\min=m$.
+
+    Thus, for all $x \in S$ we know that
+    \[m \leq \Vert x \Vert_2 \leq M\]
+
+    Let $x\in \R^n$.
+
+    Consider $\Vert x \Vert_2=\Vert x \Vert_1 \left\lVert \dfrac{x}{\Vert x \Vert_1} \right\rVert_2$.
+
+    Since $x /\Vert x \Vert_1\in S$
+
+    We get that
+    \[m \leq \Vert x / \Vert x \Vert_1 \Vert_2 \leq M\]
+    \[m\Vert x \Vert_1 \leq \Vert x \Vert_2 \leq M \Vert x \Vert_1\]
+
+    Thus let $A=\max\{1/m, M\}$
+
+    Thus $\frac{1}{A}\Vert x \Vert_1 \leq \Vert x \Vert_2 \leq A\Vert x \Vert_1$
+
+    Let $U$ be open in $(\R^n, \Vert \cdot \Vert_1)$.
+
+    Thus for $x \in U$ there is an $\epsilon > 0$ s.t. $B_1(x,\epsilon)=\{y \in \R^n \mid \Vert y -x \Vert_1 < \epsilon\} \subseteq U$.
+
+    Let $y \in B_2(x,\epsilon/A)=\{y \in R^n \mid \Vert y-x \Vert_2 < \epsilon/A\}$
+    \[\Vert y-x \Vert_1 \leq A\Vert y-x \Vert_2 < \epsilon\]
+    Thus $y \in B_1(x,\epsilon)$
+
+    Therefore $B_2(x,\epsilon/A) \subseteq U$. Therefore, $U$ is open in $(R^n, \Vert \cdot \Vert_2)$
+
+    Let $U$ be open in $(R^n, \Vert \cdot \Vert_2)$
+    
+    Therefore, for $x \in U$ thee is an $\epsilon > 0$ s.t. $B_2(x,\epsilon) \subseteq U$.
+
+    Let $y \in B_1(x,\epsilon/A)$
+    \[\Vert y-x \Vert_2 \leq A \Vert y-x \Vert_1 < \epsilon\]
+    Thus $y \in B_1(x,\epsilon) \subseteq U$
+
+    Therefore, $U$ is open in $(R^n,\Vert \cdot \Vert_1)$
+
+    Thus, these norms produce the same topology.
+\end{enumerate}
+\end{document}

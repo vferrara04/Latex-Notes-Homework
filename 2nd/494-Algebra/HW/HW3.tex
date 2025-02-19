@@ -224,7 +224,7 @@
 
    Thus $st \in S'$ now we can represent $r/s=rt/st$
 
-   Thus every element in $S^{-1}R$ can written in the form of $r/s'$ for $s' \in S'$
+   Thus every element in $S^{-1}R$ can be written in the form of $r/s'$ for $s' \in S'$
 
    Now using the classifications as above take the natural map $\varphi:(S'^{-1})R \to S^{-1}R$ s.t. $\varphi(r/s')=r/s'$.
 
@@ -248,9 +248,106 @@
 
    Now for $\Z \diagup 60\Z$ using the proof above all the units are things that are co prime with $60$. Thus, we only have to look at things that divide 60, which are in the form $2^a3^b5^c$ where $a,b,c \geq 0$.
 
-    \item
+   However, for a localization with $2^a3^b5^c$ for $a,b,c \geq 1$. This gives us an inverse of $2,3,5$. Since $1/(2^a3^b5^c) \times 2^a3^b5^{c-1}/1 \equiv 1/5$. Thus this problem actually reduces to just choosing subsets of $\{2,3,5\}$ in your set $S$.
+
+   Thus
+
+   \begin{enumerate}[1.]
+    \item $(S=\{1\})$ This just gives us $R$ by part above.
+    
+    \item $(2 \in S)$ Just $2$ in our set. Which is $\Z \diagup 15 \Z$
+    
+    \item $(3 \in S)$ Just $3$ in our set. Which is $\Z \diagup 20 \Z$
+    
+    \item $(5 \in S)$ Just $5$ in our set. Which is $\Z \diagup 12 \Z$
+    
+    \item $(2,3 \in S)$ Just $2,3$ in our set. Which is $\Z \diagup 5 \Z$
+    
+    \item $(2,5 \in S)$ Just $2,5$ in our set. Which is $\Z \diagup 3 \Z$
+    
+    \item $(3,5 \in S)$ Just $3,5$ in our set. Which is $\Z \diagup 4 \Z$
+    
+    \item $(2,3,5 \in S)$ This gives us that everything in our set has an inverse, so for example $2*30=0 \implies 1=0$ since $2,30$ have an inverse. Thus, we have the zero ring in this case.
+   \end{enumerate}
+
+    \item Let $P$ be a prime ideal in $\Z[X]$. Since $P \cap \Z$ is a prime ideal in $\Z$ we get that $P \cap \Z =(0),(p)$ for $p$ prime.
+    
+    If $\Z \cap P = (0)$, then no integer is in $P$. Thus consider $Frac(\Z)[X]$ since $P$ does not meet $\Z \cap \{0\}$ this means its extension is a prime ideal in $Frac(\Z)[X]=\Q[X]$
+
+    Since $\Q$ is a field we know that $\Q[X]$ is a $PID$ thus $P^e=(f(X))$ for some irreducible polynomial in $\Q[X]$. Now let $g(X) \in \Z[X]$ s.t. $g(X)/c = f(X)$ for $c \in \Z$. Thus $(g(X))=(f(X))$, also we can cancel the coefficients, so we get that their $\gcd$ is 1.
+
+    Separate: 
+
+    Let $f(X) \in P$ then $f(X)/1 \in P^e \cap \Z[X]$
+
+    Let $f(X) \in P^e \cap \Z[X] \implies f(X)=h(X)/s$ for $h(X) \in \Z[X]$ and $s \in \Z \setminus \{0\}$ $\implies sf(X)-h(X)=0 \implies sf(X)=h(X) \in P$ since $s \notin P \implies f(X) \in P$ thus $P^e \cap \Z[X]=P$.
+
+    Consider $(g(X)) \subseteq \Z[X]$. Let $h(X) \in (g(X))$ thus $h(X)=g(X)q(X)$ for $q(X) \in \Z[X]$.
+
+    Now we can extend this to $\Q[X]$ just by dividing by 1, and we get $h(X)=g(X)q(X)=cf(X)q(X) \in \Q[X] \implies h(X) \in P^e \cap \Z[X]=P$
+
+    Let $h(X) \in P$ then extend this to $\Q[X]$ thus $h(X) \in P^e=(f(X))=(g(X))$ thus $h(X)=g(X)q(X)$ for $q(X) \in \Q[X]$. Now get rid of all the denominators in $q(X)$ and we get that $zh(X)=g(X)q_1(X)$ for $q_1(X) \in \Z[X]$. Thus $zh(X) \in P^e \cap \Z[X]=P$, since $P \cap \Z =0 \implies h(X) \in P$.
+
+    Thus, $P=(g(X))$ which is an irreducible polynomial in $\Z[X]$.
+
+    If $\Z \cap P = (p)$. Then consider the projection from $\Z[X] \to \F_p[X]$. Since there is a bijection between ideals in $\Z[X]$ that contain $(p)$ and ideals in $\F_p[X]$. Thus $P \diagup (p)$ is a prime ideal in $\F_p[X]$.
+
+    Since $\F_p$ is a field we know that the ideals are principle in $\Z[X]$ thus the prime ideals are $(0)$ and $(f(X))$ for irreducible in $\F_p$
+
+    If $P\diagup(p)=(0)$ then $P=(p)$.
+
+    If $P \diagup (p) \neq (p)$ then it will equal $P \diagup (p) = (f(X))$ where $f(X)$ is an irreducible polynomial mod $p$. Thus, $P=(p,f(X))$
+
 
     \addtocounter{enumi}{2} \item 
+    Ring
+    
+    For two germs $[f]$ and $[g]$ in $\mathbb{R}_x$, define:
+    \[
+    [f] + [g] := [f+g] \quad \text{and} \quad [f] \cdot [g] := [f \cdot g].
+    \]
+    Here, $f+g$ and $f\cdot g$ are defined on the intersection of the domains of definition of $f$ and $g$. 
+    
+    Well-Defined: Suppose $[f]=[f']$ and $[g]=[g']$, meaning there exist open neighborhoods $W_1$ and $W_2$ of $x$ such that
+    \[
+    f|_{W_1} = f'|_{W_1} \quad \text{and} \quad g|_{W_2} = g'|_{W_2}.
+    \]
+    Then on $W = W_1\cap W_2$, we have
+    \[
+    (f+g)|_W = f|_W + g|_W = f'|_W + g'|_W = (f'+g')|_W,
+    \]
+    and similarly for the product. Thus, the operations are independent of the choice of representatives, making $\mathbb{R}_x$ a ring with additive identity $[0]$ and multiplicative identity $[1]$.
+    
+    
+    Local Ring
+    
+    Let
+    \[
+    \mathfrak{m}_x = \{ [f] \in \mathbb{R}_x \mid f(x)=0 \}.
+    \]
+    If $[f], [g] \in \mathfrak{m}_x$, then
+    \[
+    (f+g)(x)=f(x)+g(x)=0,
+    \]
+    so $[f]+[g] \in \mathfrak{m}_x$. Also, for any $[h]\in \mathbb{R}_x$,
+    \[
+    (f\cdot h)(x)=f(x)h(x)=0,
+    \]
+    so $[f]\cdot[h] \in \mathfrak{m}_x$.
+    
+    Let $[f]\in \mathbb{R}_x$ with $[f]\notin \mathfrak{m}_x$. Then $f(x)\neq 0$. By the continuity of $f$, there exists an open neighborhood $U$ of $x$ where $f(y)\neq 0$ for all $y\in U$. Define
+    \[
+    g(y)=\frac{1}{f(y)} \quad \text{for } y\in U.
+    \]
+    Since $g$ is smooth on $U$, we have
+    \[
+    [f]\cdot [g] = [f\cdot g] = [1].
+    \]
+    Thus, $[f]$ is invertible.
+    
+    \vspace{0.5em}
+    
+    Since every element not in $\mathfrak{m}_x$ is a unit, the complement of $\mathfrak{m}_x$ consists entirely of units, and hence $\mathfrak{m}_x$ is the unique maximal ideal of $\mathbb{R}_x$. Therefore, $\mathbb{R}_x$ is a local ring.    
 
     \item Let $x \in \mathfrak{N}(A)$ thus $x^n=0$ for $n \in \N$ but since $0 \in p$ for all $p \in Spec(A)$ this implies by the definition of a prime ideal that $x \in p$ since for $x^n=0 \in p$ some factor of $x^n$ has to be in $p$ but all the factors are $x$ thus $x \in p$ for all $p \in Spec(A)$
     
@@ -272,9 +369,11 @@
 
     Since $p \subseteq q \implies f \notin p$. Thus, $p \in X_f$ which is a contraction that $U \cap V =\emptyset$. Thus all prime ideals are maximal.
 
-    Assume every prime ideal of $A$ is maximal. Let $p,q \in Spec(A)$. Since $p,q$ are maximal you can find an element $f \in A$ s.t. $f \in p$ and $f \notin q$. Thus $q \in X_f$ but $p$ is not. You can do the same for $q$ and get $p \in X_g$ and $q \notin X_g$.
+    Assume every prime ideal of $A$ is maximal. Let $p,q \in Spec(A)$. Since $p,q$ are maximal you can find elements $f \in p$ and $f \notin q$.
+    
+    Consider $S=A \setminus q$ for $S^{-1}A$. Since all prime ideals in $S^{-1}A$ are prime ideals in $A$ that do not meet $S$ we get that $q^e$ is the unique prime ideal. Thus, for $g/1 \in q^e=r(0)$ by the last parts. Thus, $g^n/1=0/1$. Thus, there is an $a \in S$ s.t. $ag^n=0$. Since $0 \in p \cap q$ and $g^n \notin p$ thus $a \in p$. Thus $p \in X_a$ and $p \notin X_f=X_{f_n}$ same for $q$.
 
-    Consider $X_g \cap X_f$ from (a) we get $X_g \cap X_f = X_{fg}$. Since $p,q$ are maximal this means that $fg$ is in every other maximal ideal thus $X_{fg}=\emptyset$. Thus $Spec(A)$ is Hausdorff.
+    By (a) we know that $X_{f^n} \cap X_{a} = X_{f^na}=X_{0}=\emptyset$. Thus, $Spec(A)$ is Hausdorff.
 \end{enumerate}
 
 \q

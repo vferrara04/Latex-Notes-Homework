@@ -171,13 +171,239 @@
 
     Thus for any $z \in f^{-1}(O)$  there exists an open neighborhood $U$ in $x$ s.t. $U \subseteq f^{-1}(O)$. This shows that $f^{-1}(O)$ is open. Thus $f$ is continuous.
 
-    \item Classic Example: Let $f_n(x)=x^n$ on $[0,1] \to \R$.
+    \item Let $f_n(x)=x^n$ on $[0,1] \to \R$.
     
     If $0 \leq x < 1$
 
-    If $x=0$ then let $O$ be an open neighborhood of $0$. Thus there is an $\epsilon > 0$ s.t. 
+    If $x=0$ then let $O$ be an open neighborhood of $0$ in $\R$. Thus there is an $\epsilon > 0$ s.t. 
     \[B(0,\epsilon) \subseteq O\]
-    Since $x^n \geq 0$ for all $n$ on the interval $[0,1]$ we get that $d(x^n,0) < \epsilon$
+    Since $x^n \geq 0$ for all $n$ on the interval $[0,1]$ it is enough to show that $x^n < \epsilon$ since $0^n < \epsilon$ we are done for that case now just show for $0 < x < 1$
+    
+    Fix $N > \ln(\epsilon)/\ln(\epsilon x)$, this is well defined since $0 < x < 1$ thus for all $n \geq N$ we get that
 
-    If\end{enumerate}
+    $n > \ln(\epsilon)/\ln(\epsilon x) \implies n \ln(x) = \ln(\epsilon) \implies x^n < \epsilon \implies x \in (-\epsilon, \epsilon) \subseteq O$, thus $f_n(x) \to 0$ for $0 \leq x < 1$
+
+    If $x=1$, since $f_n(1)=1^n=1$ it is always in a neighborhood of $1$, so $f_n(1) \to 1$
+
+    thus $f_n(x) \to f(x)$ s.t
+    \begin{equation*}
+        f(x)=\begin{cases*}
+            0 \quad \t{if } 0 \leq x < 1,\\
+            1 \quad \t{if } x=1
+        \end{cases*}
+    \end{equation*}
+
+    This is not continuous consider $(0,1)$ open in $\R$. $f^{-1}(0,1)=\{0\}$. Since $[0,1]$ is a subspace of a Hausdorff space we know it is Hausdorff thus singletons are closed, thus $f(x)$ is not continuous.
+\end{enumerate}
+
+\q
+Separate Proof:
+
+Consider $f: \R^n \to \R^n$ s.t. $f(x)=x+a$ for some $a \in \R^n$. This is continuous since adding is continuous and $a$ is a constant function which is continuous. Consider the function $g: \R^n \to \R^n$ s.t. $g(x)=x-a$. This is an inverse for $f$ and same reason it is continuous. Thus, this is a homeomorhphism.
+
+Let $x \in \R^n$ s.t. $n \geq 2$. Now by the proof above we showed that translation is a homeomorhphism thus WLOG let $x=0$.
+
+Consider $\R^n \setminus \{0\}$
+
+Consider the straight-line path $l(x)=(1-x)a+xb$ this is continuous since we are just adding and multiplying. Also this is a path since $l(0)=a$ and $l(1)=b$.
+
+If $0$ is not in our image then we are good, and we get a continuous path from $a,b$ in $\R^n \setminus \{0\}$
+
+If $0$ is in our image then pick any point $c \in \R^n$ s.t. there is no line that connects $a,b,c$. This is possible since $n \geq 2$.
+
+Now consider the two line paths
+
+\[l_1(x)=(1-x)a+xc\]
+\[l_2(x)=(1-x)c+xb\]
+for $x\in [0,1]$
+
+Now set $l(x)$ to be
+\begin{equation*}
+    l(x)=\begin{cases*}
+        l_1(2x) \quad \t{if } (0 \leq x \leq 1/2),\\
+        l_2(2x-1) \quad \t{if } (1/2 \leq x \leq 1),\\
+    \end{cases*}
+\end{equation*}
+
+Using the pasing lemma we can see it is continuous on $[0,1/2]$ and $[1/2,1]$, and for the intersection since the two functions agree we know that $l$ is continuous.
+
+Thus this is a path in $\R^n \setminus \{0\}$
+
+Thus $\R^n \setminus \{0\}$ is path connected, and therefore connected. Thus $\R^n \setminus \{x\}$ is connected for all $x \in \R^n$
+
+\q
+
+Separate Proof:
+
+Let $f: X \to Y$ be a homeomorhphism. Let $A \subseteq X$ then consider $f\vert_{A} A \to f(A)$.
+
+Since $f$ is continuous shown in class its restriction is continuous. Now since $f$ is a homeomorhphism its inverse is also a continuous bijection thus we can take its restriction map on $f(A)$ thus this is also continuous, and an inverse for $f\vert_A$.
+
+Thus, $f\vert_{A}$ is a homeomorhphism.
+
+\begin{enumerate}[(a)]
+    \item \begin{enumerate}[1.]
+        \item \((0,1)\) vs. \((0,1]\)
+        
+        Assume: There exists a homeomorphism
+        \[
+        f:(0,1)\to (0,1].
+        \]
+        Since \(1\) is an element of \((0,1]\), there must be some \(x_0\in (0,1)\) with
+        \[
+        f(x_0)=1.
+        \]
+        
+        - In \((0,1]\), remove \(1\):
+          \[
+          (0,1]\setminus\{1\}=(0,1).
+          \]
+          This set is connected, since we can define $f':[0,1] \to (0,1)$ by $f(x)=(1-x)a+xb$ thus $(0,1)$ is path connected thus connected.
+        
+        - In \((0,1)\), remove \(x_0\):
+          \[
+          (0,1)\setminus\{x_0\}=(0,x_0)\cup (x_0,1).
+          \]
+          This is the union of two disjoint, nonempty open intervals and is therefore disconnected.
+        
+        Since $f$ is a homeomorhphism we know that it's restriction is still a homeomorhphism thus $(0,1) \setminus \{x_0\} \cong (0,1] \setminus \{1\}$ However, homeomorphisms must preserve connectedness, \(f\) would force a connected space to be homeomorphic to a disconnected one. This contradiction shows that no homeomorphism exists between \((0,1)\) and \((0,1]\).
+        
+        \item \((0,1)\) vs. \([0,1]\)
+        
+        Assume: There exists a homeomorphism
+        \[
+        h:(0,1)\to [0,1].
+        \]
+        
+        Since \(1\) is an element of \((0,1)\), there must be some \(x_0\in (0,1)\) with
+        \[
+        h(x_0)=1.
+        \]
+        
+        - In \([0,1]\), remove \(0\):
+          \[
+          [0,1]\setminus\{0\}=(0,1],
+          \]
+          which is connected by same logic as above.
+        
+        - In \((0,1)\), remove the point \(x_0\):
+          \[
+          (0,1)\setminus\{x_0\}=(0,x_0)\cup (x_0,1),
+          \]
+          which is disconnected.
+        
+        Again, we have a homeomorphism sending a disconnected space to a connected space, which is impossible.
+        
+        Thus, no homeomorphism exists between \((0,1)\) and \([0,1]\).
+    
+        \item \((0,1]\) vs. \([0,1]\)
+        
+        Assume: There exists a homeomorphism
+        \[
+        g:[0,1]\to (0,1].
+        \]
+        
+        Since \(0,1\) is an element of \([0,1]\), there must be some \(x_0,x_1\in (0,1]\) with
+        \[
+        g(0)=x_0, \quad g(1)=x_1
+        \]
+        
+        - In \([0,1]\), remove \(0,1\):
+          \[
+          [0,1]\setminus\{0,1\}=(0,1),
+          \]
+          which is connected by same logic as above.
+        
+        - In \((0,1]\), remove the point \(x_0,x_1\):
+          \[
+          (0,1]\setminus\{x_0,x_1\}
+          \]
+          If $x_0$ or $x_1 = 1$ then WLOG let $x_1=1$
+          \[
+            (0,1]\setminus\{x_0,x_1\}=(0,x_0) \cup (x_0,1)
+          \]
+          If $x_0, x_1 \neq 1$ then WLOG let $x_0 < x_1$
+          \[
+            (0,1]\setminus\{x_0,x_1\}=(0,x_0) \cup (x_0,x_1) \cup (x_1,1]
+          \]
+          these are both disconnected.
+        
+        Again, we have a homeomorphism sending a connected space to a disconnected space, which is impossible.
+        
+        Thus, no homeomorphism exists between \((0,1]\) and \([0,1]\).
+    \end{enumerate}
+
+    \item Assume $f: \R \to \R^n$ is a homeomorhphism, thus let $f(0)=x_0$.
+    
+    Consider the homeomorhphism of
+    \[f\vert_{\R\setminus \{0\}}: \R \setminus \{0\} \to \R^n \setminus \{x_0\}\]
+    By problem 3 we know that $\R^n \setminus \{x_0\}$ is connected. However, $\R \setminus \{0\}=(-\infty,0) \cup (0, \infty)$ thus it is disconnected. Therefore, this is a contradiction since a homeomorhphism cannot send a disconnected space to a connected space.
+\end{enumerate}
+
+\q
+\begin{enumerate}[(a)]
+    \item Consider $int(A) \cap \partial(A)=(X \setminus \overline{X \setminus A}) \cap (\overline{A} \cap \overline{X \setminus A})=X \setminus \overline{X \setminus A} \cap \overline{A} \cap \overline{X \setminus A}=\emptyset$. Since you cannot have an element that is in $X \setminus \overline{X \setminus A} \cap \overline{X \setminus A}$.
+    
+    \item Consider $int(A) \cap \partial(A)=(X \setminus \overline{X \setminus A}) \cup (\overline{A} \cap \overline{X \setminus A})$
+    
+    \begin{itemize}
+        \item If $x \in int(A)$ since $int(A)$ is made up of all unions of open sets in $A$ we know that $x \in A \subseteq \bar{A}$.
+        \item If $x \in \partial(A)=\overline{A} \cap \overline{X \setminus A} \implies x \in \bar{A}$
+        
+        Thus $int(A) \cup \partial(A) \subseteq \bar{A}$.
+    
+        \item Let $x \in \bar{A}$.
+        
+        \item If $x \notin \overline{X \setminus A}$ then $x \in X \setminus \overline{X \setminus A} \subseteq int(A) \cup \partial(A)$
+        
+        \item If $x \in \overline{X \setminus A} \implies x \in \overline{X \setminus A} \cup \bar{A} \subseteq int(A) \cup \partial(A)$
+    \end{itemize}
+    Thus $int(A) \cup \partial(A)=\bar{A}$
+
+    \item Assume $A$ is open then $\bar{A} \neq A$ and $X \setminus A$ is closed. Thus, $\overline{X \setminus A}=X \setminus A$.
+    
+    Let $x \in \partial A=\bar{A} \cap (X \setminus A)$. Thus, $x \in \bar{A}$ and $x \in X \setminus A \implies x\notin A \implies x \in \bar{A} \setminus A$.
+
+    Let $x \in \bar{A} \setminus A \implies x \in \bar{A}$ and $x \in X \setminus A \implies x \in \bar{A} \cap (X \setminus A) = \partial(A)$
+
+    Thus $\partial(A)=\bar{A} \setminus A$ if $A$ is open.
+
+    \item Consider $A=(0,1) \subseteq \R$ which is connected. $\bar{A}=[0,1]$ and $int(A)=(0,1)$
+    
+    Thus, $\partial(A)=\{0,1\}$ this is not connected, since consider $(-1/2,1/2) \cap \{0,1\}=\{0\}$ and $(0,1.5) \cap \{0,1\}=\{1\}$.These are open in the subspace topology, and therefore $\{1\} \cup \{0\} = \{1,0\}$. Thus not connected.
+
+    \item Consider $A=\Q \cap [0,1]$ this is disconnected since $A=(A \cap (-\infty,1/2)) \cup (A \cap (1/2, \infty))$.
+    
+    Assume for contradiction that $x \in int(A)$ thus there is some $U$ open in $\R$ s.t. $x \in U$. Thus there is an open interval $(-\epsilon+x,x+\epsilon) \subset U$. Thus consider $x-\epsilon < q < x+\epsilon$ for some $q \in \Q$. Fix $N \in \N$ big enough so $\sqrt{2}/n < x+\epsilon-q$. Consider $y=q+\sqrt{2}/n$. This is irrational.
+    
+    Thus, $x-\epsilon < q < q+\sqrt{2}/n$
+
+    Also, $q+\sqrt{2}/n < q + (x+\epsilon - q) = x + \epsilon$.
+
+    Thus $y \in (x-\epsilon, x+\epsilon)$. Thus this is a contradiction since we found a irrational number in our interval thus $int(A)$ is empty.
+
+    Since $A \subset [0,1]$ and $[0,1]$ is closed we know that $\bar{A} \subset [0,1]$
+
+    Let $x \in [0,1]$. Let $U$ be an open neighborhood of $x$. Thus there is an $\epsilon > 0$ s.t. $(x-\epsilon,x+\epsilon) \subset U$. Since $\Q$ is dense in $\R$ we know that there must be a rational number in $(x-\epsilon,x+\epsilon)$. Thus, this interval intersects $A$ thus $x \in \bar{A}$.
+
+    Therefore $\bar{A}=[0,1]$.
+
+    Now by (b) we know that $int(A) \cup \partial(A) = \bar{A}$ thus $\partial(A) = \bar{A}=[0,1]$. Thus, $\partial(A)$ is connected. Therefore, (e) is false by contrapositive with counter example.
+\end{enumerate}
+\q
+We know from earlier homework that the determinant function
+\[
+\det \colon GL(n,\mathbb{R}) \to \mathbb{R}
+\]
+is continuous. Consider the sets
+\[
+\det^{-1}\bigl((-\infty, 0)\bigr) = \{A \in GL(n,\mathbb{R}) \mid \det(A) < 0\}
+\]
+and
+\[
+\det^{-1}\bigl((0, \infty)\bigr) = \{A \in GL(n,\mathbb{R}) \mid \det(A) > 0\}.
+\]
+Since \((-\infty, 0)\) and \((0, \infty)\) are open in \(\mathbb{R}\) and the determinant is continuous, these preimages are open in \(GL(n,\mathbb{R})\).
+
+Moreover, these two sets are disjoint (because no matrix can have both a positive and a negative determinant) and their union is the whole set \(GL(n,\mathbb{R})\). Hence, \(GL(n,\mathbb{R})\) is not connected.
 \end{document}
