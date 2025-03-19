@@ -36,3 +36,66 @@
 
     Thus, $V,X\setminus \overline{V}$ are open sets separating $x$ and $B$.
 }
+
+\thmp{}{
+    If $X$ is a metrizable space, $X$ is normal.
+}{
+    Let $A,B$ be disjoint closed sets subsets of X.
+
+    For each $a \in A$, there exists an $\epsilon_a > 0$ s.t. $B(a,\epsilon_a) \cap B = \emptyset$.
+
+    For each $b \in B$, there exists an $\epsilon_b > 0$ s.t. $B(b,\epsilon_b) \cap A = \emptyset$.
+
+    Consider $B(a,\epsilon_a/2),B(b,\epsilon_b/2)$
+
+    If $z \in B(a,\epsilon_a/2)\cap B(b,\epsilon_b/2)$, then $d(a,b)\leq (\epsilon_a + \epsilon_b)/2 \leq \max(\epsilon_a,\epsilon_b)$. Which is a contradiction.
+
+    Thus,\[\bigcup_{a \in A}B(a,\epsilon_a/2) \quad \bigcup_{b \in B}B(b,\epsilon_b/2)\]
+    are disjoint open sets containing $A,B$.
+}
+
+\thmp{}{
+    Every compact Hausdorff spaces is normal.
+}{
+    Use homework since closed means compact in compact Hausdorff.
+}
+
+\corp{}{
+    Manifolds are regular.
+}{
+    Let $M$ be a $n$-manifold. By definition, $M$ is Hausdorff.
+
+    $M$ is locally homeomorphic to $\R^n$, and $\R^n$ is locally compact, so $M$ is locally compact.
+
+    Thus, $M$ has a 1-point compactification. $\hat{M}$.
+
+    $\hat{M}$ is a compact Hausdorff space. Thus, $\hat{M}$ is normal. Thus, regular, and subspaces of regular spaces are regular.
+}
+
+\thmp{}{
+    Every second countable regular space is normal.
+}{
+    Let $\beta$ be a countable basis for $X$.
+
+    Let $A,B$ be disjoint closed subsets of $X$.
+
+    Fix $a \in A$. Then there is a neighborhood $U$ of $a$ that is disjoint from $B$.
+
+    By regularity there is a neighborhood $V$ of $a$ s.t. $\overline{V} \subset U$.
+
+    Thus, there is a $W \in \beta$ s.t. $a \in W \subset U$.
+
+    Then do this for any point $a \in A$, and thus we get a countable open covering of $A$ by sets whose closures are disjoint from $B$.
+
+    Do the same for $B$.
+
+    Call them $\{U_n\}$ and $\{V_n\}$.
+
+    Then for all $n$ define:
+
+    $U_n'=U_n \setminus \bigcup_{i=1}^n \overline{V_n}$
+
+    $V_n'=V_n \setminus \bigcup_{i=1}^n \overline{U_n}$
+
+    Thus, thus union is are disjoint open sets that contain $A,B$.
+}

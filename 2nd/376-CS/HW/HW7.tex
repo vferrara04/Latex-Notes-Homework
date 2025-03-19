@@ -237,5 +237,107 @@ I could have fixed with the potential function $3b+2m$. Since if fusion then $3b
     This is unfounded since there exists $C=[0,0,1,1]$ s.t. $V(S,7,C)$ accepts. We cannot throw out a verifier if one $C$ does not work we have to check all $C$ of a certain size.
 \end{solution}
 
+\qh[Understanding poly-time mapping reductions.]
+\begin{subproblem}{}
+    Prove or disprove: if $A \leq_p B$, then $A \leq_T B$.
+
+   (A disproof would consist of a pair of languages such that $A \leq_p B$ but $A \not \leq_T B$.)
+\end{subproblem}
+\begin{problemproof}
+    Assume $A \leq_p B$ then this means there exists a efficient computable $f : \Sigma^* \to \Sigma^*$ s.t. $x \in A \iff f(x) \in B$.
+
+    Let $M_B$ be an oracle that decides $B$.
+
+    Define: $M_A(x)=M_B(f(x))$.
+
+    $M_A$ halts on any input because $f$ is efficiently computable, and $M_B$ halts on every input.    
+    
+    Therefore,
+    \begin{align*}
+        x \in A &\iff f(x) \in B \\
+                &\iff M_B(f(x)) \t{ accepts}\\
+                &\iff M_A(x) \t{ accepts}
+    \end{align*}
+
+    Thus, $M_A$ decides $A$. Thus, $A \leq_T B$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove or disprove: if $A \leq_T B$, then $A \leq_p B$. 
+    
+   (A disproof would consist of a pair of languages such that $A \leq_T B$ but $A \not \leq_p B$.)
+\end{subproblem}
+\begin{problemproof}
+    Let $A$ be SAT. 
+    
+    Let $B=\{x0^{2^{|x|} \mid x \in A}\}$, Every string $x$ in $SAT$ is padded with $2^|x|$ zeros.
+
+    Let $M_B$ be an oracle that decides $B$.
+
+    Define $M_A(x)$ s.t. we create a new string $y=x0^{2^{|x|}}$. Then return $M_B(y)$.
+
+    $M_A$ halts since $M_B$ halts.
+
+
+    \begin{align*}
+        x \in A &\iff y=x0^{2^{|x|}} \in B\\
+                &\iff M_B(y) \t{ accepts}\\
+                &\iff M_A(x) \t{ accepts}.
+    \end{align*}
+
+    Thus, $A \leq_T B$
+
+    Assume for contradiction that $A \leq_p B$ then there exists an efficiently computable $f$ s.t. $x \in A \iff f(x) \in B$.
+
+    Thus, there is some polynomial $q$ that bounds $f$. Since writing an output takes at least one step this implies that the machines cannout output more that $q(|x|)$ symbols. Thus, $|f(x)| \leq p(|x|)$.
+
+    Therefore, if $x \in A$ then $f(x)\in B$. This means that there exists some $z$ s.t. $f(x)=z0^{2^{|z|}}$.
+
+    Therefore, $|f(x)|=|z|+2^{|z|} \leq p(|x|)$
+\end{problemproof}
+\newcommand{\ptimemap}{\leq_p}
+\begin{subproblem}{}
+    Prove that PTMRs are \emph{transitive}: if $A \ptimemap B$ and $B \ptimemap C$, then $A \ptimemap C$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $A \leq_p B$ and $B \leq_p C$.
+
+    Thus, there exists efficiently computable $f,g$ s.t. $x \in A \iff f(x) \in B$ and $y \in B \iff g(y) \in C$.
+
+    Thus, $g \circ f$ is efficient computable.
+
+    Thus, $x \in A \iff f(x) \in B \iff g(f(x)) \in C$.
+
+    Therefore, $A \leq_p C$
+\end{problemproof}
+
+\begin{subproblem}{}
+    The languages $\Sigma^*$ and $\emptyset$ are called the \emph{trivial} languages, and all other languages are \emph{non-trivial}.
+    Prove that if $\P = \NP$, then \emph{every} non-trivial language is $\NP$-hard.
+
+    Be sure to state where your proof relies on non-triviality (because the trivial languages are \emph{not} $\NP$-hard, regardless of whether $\P=\NP$!). 
+\end{subproblem}
+\begin{problemproof}
+    Assume $\P=\NP$. Let $L$ be a non-trivial language.
+
+    Let $A \in \NP = \P$. Thus, there is a efficient turning machine $M_A$ that decides $A$.
+    
+    Since $L$ is non-trivial this means there exists distinct $x,y \in \Sigma^*$ s.t. $x \in L$ and $y \notin L$.
+
+    Thus define $f(a)=x$ if $M_A(a)$ accepts else $y$.
+
+    Thus,
+    \begin{align*}
+        a \in A &\iff M_A(a) \t{accepts}\\
+                &\iff f(a)=x\\
+                &\iff f(a) \in L.
+    \end{align*}
+
+    $f$ is efficient computable since $M_A$ is, and is correct by the proof above and the fact that $M_A$ is correct and $x\neq y$.
+
+    Thus, $A \leq_p L$ for all $A \in \NP$.
+
+    Thus, $L$ is $\NP$-Hard.
+\end{problemproof}
 \end{document}
 
