@@ -1,0 +1,282 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+\begin{problem}{}
+    Let $X$ be a locally compact Hausdorff space. Prove that $X$ is
+  second countable if and only if its one-point compactification is
+  second countable.
+\end{problem}
+\begin{problemproof}
+    $(\impliedby)$ Assume the one-point compactification of $X$ is second countable. Thus, it has a countable basis $\beta$.
+
+    Since the topology of the one point compactification is made up of open sets of $X$ and sets of the form $\{X \cup \{\infty\}\} \setminus K$ s.t. $K$ is compact in $X$.
+
+    Therefore, we know that for any $B \in \beta$ that $B \cap X$ is open. Since,
+
+    if $B \subset X$ then it is already open in $X$.
+
+    if not then $B=(X \cup \{\infty\}) \setminus K$. Thus, $B \cap X=X \setminus K$ which is open in $X$ since $K$ is compact thus closed. Thus, $X \setminus K$ is open.
+
+    Thus, consider $\beta_X=\{B \cap X \mid B \in \beta\}$
+
+    Let $x \in X$. Since $X$ is a subset of the one point compactification this means that $x \in B$ for some $B \in \beta$. Thus, $x \in B \cap X \in \beta_X$.
+
+    If $x \in B_1 \cap B_2$ for some $B_1,B_2 \in \beta_X$. Then we know that $B_1=U_1 \cap X$ and $B_2=U_2 \cap X$ for $U_1,U_2 \in \beta$.
+
+    Thus, $x \in U_1 \cap U_2$. Thus, there exists a $U_3 \in \beta$ s.t. $x \in U_3 \subset U_1 \cap U_2$.
+
+    Thus, $x \in U_3 \cap X \subset B_1 \cap B_2$.
+
+    Thus, $\beta_X$ is a countable basis for $X$.
+
+    $(\implies)$ Assume $X$ is second countable.
+
+    Let $\beta$ be a countable basis for $X$. 
+    
+    Define $\beta'=\{B \in \beta \mid \t{ there exists a compact } K_B \subset X \t{ with } B \subset K_B\}$.
+
+    Let $x \in X$. Since $X$ is locally compact we know there is a neighborhood $U$ of $x$ s.t. $U \subset K$ for $K$ being compact.
+
+    Since $\beta$ is a basis we know there is a $B$ s.t. $x \in B \subset U \subset K$. Thus, $\beta'$ covers $X$.
+
+    Let $x \in B_1 \cap B_2$ for some $B_1,B_2 \in \beta'$. Thus, there is a $K_1,K_2$ s.t. these are compact and $B_1 \subset K_1$ and $B_2 \subset K_2$. Since $K_1,K_2$ are compact this implies they are closed. Thus, $K_1 \cap K_2$ is closed. Since $X$ is Hausdorff this means $K_1 \cap K_2$ is compact.
+
+    Thus, $x \in B_1 \cap B_2 \subset K_1 \cap K_2$. Since $\beta$, we know there exists a $B_3 \in \beta$ s.t. $x \in B_3 \subset B_1 \cap B_2 \subset K_1 \cap K_2$ thus $B_3 \in \beta'$.
+
+    Thus, $\beta'$ is a basis for $X$.
+
+    Define $F=\{U \subset X \mid U=\bigcup_{i=1}^m B_i,\;\;B_i \in B',\;\;m \in \N\}$ which is countable since $B'$ is countable.
+
+    Thus, for each set $U=B_1 \cup B_2 \dots \cup B_n \in F$ we know for each $B_i \subset K_i$ s.t. $K_i$ is compact. Thus, each $K_i$ is closed. Thus, the finite union of all the $K_i$'s is also closed, and since $X$ is Hausdorff this means the union is also compact. Call this union $K_U$.
+
+    Let $\hat{X}$ be the one point compactification of $X$. 
+
+    Define $V_U= \hat{X} \setminus K_U$
+
+    Let $\hat{B}=\beta' \cup \{V_U \mid U \in F\}$
+
+    Let $x \in \hat{X}$
+
+    If $x \in X$ then $x \in B$ for some $B \in \beta'$
+
+    If $x = \times$ then let $V$ be an open neighborhood of $\infty$. By definition of the topology on $\hat{X}$ we know that $V=\hat{X} \setminus K$ s.t. $K$ is compact.
+
+    Since $\beta'$ is an open cover of $K$ we know there exists a finite subcover $B_1,\dots,B_n \in \beta$ s.t. $K \subset B_1 \cup \dots \cup B_n$.
+
+    Thus, $K \subset K_1 \cup \dots \cup K_n=K_U$. Since each $B_i \subset K_i$ for some $K_i$ that is compact in $X$.
+
+    Thus, $\infty \in V_U \subset V$.
+
+    Let $U_1,U_2 \in \hat{B}$ s.t. $x \in U_1 \cap U_2$.
+
+    If $x \in X$ then since open sets in $\hat{X}$ are either already open in $X$ or of the form $\hat{X} \setminus K$ where $K$ is compact. This means that the open sets intersected with $X$ are also open in $X$. We do not have to check for the first type but for the second type when intersecting with $X$ it becomes $X \setminus K$. Since $K$ is compact it is closed thus $X \setminus K$ is open.
+
+    Therefore, any open set in $\hat{X}$ intersected with $X$ is open.
+
+    Thus, $x \in U_1 \cap U_2 \cap X$. Since $\beta'$ is a basis this implies there exists a $B \in \beta'$ s.t. $x \in B \subset U_1 \cap U_2 \cap X$. Thus, $x \in B \subset U_1 \cap U_2$. Thus, done since $B \in \beta'$.
+
+    If $x =\infty$ then $U_1 = \hat{X} \setminus K_{F_1}$ and $U_2 = \hat{X} \setminus K_{F_2}$. Thus, $K=K_{F_1} \cup K_{F_2}$ is also compact in $X$.
+
+    Thus, by a similar proof above by showing $K$ is a subset of basis elements in $\beta'$ and taking a new set $K \subset K_U$. We know that $\infty \in V_U \subset \hat{X} \setminus K=U_1 \cap U_2$.
+
+    Thus, $\hat{B}$ is a basis for $\hat{X}$ which is countable.
+\end{problemproof}
+
+\begin{problem}{}
+    For each space below, determine which of the countability axioms
+    (first countable, second countable, and separable) $X$ satisfies.
+\end{problem}
+\begin{subproblem}{}
+    $X = \R^\omega$, equipped with the topology induced by the
+    uniform metric.
+\end{subproblem}
+\begin{problemproof}
+    Let $x \in \R^\omega$ with the uniform metric then consider $\{B(x,1/n) \mid n \in \N\}$.
+
+    Let $U$ be an open neighborhood of $x$. Then, there exists an $\epsilon >0$ s.t. $B(x,\epsilon) \subset U$.
+
+    Fix $N \in \N$ s.t. $1/N < \epsilon$. Thus, $B(x,1/N) \subset B(x,\epsilon) \subset U$.
+
+    Thus, $\R^\omega$ is first countable.
+
+    Consider $\{0,1\}^\omega$. Let $x \in \{0,1\}^\omega$
+
+    Consider $B(x,1/2) \cap \{0,1\}^\omega=\{x\}$. Since the distance between each point in $\{0,1\}^\omega$ is 1. Thus, $\{0,1\}^\omega$ is an uncountable discrete subset which implies $\R^\omega$ is not second countable.
+
+    Assume $\R^\omega$ has a countable dense subset $U$.
+
+    Consider $f: \{0,1\}^\omega \to U$ s.t. $f(x)=u$ s.t. $u \in B(x,1/2)$.
+
+    Injective:
+
+    Let $x,y \in \{0,1\}^\omega$ s.t. $f(x)=f(y)$. Thus, $x=y$ since $B(x,1/2)$ only contains one point from $\{0,1\}^\omega$.
+
+    Thus, this implies $U$ is uncountable thus, $\R^\omega$ is not separable.
+\end{problemproof}
+
+\begin{subproblem}{}
+    $X$ is the set $\R$ equipped with the topology generated by
+    the basis of intervals of the form $[a, b)$, for $a, b \in \R$.
+\end{subproblem}
+\begin{problemproof}
+    Let $x \in X$ then consider $\{[x,x+1/n) \mid n \in \N\}$.
+
+    Let $U$ be an open neighborhood of $x$. Then, there exists an interval s.t. $x \in [a,b) \subset U$.
+
+    Thus pick $N \in \N$ s.t. $a+1/N < b$. Thus, $x \in [a,a+1/N) \subset U$.
+
+    Thus, $X$ is first countable.
+
+    Consider $\Q$. $\Q$ is dense since any set $[a,b)$ with have a rational number in it. This is from $\Q$ being dense in $\R$ with standard topology.
+
+    Thus, $X$ is separable.
+
+    Assume for contradiction that $X$ is second countable. Thus, it has a second countable basis $\beta$.
+
+    Define $f : X \to \beta$ s.t. $f(x)=B_x$ s.t. $x \in B_x \subset [x,x+1)$.
+
+    Injective:
+
+    Let $x,y \in X$ s.t. $f(x)=f(y)$. Thus, $B_x=B_y$. Thus, $B_y=B_x \subset [x,x+1)$ and $B_y=B_x \subset [y,y+1)$.
+
+    Thus, $x=y$.
+
+    This is a contradiction since $X$ is uncountable thus $X$ is not second countable.
+\end{problemproof}
+
+\begin{problem}{}
+    Show that a compact metrizable space is always second
+  countable. (This is exercise 4 in \S30 of Munkres; see that exercise
+  if you need a hint.)
+\end{problem}
+\begin{problemproof}
+    Let $X$ be compact and metrizable. Let $d$ be a metric on $X$.
+
+    Consider $C=\{B(x,1/n) \mid x \in X\}$. This is an open cover of $X$. Since $X$ is compact we know there is a finite subcover $B_n$.
+
+    Consider $\beta=\displaystyle\bigcup_{n \in \N}B_n$
+
+    Let $x \in X$ since each $B_n$ is a finite subcover $x \in B \in B_n$.
+
+    Let $x \in U_1 \cap U_2$ s.t. $U_1,U_2 \in \beta$. Thus, there is an $\epsilon > 0$ s.t. $x \in B(x,\epsilon) \subset U_1 \cap U_2$.
+
+    Now consider $B_N$ s.t. $1/N < \epsilon/2$. Since $B_N$ is a finite subcover $x \in B$ for some $B=B(y,1/N) \in B_N$.
+
+    Thus, for $z \in B$ we have $d(x,z) \leq d(x,y) + d(y,z) \leq 2/N < \epsilon$. Thus, $x \in B(y,1/N) \subset U_1 \cap U_2$.
+
+    Thus, $\beta$ is a countable basis for $X$. Thus, $X$ is second countable.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X_1, X_2$ be two spaces consisting of the same underlying set
+  $X$ equipped with topologies $\T_1, \T_2$ respectively;
+  suppose that $\T_1$ is finer than $\T_2$.
+\end{problem}
+
+\begin{subproblem}{}
+    What (if anything) can you conclude about $X_1$ if $X_2$ is
+assumed to be Hausdorff? What (if anything) can you conclude
+about $X_2$ if $X_1$ is assumed to be Hausdorff?
+\end{subproblem}
+\begin{problemproof}
+    Assume $X_2$ is Hausdorff. Let $x,y \in X_1$. Since $\T_2 \subset \T_1$. We know in $\T_2$ there exists disjoint nonempty open sets s.t. $x \in U$ and $y \in V$.
+
+    Since $U,V \in \T_2 \subset \T_1$. Thus, $X_1$ is Hausdorff.
+
+    The other way does not work. Consider $\T_1=\mathcal{P}(X)$, $\T_2=\{\emptyset,X\}$, and $X=\R$. $X_1$ is Hausdorff but $X_2$ is not.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Repeat part (a), but replace ``Hausdorff'' with ``regular''
+and ``normal'' in turn.
+\end{subproblem}
+\begin{problemproof}
+    Both ways do not work for regular. For one direction use the same counter example as above.
+
+    For the other direction 
+    
+    Consider $\R=X_2$ with standard topology and $X_1=\R$ with a basis of $(a,b)$ and $(a,b) \setminus K$ s.t. $K=\{1/n \mid n \in \N\}$.
+
+    Both ways do not work for regular. For one direction use the same counter example as above.
+
+    For the other direction
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that if $M_1$ is an $n$-manifold and $M_2$ is an $m$-manifold,
+  then the space $M_1 \times M_2$ is an $(n + m)$-manifold.
+\end{problem}
+\begin{problemproof}
+    Let $U \times V$ be a basic open set in $M_1 \times M_2$. The reason we only have to look at basic open sets is because every set is a union of these so when applying a function $f(\bigcup B)=\bigcup f(B)$.
+
+    Thus, $U$ is open in $M_1$ and $V$ is open in $M_2$.
+
+    Thus, $U \cong S$ and $V \cong T$ s.t. $S$ is an open set in $\R^n$ and $T$ is an open set in $\R^m$.
+
+    Let $f$ be a homeomorphism for $U$ to $S$ and let $g$ be the same for $V,T$.
+
+    Consider, $h: U \times V \to S \times V$ s.t. $h(x,y)=(f(x),g(y))$. Thus, this is a homeomorphism since $f,g$ are homeomorphisms. Thus, $U \times V \cong S \times T \subset R^{n+m}$.
+
+    Therefore, $M_1 \times M_2$ is a $n+m$ manifold.
+\end{problemproof}
+\end{document}

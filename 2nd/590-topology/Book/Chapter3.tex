@@ -1,0 +1,170 @@
+\section{Connectedness and Compactness}
+\subsection{Connected Spaces}
+\begin{pb}{}
+    Let $\T$ and $\T'$ be two topologies on $\T$. 
+    If $\T' \supset \T$, what does connectedness of $X$ in one topology imply about connectedness in the other?
+\end{pb}
+\clm{}{
+    If $A \subset X$ is connected in $\T'$, then $A$ will be connected in $\T$.
+}
+\begin{problemproof}
+    Let $A \subset X$ be connected in $\T'$. This means there are no sets $U,V \in \T'$ s.t. $U \sqcup V=A$. Since $\T \subset \T'$ since if $U \in T' \implies U \in\T'$ this means that there are also no $U,V \in \T'$ s.t. $U \sqcup V =A$.
+\end{problemproof}
+\vspace{1in}
+\begin{pb}{}
+    Let $\{A_n\}$ be a sequence of connected subspaces of $X$, such that $A_n\cap A_{n+1} \neq \emptyset$ for all $n$.
+    Show that $\bigcup A_n$ is connected.
+\end{pb}
+\begin{problemproof}
+    Assume for contradiction that $A=\displaystyle\bigcup A_n$ is disconnected.
+
+    Thus, there exists nonempty open disjoint sets $U,V$ s.t. $A=U \cup V$.
+    
+    Since $U$ and $V$ are not empty this implies that there exists an $n \in \N$ s.t. $A_n \subseteq U$ and $A_{n+1} \subseteq V$.
+
+    Since $U \cap V =\emptyset \implies A_n \cap A_{n+1} = \emptyset \contr$
+
+    Thus, $A$ is connected.
+\end{problemproof}
+\vspace{1in}
+\begin{pb}{}
+    Let ${A_\alpha}$ be a collection of connected subspaces of $X$; let $A$ be a connected subspace of $X$. 
+    Show that if $A \cap A_\alpha \neq \emptyset$ for all $\alpha$, then $A \cup ( \bigcup A_\alpha)$ is connected.
+\end{pb}
+\begin{problemproof}
+    Assume for contradiction that $O=A \cup ( \bigcup A_\alpha)$ is not connected.
+
+    Thus, there exists nonempty open disjoint sets $U,V$ s.t. $O=U \cup V$.
+
+    Since $U$ and $V$ are not empty this implies there exists an $\alpha$ s.t. $A_\alpha \subseteq U$ and $A \subseteq V$.
+
+    This is a contradiction since $A \cap A_\alpha \neq \emptyset$.
+
+    Thus, $O$ is connected.
+\end{problemproof}
+\vspace{1in}
+\begin{pb}{}
+    Show that if $X$ is an infinite set, it is connected in the finite complement topology
+\end{pb}
+\begin{problemproof}
+    Assume $X$ is an infinite set.
+
+    Assume for contradiction that $X$ is disconnected.
+
+    Thus, there exists nonempty open disjoint sets $U,V$ s.t. $X=U \sqcup V$.
+
+    Thus, $X \setminus U$ and $X \setminus V$ are finite.
+
+    Consider:\[(X \setminus U) \cup (X \setminus V)=X \setminus (U \cap V)= X \setminus \emptyset = X\]
+    This is a contradiction since $X$ is infinite which we have shown is a union of two finite sets. Therefore, $X$ is connected.
+\end{problemproof}
+
+\stepcounter{problemcounter}
+\vspace{1in}
+\begin{pb}{}
+    Let $A \subseteq X$. Show that if $C$ is a connected subspace of $X$ that intersects both $A$ and $X\setminus A$, then $C$ intersects $\partial A$.
+\end{pb}
+\begin{problemproof}
+    Assume $C$ is a connected subspace of $X$ that intersects both $A$ and $X \setminus A$.
+
+    Consider $\partial A=\overline{A} \cap \overline{X \setminus A}$.
+
+    Assume for contradiction that $\partial A \cap C = \emptyset$.
+
+    Since $X=\overline{A} \cup \overline{X \setminus A}$ we know that for $x \in C$ that $x \in \overline{A}$ or $x \in \overline{X \setminus A}$ not both since $C \cap \partial{A}=\emptyset$.
+
+    Consider $C=(C \cap (X \setminus \overline{A})) \cup (C \cap ( X\setminus \overline{X \setminus A}))$.
+
+    Consider $(X \setminus \overline{A}) \cap (X \setminus \overline{X \setminus A})=X \setminus({\overline{A} \cup \overline{X \setminus A}})= X \setminus X = \emptyset$.
+
+    Thus, this is a separation of $C$ which is a contradiction.
+\end{problemproof}
+
+\addtocounter{problemcounter}{2}
+\vspace{1in}
+\begin{pb}{}
+    Let $A$ be a proper subset of $X$, and let  $B$ be a proper subset of $Y$. If $X$ and $Y$ are connected, show that 
+    \[(X \times Y ) \setminus (A \times B)\] is connected.
+\end{pb}
+\begin{problemproof}
+    Let $A \subsetneq X$ and $B \subsetneq Y$.
+
+    Let $a \notin A$ and $b \notin B$ consider $(\{a\} \times Y) \cup (X \times \{b\})=C$. This is connected since these spaces share $(a,b)$ and one point product with space $X$, $Y$ is homeomorphic to $X$,$Y$. Thus, it is connected.
+
+    Since $(\{x\} \times Y)$ and $(X \times \{y\})$ for $x \notin A$ and $y \notin A$ intersect $C$. By problem 3 we get that
+    \[(\bigcup_{x \notin A}\{x\} \times Y) \cup (\bigcup_{y \notin B}X \times \{y\})=(X \times Y) \setminus (A \times B)\]
+    is connected. 
+\end{problemproof}
+
+\vspace{1in}
+\begin{pb}{}
+    Let $\{X_\alpha\}_{\alpha \in J}$ be an indexed family of connected spaces; let X be the product space
+    \[X = \prod_{\alpha \in J} X_\alpha\]
+    Let $\mathbf{a} = (a_\alpha)$ be a fixed point of $X$. 
+\end{pb}
+\begin{subproblem}{}
+    Given any finite subset $K$ of $J$, let $X_K$ denote the subspace of $X$ consisting
+of all points $\mathbf{x} = (x_\alpha)$ such that $x_\alpha = a_\alpha$ for $\alpha \notin K$. Show that $X_K$ is
+connected.
+\end{subproblem}
+\begin{problemproof}
+    Assume for contradiction that $X_K$ is disconnected. Thus, consider the projection map from $X$ to $B=X_{\alpha_1} \times \dots \times X_{\alpha_n}$ s.t. $\alpha_i \in K$. Since $X_{\alpha_i}$ is connected we know that the product of all of them is connected thus consider $\pi(X_K)=\pi(U) \cup \pi(V)=B$. Since $U \cap V= \emptyset$. If $\pi(u)=\pi(v)$ for $u \in U$ and
+    $v \in V$. This implies that $u=v$ since there are already equal for all things not in $K$ but then when you project it it shows they are equal for also $K$. This is a contradiction of $U \cap V = \emptyset$. Thus, $\pi(U) \cap \pi(V)= \emptyset$.
+
+    Since $X_K \cong \pi(X_K)$ since we just have the times one point outfront this means that $\pi(U),\pi(V)$ are open thus this is a contradiction of $B$ being connected, since $\pi(X_K)= B$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that the union $Y$ of the spaces $X_K$ is connected.
+\end{subproblem}
+\begin{problemproof}
+    Consider $\{\mathbf{a}\}$. This is trivially connected, and $\{\mathbf{a}\} \cap X_K=\{\mathbf{a}\}$ for all $K \subset J$ s.t. $K$ is finite. Thus, by problem 3 we get that $Y$ is connected.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that $X$ equals the closure of $Y$; conclude that $X$ is connected.
+\end{subproblem}
+\begin{problemproof}
+    Since $X$ is closed and contains $Y$ this implies that $\overline{Y} \subset X$.
+
+    Let $x \in X$. Let $U$ be a neighborhood of $x$. Thus, there is a basis element s.t. for $K=\{\alpha_1,\dots,\alpha_n\} \subseteq J$
+    \[B=U_{\alpha_1} \times \dots \times U_{\alpha_n} \times (\prod_{\alpha \notin K}X_\alpha) \subseteq U\]
+
+    Consider $y=(y_\alpha) \in B$ s.t. $y_\alpha=a_\alpha$ for $\alpha \notin K$ and $y_{\alpha_i} \in U_{\alpha_i}$ for $\alpha_i \in K$.
+
+    Thus, $y \in Y$. Thus, $X = \overline{Y}$. Thus, $Y \subseteq  X \subseteq \overline{Y} \implies X$ is connected.
+\end{problemproof}
+
+\vspace{1in}
+\begin{pb}{}
+    Let $p: X \to Y$ be a quotient map. Show if each set $p^{-1}(\{y\})$ is connected, and if $Y$ is connected then $X$ is connected.
+\end{pb}
+\begin{problemproof}
+    Assume $p^{-1}(\{y\})$ is connected for all $y \in Y$ and $Y$ is connected.
+
+    Assume for contradiction that $X=U \sqcup V$ for $U,V$ open.
+    
+    Thus, for $y \in Y$, $p^{-1}(\{y\})$ is either in $U$ or $V$.
+
+    Thus, since $p$ is surjective and the preimages of single points only live in either $U$ or $V$ but not both we can partition $Y$ into sets $S,T$ s.t. $p^{-1}(S)=U$ and $p^{-1}(T)=V$. This is a contradiction since $Y$ is connected.
+\end{problemproof}
+
+\vspace{1in}
+\begin{pb}{}
+    Let $Y \subseteq X$; let $X$ and $Y$ be connected. Show that if $A$ and $B$ for a separation of $X \setminus Y$, then $Y \cup A$ and $Y \cup B$ are connected
+\end{pb}
+\begin{problemproof}
+    Assume $Y \cup A$ is disconnected then $Y \cup A=U \cup V$ for nonempty disjoint open sets $U,V$.
+
+    Consider:
+    \begin{align*}
+        X&=Y \cup A \cup B\\
+         &=U \cup V \cup B 
+         \intertext{Now consider $U \cap (V \cup B)$}
+        U \cap (V \cup B)&=(U \cap V) \cup (U \cap B)\\
+                         &= \emptyset \cup (U \cap B)
+        \intertext{Since $U \subset Y \cup A$ it can only have things from $Y$ or $A$ thus since $B \cap A=\emptyset$ and $B \cap Y=\emptyset$. This means that $U \cap B=\emptyset$}
+                         &=\emptyset
+    \end{align*}
+    This is a contradiction of $X$ being connected.
+\end{problemproof}

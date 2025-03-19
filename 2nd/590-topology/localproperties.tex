@@ -1,0 +1,150 @@
+\section{Local Properties of Topological Spaces}
+\subsection{Locally Connectivity}
+\defn{Locally Connected}{
+    Let $X$ be a space. Then $X$ is locally connected at a point $x \in X$ if,
+    for every neighborhood $U$ of $x$, there is a neighborhood $V \subseteq U$ of $x$ s.t. $V$ is connected.
+
+    $X$ is locally connected if it's locally connected at every point.
+}
+
+\defn{Locally Path Connected}{
+    Let $X$ be a space. Then $X$ is locally path connected at a point $x \in X$ if,
+    for every neighborhood $U$ of $x$, there is a neighborhood $V \subseteq U$ of $x$ s.t. $V$ is path connected.
+
+    $X$ is locally path connected if it's locally connected at every point.
+}
+
+
+Local connectedness neither implies nor is implied by connectedness.
+
+\exm{}{
+    \begin{itemize}
+        \item $\R$ is connected, also locally connected.
+        \item $[0,1) \cup (1,2]$ is locally connected.
+        \item Topologist's sign curve is connected but not locally connected.
+        \item $\Z$ is not connected, but locally connected
+        \item 
+    \end{itemize}
+}
+
+\thmp{}{
+    If $X$ is locally connected, then connected components are closed and open.
+}{
+    Let $C$ be a connected component of $X$.
+
+    If $x \in C$, then $\exists$ connected neighborhood $V$ of $x$ s.t. $V \subseteq C$.
+
+    Thus, $C=\cup_{x \in C}V$ so $C$ is open.
+}
+Same proof works if you replace locally connected with locally path connected.
+
+\thmp{}{
+    If $X$ is a topological space and $X$ is locally path-connected, then connected components of $X$ are the same as the path components.
+}{
+    Let $C$ be a component. If $P$ is any path component intersecting $C$, then $P \subseteq C$ since path connected space is connected.
+
+    This means that:
+    \[C=\bigcup_{P \t{ path component intersecting } C} P\]
+    If there is more than one path component intersecting $C$, then 
+    \[C=P \cup \bigcup_{Q \t{ path component intersecting } C} Q\]
+    This is a contradiction of $C$ being connected since path components are open in locally path connected spaces.
+}
+
+\subsection{Local Compactness}
+
+\defn{Locally Compact}{
+    $X$ is locally compact at $x$ if there is a neighborhood $U$ of $x$ and a compact set $C$ containing $U$.
+
+    $X$ is locally compact if it's locally compact of every $x \in X$.
+}
+
+\exm{}{
+    \begin{itemize}
+        \item Any compact space is locally compact.
+        \item $\R^n$
+        \item $\Q$ is not locally compact.
+        \item $\R^\omega$ is not locally compact.
+    \end{itemize}
+}
+
+\defn{Compactification}{
+    A compactification of a space $X$ is a space $Y$, containing $X$ as a subspace, s.t.:
+    \begin{itemize}
+        \item $Y$ is compact and Hausdorff
+        \item $\overline{X}=Y$
+    \end{itemize}
+}
+
+\defn{One-point Compactification}{
+    Let $X$ be a space and let $Y$ be its compactification then if $Y \setminus X$ is a singleton then $Y$ is called the one-point compactification of $X$.
+}
+
+\exm{}{
+    \begin{itemize}
+        \item $S^1$ is one-point compactification of $\R$.
+        \item $[0,1]$ is a compactification of $\R$.
+        \item $\{0\} \cup \{1/n \mid n \in \N\}$ is one-point compactification of $\N$.
+    \end{itemize}
+}
+
+\thm{}{
+    $X$ has a one-point compactification $\iff$ $X$ is locally compact and Hausdorff.
+}
+
+\thm{}{
+    If $Y$, $Y'$ are two one-point compactifications of $X$, then there is a homeomorphism $Y \to Y'$ restricting to identity map.
+}
+
+\corp{}{
+    If $X$ is Hausdorff, then $X$ is locally compact $\iff$ for every $x \in X$ and every neighborhood $U$ of $x$, there exists a neighborhood $V$ of $x$ s.t. $\overline{V}$ is compact, and $\overline{V} \subseteq U$.
+}{
+    $\impliedby$ Just take $V$ has your neighborhood which is contained in $\overline{V}$
+
+    $\implies$: Suppose $X$ is locally compact and Hausdorff. Let $Y$ be the one point compactification. Let $U$ be open in $X$, $x \in U$. $Y \setminus U$ is closed, so $Y \setminus U$ is compact.
+
+    $\{x\}$ is compact, by hw problem there are open sets $V,W$ s.t. $x \in V$, $Y \setminus U \subseteq W$, and $V \cap W=\emptyset$.
+
+    $Y \setminus W$ is closed thus compact, $V \subset Y \setminus W \subset U$ so $\overline{V} \subseteq Y \setminus W$, so $\overline{V}$ is closed subset of compact space thus $\overline{V}$ is compact.
+}
+
+\propp{
+    Let $Y$ be one point compactification of $X$, let $Y'$ be any compactification of $X$. There is a unique quotient map $Y' \to Y$ which restricts to identity on $X$, taking $Y' \setminus X \to Y \setminus X$. 
+}{
+    Let $h: Y' \to Y$ by: $h$ is identity on $X$, $h(y)=\infty$ for any $y \in Y' \setminus X$. $Y=X \cup \{\times\}$.
+
+    Let $U$ be any open set in $Y$.
+
+    If $U \subseteq X$, then $h^{-1}(U)$ open $\iff$ $U$ open, since $h$ is identity in $X$
+
+    If $\infty \in U$ then $U$ open $\iff$ $Y \setminus U$ closed $\iff$ $Y \setminus U$ in $X$ $\iff$ $Y' \setminus h^{-1}(U)$ compact $\iff$ $Y' \setminus h^{-1}(U)$ closed $\iff$ $h^{-1}(U)$ open.
+}
+
+\cor{
+    One point compactifications are unique.
+}
+
+\exm{}{
+    \begin{itemize}
+        \item $S^2$ is one point compactification of $\R^2$
+        \item Closed unit disk is a compactification of $\R^2$, so we know there is a quotient map from here to $S^2$.
+    \end{itemize}
+}
+
+For Theorem 10.8
+\begin{thmpf}
+    Let $X$ be locally compact and Hausdorff.
+
+    Let $Y=X \cup \{\infty\}$
+
+    Define a topology $\T$ on $Y$ by taking two types of open sets:
+    \begin{itemize}
+        \item all open subsets of $X$ are in $\T$.
+        \item all open sets of the form $Y \setminus C$, where $C$ is a compact subset of $X$.
+    \end{itemize}
+
+    Show $\T$ is a topology.
+
+    Show $Y$ is compact.
+
+    Show $Y$ is Hausdorff.
+\end{thmpf}

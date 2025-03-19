@@ -1,0 +1,38 @@
+\section{Separation Axioms}
+
+\defn{}{Let $X$ be a topological space
+\begin{itemize}
+    \item $X$ is $T_1$ if singletons are closed.
+    \item $X$ is Hausdorff ($T_2$) if, for every pair of distinct points $x,y \in X$, $\exists$ disjoint neighborhoods of $x,y$
+    \item $X$ is regular ($T_3$) if it is $T_1$ and for every $x \in X$ and every closed $B \subset X$ with $x \notin B$, $\exists$ disjoint open sets containing $x$ and $B$.
+    \item $X$ is normal if it is $T_1$ and for every pair of disjoint closed subsets $A,B \subset X$, $\exists$ disjoint open sets containing $A,B$.
+\end{itemize}
+}
+
+\thm{}{
+    A subspace of a $T_1,T_2,T_3$ space is $T_1,T_2,T_3$
+}
+
+\thm{}{
+    Let $\{X_\alpha\}_{\alpha \in J}$ be a family of $T_1,T_2,T_3$ spaces. Then the product is $T_1,T_2,T_3$.
+}
+
+\lemp{}{
+    Let $X$ be a top. space. Then $X$ is regular $\iff$ for every $x \in X$ and any neighborhood $U$ of $X$, there exists a neighborhood $V$ of $x$ s.t. $\overline{V} \subset U$.
+}{
+    $(\implies)$ Suppose $X$ is regular. Fix $x \in X$, neighborhood $U$ of $x$.
+
+    Since $X \setminus U$ is closed, so can find disjoint open sets containing $x$, $X\setminus U$. 
+    
+    $X \setminus U \subset U$ and $x \in V$.
+
+    $X \setminus W$ is closed set containing $V$, so $\overline{V} \subset X \setminus U$, and since $X \setminus U \subset W$, we have $X \setminus W \subset U$, so $\overline{V} \subset U$.
+
+    $(\impliedby)$
+
+    Let $x \in X$, $B \subset X$ s.t. $x \notin B$, assume $B$ is closed.
+
+    Consider $U=X \setminus B$ is a neighborhood of $x$. Let $V$ be a neighborhood of $x$ s.t. $\overline{V} \subset U$.
+
+    Thus, $V,X\setminus \overline{V}$ are open sets separating $x$ and $B$.
+}

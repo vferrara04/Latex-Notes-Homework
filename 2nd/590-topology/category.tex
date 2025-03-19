@@ -1,0 +1,76 @@
+\section{Categorizing Spaces}
+\defn{First Countable}{
+    A space $X$ is first-countable if for every, $x \in X$, there exists a countable neighborhood basis of $x$.: There exists a collection $\beta$ of neighborhoods of $x$ s.t. $\beta$ is countable, and every neighborhood
+     of $x$ contains some $B \in \beta$
+}
+
+\prop{Let $X$ be first countable. Then $f: X \to Y$ is continuous if and only if for all sequences $x_n \to x$, we have $f(x_n) \to f(x)$.}
+
+\prop{
+    Let $X$ be first countable, let $A \subseteq X$. Then $x \in \overline{A}$ if and only if there exists $x_n$ in $A$ s.t. $x_n \to x$.
+}
+
+\defn{Second Countable}{
+    A space $X$ is second countable if it has a countable basis.
+}
+
+\propp{
+    Let $X$ be a second countable space. Then any discrete subspace of $X$ is countable.
+}{
+    Consider $A \subseteq X$ discrete subspace.
+
+    For each $x \in A$, can find a basis element $B_x$ s.t. $B_x \cap A= \{x\}$.
+
+    So, if $\beta$ is a countable basis, the map $A \to \beta$ give by $x \mapsto B_x$ is injective map from $A$ to a countable set thus $A$ is countable.
+}
+
+\prop{
+    Any subspace of a first countable space is first countable.
+}
+
+\prop{
+    Any countable product of a first countable space is first countable.
+}
+Also works for second.
+
+\propp{
+    Let $X$ be second countable. Then $X$ has a countable dense subset.
+}{
+    Let $\{B_n\}$ be a countable basis for $X$. For each $B_n$, let $x_n \in B_n$.
+
+    Define: $A=\{x_n\}$.
+
+    Let $x \in X$. Then any neighborhood $U$ of $x$ contains some $B_n$, so it contains some $x_n \in A$.
+
+    Thus, $x \in \overline{A}$.
+}
+
+\defn{Separable}{
+    $X$ is separable if it contains a countable dense subset.
+}
+
+\defn{$n$-Manifold}{
+    Let $X$ be a topological space, $n \in \N$. Then $X$ is an $n$-manifold if:
+    \begin{itemize}
+        \item it is Hausdorff
+        \item it is second countable
+        \item it is locally homeomorhpic to $\R^n$
+    \end{itemize}
+}
+
+$X$ is locally homeomorhpic to $R^n$ if for all $x \in X$, there is a neighborhood $U$ of $x$ which is homeomorhpic to an open subset of $\R^n$
+
+A 1-manifold is a curve, and a 2-manifold is a surface.
+
+\thm{}{
+    Every connected 1-manifold is homeomorhpic to either $S^1$ or $\R$.
+}
+
+\thm{}{
+    Any $n$-manifold is a metrizable space.
+}
+
+\thm{}{
+    Any $n$-manifold can be embedded into a copy of $\R^N$, for some $N \geq n$.
+}
+

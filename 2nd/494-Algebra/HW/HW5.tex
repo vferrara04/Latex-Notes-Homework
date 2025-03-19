@@ -1,0 +1,226 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+
+\input{../../../homework}
+\usepackage[all]{xypic}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+\qh[Unique Factorization]
+\begin{subproblem}{}
+    In the ring $\Z[i]$, factor the element $17+9i$ into a product
+of irreducibles.
+\end{subproblem}
+\begin{problemproof}
+    $N(17+9i)=2 \cdot 5 \cdot 37$
+    \begin{align*}
+        \dfrac{(17+9i)(1-i)}{(1+i)(1-i)}=13-4i\\
+        \dfrac{(13-4i)(2+i)}{(2+i)(2-i)}=6+i
+    \end{align*}
+    $17+9i=(1+i)(2-i)(6+i)$
+
+    These are irreducible since their norms are primes.
+\end{problemproof}
+
+\begin{subproblem}{}
+    In the ring $\Z[\omega]$, factor the elements $17+9\omega$ and
+$17-9\omega$ into products of irreducibles.
+\end{subproblem}
+\begin{problemproof}
+    $N(17-9\omega)=523$ which is prime
+
+    Thus, $17-9\omega$ is irreducible.
+
+    $N(17+9\omega)=7 \cdot 31$
+    \begin{align*}
+        \dfrac{(17+9\omega)(3+\omega)}{(3+\omega)(3+\omega^2)}=(6+5\omega)
+    \end{align*}
+    $17+9\omega=(3+\omega^2)(6+5\omega)$
+
+    These are irreducible since their norms are primes.
+\end{problemproof}
+
+\qh[Ideal Factorization]
+\addtocounter{subproblemcounter}{5}
+\begin{subproblem}{}
+    Show that $(7) = \mathfrak{p}_3 \mathfrak{p}_4$ for some maximal (hence prime
+ideals) $\mathfrak{p}_3$ and $\mathfrak{p}_4$. Write down
+what $\mathfrak{p}_3$ and $\mathfrak{p}_4$ are explicitly, i.e., identify generators for them.
+\end{subproblem}
+\begin{problemproof}
+    First we know that $3^2=9 \equiv -5 \pmod{7}$.
+
+    Thus, consider $(7,3-\sqrt{-5})(7,3+\sqrt{-5})=(49,21-7\sqrt{-5},21+7\sqrt{-5},14)=(7)$. 
+    
+    Since $49-3 \cdot 14=7$, and the rest are divisible by 7.
+
+    Want to show that $(R /(7,3-\sqrt{-5})) \cong \Z/7\Z$
+
+    Define: $\phi: R \to \Z/7\Z$ s.t. $\phi(a+b\sqrt{-5})=a+3b$.
+
+    Homomorphism:
+
+    $\phi(a+b\sqrt{-5}+c+d\sqrt{-5})=a+c+3(b+d)=\phi(a+b\sqrt{-5})+\phi(c+d\sqrt{-5})$
+
+    $\phi((a+b\sqrt{-5})(c+d\sqrt{-5}))=\phi(ac+(ad+cb)\sqrt{-5}-5bd)=ac-5bd+3(ad+cb)=ac+9bd+3(ad+cb)=(a+3b)(c+3d)=\phi(a+b\sqrt{-5})\phi(c+d\sqrt{-5})$
+
+    $\phi(1)=1$
+
+    Surjective:
+
+    Let $x \in \Z/7\Z$. $\phi(x)=x$
+
+    Kernel:
+
+    Let $x=a+b\sqrt{-5} \in \ker{\phi}$. $\phi(x)=0=a+3b$ 
+    
+    Thus, $a=-3b+7k$ for some $k \in \Z$.
+
+    $x=-3b+7k+b\sqrt{-5}=7k+b(-3+\sqrt{-5}) \in (7,-3+\sqrt{-5})=(7,3-\sqrt{-5})$.
+
+    Let $x \in (7,3-\sqrt{-5})$. Thus, $x=7a+b(3-\sqrt{-5})$
+
+    $\phi(x)=\phi(7a)+\phi(3-\sqrt{-5})=0+3-3=0$.
+
+    Thus, $R / (7,3-\sqrt{-5}) \cong \Z/7\Z$.
+
+    Thus, $(7,3-\sqrt{-5})$ is a maximal ideal. Do something similar for $(7,3+\sqrt{-5})$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that $\mathfrak{p}_3$ and $\mathfrak{p}_4$ are not principal, but their
+squares are principal.
+\end{subproblem}
+\begin{problemproof}
+    Assume they are principal then there is an $a \in \Z[\sqrt{-5}]$ s.t. $(a)=(7,3-\sqrt{-5})$.
+
+    Then $N(a) \mid 49$ and $N(a) \mid 14$. Thus, $N(a) \mid 7$. Thus, $N(a)=7$. Since $(7,3-\sqrt{-5})$ is proper.
+
+    Thus, $7=c^2+5d^2$.
+
+    Consider $7 \equiv c^2+5d^2 \pmod{5}$. 
+    
+    Thus, $7 \equiv c^2 \pmod{5}$. 
+    
+    Thus, $2 \equiv c^2 \pmod{5}$. There is no solution. 
+    
+    Thus, there is no integer solution to this equation. Thus, $a$ does not exist.
+
+    Do a similar thing for the other ideal. Thus, we have show that $(7,3-\sqrt{-5}),(7,3+\sqrt{-5})$ are not principal.
+
+    $(7,3-\sqrt{-5})(7,3-\sqrt{-5})=(49,7(3-\sqrt{-5}),4-6\sqrt{-5})$
+
+    Consider $(2-3\sqrt{-5})$
+
+    $49=(2+3\sqrt{-5})(2-3\sqrt{-5})$
+    
+    $4-6\sqrt{-5}=2(2-3\sqrt{-5})$
+
+    $7(3-\sqrt{-5})=(3+\sqrt{-5})(2-3\sqrt{-5})$
+
+    $2-3\sqrt{-5}=49-3(21-7\sqrt{-5})+4(4-6\sqrt{-5})$
+
+    Thus, $(2-3\sqrt{-5})=(7,3-\sqrt{-5})^2$
+
+    The same works for $(2+3\sqrt{-5})=(7,3+\sqrt{-5})^2$ since just conjugate all the equations above.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Write a computer program to determine which of the first hundred
+odd primes remain prime in $R$. Do you notice a pattern? (Please find a partner to
+work with on this problem.
+Indicate in your answer the student that you worked with.)
+\end{subproblem}
+\begin{problemproof}
+    Ethan Harr
+    
+    [11, 13, 17, 19, 31, 37, 53, 59, 71, 73, 79, 97, 113, 131, 137, 139, 151, 157, 173, 179, 191, 193, 197, 199, 211, 233, 239, 251, 257, 271, 277, 293, 311, 313, 317, 331, 337, 353, 359, 373, 379, 397, 419, 431, 433, 439, 457, 479, 491, 499]
+
+    The pattern seems to be $11,13,17,19 \pmod{20}$
+\end{problemproof}
+
+\begin{problem}{Euclidean domains}
+    Show that $\Z [\sqrt{-2}]$ is a Euclidean domain.
+\end{problem}
+\begin{problemproof}
+    Let the norm function as our size function.
+
+    Let $x=a+b\sqrt{-2},y=c+d\sqrt{-2} \in \Z[\sqrt{-2}]$ s.t. $y \neq 0$.
+
+    Consider $x/y=e+f\sqrt{-2}$ s.t. $e,f \in \Q[\sqrt{-2}]$.
+
+    Let $g,h \in \Z$ s.t. $g$ has a gap of less than or equal to one half away form $e$ and same for $h$ and $f$.
+
+    Thus,
+
+    \begin{align*}
+        a+b\sqrt{-2}&=(c+d\sqrt{-2})(e+f\sqrt{-2})\\
+        &=(c+d\sqrt{-2})(g+h\sqrt{-2}+(e-g)+(f-h)\sqrt{-2})\\
+        &=(c+d\sqrt{-2})(g+h\sqrt{-2})+(c+d\sqrt{-2})((e-g)+(f-h)\sqrt{-2})
+    \end{align*}
+
+    $N((c+d\sqrt{-2})((e-g)+(f-h)\sqrt{-2}))=N((c+d\sqrt{-2}))N((e-g)+(f-h)\sqrt{-2})$
+
+    $N((e-g)+(f-h)\sqrt{-2})=(e-g)^2+2(f-h)^2 \leq 1/4+1/2=3/4$
+
+    Thus, $N(r)\leq3/4N(c+d\sqrt{-2})$
+
+    Thus, $\Z[\sqrt{-2}]$ is a Euclidean domain.
+\end{problemproof}
+\end{document}

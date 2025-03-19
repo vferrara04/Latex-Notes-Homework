@@ -1,16 +1,18 @@
-%&../../theorems
+\documentclass[12pt, letterpaper]{article}
 
 %-------Packages---------
 \usepackage{amssymb,amsfonts}
 \usepackage{amsthm}
 \usepackage{graphicx}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[all,arc]{xy}
 \usepackage{enumerate}
+\usepackage{bbm}
 \usepackage{dsfont}
 \usepackage{mathrsfs}
 \usepackage{tikz-cd}
 \usepackage{setspace}
 \usepackage{import}
+\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{float}
@@ -21,48 +23,42 @@
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
 
 \usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
 \usepackage{multicol}
 \usepackage{mathpazo}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.17}
+\usepackage{xparse}
 
-%----------- my commands -------------
+\usepackage[all]{xypic}
+\input{../../../homework.tex}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
-\renewcommand{\P}{\mathbb{P}}
-\newcommand{\T}{\mathcal{T}}
+\newcommand{\F}{\mathbb{F}}
 \newcommand{\contr}{\Rightarrow \Leftarrow}
-\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
 \newcommand{\s}{\(\,\)}
 \renewcommand{\t}[1]{\text{#1}}
+\newcommand{\T}{\mathcal{T}}
 \newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
 
 % Meta data
 \setstretch{1.2}
 
 \begin{document}
+
+\color{\TextColor}
+\pagecolor{\colormode}
 \setlength{\parindent}{0pt}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
-\fancyhead[ROE]{\thepage}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
 
-\include{topologicalspaces}
-\include{basisfortopology}
-\include{examplesoftopologies}
-\include{continousfunctions}
-\include{closuresofsets}
-\include{quotient}
-\include{productspaces}
-\include{connectedness}
-\include{compactness}
-\include{heineborel}
-\include{morecompactness}
-\include{sequentialcompactness}
-\include{localproperties}
-\include{category}
-\include{seperability}
+\input{Chapter3.tex}
 \end{document}

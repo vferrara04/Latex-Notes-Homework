@@ -1,0 +1,234 @@
+\usepackage{xcolor, ifthen, tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+% Theorem System
+% The following environments are provided:
+%   New Problem:        \begin{problem} ...
+%   New Question Header:   \qh (then followed by subproblems)
+%   Subproblem:     \begin{subproblem} ...
+%   Problem Proof:  \begin{problemproof} ...
+%   Proof:          \\begin{pf}{color} ...
+%   Remark:         \rmk (sentence), \rmkb (block)
+
+% Define custom colors
+\definecolor{thmscol}{HTML}{F4565B} %For Problems
+\definecolor{lemscol}{HTML}{FE844C} %For Lemmes
+\definecolor{prpscol}{HTML}{00A7EF} %For proposition
+\definecolor{corscol}{HTML}{23DAFF} %For corrolaries
+\definecolor{rmkscol}{HTML}{6DEEC5} %For remarks
+\definecolor{defscol}{HTML}{18C991} %For definitions
+\definecolor{exmscol}{HTML}{7DB800} %For examples
+\definecolor{clmscol}{HTML}{165c58} %For claims
+
+%Change between dark(black)/light(white) mode
+\newcommand{\colormode}{white}
+\ifthenelse{\equal{\colormode}{white}}
+      {\newcommand{\TextColor}{black}}
+      {\newcommand{\TextColor}{white}}
+\newcommand{\pbcolormain}{thmscol!80!\colormode}
+\newcommand{\pbcolorsecond}{thmscol!38!\colormode}
+
+
+% ============================
+% Problem Counter
+% ============================
+\newcounter{subproblemcounter}
+\newcounter{problemcounter}
+
+\newcommand{\q}{
+    \setcounter{subproblemcounter}{0}%
+    \stepcounter{problemcounter} % Increment problem counter
+    \color{\TextColor}Problem \arabic{problemcounter}: % Display the problem counter
+}
+
+\newcommand{\stepsub}{
+    \stepcounter{subproblemcounter}%
+    \color{\TextColor}(\alph{subproblemcounter})
+}
+% ============================
+% Problem
+% ============================
+\newtcolorbox{pb}[1]{
+  enhanced,
+  frame hidden,
+  titlerule=0mm,
+  toptitle=1mm,
+  bottomtitle=1mm,
+  fonttitle=\bfseries\large,
+  coltitle=black,
+  colbacktitle=\pbcolormain,
+  colback=\pbcolorsecond,
+  title={\q #1},
+  coltext=\TextColor
+}
+
+\newtcolorbox{spb}[1]{
+  enhanced,
+  frame hidden,
+  titlerule=0mm,
+  toptitle=1mm,
+  bottomtitle=1mm,
+  fonttitle=\bfseries\large,
+  coltitle=black,
+  colbacktitle=\pbcolormain,
+  colback=\pbcolorsecond,
+  title={\stepsub #1},
+  coltext=\TextColor,
+  attach boxed title to top left={xshift=3mm,yshift=-2mm},
+  boxed title style={
+    colback=\pbcolormain,
+    colframe=\pbcolormain,
+  }
+}
+
+\newtcolorbox{pbh}[1]{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=\pbcolormain,
+    colback=\pbcolorsecond,
+    title={\q #1},
+    boxrule=0pt,
+    interior hidden,
+    attach boxed title to top left={xshift=3mm,yshift=-2mm},
+    boxed title style={
+        colback=\pbcolormain,
+        colframe=\pbcolormain,
+    }
+}
+
+\newenvironment{problem}[1]{%
+  \newpage
+  \begin{pb}{#1}
+    }{
+  \end{pb}
+}
+
+\newenvironment{subproblem}[1]{%
+  \begin{spb}{#1}
+    }{
+  \end{spb}
+}
+
+\newenvironment{problemproof}{%
+    \begin{pf}{\pbcolormain}
+        }{
+    \end{pf}
+}
+
+\newcommand{\qh}[1][]{
+    \newpage
+    \begin{pbh}{#1}\end{pbh} % Display the problem counter
+}
+
+% ============================
+% Claim
+% ============================
+
+\newtcbtheorem[number within=problemcounter]{claim}{Claim}
+{
+    enhanced,
+    frame hidden,
+    titlerule=0mm,
+    toptitle=1mm,
+    bottomtitle=1mm,
+    fonttitle=\bfseries\large,
+    coltitle=black,
+    colbacktitle=clmscol!50!\colormode,
+    colback=clmscol!20!\colormode,
+}{clm}
+
+\NewDocumentCommand{\clm}{m+m}{
+    \begin{claim*}{#1}{}
+        #2
+    \end{claim*}
+}
+
+\newenvironment{clmpf}{
+	{\noindent{\it \textbf{Proof.}}
+	\setlength{\parindent}{0pt}
+	}
+	\tcolorbox[blanker,breakable,left=5mm,parbox=false,
+    before upper={\parindent15pt},
+    after skip=10pt,
+	borderline west={1mm}{0pt}{clmscol!50!\colormode}]
+}{
+    \textcolor{clmscol!50!\colormode}{\hbox{}\nobreak\hfill$\blacksquare$}
+    \endtcolorbox
+}
+
+\NewDocumentCommand{\clmp}{m+m+m}{
+    \begin{claim*}{#1}{}
+        #2
+    \end{claim*}
+
+    \begin{clmpf}
+        #3
+    \end{clmpf}
+}
+
+
+% ============================
+% Proof
+% ============================
+
+\newenvironment{pf}[1]{%
+  \def\pfcolor{#1}% Store the color in a macro
+  \noindent{\it \textbf{Proof.}}%
+  \tcolorbox[blanker,breakable,left=5mm,parbox=false,%
+    before upper={\parindent15pt},%
+    after skip=10pt,%
+    borderline west={1mm}{0pt}{\pfcolor},%
+    coltext=\TextColor
+  ]%
+  \setlength{\parindent}{0pt}%
+}{%
+  \textcolor{\pfcolor}{\hbox{}\nobreak\hfill$\blacksquare$}%
+  \endtcolorbox%
+}
+
+\newtcolorbox{solution}{
+  blanker,
+  breakable,
+  left=5mm,
+  parbox=false,%
+  before upper={\parindent15pt},%
+  after skip=10pt,%
+  borderline west={1mm}{0pt}{\pbcolormain},%
+  coltext=\TextColor
+}
+
+
+% ============================
+% Remark
+% ============================
+
+
+\NewDocumentCommand{\rmk}{+m}{
+    {\it \color{rmkscol!100!white}#1}
+}
+
+\newenvironment{remark}{
+    \par
+    \vspace{5pt}
+    \begin{minipage}{\textwidth}
+        {\par\noindent{\textbf{Remark.}}}
+        \tcolorbox[blanker,breakable,left=5mm,
+        before skip=10pt,after skip=10pt,
+        borderline west={1mm}{0pt}{rmkscol!80!\colormode},
+        coltext=\TextColor
+        ]
+}{
+        \endtcolorbox
+    \end{minipage}
+    \vspace{5pt}
+}
+
+\NewDocumentCommand{\rmkb}{+m}{
+    \begin{remark}
+        #1
+    \end{remark}
+}

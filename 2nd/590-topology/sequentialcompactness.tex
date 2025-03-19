@@ -78,3 +78,43 @@
 
     Pick some $C$ containing each ball in the cover by $\epsilon$-balls, so this is a finite subscover of $X$ by sets in $\mathcal{C}$.
 }
+
+\thm{Well-Ordering theorem}{
+    Every set can be equipped with a well-ordering
+}
+
+\cor{
+    There exists an uncountable well-ordered set.
+}
+
+\thmp{}{
+    There exists a well-ordered uncountable set $\omega_1$ s.t. every interval $(-\infty, a) \subset \omega_1$ is countable $[0,a)$
+}{
+    Let $S$ be any uncountable well-ordered set
+    \clmp{}{
+        There exists another uncountable well-ordered set $T$ which contains an uncountable interval
+    }{
+        Let $T=S \times \{1,2\}$ with dictionary order.
+    }
+    The interval $[0,z)$ is uncountable if $z=(b,2)$ for $b \in S$. 
+
+    Let $\Omega$ smallest element $z \in T$ s.t. $[0,z)$ is uncountable.
+
+    Define $\omega_1=[0,\Omega), \overline{\omega_1}=[0,\Omega]$
+
+    Every interval in $[0,a)$ in $\omega_1$ is countable.
+}
+
+\propp{
+    Every countable subset of $\omega_1$ is bounded.
+}{
+    Let $A \subset \omega_1$ be countable. Let $B=\displaystyle\bigcup_{a \in A}[0,a]$.
+
+    $B$ is countable, so $B \subsetneq \omega_1$. $\exists z \in \omega_1 \setminus B$.
+
+    $B \subseteq [0,z)$ if $\exists y \in B$, $y \geq z$, then $[0,y] \subset B$, but $y \in [0,y]$ and $z \notin B$.
+    
+    Thus, $B$ is upper bounded since $\overline{\omega_1}$ is well-ordered, so it satisfies least upper bound property. Thus, it is closed and bounded, so it is compact.
+
+    $\omega_1$ is not compact.
+}

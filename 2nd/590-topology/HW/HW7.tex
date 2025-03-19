@@ -1,0 +1,631 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+\begin{problem}{}
+    Let $X$ be the unit square $[0,1] \times [0,1]$, equipped with the
+  dictionary order topology. Prove that $X$ is locally connected, but
+  not locally path-connected.
+\end{problem}
+\clmp{}{Intervals of $X$ are connected.}{
+    Let $S$ be a nonempty subset of $X$. It is bounded above by $(1,1)$.
+    
+    \noindent Define $A$:
+    \[A=\{a \in [0,1] \mid \exists b \in [0,1] \t{ s.t. } (a,b) \in S\}\]
+    Since $S$ is nonempty, $A$ is non empty, and $A$ is bounded above by $1$. Thus, since $\R$ has the least upper bound property, let
+    \[\alpha=\sup A\]
+    If there is an element in $S$ with first coord $\alpha$ then:
+
+    \noindent Define $B$:
+    \[B=\{b \in [0,1] \mid (\alpha, b) \in S\}\]
+    Let
+    \[\beta = \sup B\]
+    Consider $(\alpha,\beta)$ and let $(a,b) \in S$.
+
+    \noindent If $a < \alpha$ then $(a,b) < (\alpha, \beta)$
+
+    \noindent If $a=\alpha$, then $b \in B$ thus $b \leq \beta$ thus $(a,b) \leq (\alpha,\beta)$
+
+    \noindent Let $(c,d) \in X$ be another upper bound of $S$. Since $(c,d) \geq (a,b)$ for all $(a,b) \in S \implies$ $c \geq a$ for all $a \in A$ thus $\alpha \leq c$.
+
+    \noindent If $\alpha < c$ then $(\alpha,\beta) < (c,d)$
+
+    \noindent If $\alpha = c$ then $\beta \leq d$, thus $(\alpha,\beta) \leq (c, d)$
+
+    \noindent Therefore, $(\alpha,\beta)$ is a least upper bound.
+
+    \noindent If there is no element in $S$ with the first coord $\alpha$ then consider $(\alpha,0)$:
+
+    \noindent Let $(a,b) \in S$ then $a \in A$ thus $a < \alpha$ thus $(a,b) < (\alpha,0)$
+
+    \noindent Let $(c,d) \in X$ be an upper bound of $S$. Thus, $c$ is an upper bound of $A$ thus $\alpha \leq c$.
+
+    \noindent If $\alpha < c$ then $(\alpha,0) < (c,d)$
+
+    \noindent If $\alpha = c$ then $(\alpha,0) \leq (c,d)$ since 0 is the min of the second coordinates.\\
+
+    \noindent Let $x,y \in X$ s.t. $x < y$. If $x_x < y_x$ then since $\Q$ is dense in $\R$ there exists a $q \in \Q$ s.t. $x_x < q < y_x$. 
+    
+    \noindent Thus, $x<(q,0)<y$.
+
+    \noindent If $x_x = y_x \implies x_y < y_y$ thus do the same thing, and we get an element between them.
+
+    \noindent Thus, by proven in class we know all convex sets which implies intervals are connected.
+}
+\clmp{}{
+    In a Linearly Ordered Continuum all connected sets are convex.
+}{
+    Assume for contradiction there is a connected set $C$ that is not convex.
+
+    \noindent Thus, there is $a,b \in C$ s.t. $a<b$ and any point $c \in X$ s.t. $a<c<b$ is not in $C$.
+
+    \noindent Consider $C=(C \cap (-\infty, c)) \cup (C \cap (c,\infty))$. This is a contradiction of $C$ being connected.
+}
+\begin{problemproof}
+    Let $z=(x,y) \in X$, and let $U$ be a neighborhood of $z$.
+
+    Thus, there exists a basic open set which is an interval $I$ s.t. $z \in I \subseteq U$, by proven above we know that $I$ is connected, thus $X$ is locally connected.
+
+    Let $z=(0,1)$ and consider the open neighborhood $U=((0,0.9),(0.1,0))$. Thus, any neighborhood of $z$ contained in $U$ must have more than one $x$ value in the set.
+
+    Let $V$ be a connected neighborhood of $z$ thus there are points $p=(p_x,1),q=(q_x,0)$ s.t. $p_x < q_x$.
+
+    Assume there exists a path $f : [0,1] \to U$ s.t. $f(0)=p$ and $f(1)=q$.
+
+    Since $f$ is continuous this implies that $f([0,1])$ is connected. Thus, by the proof above we know that $f([0,1])$ is convex. Since $p,q \in f([0,1])$ this implies that $[p,q] \subseteq f([0,1])$ since it is convex.
+
+    Let $q_x < x < p_x$ and define $O_x$ s.t. $O_x=f^{-1}(\{x\} \times (0,1))$ this is nonempty since we showed that all points between $p,q$ are in $f([0,1])$, and it is open. Thus, there exists $(a,b) \subset O_x$
+
+    Since $\Q$ is dense in $\R$ there exists a $r_x \in \Q$ s.t. $r_x \in (a,b) \subset O_x$.
+
+    Now consider $g: (q_x,p_x) \to \Q$ s.t. $g(x)=r_x$ s.t. $r_x \in O_x \cap \Q$.
+
+    This is well defined by shown above.
+
+    Injective:
+
+    Let $a,b \in (q_x,p_x)$ s.t. $g(a)=g(b)$
+
+    Thus, $g(a)=r_a=r_b=g(b)$ Call $r_a=r_b=r$.
+
+    Thus, $r \in O_a \cap O_b$
+
+    Thus, $f(r) \in \{a\} \times (0,1) \cap \{b\} \times (0,1)$. If $a \neq b$ this implies that $\{a\} \times (0,1) \cap \{b\} \times (0,1) = \emptyset$. This is a contradiction thus $a=b$.
+
+    Thus, $g$ is injective, but this is a contradiction of $\Q$ being countable and $[0,1]$ being uncountable thus $f$ cannot exist and $X$ is not locally path connected.
+\end{problemproof}
+
+\begin{problem}{}
+    Recall that a sequence $x_n$ in a metric space $X$ is \emph{Cauchy}
+  if, for every $\epsilon > 0$, there exists $N > 0$ such that
+  $d(x_m, x_n) < \epsilon$ for all $m, n \ge N$.
+\end{problem}
+\begin{subproblem}{}
+    Prove that, if $x_n$ converges, then $x_n$ is Cauchy.
+\end{subproblem}
+\begin{problemproof}
+    Assume $(x_n) \to x$. Fix $\epsilon > 0$ thus there exists and $N \in \N$ s.t. $x_n \in B(x,\epsilon/2)$ for all $n \geq N$.
+
+    Consider $n,m \geq N$. Thus, $d(x_n,x) < \epsilon/2$ and $d(x_m,x)< \epsilon/2$.
+
+    Thus, by triangle inequality, $d(x_n,x_m) \leq d(x_n,x)+d(x,x_m) < \epsilon$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $X$ is compact, then every Cauchy sequence
+    converges. \textit{Hint:} use sequential compactness.
+\end{subproblem}
+\clmp{}{
+    Let $(x_n)$ be a sequence and $(y_n)$ be a subsequence then for $x_n,y_n=x_{m_n}$ we have that $n \leq m_n$.
+}{
+    Base Case($n=1$):
+
+    \noindent Thus, $1 \leq n_1$ since $1$ is the min natural number.
+
+    \noindent Inductive step: Assume that $n \leq m_n$ for all $n \leq k$.
+
+    \noindent Consider $n+1$. Since $n \leq m_n < m_{n+1}$. Thus, $n+1 \leq m_{n+1}$
+
+    \noindent Therefore, $n \leq m_n$ for all $n \in \N$.
+}
+\begin{problemproof}
+    Let $(x_n)$ be Cauchy. Since $X$ is compact and metrizable this implies it is sequentially compact thus $(x_n)$ has a convergent subsequence call this $(y_n) \to x$.
+
+    Fix $\epsilon>0$ s.t. there exists $N,M$ s.t. $d(x_n,x_m) < \epsilon/2$ and $d(y_j,x) < \epsilon/2$ for all $j,m,n \geq \max\{N,M\}$.
+
+    Therefore, by the proof above we get that $d(x_n,y_n) < \epsilon/2$ since $y_n=x_{m_n}$ and $n \leq m_n$ thus,
+    \[d(x_n,x) \leq d(x_n,y_n)+d(y_n,x) < \epsilon\]
+    Therefore, $(x_n) \to x$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ and $Y$ be metric spaces. A map $f:X \to Y$ is an
+  \emph{isometric embedding} if it satisfies $d(x,y) = d(f(x), f(y))$
+  for all $x, y \in X$.
+\end{problem}
+\begin{subproblem}{}
+    Prove that an isometric embedding $f:X \to Y$ is always a
+    topological embedding.
+\end{subproblem}
+\begin{problemproof}
+    Let $X,Y$ be metric spaces, and let $f:X \to Y$ be an isometric embedding.
+
+    Injective:
+
+    Let $x,y \in X$ s.t. $f(x)=f(y)$.
+
+    This implies that $d(f(x),f(y))=0=d(x,y) \implies x=y$.
+
+    Continuous:
+
+    Fix $\epsilon > 0$. Consider $\delta=\epsilon$.
+
+    Let $x \in X$. If $y \in X$ s.t. $d(x,y) < \delta=\epsilon \implies d(f(x),f(y))<\epsilon$.
+
+    Therefore, $f$ is continuous.
+
+    Continuous Inverse:
+
+    Let $U$ be open in $X$. Consider $f(U)$.
+
+    Let $y \in f(U)$ thus there exists an $x \in U$ s.t. $f(x)=y$. Since $U$ is open this means there exists an $\epsilon > 0$ s.t. $B(x,\epsilon) \subseteq U$.
+
+    Consider $z \in B(f(x),\epsilon) \implies f^{-1}(z) \in B(x,\epsilon) \implies f^{-1}(z) \in U \implies z \in f(U)$.
+
+    Therefore, $f(U)$ is open which implies that the inverse is continuous.
+
+    Thus, $f$ is a topological embedding.
+\end{problemproof}
+
+\begin{subproblem}{}
+    An isometric embedding is an \emph{isometry} if it is also a
+    bijection. Prove that if $f:X \to X$ is an isometric embedding
+    \emph{from a space to itself}, then it need not be an isometry (in
+    other words, it need not be surjective).
+\end{subproblem}
+\begin{problemproof}
+    Define $f : \N \to \N$ s.t. $f(x)=x+1$ with $\N$ having the standard topology which leads to the discrete topology
+
+    Let $x,y \in \N$ then $d(x,y)=|x-y|=|x+1-y-1|=d(x+1,y+1)$. Thus, $f$ is an isometric embedding, but not surjective since $1 \notin f(X)$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Now suppose that $X$ is a \emph{compact} metric space. Prove
+    that every isometric embedding $f:X \to X$ from $X$ to itself is
+    an isometry. \textit{Hint:} suppose that $f$ is not surjective,
+    and consider a point $a \notin f(X)$. Fix $\epsilon$ so that the
+    $\epsilon$-ball about $a$ is not in $f(X)$ (why does this
+    exist?). Then consider the sequence $x_1 = a$,
+    $x_{n+1} = f(x_{n})$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $X$ is a compact metric spaces and $f: X \to X$ is an isometric embedding.
+
+    Assume for contradiction that $f$ is not surjective. 
+    
+    Thus, there exists an $a \in X$ s.t. $a \notin f(X)$.
+
+    Since $X$ is compact this implies that $f(X)$ is compact. Since $X$ is a metric space this implies that $f(X)$ is closed and bounded. Thus, $X \setminus f(X)$ is open. Thus, there exists an $\epsilon >0$ s.t. $B(a,\epsilon) \subseteq X \setminus f(X)$.
+
+    Now consider the sequence $x_1=a$, $x_{n+1}=f(x_n)$.
+
+    Since $X$ is a compact metric spaces, $X$ is sequentially compact. Thus, $(x_n)$ has a convergent subsequence call it $(y_n)$.
+
+    By problem 2 we know that $(y_n)$ is Cauchy. Thus, there exists an $N \in \N$ s.t. for all $n,m \geq N$
+    \[d(y_n,y_m) < \epsilon\]
+    Fix $n,m \geq N$
+
+    WLOG let $y_n=x_{n_k}$ and $y_m=x_{n_k+r}$ for $r,n_k \in \N$.
+
+    Thus, $d(y_n,y_m)=d(x_{n_k},x_{n_k+r})=d(a,x_{r+1})=d(a,f^r(a)) < \epsilon$ where $f^r$ is $f$ applied $r$ times.
+
+    This means that $f^r(a) \in B(a,\epsilon)$ which is a contradiction since $f^r(a) \in f(X)$.
+
+    Thus, $f$ is surjective.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X, Y$ be locally compact Hausdorff spaces, and let $h:X \to Y$
+  be a homeomorphism. Show that $h$ extends to a homeomorphism
+  $\hat{X} \to \hat{Y}$, where $\hat{X}$, $\hat{Y}$ are respectively
+  the one-point compactifications of $X$ and $Y$.
+\end{problem}
+\begin{problemproof}
+    Since one point compactifications are unique we can think of the topologies of $\hat{X},\hat{Y}$ of being generated by
+    \begin{itemize}
+        \item $\t{Open sets of } X,Y$
+        \item $\t{Sets of the form } \hat{X} \setminus C \t{ where } C \t{ is compact in $X$ same for $\hat{Y}$}$
+    \end{itemize}
+
+    Define $\hat{h} : \hat{X} \to \hat{Y}$ s.t. $\hat{h}(x)=h(x)$ if $x \in X$ and $\hat{h}(\infty_X)=\infty_Y$ s.t. $\infty_X,\infty_Y$ are the points added by the one-point compactification.
+
+    This is bijective since $h$ is bijective on $X$, and we can see that $\hat{h}$ is injective on $\infty$ and surjective since it sends it to $\infty_Y$ the only point we have not hit yet.
+
+    Continuous:
+
+    $\hat{h}$ is continuous on $X$
+
+    Consider an open neighborhood $V$ of $\infty_Y$ thus it is of the form $\{\infty_Y\} \cup Y \setminus C$ s.t. $C$ is compact in $Y$.
+
+    Since $h$ is a homeomorphism this implies that $h^{-1}(C)$ is compact in $X$ thus $U=\{\infty_X\} \cup X \setminus h^{-1}(C)$ is an open set in $\hat{X}$.
+
+    Let $x \in \{\infty_X\} \cup X \setminus h^{-1}(C)$ thus $x=\infty_X$ or $x \in X \setminus h^{-1}(C)$.
+
+    If $x=\infty_X$ then $\hat{h}(x)=\infty_Y \in V$
+
+    If $x \in X \setminus h^{-1}(C)$ then $x \in X$ and $x \notin h^{-1}(C)$ thus $\hat{h}(x)=h(x) \in Y$ and $\hat{h}(x)=h(x) \notin C$. Thus, $\hat{h}(x) \in \hat{h}(U) \subseteq V$.
+
+    Thus, $\hat{h}$ is continuous at $\infty_X$.
+
+    Therefore, $\hat{h}$ is continuous.
+
+    Continuous inverse:
+
+    Let $U$ be open in $X$ consider $\hat{h}(U)$. Since $U$ is open in $X$ it is either open in $X$ or $U=\{\infty_X\} \cup X \setminus C$ where $C$ is compact in $X$.
+
+    If $U$ is open in $X$ then $\hat{h}(U)=h(U)$ which implies $h(U)$ is open since $h$ is a homeomorphism.
+
+    If $U=\{\infty_X\} \cup X \setminus C$ then $\hat{h}(U)=\{\infty_Y\} \cup h(X \setminus C)=\{\infty_Y\} \cup h(X) \setminus h(C)=\{\infty_Y\} \cup Y \setminus h(C)$. This is open in $Y$ since $h(C)$ is compact in $Y$.
+
+    Thus, $\hat{h}$ is a homeomorphism.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a topological space. Its \emph{homeomorphism group},
+  sometimes denoted $\t{Homeo}(X)$, is the set of all homeomorphisms
+  $X \to X$. A subset $G \subseteq \t{Homeo}(X)$ is a \emph{subgroup} if
+  it satisfies:
+  \begin{enumerate}[(i)]
+  \item for all $f,g \in G$, the composition $f \circ g$ is in $G$.
+  \item for all $f \in G$, the inverse map $f^{-1}$ is also in $G$.
+  \end{enumerate}
+  From lecture last Friday, you will recognize these conditions as
+  saying that $G$ is the image of a group homomorphism
+  $H \to \t{Homeo}(X)$, where $H$ is an abstract group; we also say in
+  this situation that \emph{$H$ acts on $X$ by homeomorphisms}.
+
+  Whenever $X$ is a space and $G$ is a subgroup of $\t{Homeo}(X)$, then
+  we can define an equivalence relation $\sim$ on $X$ by the rule:
+  $x \sim y$ if there is some $f \in G$ such that $f(x) = y$.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that the relation $\sim$ defined above is actually an
+    equivalence relation. The corresponding quotient space $X / \sim$
+    is often denoted $X / G$.
+\end{subproblem}
+\begin{problemproof}
+    Let $x \in X$ then since the identity map is always a homeomorphism and required to be in a subgroup $G$ this implies that $id(x)=x \implies x\sim x$.
+
+    Let $x \sim y$ then there exists an $f \in G$ s.t. $f(x)=y$. Since $G$ is a subgroup it is closed under inverse therefore $f^{-1}(y)=x$ thus $y \sim x$.
+
+    Let $x \sim y$ and $y \sim z$. Then there exists $f,g \in G$ s.t. $f(x)=y$ and $g(y)=z$ since $G$ is a subgroup it is closed under function composition thus $g \circ f(x)=z$ thus $x \sim z$.
+
+    Therefore, $\sim$ is an equivalence relation.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that the quotient map $X \to X/G$ is always an open map.
+\end{subproblem}
+\begin{problemproof}
+    Let $q : X \to X \diagup G$ be the quotient map.
+
+    Let $U$ be open in $X$ then consider $q^{-1}(q(U))$.
+
+    Let $x \in q^{-1}(q(U))$. This means that $q(x) \in q(U)$ thus there exists a $u \in U$ s.t. $q(x)=q(u)$. Thus, there exists a $f \in G$ s.t. $f(u)=x$ thus $x \in f(U) \implies x \in \displaystyle\bigcup_{f \in G}f(U)$.
+
+    Let $x \in \displaystyle\bigcup_{f \in G}f(U)$. Thus, $f(u)=x$ for some $f \in G$. Thus, $q(x)=q(u) \implies x \in q^{-1}(q(U))$.
+
+    Since all things in $G$ are homeomorphisms this implies that the images of them on $U$ is open thus $q^{-1}(q(U))$ is open since it is a union of open sets. Thus, $q(U)$ is open since $q^{-1}(q(U))$ is open.
+
+    Therefore, $q$ is an open map.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $X$ is not compact and $G$ is finite, then
+    $X / G$ is also not compact.
+\end{subproblem}
+\begin{problemproof}
+    Assume $X/G$ is compact and $G$ is finite.
+
+    Let $\mathcal{C}$ be an open cover of $X$.
+
+    For each point $x \in X$, choose an element $U_x \in \mathcal{C}$ s.t. $x \in U_x$.
+
+    Now define:
+    \[W_x = \bigcap_{g \in G} g^{-1}(U_{g(x)})\]
+    This is open since $g$ is a homeomorphism thus continuous, $U_{g(x)}$ is open, and $G$ is finite.
+
+    Consider $W_x$:
+    \[W_x=\bigcap_{g \in G} g^{-1}(U_{g(x)})\]
+    Since $g \mapsto gh$ is a bijection since $G$ is a group for $h \in G$.
+    \[W_x=\bigcap_{g \in G} h^{-1}g^{-1}(U_{g(h(x))})\]
+
+    Thus, for $h(W_x)$ we get
+    \[h(W_x)=\bigcap_{g \in G} hh^{-1}g^{-1}(U_{g(h(x))})=\bigcap_{g \in G} g^{-1}(U_{g(h(x))})=W_{h(x)}\]
+
+    Also, $W_x \subseteq e^{-1}(U_x)=U_x$.
+
+    Let $x \in X$. Then consider $g^{-1}(U_{g(x)})$. Since $g(x) \in U_{g(x)} \implies x \in g^{-1}(U_g(x))$. Thus, $x \in W_x$.
+
+    Thus, $\{W_x\}$ is $G$-invarient, open cover, and a refinement of $\mathcal{C}$.
+
+    Consider $\bigcup_{x \in X}q(W_x)$. Since $q$ is a surjective open map this means this is a open cover of $X/G$. Since $X/G$ is compact. This implies that it has a finite subcover. Thus, $q(W_{x_1}) \cup \dots \cup q(W_{x_n})$ covers $X/G$.
+
+    Now consider $q^{-1}(q(W_x))=\bigcup_{g \in G}g(W_x)$.
+
+    Thus, $\bigcup_{1 \leq i \leq n}\bigcup_{g \in G}g(W_{x_i})=\bigcup_{1 \leq i \leq n}\bigcup_{g \in G}W_{g(x_i)}$ covers $X$. Thus, since $W_x \subseteq U_x$. We get that $\bigcup_{1 \leq i \leq n}\bigcup_{g \in G}U_{g(x_i)}$ covers $X$. Thus, $X$ is compact.
+\end{problemproof}
+
+\begin{subproblem}{}
+    For each pair of integers $i,j \in \Z$, let
+    $f_{i,j}:\R^2 \to \R^2$ be the homeomorphism
+    \[
+      f_{i,j}(x, y) = (x + i, y + j).
+    \]
+    Let $G$ be the set $\{f_{i,j} \t{ s.t. } i,j \in \Z\}$. Prove that $G$ is
+    a subgroup of $\t{Homeo}(\R^2)$, and that the space $\R^2/G$ is
+    compact. Can you describe this space? \textit{Hint for the first
+      part:} find a surjective map from a compact subset of $\R^2$
+    onto $\R^2 / G$.
+\end{subproblem}
+\begin{problemproof}
+    Let $f,g \in G$ then $f(x,y)=(x+a,y+b)$ and $g(x,y)=(x+i,y+j)$ for $a,b,i,j \in \Z$.
+
+    Thus, $f \circ g(x,y)=(x+a+i,y+b+i)$. Thus, $f \circ g \in G$.
+
+    Let $f \in G$ s.t. $f(x,y)=(x+a,y+b)$ for $a,b \in \Z$. Consider $f^{-1} \in G$ s.t. $f^{-1}(x,y)=(x-a,y-b)$.
+
+    Thus, $f \circ f^{-1}=f^{-1} \circ f=id$.
+
+    Thus, $G$ is a subgroup of $\t{Homeo}(R^2)$.
+
+    Let $i: [0,1] \times [0,1] \to R^2$ be the natural inclusion map.
+
+    Let $q : R^2 \to R^2/G$ be the quotient map.
+
+    Consider $q \circ i$ this is continuous since both $i,q$ are continuous.
+
+    Let $[(x,y)] \in R^2/G$. Then since $f_{i,j}(x,y)=(x+i,y+j) \implies [(x,y)]=[(x+i,y+j)]$. Thus, we can reduce this equivalence class so that the $a=x+i$ and $b=y+j$ s.t. $a,b \in [0,1]$. Thus, $q \circ i(a,b)=[(x,y)]$.
+
+    Therefore, since $[0,1] \times [0,1]$ is closed and bounded it is compact thus since $q \circ i$ is surjective we get that $R^2/G$ is compact.
+
+    This space is a donut. The reason being is we have shown above that we can reduce the space to the unit square. The only things that are equivalent in this space are the $(x,0) \sim (x,1)$ and $(0,y) \sim (1,y)$. Thus, we can fold the space to make a donut.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a space which is metrizable, compact, nonempty, totally
+    disconnected, and \emph{perfect}, meaning that it contains no
+    isolated points. Then $X$ is homeomorphic to the Cantor set.
+\end{problem}
+
+\begin{subproblem}{}
+    Recall our construction of the Cantor set from class (if you
+    need a reminder, see exercise 6 in \S27 of Munkres.) Prove that
+    the Cantor set is compact, totally disconnected, metrizable, and
+    perfect. \textit{Note:} compactness and metrizability should be
+    very quick to prove.
+\end{subproblem}
+\begin{problemproof}
+    Since the cantor set is a subspace of a metrizable space $\R$ it itself is metrizable.
+
+    Since the cantor set is made up of an intersection of closed intervals this implies that the cantor set is itself closed, and it is bounded by 0,1. Thus, it is compact.
+
+    Suppose, for contradiction, that there exists a connected subset $A \subset C$ containing two distinct points $x$ and $y$ with $x<y$. Since $A$ is connected and lies in $\R$, it must contain the entire closed interval $[x,y]$.
+
+    However, by the construction of the Cantor set, there exists some stage $n$ at which an open middle third interval is removed from one of the intervals containing part of $[x,y]$. This open interval is disjoint from $C$, meaning that $[x,y]$ cannot be entirely contained in $C$. This contradiction implies that no such connected set $A$ can exist.
+
+    Thus, the only connected subsets of $C$ are singletons, which proves that $C$ is totally disconnected.
+
+    Let $x \in C$ and fix $\epsilon >0$. Fix $N \in \N$ big enough s.t. $3^{-N} < \epsilon$ and $x \in C_N$. Thus, $x$ is in some interval in $C_N$.
+
+    If $x$ is not an endpoint of the interval
+
+    Let $y$ be one of the endpoints of that interval then $d(x,y) < 3^{-N} < \epsilon$.
+
+    If $x$ is an endpoint of that interval
+
+    Then let $y$ be the other endpoint of the interval then $d(x,y) \leq 3^{-N} < \epsilon$.
+
+    Thus, in both cases for any epsilon there is a point closer to $x$. Thus, $C$ is perfect.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $X$ be a nonempty compact totally disconnected metric
+space. Prove that, for any $\epsilon > 0$ and any $x \in X$, there
+exists a clopen subset containing $x$ with diameter at most
+$\epsilon$. Use this to prove that, for any $\epsilon > 0$, the space $X$
+can be decomposed as a disjoint union
+$X = X_1 \sqcup \ldots \sqcup X_n$, where each $X_i$ is a clopen
+set with diameter at most $\epsilon$.
+\end{subproblem}
+\clmp{}{
+    If $x \neq y \in X$ then there is an clopen set $U$ s.t. $x \in U$ and $y \notin U$.
+}{
+Let $x$. Let $O$ be the intersection of all clopen neighborhoods of $x$. This means that $O$ is closed.
+
+\noindent Assume for contradiction that $O$ is disconnected thus there exists nonempty disjoint open sets $A,B$ in $O$ s.t. $O=A \sqcup B$. WLOG let $x \in A$.
+
+\noindent Since $A,B$ are disjoint and union to $O$ this means they are also closed in $O$. Thus, there exists closed sets s.t. $A=O \cap C_1$ and $B=O \cap C_2$. Thus, $A,B$ are also closed in $X$.
+
+\noindent Thus, since $X$ is a compact metric space this means there exist disjoint open sets $U,V$ s.t. $A \subset U$ and $B \subset V$. This is because $A,B$ are closed which means compact. Thus, from a previous homework we have this fact.
+
+\noindent Consider $X \setminus (U \cup V)$. This is an closed set. Thus compact. We can see that clopen sets that exclude $x$ are an open cover of this set. Thus, there is finite subcover that covers $X \setminus (U \cup V) \subseteq C_1 \cup \dots \cup C_n$.
+
+\noindent Thus, it follows that $X \setminus C_1 \cap X \setminus C_2 \cap \dots \cap X \setminus C_n=Q$ is a clopen set that contains $x$ and has the property that $A \cup B = O \subset Q \subset U \cup V$.
+
+\noindent Since $U,V$ are disjoint and $Q \subset U \cup V$. This implies that $Q=(Q \cap V) \cup (Q \cap V)$. Thus, $Q \cap U=Q \setminus V$.
+
+\noindent First, we can see that $Q \cap U$ is open.
+
+\noindent Now consider $Q \setminus (Q \setminus V)=Q \cap V$. Thus $Q \setminus V = Q \cap U$ is also closed.
+
+\noindent Thus, this is another clopen neighborhood of $x$. Thus, $O \subset Q \cap U \subset U$. This implies that $V =\emptyset$ since $O \subset U$. This is a contradiction since $B \subset V$ and $U \cap V = \emptyset$. Thus, $O$ is connected. Thus, $O=\{x\}$.
+
+\noindent This implies that for $x\neq y \in X$. That there exists a clopen set $U$ s.t. $x \in U$ and $y \notin U$.}
+\begin{problemproof}
+    
+
+    Fix $\epsilon > 0$
+
+    Consider $X \setminus B(x,\epsilon/2)$.
+
+    For every point $y \in X \setminus B(x,\epsilon/2)$ by the proof above there is a clopen set $U_y$ s.t. $x \in U_y$ and $y \notin U_y$.
+
+    Thus, we can see that the complements of these open sets form an open cover of $X \setminus B(x,\epsilon/2)$. Thus, since this is closed, this means it is compact since $X$ is a metric space. 
+    Thus, there is a finite subcover s.t. $X \setminus B(x,\epsilon/2) \subset X \setminus U_{y_1} \cup \dots \cup X \setminus U_{y_n}=V$. Thus, consider $U=U_{y_1} \cap \dots \cap U_{y_n}$. 
+
+    Let $z \in U$. If $z \in X \setminus B(x,\epsilon/2)$ this means that $x \in X \setminus U_{y_1} \cup \dots \cup X \setminus U_{y_n}$ which is a contradiction since $z \in U$.
+
+    Thus $z \in B(x,\epsilon/2)$.
+
+    Thus, $U \subset B(x,\epsilon/2)$. Also, $U$ is clopen since it is made from finite intersections of clopen sets.
+
+    Thus, $U$ is a clopen set with diameter less than $\epsilon$ that contains $x$.
+
+    Now for all $x \in X$ construct a clopen set $U_x$ like above with diameter less than $\epsilon$.
+
+    This forms an open cover of $X$. Since $X$ is compact there is a finite subcover thus $X = U_{x_1} \cup \dots \cup U_{x_n}$.
+
+    Let $X_1=U_{x_1}$. Now define $X_i$ s.t.
+    \[X_i=U_{x_i} \cap (X \setminus \bigcup_{j=1}^{i-1}X_j)\]
+
+    We can see that all the $X_i$'s are pairwise disjoint and they are all clopen since the complement of a finite union of clopen sets is clopen then the intersection of a clopen and clopen set is clopen.
+
+    Also, $X = X_1 \sqcup X_2 \sqcup \dots \sqcup X_n$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Now suppose that $X$ is also perfect. Prove that, for any
+    $n \in \N$, there exists a partition of $X$ into $2^n$ pairwise
+    disjoint nonempty clopen sets $X^{(n)}_1, \ldots, X^{(n)}_{2^n}$,
+    such that:
+    \begin{itemize}
+    \item the maximum diameter of any set $X^{(n)}_{j}$ is at most
+      $\epsilon_n$, for some sequence $\epsilon_n \to 0$, and
+    \item Each set $X^{(n-1)}_j$ is the disjoint union of exactly two
+      of the $X^{(n)}_j$.
+    \end{itemize}
+\end{subproblem}
+\begin{problemproof}
+    Since $X$ is compact, it has a finite diameter. Call this $D$.
+    
+    First split $X$ using part $(b)$ by splitting two points that have distance $D$ into $X=U_1 \cup V_1$. Then if these both have less diameter than $D$ then we are done if not look at the piece that is diameter $D$ and split that between the two points that have distance $D$. WLOG lets say it is $U_1$. Then $U_1=U_2 \cup V_2$.
+
+    Again if both have less diameter than $D$ then we are done, so assume that we always split and some part will have diameter $D$.
+
+    Thus, we get a chain of proper subsets that all have diameter $D$.
+
+    $X \supsetneq U_1 \supsetneq U_2 \supsetneq \dots$
+
+    Thus, consider the intersection of all of these $U_i$. Since $U_i$ is clopen we know they are compact thus the intersection will be nonempty since we intersect nested compact sets.
+
+    If the intersection has one point then this is a contradiction of $U_i$ always having diameter $D$, so we will always have infinite points.
+
+    If the intersection has at least two points:
+
+    Consider the sequence $x_n$ and $y_n$ s.t. $x_i,y_i \in U_i$ s.t. $d(x_i,y_i)=D$.
+
+    Since $X$ is compact this means there is a convergent subsequence in the intersection thus, $(x_{n_k}) \to x$ and $(y_{n_k}) \to y$.
+
+    
+    
+\end{problemproof}
+
+\begin{subproblem}{}
+    Construct a continuous bijection from $X$ to the infinite
+    product space $\{0,1\}^\omega$, where $\{0,1\}$ has the discrete
+    topology. Conclude that $X$ is homeomorphic to this product, and
+    deduce the theorem above.
+\end{subproblem}
+\begin{problemproof}
+    From part $(c)$ we know that $X=X_1^{(n)} \sqcup \dots \sqcup X_{2n}^{(n)}$ for all $n \in \N$ and that the diameter converges to zero and that each is exactly the union of two $X_j^{(n+1)}$.
+
+    Thus, WLOG let $X_i^{(n)}=X_{2i-1}^{(n+1)} \sqcup X_{2i}^{(n+1)}$
+
+    Let $f: X \to \{0,1\}^\omega$ s.t. $f(x)=(a_1,a_2,\dots)$ s.t.
+    $a_i = 1$ if $x \in X_\{j\}^{(i)}$ and $j$ is odd. Let $a_i=0$ otherwise.
+
+    Well-Defined:
+
+    Let $x \in X$. Let $\{X_{j_n}^{(n)}\}$ be the nested sequence of clopen subsets that $x$ is in. Consider the intersection of all of these call this $C$. Since the diameter converges to zero this implies that $C =\{x\}$. Thus, this implies that this sequence uniquely identifies $x$. Thus, $f$ is well defined.
+
+    Injective:
+
+    The proof above also works for injective. If $f(x)=f(y)$ this implies that $x,y \in C$. Thus, $x=y$.
+
+    Surjective:
+
+    Given any sequence just pick the sequence of $\{X_{j_n}^{(n)}\}$ based on how we defined $f$, and pick the $x$ in the intersection of how we decided what $a_i=1,0$ meant.
+
+    Continuous:
+
+    Let $B$ be a basic open set in $\{0,1\}^\omega$. Thus, by defintion of the product topology we get that $B=\{(a_1,\dots) \mid a_i =b_i \t{ for } 1 \leq i \leq k\}$.
+
+    The preimage under $f$ is the intersection of the corresponding clopen sets at levels 1 to k:
+    \[f^{-1}(B)=\bigcap_{i=1}^k X_{j_i}^{(i)}\]
+    Thus, this is a clopen set which implies it is open.
+
+    Thus, $f$ is continuous, and therefore a homeomorphism since $X$ is compact and $\{0,1\}^\omega$ is Hausdorff.
+
+    Thus, proven in class $\{0,1\}^\omega$ is homeomorphic to the cantor set. Thus, $X$ is homeomorphic to the cantor set.
+\end{problemproof}
+\end{document}
