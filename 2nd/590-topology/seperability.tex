@@ -99,3 +99,63 @@
 
     Thus, thus union is are disjoint open sets that contain $A,B$.
 }
+
+\thm{Urysohn lemma}{
+    Let $X$ be a normal space, let $A,B$ be closed subsets. Then there exists a continuous function.
+    $f: X \to [0,1]$ s.t. $f(x)=0$ for all $x \in A$, $f(x)=1$ for all $x \in B$.
+}
+
+\thmp{Urysohn Metrization Theorem}{
+    Every regular space with a countable basis is metrizable
+}{
+    By Theorem 12.8 we know that this space is normal.
+
+    Let $X$ be normal and second countable.
+
+    \clmp{}{
+        There exists countable collection of continuous functions $f_n : X \to [0,1]$ s.t. for
+        every point $x \in X$, and every neighborhood $U$ of $x$. $\exists n$ s.t. $f_n(x) = 1$, $f_n(X \setminus U)=\{0\}$
+    }{
+        \setlength{\parindent}{0pt}
+        Let $\beta$ be a countable basis.
+
+        For each pair of indices $n,m$ s.t. $\overline{B_n} \subset B_m$, define function
+        $f_{n,m}: X \to [0,1]$ s.t. $f_{n,m}(\overline{B_n})=\{1\}$, $f_{n,m}(X \setminus B_n)=\{0\}$
+
+        The $f_{n,m}$ are indexed by a subset of $\N \times \N$, so this is a countable collection.
+
+        Fix $x \in X$, neighborhood $U$ of $x$, $\exists B_n$ s.t. $x \in B_n \subset U$
+
+        By regularity, $\exists$ neighborhood $V$ of $x$ s.t. $\overline{V} \subset B_n$.
+
+        Thus, $\exists B_m$ s.t. $x \in B_m \subset V$. Thus, $x \in B_m$ and $\overline{B_m} \subset B_n$.
+
+        Thus, $f_{n,m}(x)=1$, $f_{n,m}(X \setminus U) \subset f_{n,m}(X \setminus B_m)=\{0\}$.
+
+        Reindex to the collection $\{f_n\}$
+    }
+
+    Define $F: X \to \R^\omega$ s.t. $F(x)=(f_1(x),f_2(x),f_3(x),\dots)$
+
+    $F$ is continuous since each component is continuous.
+
+    Injective:
+
+    Let $x,y \in X$ s.t. $x \neq y$. $X$ is Hausdorff, so there exists a neighborhood $U$ of $x$ s.t. $y \notin U$. Thus, there exists $n$ s.t. $f_n(x) > 0$ and $f_n(z)=0$ for all $z \notin U$, so $f_n(y)=0 \implies f_n(x) \neq f_n(y) \implies F(x) \neq F(y)$.
+
+    Let $Z=F(X)$.
+
+    Let $U$ be open in $X$. Consider $F(U)$.
+
+    Let $z \in F(U)$ thus there exists $x \in U$ s.t. $F(x)=z$. Thus, there is a $n$ s.t. $f_n(x) > 0$ and $f_n(X \setminus U)=\{0\}$.
+
+    Consider the index-n projection map $\pi_n: \R^\omega \to \R$.
+
+    Consider the set $V=\pi^{-1}_n((0,\infty)) \subset \R^\infty$.
+
+    $f_n(x) > 0 \implies f(x)=z \in V$.
+
+    Let $y \in V \cap Z$ then $y=F(c)$ for some $c \in X$, so $f_n(c) > 0$. But then $c \in U$, since $f_n(X \setminus U)=0$.
+
+    Thus, $V \cap Z \subset F(U)$, so $F(U)$ is open. Thus, $F$ is an embedding into $\R^\omega$. Thus, $X$ is homeomorphic to a subspace of a metric space, so $X$ is a metric space.
+}

@@ -1,0 +1,338 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+
+\input{../../../homework}
+\usepackage[all]{xypic}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\begin{problem}{}
+    Let $\Omega$ be a field and let $K$ and $L$ be subfields of $\
+Omega$.
+\begin{equation*}
+\xymatrix{
+& \Omega\ar@{-}[dl]\ar@{-}[dr] &\\
+K\ar@{-} & & L\ar@{-}\\
+}
+\end{equation*}
+Let $KL$ denote the smallest subfield of $\Omega$ containing both $K$ and $L$. $KL$
+is called the \textit{compositum} of $K$ and $L$. Give an explicit description of
+the elements in $KL$.
+\end{problem}
+\begin{solution}
+\setlength{\parindent}{0pt}
+Let $S=\{\sum_{i=1}^n k_il_i \mid n \in \N,\; a_i \in K,\; b_i \in L\}$
+
+Let $s,t \in S$ then
+\[s=\sum_{i=1}^n a_ib_i \quad \t{and} \quad t=\sum_{j=1}^m c_jd_j\]
+
+Thus,
+\[st=\sum \sum (a_ic_j)(b_id_j) \in S\]
+
+Also, $st=0$ only if $s$ or $t$ is zero since $K$,$L$ are subfields of $\Omega$. Thus, $S$ is also multiplicative.
+
+Thus, $S$ is an intergral domain. Thus, consider the fraction field of $S$. Call this $F$.
+
+First, $K \subset F$ and $L \subset F$ since $1 \cdot k \in F$ and $1 \cdot l \in F$ for all $k \in K$ and $l \in L$.
+
+Thus, $KL \subset F$.
+
+Let $E$ be a subfield of $\Omega$ s.t. $K \subset E$ and $L \subset E$.
+
+Since $E$ is a field it is closed under addition and multiplication. Thus, for any $a_i \in K$ and $b_i \in L$, each product $a_ib_i \in E$. Thus, er get that any finite sum of such products is also in $E$. Thus, $S \subset E$.
+
+Since $E$ is a filed, $E$ is also closed under inverses except for 0. Thus, if $t \in S$ and $t\neq 0$ then $t^{-1} \in E$.
+
+Thus, $st^{-1} \in E$ for all $s,t \in S$ and $t \neq 0$.
+
+Therefore, $F \subset E$.
+
+Thus, $F =KL$.
+\end{solution}
+
+\begin{problem}{}
+    A class of extensions is said to be distinguished if it satisfies the following
+three properties:
+\begin{enumerate}
+\item[i.] Given a tower of extensions $L/K/F$:
+\begin{equation*}
+\xymatrix{
+L\ar@{-}[d]\\
+K\ar@{-}[d]\\
+F
+}
+\end{equation*}
+the extension $L/F$ is in the class if and only if $L/K$ and $K/F$ are in the
+class.
+\item[ii.] Given a diagram of field extensions as below,
+\begin{equation*}
+\xymatrix{
+& \Omega\ar@{-}[d]\\
+& KL\ar@{-}[dl]\ar@{-}[dr] &\\
+K\ar@{-}[dr] & & L\ar@{-}[dl]\\
+& F &
+}
+\end{equation*}
+if $K/F$ is in the class, then $KL/L$ is in the class.
+\item[iii.] If $K/F$ and $L/F$ are in the class, and $K$ and $L$ are contained in a
+field $\Omega$, then the compositum $KL/F$ is in the class.
+\end{enumerate}
+Note that (iii) follows formally from (i) and (ii).
+\end{problem}
+
+\begin{subproblem}{}
+    Show that finite extensions form a distinguished class.
+\end{subproblem}
+\begin{problemproof}
+    Property $(i)$ follows directly from what we have proved in class.
+
+    Assume $K/F$ is finite.
+
+    Thus, let $\{b_1,\dots,b_n\}$ be a basis for $K$ has a vector space over $F$.
+
+    Thus, $k=a_1b_1+\dots+a_nb_n$ for $a_i \in F$ for all $k \in k$.
+
+    Thus, $kl=a_1lb_1+\dots+a_nlb_n$ for all $l \in L$.
+
+    Thus, $kl=\sum_i (a_il)b_i$ and since $l \in L$ and $a_i \in F \subset L$ we get taht $a_i,l \in L$.
+
+    Thus, $kl=\sum_i l_i b_i$ for $l_i \in L$.
+
+    
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Show directly that $X^3-2$ is irreducible over the field $\Q(\omega)
+$, by using the arithmetic of the ring $\Z[\omega]$.
+\end{subproblem}
+\begin{problemproof}
+    Assume for contradiction that there exists a nontrivial factorization
+    \[X^3-2=(X-\alpha)(X^2+BX+C)\]
+    s.t. $\alpha,B,C \in \Z[\omega]$
+
+    Then, $\alpha^3=2$.
+
+    Thus, $N(\alpha)^3=N(2)=4$.
+
+    This implies that $N(\alpha)=4^{1/3} \notin \Z$
+
+    Thus, this is a contradiction so, $X^3-2$ is irreducible in $\Z[\omega][X]$. Therefore, by Gauss' Lemma since $\Z[\omega]$ is a UFD and $\Q[\omega]$ is its fraction field. $X^3-2$ is also irreducible over $\Q[\omega]$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Find the irreducible polynomial (over $\Q$) satisfied by $\alpha^2 +
+\omega \alpha $.
+\end{subproblem}
+\begin{problemproof}
+    Consider $\Q(\alpha^2+\alpha\omega)$
+
+    Consider $(\alpha(\alpha+\omega))^3=6+6\omega(\alpha^2+\alpha\omega)$
+
+    Since $\alpha^2+\alpha\omega \in \Q(\alpha^2+\alpha\omega)$ and $6 \in \alpha^2+\alpha\omega$. This implies that $\omega \in \Q(\alpha^2+\alpha\omega)$.
+
+    Let $y=\alpha^2+\alpha\omega$
+
+    Thus, $ay=2+\omega\alpha^2=2+\omega(y-\alpha\omega)=2+\omega y-\omega^2\alpha \implies \alpha(y+\omega^2)=2+\omega y \implies \alpha=(2+\omega y)/(y+\omega^2)$
+
+    Thus, $\alpha \in \Q(y)$
+
+    Thus, $\Q(y)=\Q(\alpha,\omega)$
+
+    $f(x)=x^6+6x^4-12x^3+36x^2-36x+36$
+
+    $f(y)=0$ you can check
+
+    Assume $f(x)$ is reducible over $\Q$. Then this means that $y$ will be in one of those factors that has degree less than 6. This is a contradiction since we showed that $\Q(y)/\Q$ has degree 6.
+
+    Thus, $f(x)$ is irreducible over $\Q$.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Show that the polynomial $X^4 - X - 1$ is irreducible over $\Q$
+\end{subproblem}
+\begin{problemproof}
+    Assume $X^4-X-1$ is not irreducible in $\Q$. Since $X^4-X-1$ is primitive by Gauss's lemma it is also reducible over $\Z$.
+    
+    Consider $X^4-X-1=(X-r)(X^3+aX^2+bX+c)$ for $r,a,b,c \in \Z$.
+
+    Thus, $X^4-X-1=X^4+(a-r)X^3+(b-ar)x^2+(c-br)x-cr$
+
+    $X^3: a-r=0 \implies a=r$
+
+    $X^2: b-ar=0 \implies b=r^2$
+
+    $X: c-br=-1 \implies c=r^3-1$
+
+    $cr=1 \implies r^4-r=1$
+
+    $r(r^3-1)=1$
+
+    Thus, $r$ divides both sides. This implies that $r=\pm 1$.
+
+    Both of these solutions do not work.
+
+    Thus, consider $X^4-X-1=(X^2+aX+B)(X^2+cX+d)=X^4+(a+c)X^3+(ac+b+d)X^2+(ad+bc)X+bd$
+
+    $X^3: a=-c$
+
+    $X^2: b+d=a^2$
+
+    $X: a(d-b)=-1$
+
+    $bd=-1$
+
+    This implies that $b,d$ are units thus $b=1,d=-1$ or $b=-1,d=1$.
+
+    In either case we get
+
+    $b+d=0=a^2 \implies a=0$.
+
+    This is a contradiction since this would imply that $0(d-b)=0=-1$
+
+    Thus, $X^4-X-1$ is irreducible over $\Q$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $\alpha$ be a root of the equation $X^4 - X - 1$ in $\C$. Find
+the irreducible polynomial satisfied by $\alpha^2$ over $\Q$.
+\end{subproblem}
+\begin{problemproof}
+    $f(X)=X^4-2X^2-X+1$
+
+    $f(\alpha^2)=\alpha^8-2\alpha^4-\alpha^2+1=(\alpha^4-1)^2-\alpha^2$
+
+    Since $\alpha^4-\alpha-1=0 \implies \alpha=\alpha^4-1$
+
+    $(\alpha^4-1)^2-\alpha^2=\alpha^2-\alpha^2=0$.
+
+    Since this is primitive we can check if it is irreducible over $\Z$.
+
+    Assume it is not irreducible over $\Z$, then
+
+    If $X^4-2X^2-X+1=(X-r)(X^3+aX^2+bX+c)=X^4+(a-r)X^3+(b-ar)X^2+(c-br)X-cr$
+
+    $X^3: a=r$
+
+    $X^2: b=-2+r^2$
+
+    $X: c=r^3-2r-1$
+
+    $r^4-2r^2-r=-1 \implies r(r^3-2r-1)=-1$ Thus $r$ divides $-1$. Thus, $r=-1,1$.
+
+    Then $(1)^4-2(1)^2-1+1=-1 \neq 0$ and $(-1)^4-2(-1)^2+1+1=1 \neq 0$
+
+    If $X^4-2X^2-X+1=(X^2+aX^+b)(X^2+cX^2+d)=X^4+(a+c)X^3+(ac+b+d)X^2+(ad+bc)X+bd$
+
+    $X^3: a=-c$
+
+    $X^2: b+d=a^2-2$
+
+    $X: a(d-b)=-1$
+
+    $bd=1$
+
+    Thus, $b=d=-1,1$
+
+    This is a contradiction since $a(d-b)=-1 \implies 0=-1$
+
+    Thus, $f(X)$ is irreducible over $\Z$ thus also over $\Q$ since it is primitive.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $K = \Q (\alpha, i )$ where $\alpha$ is a root of the polynomial $X^4 -
+2$.
+\end{problem}
+
+\begin{subproblem}{}
+    Find the degree of $K/\Q$.
+\end{subproblem}
+\begin{problemproof}
+    First this polynomial is irreducible by Eisenstein's Criterion using $p=2$.
+
+    Thus, $\Q(\alpha)/ \Q$ has degree 4.
+
+    Let $\alpha=\sqrt[4]{2}$. Then we know that $\Q(\alpha)$ is a real number field, and so $X^2-1$ which only has complex roots is also not irreducible.
+
+    Thus, $\Q(\alpha,i)/\Q(\alpha)$ has degree 2.
+
+    Therefore, $K/ \Q$ has degree 8.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Find the irreducible polynomial over $\Q$ satisfied by $\alpha + i$.
+\end{subproblem}
+\begin{problemproof}
+    First consider $\Q(\alpha+i)$. Let $z=\alpha+i$
+
+    $(z-i)^4=2 \implies z^4-4z^3i-6z^2+4zi+1=2 \implies i=(z^4-6z^2-1)/(4(z^3-z))$
+
+    Thus, $i \in \Q(z)$. Thus, $\alpha \in \Q(z)$. Thus, $\Q(z)=\Q(\alpha,i)$
+
+    $f(x)=x^8+4x^6+2x^4+28x^2+1$
+
+    $f(\alpha+i)=4+16i\alpha^3-48i\alpha^2+64i\alpha+24-16i\alpha^3+38\alpha^2+64i\alpha-28=0$
+
+    Assume that $f(x)$ is reducible over $\Q$. This is a contradiction since this would imply that $\alpha+i$ would be in a proper factor that has degree less than 8. Howeverm $\Q(\alpha+i)/\Q$ has degree $8$.
+
+    Thus, $f(x)$ is irreducible.
+\end{problemproof}
+\end{document}

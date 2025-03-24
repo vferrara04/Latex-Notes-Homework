@@ -1,0 +1,290 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\begin{problem}{}
+    Let $X$ be a regular space. Show that for every pair of distinct
+points $x, y$ in $X$, there are neighborhoods $U_x, U_y$ of $x, y$
+with $\overline{U_x} \cap \overline{U_y} = \emptyset$.
+\end{problem}
+\begin{problemproof}
+    Let $x\neq y \in X$. Since $X$ is regular this means $\{y\}$ is closed.
+
+    Thus, there is disjoint open sets s.t. $x \in U$ and $\{y\} \subset V$.
+
+    Thus, proven in class since $X$ is regular there exists neighborhoods $U_x$, $U_y$ s.t. $\overline{U_x} \subset U$ and $\overline{U_y} \subset V$.
+
+    Since $U \cap V = \emptyset \implies \overline{U_x} \cap \overline{U_y} = \emptyset$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $\{X_\alpha\}_{\alpha \in J}$ be a collection of nonempty
+spaces, and suppose that the product $\prod_{\alpha \in J}X_\alpha$
+is normal. Show that $X_\alpha$ is normal for each $\alpha \in
+J$. (Note: the converse to this statement is false, but a
+counterexample is difficult to come by; see Exercise 9 in \S 32 of
+Munkres.)
+\end{problem}
+\clmp{}{
+    Let $X=\prod_{\alpha \in J} X_\alpha$ be a product of topological spaces with the product topology.
+
+    Let $\pi_i : X \to X_i$ be a projection map.
+
+    $\pi_i$ is an open map.
+}{
+    Let $B=\prod U_\alpha$ be a basic open set in $X$ s.t. $U_\alpha$ is open in $X_\alpha$ and $U_\alpha = X_\alpha$ for all but finitely many indices.
+
+    \noindent Consider $\pi_i(B)$.
+
+    \noindent If $i$ is an index where $U_i \neq X_i$ then $\pi_i(B)=U_i$ which is open
+
+    \noindent If $i$ is an index where $U_i = X_i$ then $\pi_i(B)=X_i$ which is open.
+
+    \noindent Thus, $\pi_i$ is open on the basis sets.
+
+    \noindent Let $U$ be open in $X$. Thus, $U=\bigcup B_\beta$ s.t. $B_\beta$ is a basis element. Thus,
+    \[\pi_i(U)=\pi_i(\bigcup B_\beta)=\bigcup \pi_i(B_\beta)\]
+    Since $\pi_i(B\beta)$ is open in $X_i$, it follows that the union of all of these which is $\pi_i(U)$ is open.
+
+    \noindent Thus, projection maps are open.
+}
+\begin{problemproof}
+    Let $X = \prod_{\alpha \in J} X_\alpha$
+
+    Let $X_\beta$ be one element in the collection of spaces.
+
+    Let $\pi_\beta$ be the projection map from the product to this one space.
+
+    Let $A,B \subset X_\alpha$ be disjoint closed subsets.
+
+    Since $\pi_\beta$ is continuous we know that $\pi^{-1}_\beta(A),\pi^{-1}_\beta(B)$ are closed in $X$.
+
+    Thus, since $A \cap B = \emptyset$. This implies that $\pi^{-1}_\beta(A) \cap \pi^{-1}_\beta(B) = \emptyset$. Thus, since $X$ is normal there exists disjoint open subsets $W_A$, $W_B$ in $X$ s.t. $\pi^{-1}_\beta(A) \subset W_A$ and $\pi^{-1}_\beta(B) \subset W_B$.
+
+    Thus, by the proof above we get that $U=\pi_\beta(W_A)$ and $V=\pi_\beta(W_B)$ are disjoint open sets in $X_\beta$ that contain $A$, $B$ respectively.
+
+    Also, since $X$ is normal this implies it is Hausdorff. Thus, proven in class we have shown that each component is thus Hausdorff, thus each component is also $T_1$.
+    
+    Thus, each component is normal.
+\end{problemproof}
+
+\begin{problem}{}
+    Show that a connected normal space containing at least two points
+contains an uncountable amount of points.
+\end{problem}
+\begin{problemproof}
+    Let $X$ be a connected normal space with points $x\neq y \in X$.
+
+    By Urysohn Lemma we know there exists a continuous function $f: X \to [0,1]$ s.t. $f(x)=0$ and $f(y)=1$. We use the closed subsets $\{x\}$ and $\{y\}$ since $X$ is also $T_1$.
+
+    Thus, since $X$ is connected we know that $f(X) \subset [0,1]$ is connected. Thus, by the intermediate value theorem we know since $0,1 \in f(X)$ then $[0,1] \subset f(X)$. Thus, $f(X)=[0,1]$.
+
+    Therefore, $X$ is uncountable since $f$ surjects $X$ onto an uncountable space.
+\end{problemproof}
+
+\begin{problem}{}
+    A topological space $X$ is said to be \emph{completely regular} if
+finite subsets of $X$ are closed, and $X$ satisfies the following
+condition: for every point $x \in X$ and every closed subset
+$A \subset X$, there exists a continuous function $f:X \to [0,1]$
+such that $f(x) = 0$ and $f(a) = 1$ for every $a \in A$.
+\end{problem}
+
+\begin{subproblem}{}
+    Explain why a completely regular space is always regular, and
+why a normal space is always completely regular
+\end{subproblem}
+\begin{problemproof}
+    Let $X$ be completely regular. Let $x \in X$ and let $A \subset X$ be a closed set s.t. $x \notin A$.
+
+    Then, there exists a continuous function $f: X \to [0,1]$ s.t. $f(x)=0$ and $f(a)=1$ for all $a \in A$.
+
+    Consider $x \in U=f^{-1}([0,1/2))$ and $A \subset V=f^{-1}((1/2,1])$ these are open sets.
+
+    Since $[0,1/2)$ is disjoint from $(1/2,1]$, This implies that $U \cap V = \emptyset$. Thus, $X$ is regular.
+
+    Let $X$ be normal. Then by Urysohn Lemma we know that there exists a continuous function $f: X \to [0,1]$ s.t. $f(x)=0$ and $f(a)=1$ for all $a \in A$.
+
+    Thus, $X$ is completely regular.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that every locally compact Hausdorff space is
+completely regular. (Use the one-point compactification.)
+\end{subproblem}
+\begin{problemproof}
+    Let $X$ be a locally compact Hausdorff space. Thus, we know there exists a one point compactification $\hat{X}=X \cup \{\infty\}$.
+
+    Thus, $\hat{X}$ is a compact Hausdorff spaces proven in class we know that $\hat{X}$ is normal.
+
+    Let $x \in X$ and $A \subset X$ be a closed subset s.t. $x \notin A$. Thus, $X \setminus A$ is open in $X$ and $\hat{X}$. Therefore, $\hat{X} \setminus (X \setminus A)=A \cup \{\infty\}$ is closed in $\hat{X}$.
+
+    Since $\hat{X}$ is normal by the problem above we get that it is completely regular thus there is a function $f: \hat{X} \to [0,1]$ s.t. $f(x)=0$ and $f(a)=1$ for all $a \in A \cup \{\infty\}$.
+
+    Now consider $p: X \to \hat{X}$ s.t. $p(x)=x$. Let $O$ be open in $\hat{X}$ then if $O$ is already open in $X$ then $p^{-1}(O)=O$.
+    
+    If $O=\hat{X} \setminus K$ for some compact set $K$ in $X$ then $p^{-1}(O)=X \setminus K$. Since $X$ is Hausdorff and $K$ is compact this means that $K$ is closed thus $X \setminus K$ is open.
+
+    Thus, $p$ is continuous.
+
+    Thus, consider $f \circ p: X \to [0,1]$. This is a continuous function s.t. $f(p(x))=f(x)=0$, and $f(p(a))=f(a)=1$ for all $a \in A \subset A \cup \{\infty\}$.
+
+    Thus, $X$ is completely regular.
+\end{problemproof}
+
+\begin{problem}{Topological groups}
+    Recall that a group $G$ is just a set equipped with some extra
+structure: a binary operation satisfying certain axioms. A
+topological space $X$ is also a set equipped with some extra
+structure: a topology $\T$, or a collection of subsets of $X$.
+A \emph{topological group} is a set which is equipped with the
+structure of \emph{both} a group and a topological space, in a
+``compatible'' way. Precisely, a topological group is a group $G$
+which is also a topological space such that:
+\begin{enumerate}[I]
+    \item The maps
+    \[
+    G \times G \to G, \qquad G \to G
+    \]
+    given respectively by $(g, h) \mapsto gh$ and $g \mapsto g^{-1}$
+    are both continuous, and
+    \item The singleton $\{e\}$ is a closed subset of $G$, where $e$
+    is the identity element.
+\end{enumerate}
+For the below, let $G$ be a topological group.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that any topological group satisfies the $T_1$ axiom.
+\end{subproblem}
+\clmp{}{
+    Let $X,Y$ be topological spaces then $f: X \to X \times \{y\}$ for $y \in Y$ is a homeomorphism.
+}{
+    Injective:
+
+    \noindent Let $a,b \in X$ s.t. $f(a)=f(b) \implies (a,y)=(b,y) \implies a=b$
+
+    \noindent Surjective:
+
+    \noindent Let $(a,y) \in X \times \{y\}$. Consider $f(a)=(a,y)$
+
+    \noindent Continuous:
+
+    \noindent Let $U$ be a basic open set in $X \times \{y\}$. Thus, $U=V \times W$ for $V$ open in $X$ and $W$ open in $\{y\}$.
+
+    \noindent Thus, $f^{-1}(U)=V$.
+
+    \noindent Continuous Inverse:
+
+    \noindent Let $U$ be an open set in $X$. Thus, $f(U)=U \times \{y\}$. This is a basic open set in $X \times \{y\}$. Thus, $f(U)$ is open.
+
+    \noindent Therefore, $f$ is a homeomorphism.
+}
+\begin{problemproof}
+    Let $m : G \times G \to G$ be the binary operation map.
+
+    Define: $f_x : G \to \{x\} \times G$ s.t. $f_x(g)=(x,g)$
+
+    Define: $L_x : G \to G$ s.t. $L_x = m \circ f_x$
+
+    Injective:
+
+    Let $a,b \in G$ s.t. $L_x(a)=L_x(b) \implies xa=xb$. Multiply by $x^{-1}$ on both sides, and we get that $a=b$.
+
+    Surjective:
+
+    Let $a \in G$ consider $y=x^{-1}a$
+
+    Thus, $L_x(y)=xx^{-1}a=a$
+
+    Continuous:
+
+    $L_x$ is continuous since $f_x$ by the claim and proof above and $m$ is continuous by definition.
+
+    Continuous Inverse:
+
+    Since the inverse of $L_x^{-1}=L_{x^{-1}}$ is also continuous by the same proof above we get that $L_x$ is a homeomorphism.
+
+    Therefore, we get that $L_x(\{e\})=\{x\}$ is closed.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that any topological group is Hausdorff.
+\end{subproblem}
+\begin{problemproof}
+    Let $i : G \to G$ be the inverse map.
+
+    Define: $f : G \times G \to G$ s.t. $f(g,h)=m(g,i(h))=gh^{-1}$. This is continuous since $m,i$ and the identity map are continuous.
+
+    Now consider $f^{-1}(\{e\})=\{(g,h) \in G \times G \mid gh^{-1}=e\}$. Since invserse are unique in groups this is only true when $g=h$.
+
+    Thus, we have shown that $\Delta=\{(g,g) \mid g \in G\}$ is closed. Thus, by previous homework $G$ is Hausdorff.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that any topological group is regular.
+\end{subproblem}
+\begin{problemproof}
+    
+\end{problemproof}
+\end{document}

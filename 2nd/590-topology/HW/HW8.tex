@@ -159,10 +159,6 @@
 
     Thus, $\R^\omega$ is first countable.
 
-    Consider $\{0,1\}^\omega$. Let $x \in \{0,1\}^\omega$
-
-    Consider $B(x,1/2) \cap \{0,1\}^\omega=\{x\}$. Since the distance between each point in $\{0,1\}^\omega$ is 1. Thus, $\{0,1\}^\omega$ is an uncountable discrete subset which implies $\R^\omega$ is not second countable.
-
     Assume $\R^\omega$ has a countable dense subset $U$.
 
     Consider $f: \{0,1\}^\omega \to U$ s.t. $f(x)=u$ s.t. $u \in B(x,1/2)$.
@@ -172,6 +168,8 @@
     Let $x,y \in \{0,1\}^\omega$ s.t. $f(x)=f(y)$. Thus, $x=y$ since $B(x,1/2)$ only contains one point from $\{0,1\}^\omega$.
 
     Thus, this implies $U$ is uncountable thus, $\R^\omega$ is not separable.
+
+    Thus, since $\R^\omega$ is not separable proven in class this implies it is not second countable.
 \end{problemproof}
 
 \begin{subproblem}{}
@@ -187,7 +185,7 @@
 
     Thus, $X$ is first countable.
 
-    Consider $\Q$. $\Q$ is dense since any set $[a,b)$ with have a rational number in it. This is from $\Q$ being dense in $\R$ with standard topology.
+    Consider $\Q$. $\Q$ is dense since any set $[a,b)$ with have a rational number in it. This is from $\Q$ being dense in $\R$ with standard topology. Thus, any open set intersects $\Q$ implying that $\overline{\Q}=\R$
 
     Thus, $X$ is separable.
 
@@ -257,11 +255,19 @@ and ``normal'' in turn.
     
     Consider $\R=X_2$ with standard topology and $X_1=\R$ with a basis of $(a,b)$ and $(a,b) \setminus K$ s.t. $K=\{1/n \mid n \in \N\}$.
 
-    Both ways do not work for regular. For one direction use the same counter example as above.
+    Suppose there exists disjoint open sets containing $0,K$. Called $U,V$. Let $B$ be a basis element containing $0$ that is a subset of $U$. It must be a basis element of the form $(a,b) \setminus K$ since for any open interval containing zero intersects $K$.
+
+    Fix $n \in \N$ large enough s.t. $1/n \in (a,b)$. Now pick a basis element about $1/n$ contained in $V$. It must be an interval $(c,d)$ since $1/n \in K$.
+
+    This is a contradiction since fix $z \in \R$ s.t. $\max{c,1/(n+1)} < z < 1/n$. Thus, $z \in U \cap V$ which is a contradiction.
+
+    Thus, $X_1$ is not regular but $X_2$ is.
+
+    Both ways do not work for normal. For one direction use the same counter example as above.
 
     For the other direction
 
-    Consider $\R^2=X_2$ with standard topology and $X_1=\R_l \times \R_l$ s.t. $\R_l$ is the topology given by basis of intervals $[a,b)$.
+    We can also use the example of $\R$ with standard topology and $\R$ with the special $K$ topology. Since it is not regular it is also not normal, but $\R$ is normal.
 \end{problemproof}
 
 \begin{problem}{}
@@ -280,5 +286,85 @@ and ``normal'' in turn.
     Consider, $h: U \times V \to S \times V$ s.t. $h(x,y)=(f(x),g(y))$. Thus, this is a homeomorphism since $f,g$ are homeomorphisms. Thus, $U \times V \cong S \times T \subset R^{n+m}$.
 
     Therefore, $M_1 \times M_2$ is a $n+m$ manifold.
+\end{problemproof}
+
+\begin{problem}{}
+    Consider the cube $C = [-1,1] \times [-1,1] \times [-1,1]$. This
+cube has six faces, given by the subsets
+\begin{align*}
+\{\pm 1\} \times [-1, 1] \times [-1, 1],\\
+[-1, 1] \times \{\pm 1\} \times [-1, 1],\\
+[-1, 1] \times [-1, 1] \times \{\pm 1\}.
+\end{align*}
+We can form the space $T_3$ by taking the quotient of $C$ by
+``identifying opposite faces;'' precisely, by taking
+$T_3 = C / \sim$, where $x \sim y$ if either $x = y$, or if any of
+the following hold:
+\begin{align*}
+x = (\pm 1, u, v), \qquad y = (\mp 1, u, v)\\
+x = (u, \pm 1, v), \qquad y = (u, \mp 1, v)\\
+x = (u, v, \pm 1), \qquad y = (u, v, \mp 1)
+\end{align*}
+Prove that $T_3$ is homeomorphic to the product
+$S^1 \times S^1 \times S^1$, and therefore a
+manifold. \textit{Hint:} it suffices to find a continuous bijection
+from $T_3$ to the product; why? You may also want to apply Problem 5
+on Homework 4 (Theorem 22.2 in Munkres).
+\end{problem}
+\begin{problemproof}
+    Let $p$ be the quotient map.
+
+    Define $g : C \to S^1 \times S^1 \times S^1$ s.t. $g(x,y,z)=(e^{i\pi x},e^{i\pi x},e^{i\pi z})$.
+
+    Since $e^{i \pi x}$ is continuous we know that $g$ is continuous.
+
+    Let $x \neq y \in C$ s.t. $x \sim y$.
+
+    Thus, let $x=(\pm 1,u,v)$ and $y=(\mp 1, u ,v)$. However, since $e^{-i\pi}=e^{i\pi}$. This, implies that $g(x)=g(y)$. The same argument works for the other types of equivalences.
+
+    Thus, $g$ is constant on the equivalence classes. Therefore, by Theroem 22.2 we get an induced map $f : T_3 \to S^1 \times S^1 \times S^1$ s.t. $f \circ p = g$.
+
+    Also, since $g$ is continuous we know that $f$ is continuous.
+
+    Injective:
+
+    Let $a,b \in T_3$ s.t. $f(a)=f(b)$.
+
+    Since $q$ is surjective this implies there is $x,y \in C$ s.t. $q(x)=a$ and $q(y)=b$.
+
+    Thus, $f(q(x))=f(q(b))$. Therefore, $g(x)=g(y)$.
+
+    Thus, $(e^{i\pi x_1},e^{i\pi x_2},e^{i\pi x_3})=(e^{i\pi y_1},e^{i\pi y_2},e^{i\pi y_3})$
+
+    Thus, $e^{i \pi (x_j - y_j)}=1$
+
+    This, implies that $\pi(x_j - y_j)=2 \pi k$ for some $k \in \Z$.
+
+    Dividing by $\pi$ gets:
+
+    $x_j-y_j = 2k$
+
+    Since $x_j,y_j \in [-1,1]$. This implies that $k$ is 0, 1, or $-1$.
+
+    Therefore this implies that either:
+    \begin{align*}
+        x_j-y_j=0 \implies x_j=y_j\\
+        x_j-y_j=2 \implies x_j=1, \; y_j=-1\\
+        x_j-y_j=-2 \implies x_j=-1, \; y_j=1
+    \end{align*}
+
+    Thus, this implies that $x \sim y$.
+
+    Therefore, $a=b$. Thus, $f$ is injective.
+
+    Surjective:
+
+    Let $x \in S^1 \times S^1 \times S^1$. Therefore, since $e^{i\pi t} : [-1,1] \to S^1$ is surjective there is $x_1,x_2,x_3$ s.t. $x=(e^{i\pi x_1},e^{i \pi x_2}, e^{i \pi x_3})$.
+
+    Thus, consider $f(q(x_1,x_2,x_3))=g(x_1,x_2,x_3)=x$.
+
+    Therefore, $f$ is surjecitve.
+
+    First, since $C$ is closed and bounded we know that it is compact. Thus, $q(C)=T_3$ is compact. Also, since $S_1 \times S_1 \times S_1$ is a subspace of a Hausdorff space it is Hausdorff. Thus, since $f$ is a continuous bijection form a compact space to a Hausdorff space it is a homeomorphism. Therefore, $T_3 \cong S^1 \times S^1 \times S^1$.
 \end{problemproof}
 \end{document}
