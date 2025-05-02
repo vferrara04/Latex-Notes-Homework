@@ -285,6 +285,30 @@ For the below, let $G$ be a topological group.
     Prove that any topological group is regular.
 \end{subproblem}
 \begin{problemproof}
-    
+    Consider the continuous map from the last problem $f(g,h)=gh^{-1}$.
+
+    Let $A$ be a closed set s.t. $e \notin A$.
+
+    Consider $f^{-1}(X \setminus A)$. This is an open set in $G \times G$ since $f$ is continuous.
+
+    Since $f(e,e)=e \in X \setminus A \implies (e,e) \in f^{-1}(X \setminus A)$. Therefore, let $V_1 \times V_2$ be a basic open set s.t. $(e,e) \in V_1 \times V_2 \subset f^{-1}(X \setminus A)$.
+
+    Define: $V=V_1 \cap V_2$. This is open since $V_1,V_2$ are open in $G$.
+
+    Consider $AV=\displaystyle\bigcup_{a \in A}L_a(V)$. This is an open set since $L_a(V)$ is open since $L_a$ is an homeomorphism.
+
+    Let $a \in A$ since $e \in V \implies ae=a \in AV$. Thus, $A \subset V$.
+
+    Let $x \in V$ and $x \in AV$. Thus, $x=ay$ for some $a \in A$ and $y \in Y$. Thus, $a=xy^{-1}$. This is a contradiction since $x,y \in V \implies f(x,y) \in X \setminus A \implies a \in X \setminus A$.
+
+    Therefore, $V \cap AV = \emptyset$, and $e \in V$, $A \subset AV$.
+
+    To do this for any $x \in G$ and any closed set $C$ s.t. $x \notin C$. Just do this for $e$, and $x^{-1}C$. $e \notin x^{-1}C$ since if it was then this would imply that $x \in C$ since inverses are unique.
+
+    Thus, we get disjoint open sets s.t. $e \in V$ and $x^{-1}C \subset U$.
+
+    Then consider $x \in xV$ and $C \subset xU$. These are still disjoint since if there were not this would imply that $V \cap U \neq \emptyset$ since left multiplication is a homeomorphism.
+
+    Thus, $G$ is regular.
 \end{problemproof}
 \end{document}

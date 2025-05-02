@@ -1,0 +1,266 @@
+\section{Algebraic Topology}
+\defn{Homotopy}{
+    Let $X,Y$ be spaces, let $f_0,f_1: X \to Y$ be continuous functions. A homotopy from $f_0$ to $f_1$ is a continuous map
+    $X \times [0,1] \to Y$ s.t. $h(x,0)=f_0(x)$ and $h(x,1)=f_1(x)$.
+}
+
+If $X$ is locally compact and Hausdorff then any continuous path in $\mathcal{C}(X,Y)$ specifies a homotopy between its endpoints.
+
+\defn{Path Homotopic}{
+    Let $X$ be a space, let $f_0,f_1$ be paths $[0,1] \to X$.
+
+    We say $f_0$ and $f_1$ are path homotopic if they have the same starting point and ending point and there is a homotopy from $f_0$ to $f_1$
+
+    $h:[0,1] \times [0,1] \to X$ s.t. $h(0,t)=f_0(0)=f_1(0)$, $h(1,t)=f_0(1)=f_1(1)$.
+}
+
+\propp{
+    \begin{enumerate}
+        \item Homotopy of maps $X \to Y$ is an equivalence relation on $\mathcal{C}(X,Y)$
+        \item Path Homotopy is an equivalence relation on paths $[0,1] \to X$.
+    \end{enumerate}
+}{
+    Reflexivity $h: X \times [0,1] \to Y$ s.t. $(x,t) \mapsto f(x)$. is a homotopy from $f$ to $f$.
+
+    Symmetry: If $f_0,f_1$ are homotopic by $h : X \times [0,1] \to Y$ then $h' : X \times [0,1]$ s.t. $h'(x,t)=h(x,1-t)$ is a homotopy from $f_1$ to $f_0$.
+
+    Reflexivity: If $f_0,f_1$ are homotopic by $h: X \times [0,1] \to Y$ and $f_1,f_2$ are homotopic by $g: X \times [0,1] \to Y$ then $h': X \times [0,1]$ s.t. $h'(x,t)=h(x,2t)$ for $t \leq 1/2$ and $g(x,2t-1)$ otherwise.
+}
+\rmkb{In 1, if $X$ is locally compacy Hausdorff, then equivalence classes are the same as path components of $\mathcal{C}(X,Y)$}
+
+\exm{}{
+    Fix points $x_0, x_1 \in \R^n$. Any two points between $x_0,x_1$ are path homotopic.
+}
+
+\defn{Simply Connected}{
+    A path-connected spaces is simply connected if any two paths with same endpoints are path-homotopic.
+}
+
+\defn{Nullhomotopic}{
+    A map $f : X \to Y$ is nullhomotopic if it is homotopic to a contstant map.
+}
+
+\defn{Loop}{
+    A loop $f: [0,1] \to X \quad (f(0)=f(1))$ is nullhomotopic if it is path-homotopic to a constant map.
+}
+
+\subsection{Algebra on Paths and the Fundamental Group}
+
+\defn{}{
+    Let $X$ be a space, let $f$ be a path in $X$ from $x_0$ to $x_1$, let $g$ be a path from $x_1$ to $x_2$.
+    Define $f * g$ by.
+    \begin{equation*}
+        (f*g)(t)=\begin{cases*}
+            f(2t) \quad t\in[0,1/2]\\
+            g(2t-1) \quad t\in[1/2,1]
+        \end{cases*}
+    \end{equation*}
+}
+Define $*$ on path homotopy classes by:
+\[[f]*[g]=[f*g]\]
+
+Warning: We cannot $*$ arbitrary pairs of paths (or arbitrary pairs of path homotopy classes).
+
+\thm{}{
+    On path homotopy classes, the operation $*$ satisfies:
+
+    Associativity:
+    \[([f]*[g])*[h]=[f]*([g]*[h])\]
+
+    Existence of identities:
+
+    Let $e_x$ be the constant path $[0,1] \to X$, $e_x(t)=x$
+    
+    If $f$ is a path from $x_0$ to $x_1$, then \[[f]*[e_{x_1}]=[f]=[e_{x_0}]*[f]\]
+    Inverses:
+
+    If $f$ is a path from $x_0$ to $x_1$ and $\overline{f}$ is the reverse path then 
+    \[[f]*[\overline{f}]=[e_{x_0}]\]
+    \[[\overline{f}]*[f]=[e_{x_1}]\]
+}
+
+\defn{The Fundamental Group}{
+    The fundamental group of $X$ relative to basepoint $x_0$ is the set of path homotopy classes of loops based at $x_0$, equipped with group operation $*$.
+
+    Denoted $\pi_1(X,x_0)$
+}
+
+\propp{
+    If $x_0$ and $x_1$ are connected by a path in $X$, then $\pi_1(X,x_0) \cong \pi_1(X,x_1)$.
+}{
+    Let $\alpha$ be a path in $X$ from $x_0$ to $x_1$. Then $\hat{\alpha} : \pi_1(X,x_0) \to \pi_1(X,x_1)$ s.t. $[f] \mapsto [\overline{\alpha}] * [f] * [\alpha]$.
+
+    This is well-define on path-homotopy classes, and it's a group homomorphism:
+
+    $[f],[g] \in \pi_1(X,x_0)$ then 
+    
+    $\hat{\alpha}([f] * [g])=[\overline{\alpha}] * [f] * [g] [\alpha] = [\overline{\alpha}] * [f] [\alpha] * [\overline{\alpha}]* [g] [\alpha]=\hat{\alpha}([f]) * \hat{\alpha}([g])$.
+
+    Inverse is $[f] \mapsto [\alpha] * [f] * [\overline{\alpha}]$
+}
+
+\defn{}{
+    Let $h: X \to Y$ be a continuous map $h(x_0)=y_0$. The map
+
+    \[h_*: \pi_1(X,x_0) \to \pi_1(Y,y_0)\] defined by $h_*([f])=[h \circ f]$
+
+    This is a homomorphism.
+}
+
+\thm{}{
+    For continuous maps 
+    \[X \to Y \to Z\]
+
+    Compositions $k_* \circ h_* = (k \circ h)_*$
+}
+
+\cor{
+    If $h: X \to Y$ is a homeomorphism, $h(x_0)=y_0$, then $h_*$ is an isomorphism.
+}
+
+\subsection{Covering Spaces}
+\defn{Evenly Covered}{
+    Let $X$ be a topological space. Let $p : \tilde{X} \to X$ be a surjective continuous map. An open set $U \subset X$ is evenly covered by $p$ if $p^{-1}(U)$ is a disjoint union of open sets $\bigcup_{\alpha \in J}V_\alpha$
+    s.t. each $V_\alpha$ is homeomorphic to $U$ by $p$.
+}
+
+\defn{Covering Map/Space}{
+    $p$ is a covering map if every $x \in X$ has a neighborhood which is evenly covered by $p$. In this case, $\tilde{X}$ is a covering space of $X$.
+}
+
+\subsection{Lifting Maps}
+\defn{}{
+    Let $p : \tilde{X} \to X$ be a continuous map.
+
+    Let $f: Y \to X$. A lift of $f$ is a map $\tilde{f} : Y \to \tilde{X}$ s.t. $f=p \circ \tilde{f}$. 
+}
+\[\begin{tikzcd}
+	&& {\tilde{X}} \\
+	\\
+	Y && X
+	\arrow["p", from=1-3, to=3-3]
+	\arrow["{\tilde{f}}", from=3-1, to=1-3]
+	\arrow["f", from=3-1, to=3-3]
+\end{tikzcd}\]
+
+\thmp{The Path Lifting Property}{
+    Let $p : \tilde{X} \to X$ be a covering map, let $f: [0,1] \to X$ be a path based on $x_0 \in X$.
+
+    For any point $\tilde{x_0} \in p^{-1}(x_0)$, there exists a unique path $\tilde{f}: [0,1] \to \tilde{X}$ lifting $f$, based at $\tilde{x_0}$
+}{
+    For each point $t \in [0,1]$ find a neighborhood $U_t$ of $f(t) \in X$ s.t. $U_t$ is evenly covered by $p$.
+    
+    The collection of sets $f^{-1}(U_t)$ is an open covering of $[0,1]$. $[0,1]$ is compact, so take a finite subcover.
+
+    Use this finite subcover to find a sequence of increasing times $0=t_0 < t_1 < \dots < t_n =1$ s.t. $[t_i,t_{i+1}]$ satisfied $f([t_i,t_{i+1}])$ lies in a neighborhood $U$ which is evenly covered by $p$. To constuct the lift just lift each subsegent one at a time.
+}
+
+\thmp{The Homotopy Lifting Property}{
+    Let $f_0: X \to Y$ be a continuous map. Let $p : \tilde{Y} \to Y$ be a covering map. Suppose $h : X \times [0,1] \to Y$ is a homotopy from $f_0$ to $f_1 : X \to Y$, and $\tilde{f_0}: X \to \tilde{Y}$ is a lift of $f_0$.
+    Then there is a unique lift $\tilde{h} : X \times [0,1] \to \tilde{Y}$ of $h$ s.t. $\tilde{h}(x,0)=\tilde{f_0}(x)$
+}{
+    (Assume X is locally connected.)
+
+    Fix $x_0 \in X$.
+
+    \clmp{}{
+        There exists a neighborhood $N$ of $x_0$ in $X$ s.t. homotopy $h : X \times [0,1] \to Y$ "lifts" to a homotopy $\tilde{h}: N \times [0,1] \to \tilde{Y}$
+        s.t. $\tilde{h}(x_0,0)=\tilde{f_0}(x_0)$.
+    }{
+        \setlength{\parindent}{0pt}
+        For each $t \in [0,1]$. find a neighborhood $N_t \subset X$ of $x_0$ and internval $(t-\epsilon,t+\epsilon)$ s.t. $h$ maps $N_t \times(t-\epsilon,t+\epsilon)$ into a neighborhood of $h(x_0,t)$ in $Y$, evenly covered by $p$. This comes from the fact that $h$ is continuous.
+
+        $[0,1]$ is compacy, so we can find a single neighborhood $N$ of $x_0$, and times $0=t_0,\dots,t_n=1$ s.t. for all $i$, $h(N \times [t_1,t_{i+1}])$ lies in an evenly covered neighborhood of $Y$. 
+
+        WLOG let $N$ be connected.  Constrict homotopy in claim one step at a time.
+
+        Assume $\tilde{h}$ is defined on $N \times [0,t_i]$ so $\tilde{h}$ is defined on $N \times \{t_i\}$. This is a lift of $h$ on $N \times \{t_i\}$, and $h(N \times \{t_i\})$ lands in an evenly convered neighborhood $U_i$ in $Y$.
+
+        Also, $h(N \times [t_i,t_{i+1}])$ lands in this evenly covered neighborhood. Since $N$ is connected, $\tilde{h}(N \times \{t_i\})$ lands in a unique neighborhood $\tilde{U_i}$ in $\tilde{Y}$ mapping homeomorphically to $U_i$.
+
+        Can compose $h$ with local inverse of covering map on $U_i$ to get a lift of $h$ mapping into $\tilde{U_i}$.
+
+        Then by pasting lemma, this gives desired homotopy $\tilde{h} : N \times [0,1] \to \tilde{Y}$.
+    }
+
+    From the claim: Define the homotopy $\tilde{h} : X \times [0,1] \to \tilde{Y}$ by defining on each neighborhood $N$ of each point $x_0 \in X$.
+
+    If we fix $z_0 \in N \cap N'$, then the homotopy from $N$, and the homotopy from $N'$ define paths in $\tilde{Y}$ based at $\tilde{f_0}(z_0)$, since path lifts a unique these will be the same.
+
+    Thus, $\tilde{h} : X \times [0,1] \to \tilde{Y}$ is a well-defined, continuous map since it restricts to a continuous map on $N \times [0,1]$ for neighborhood of points of $X$. Then by the pasting lemma it is continuous.
+}
+Let $p: \tilde{X} \to X$. Let $\tilde{X}$ be path-connected. Fix a basepoint $\tilde{x_0} \in \tilde{X}$, let $p(\tilde{x_0})=x_0$.
+
+Given a loop $f$ in $X$ based on $x_0$, by the path lifting property we can lift to get a path in $\tilde{X}$ based at $\tilde{x_0}$.
+
+Lifting a loop does not necessarily get a loop, but the endpoint lies in $p^{-1}(x_0)$, so have a map from \{loops based at $x_0$\} to \{points in preimage of $x_0$\}.
+
+This map is well-defined on $\pi_1(X,x_0)$.
+
+\prop{There is a well-defined surjective map
+\[\phi: \pi_1(X,x_0) \to p^{-1}(x_0)\]
+If $\tilde{X}$ is simply connected, this is a bijection.}
+
+\thmp{}{
+    \[\pi_1(S^1) \cong (\Z, +)\]
+}{
+    Let $p: \R \to S^1$ s.t. $p(t)=(\cos(2\pi t),\sin(2\pi t))$.
+
+    Let $x_0=p(0)$, and $p^{-1}(x_0)=\Z$. Then we have a bijection:
+
+    $\phi : \pi_1(S^1,x_0) \to \Z$
+
+    Let $[f],[g] \in \pi_1(S^1,x_0)$. Take unique lifts $\tilde{f},\tilde{g}: [0,1] \to \R$ based at 0.
+
+    By definition $\phi([f])=\tilde{f}(1)$, and $\phi([g])=\tilde{g}(1)$.
+
+    $\tilde{f}(1) \in \Z$ Can define another path $\tilde{\tilde{g}}:[0,1] \to \R$ s.t. $\tilde{\tilde{g}}(t)=\tilde{g}(t)+\tilde{f}(1)$.
+    This is a path starting at $\tilde{f}(1)$. So, $\tilde{f} * \tilde{\tilde{g}}$ is well-defined. This is a path based at 0,
+    with an endpoint an integer. So it descends to a loop in $S^1$. This loop is homotopic to $f*g$.
+
+    $\phi([f]*[g])=\phi([f*g])=(\t{endpoint of lift of } f*g)=\tilde{\tilde{g}}(1)+\tilde{f}(1)+\tilde{g}(1)=\phi([f])+\phi([g])$
+}
+
+Given a group $G$, there is a space $X$ satisfying $\pi_1(X) \cong G$.
+
+\defn{Retraction}{
+    Let $X$ be a space, and $A \subseteq X$. A retraction is a continuous map $r: X \to A$
+    s.t. $r \mid_A$ is identity map on $A$.
+}
+
+\defn{Retract}{
+    $A$ is a retract of $X$ if there is a retraction $X \to A$.
+}
+
+\thmp{}{
+    Let $r: X \to A$ be a retraction, let $i: A \to X$ be inclusion map.
+    Then:
+    \begin{enumerate}[(i)]
+        \item $i_*: \pi_1(A,a_0) \to \pi_1(X,a_0)$ is injective.
+        \item $r_*: \pi_1(X,a_0) \to \pi_1(A,a_0)$ is surjective.
+    \end{enumerate}
+}{
+    $id=(r \circ i)_*=r_* \circ i_*$ so $i_*$ is injective, $r_*$ is surjective.
+}
+
+\thmp{}{
+    $\R^2 \setminus \{0\}$ is not simply connected.
+}{
+    Consider the retraction $r: \R^2 \setminus {0} \to S^1$ s.t. $r(z)=z/||z||$.
+
+    Thus, there is an injective map $\pi_1(S^1) \to \pi_1(\R^2 \setminus \{0\})$. So $\pi_1(\R^2 \setminus \{0\})$ is nontrivial.
+}
+
+\lemp{}{
+    No retraction from closed unit disk to $S^1$
+}{
+    If there is then means there is a surjective map from $\pi_(D) \to \pi_1(S^1)$ but $\pi_(D)$ is trivial.
+}
+
+\thmp{Brower fixed-point theorem}{
+    Any continuous map $f: D \to D$ has a fixed point.
+}{
+    Assume $f: D \to D$ has no fixed point. Define a retraction $D \to S^1$: Draw a line between $f(x)$ and $x$ and define $r(x)$ to be the point closer to $x$. This is a contradiction since there is no retraction.
+}
+
+If $X$ is any space homeomorphic to $D$ then any continuous map $X \to X$ has a fixed point.

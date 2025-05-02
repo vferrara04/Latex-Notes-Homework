@@ -1,0 +1,314 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\begin{problem}{}
+    Let $x_0$ and $x_1$ be points in a path-connected space $X$. In
+  class, we showed that any path $\alpha$ from $x$ to $y$ defines an
+  isomorphism $\hat{\alpha}:\pi_1(X, x_0) \to \pi_1(X, x_1)$. Prove
+  that $\pi_1(X, x_0)$ is abelian if and only if for every pair of
+  paths $\alpha, \beta$ from $x_0$ to $x_1$, the isomorphisms
+  $\hat{\alpha}$ and $\hat{\beta}$ agree.
+\end{problem}
+\begin{problemproof}
+    Assume $\pi_1(X,x_0)$ is abelian, since $\pi_1(X,x_0) \cong \pi_1(X,x_1)$ this implies that $\pi_1(X,x_1)$ is also abelian.
+    
+    Let $[f] \in \pi_1(X,x_0)$
+
+    Consider 
+    \begin{align*}
+        \hat{\alpha}([f])&=[\alpha^{-1}*f*\alpha]\\
+        &=[\alpha^{-1}*\beta*\beta^{-1}*f*\alpha]\\
+        &=[\alpha^{-1}*\beta]*[\beta^{-1}*f*\alpha]\\
+        \intertext{We can split them up like this since $\alpha^{-1}*\beta$, and $\beta^{-1}*f*\alpha$ are loops of $x_1$}
+        &=[\beta^{-1}*f*\alpha]*[\alpha^{-1}*\beta]\\
+        &=[\beta^{-1}*f*\alpha*\alpha^{-1}*\beta]=[\beta^{-1}*f*\beta]=\hat{\beta}([f])
+    \end{align*}
+
+    Assume $\hat{\alpha}=\hat{\beta}$.
+
+    Let $[f],[g] \in \pi_1(X,x_0)$. Let $\beta=f*\alpha$ which is a path from $x_0$ to $x_1$.
+
+    Consider
+    \begin{align*}
+        \hat{\alpha}([f*g])&=\hat{\beta}([f*g])\\
+        &=[\alpha^{-1}*f^{-1}*f*g*f*\alpha]\\
+        &=[\alpha^{-1}*g*f*\alpha]\\
+        &=\hat{\alpha}([g*f])
+    \end{align*}
+    This implies that $[f]*[g]=[g]*[f]$ since $\alpha$ is an isomorphism.
+
+    Thus, $\pi_1(X,x_0)$ is abelian
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a path-connected space. Prove that $\pi_1(X)$ is trivial
+  if and only if every map $S^1 \to X$ extends to a map $D \to X$,
+  where $D$ is the closed unit disk (with boundary $S^1$).
+\end{problem}
+\begin{problemproof}
+    Assume $\pi_1(X)$ is trivial. Let $f : S^1 \to X$ be a loop at $x_0$. Let $f$ be in terms of polar cords, so $f(\theta)=x$ for some $x \in X$. Since $\pi_1(X)$ is trivial this implies there exists a homotopy from $f$ to the constant map on $x_0$. Call it $h : S_1 \times [0,1] \to X$ s.t. $h(\theta,0)=f(\theta)$ and $h(\theta,1)=x_0$.
+
+    Define a map $F : D \to X$ s.t. by $F(\theta, r)=h(\theta, 1-r)$, and for $F \mid_{S_1}=F(\theta,1)=f(\theta)$. Thus, $F$ is an extension of $f$.
+
+    Assume every map $S^1 \to X$ extends to a map $D \to X$. Let $f: S^1 \to X$ be a loop based at $x_0$. By assumption we have a continuous map $F : D \to X$ s.t. $F \mid_{S^1}=f$.
+
+    This is by definition a homotopy since $F(\theta, 1)=f(\theta)$ and $F(\theta,0)=x$ is constant for some $x \in X$. Thus, this implies that $f$ is homotopic to a constant map which implies that $\pi_1(X,x_0)$ is trivial, and since $X$ is path connected this implies that $\pi_1(X,x)$ is trivial for all $x \in X$. Thus, $\pi_1(X)$ is trivial.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $p:\widetilde{X} \to X$ be a covering map, and assume that
+  $\widetilde{X}$ is path-connected. Show that the cardinality of the
+  preimage $p^{-1}(x)$ of a point $x \in X$ does not depend on
+  $x$.
+\end{problem}
+\begin{problemproof}
+    Since $p(\widetilde{X})=X$ this implies that $X$ is also path connected. Since for $x,y \in X$ then consider $\widetilde{x} \in p^{-1}(x)$ and $\widetilde{y} \in p^{-1}(y)$. Then $\widetilde{X}$ is path connected, so there is a continuous path $f$ from $\widetilde{x}$ to $\widetilde{y}$, and thus $q \circ f$ is a continuous path from $x$ to $y$ in $X$.
+
+    Let $x_0,x_1 \in X$. Let $f$ be a path from $x_0$ to $x_1$
+
+    Define: $\varphi : p^{-1}(x_0) \to p^{-1}(x_1)$ s.t. $\varphi(x)=f_x(1)$ where $f_x$ is the unique path lift of $f$ beginning at $x$.
+
+    Well-Defined:
+
+    Since $p(\varphi(x))=p(f_x(1))=f(1)=x_1 \implies \varphi(x) \in p^{-1}(x_1)$.
+
+    Consider the reverse path of $f$ call it $g$ from $x_1$ to $x_0$ where $g(t)=f(1-t)$
+
+    Now define $\varphi^{-1} : p^{-1}(x_1) \to p^{-1}(x_0)=g_x(1)$ where $g_x$ is the unique path lift of $g$ beginning at $x$.
+
+    Let $x \in p^{-1}(x_0)$.
+
+    Consider $\varphi^{-1}(\varphi(x))=g_{f_x(1)}(1)$.
+
+    Since $p \circ g_{f_x(1)}=g$, $p \circ f_x(1-t)=f(1-t)=g$, and $f_x(1)=g_{f_x(1)}(0)$ since lifting paths is unique this implies that $g_{f_x(1)}=f_x(1-t)$.
+
+    Thus, $g_{f_x(1)}(1)=x$.
+
+    Now the same argument works for $\varphi(\varphi^{-1}(y))=y$ for $y \in p^{-1}(x_1)$.
+
+    Thus, $|p^{-1}(x_0)|=|p^{-1}(x_0)|$
+\end{problemproof}
+
+\begin{problem}{}
+    Let $p: \widetilde{X} \to X$ be a covering map with countable degree (see
+  the previous problem). Prove that $\widetilde{X}$ is an $n$-manifold if
+  and only if $X$ is an $n$-manifold.
+\end{problem}
+\clmp{}{
+    Let $p : \widetilde{X} \to X$ be a covering map then $p$ is an open map.
+}{
+    Let $U$ be an open set in $\widetilde{X}$. Let $x \in p(U)$
+
+    \noindent Since $p$ is a covering map this implies that there is an open neighborhood $V$ of $x$ that is evenly covered. Thus, there exists an open set in $W$ s.t. $p \mid_W W \to V$ is a homeomorphism.
+
+    \noindent Thus, consider $U \cap W$ which is open in $\widetilde{X}$ thus $p\mid_{W}(U \cap W)=p(U \cap W)=p(U) \cap p(W) \subset p(U)$ is an open neighborhood of $x$ in $X$. Thus, $p(U)$ is open.
+}
+\clmp{}{
+  If $X$ is locally homeomorphic to $\R^n$ then $X$ is $T_1$
+}{
+  Let $x,y \in X$ s.t. $x \neq y$. Let $U$ be a neighborhood of $x$ that is homeomorphic to an open subset of $\R^n$.
+  
+  \noindent If $y \notin U$ we are done.
+
+  \noindent If $y \in U$ then since $U$ is Hausdorff since it is homeomorphic to a subspace of a Hausdorff space we now that we can find an open neighborhood $V \subset U$ of $x$ s.t. $y \notin V$.
+
+  \noindent Since $V$ is open in an open set it is open in $X$.
+
+  \noindent Now for all $x \in X \setminus \{y\}$ we can find open sets of $X$ that do not contain $y$ and contain $x$. Thus, this is implies that $X \setminus \{y\}$ is open. Thus, $\{y\}$ is closed. Thus, $X$ is $T_1$.
+}
+\clmp{}{
+  Let $p : \widetilde{X} \to X$ be a covering map. If $U$ is evenly covered by $p$ then every open subset of $U$ is evenly covered.
+}{
+  Let $U$ be evenly covered by $p$. Let $V \subset U$ be open. Consider $p^{-1}(U)=\bigsqcup_{\alpha \in J} V_\alpha$ s.t. $V_\alpha \cong U$ this implies that $V_\alpha \cap p^{-1}\mid_{V_\alpha}(V) \cong V$.
+
+  \noindent Thus, $p^{-1}(V)=\bigsqcup_{\alpha \in J} V_\alpha \cap p^{-1}\mid_{V_\alpha}(V)$. Thus, open subsets of evenly covered sets are evenly covered.
+}
+\begin{problemproof}
+  Assume $\widetilde{X}$ is an $n$-manifold.
+
+  Let $x \in X$. Since $p$ is a covering map this implies that there exists a neighborhood $U$ of $x$ that is evenly covered by $p$.
+
+  Thus, there exists an open set $V$ in $\widetilde{X}$ s.t. $p\mid_{V} V \to U$ is a homeomorphism.
+
+  Let $\widetilde{x}=p^{-1}\mid_V(x) \in V$ this implies that there exists an open neighborhood $W$ of $\widetilde{x}$ s.t. $W$ is homeomorpphic to an open set of $\R^n$. Thus, consider $W \cap V$ since this is an open in $W$ this implies that it is homeomorphic to an open subset of $\R^n$.
+  Therefore, $p\mid_V(V \cap W)$ is an open neighborhood of $x$ that is homeomorphic to an open subset of $\R^n$.
+
+  Let $\widetilde{\beta}$ be a countable basis for $\widetilde{X}$. Consider $\beta=p(\widetilde{\beta})$ this is a collection of open sets since $p$ is an open map.
+
+  Let $x \in X$. Since $p$ is surjective this implies there is a $z \in \widetilde{X}$ s.t. $p(z)=x$. Since $\widetilde{\beta}$ is a basis there is a $\widetilde{B} \in \widetilde{\beta}$ s.t. $z \in \widetilde{B}$. Thus, $x \in p(\widetilde{B})=B \in \beta$.
+  
+  Thus, $\beta$ covers $X$.
+
+  Let $x \in B_1 \cap B_2$ for $B_1,B_2 \in \beta$. Since $p$ is surjective there is a $z \in \widetilde{X}$ s.t. $p(z)=x$. Since $p$ is continuous this implies that $p^{-1}(B_1 \cap B_2)$ is an open neighborhood of $z$.
+  Thus, there exists a basis set $\widetilde{B_3}$ of $z$ s.t. $z \in \widetilde{B_3} \subset p^{-1}(B_1 \cap B_2)$. Thus, $x \in p(\widetilde{B_3})=B_3 \subset B_1 \cap B_2$.
+
+  Thus, $\beta$ is a countable basis for $X$, thus $X$ is second countable.
+  
+  Let $x,y \in X$ s.t. $x \neq y$. Proven above since $X$ is locally homeomorphic to $\R^n$ we now that $X$ is $T_1$.
+
+  Thus, $p^{-1}(x)$ and $p^{-1}(y)$ are disjoint closed sets in $\widetilde{X}$. Since $\widetilde{X}$ is a $n$-manifold it is metrizable thus normal. Thus, we can find two disjoint open sets $N_x$ and $N_y$ s.t. $p^{-1}(x) \subset N_x$ and $p^{-1}(y) \subset N_y$.
+
+  Let $U$ be an evenly covered neighborhood of $x$. Let $U_\alpha \subset p^{-1}(U)$ be one of the disjoint homeomorphic copies of $U$ that make up $p^{-1}(U)$. Let $\{x_\alpha\} = U_\alpha \cap p^{-1}(x)$. WLOG let $U_\alpha$ be path connected since $\widetilde{X}$ is locally path connected since it is an $n$-manifold, so we can just intersect $U_\alpha$ with a path connected neighborhood of $x_\alpha$.
+
+  Consider $p(U_\alpha \cap N_x) \subset U$. Since $U_\alpha \cap N_x$ is open this implies that $p(U_\alpha \cap N_x)$ is an open subset of $U$. Thus, $p(U_\alpha \cap N_x)=A$ is evenly covered.
+
+  Therefore, $p^{-1}(A)=\bigsqcup_{\alpha \in J} V_\alpha$ s.t. $V_\alpha \cong U_\alpha \cap N_x$. Thus, $V_\alpha$ is also path connected.
+
+  Since $x_\alpha \in U_\alpha \cap N_x \implies x \in A \implies p^{-1}(x) \subset p^{-1}(A)$.
+
+  Also since $p^{-1}(y) \cap N_x = \emptyset \implies y \notin A$.
+
+  Now let $V$ be an evenly covered neighborhood of $x$, and do the same thing as above with $V_\beta \subset p^{-1}(V)$ and call $B=p(V_\beta \cap N_y)$.
+
+  Assume for contradiction that $A \cap B \neq \emptyset$. Let $z \in A \cap B$. Let $p(z_a)=z$ for $z_a \in U_\alpha \cap N_x$
+
+  Since $A$ is path connected let $f$ be a path from $x \to z$ and same for $B$ let $g$ be a path from $z \to y$. Consider $f*g$
+
+  Thus, there exists a unique lift $\widetilde{f*g}=\widetilde{h}$ that is based at $p^{-1}\mid_{U_\alpha \cap N_x}(x)$.
+
+  Since $p(\widetilde{h}(t))=f(2t) \in A$ for $t \in [0,1/2]$ this implies that since $p$ restricted to one of the covering sets of $A$ is a homeomorphism that,
+  
+  $p\mid_{U_\alpha \cap N_x}(\widetilde{h}(1/2))=f(1)=z \implies \widetilde{h}(1/2)=z_a$.
+
+  Now do the same for $p(\widetilde{h}(t))=g(2t) \in B$ for $t \in [1/2,1]$. This implies that there exists a homeomorphic copy of $V_\beta$ called $U_\beta \subset p^{-1}(V_\beta)$ s.t.
+
+  $\widetilde{h}(1/2)=z_a \in U_\beta \cap N_y \subseteq p^{-1}(B)$. This is a contradiction since $N_x \cap N_y = \emptyset$.
+
+  Thus, $X$ is Hausdorff.
+
+  $(\impliedby)$
+
+  Assume $X$ is an $n$-manifold and $p$ has countable degree.
+
+  Let $\widetilde{x} \in \widetilde{X}$, thus consider $p(\widetilde{x})=x$. Since $p$ is a covering map and $X$ is an $n$-manifold. This implies there exists an open set $U$ of $x$ that is evenly covered and open set $V$ of $x$ that is homeomorphic to an open subset of $\R^n$.
+
+  Thus, $p^{-1}(U)= \bigcup_{\alpha \in J}V_\alpha$ for disjoint open sets that are homeomorphism to $U$.
+  
+  Thus, consider $V_\alpha$ for the $\alpha \in J$ s.t. $\widetilde{x} \in V_\alpha$. This implies that $p \mid_{V_\alpha} : V_\alpha \to U$ is a homeomorphism.
+  
+  Since $V$ is open and homeomorphic to an open subset of $\R^n$ this implies that $V \cap U$ is also open and homeomorphic to open subset of $\R^n$. Thus, the open set $V_\alpha \cap p^{-1}\mid_{V_\alpha}(V)$ is an open neighborhood of $\widetilde{x}$ that is homeomorphic to $U \cap V \implies$ it is homeomorphic to an open subset of $\R^n$.
+
+  Thus, $\widetilde{X}$ is locally homeomorphic to $\R^n$.
+
+  Let $\beta$ be a countable basis for $X$.
+
+  Define $\mathfrak{B}=\{B \in \beta \mid B \t{ is evenly covered}\}$.
+
+  Let $x \in X$ then there is an open set s.t. $U$ s.t. $U$ is evenly covered. Thus, there exists a $B \in \beta$ s.t. $x \in B \subseteq U$.
+
+  Proven above since $B$ is an open subset of an evenly covered set $U$ this implies that $B$ is evenly covered.
+
+  Thus, $\mathfrak{B}$ covers $X$.
+
+  Let $x \in B_1 \cap B_2$ s.t. $B_1, B_2 \in \mathfrak{B}$. Thus, $B_1 \cap B_2$ is evenly covered since it is an open subset of $B_1$ which is evenly covered. Thus, there exists a $B_3 \in \beta$ s.t. $x \in B_3 \subset B_1 \cap B_2$. Thus, $B_3 \in \mathfrak{B}$ since it is an open subset of an evenly covered set.
+
+  Therefore, $\mathfrak{B}$ is a countable basis for $X$.
+
+  Consider $p^{-1}(B)$ for $\mathfrak{B}$ since $B$ is evenly covered $p^{-1}(B)=\sqcup_{\alpha \in J}V_\alpha$ s.t. $V_\alpha \cong B$. Define $V_B=\{V_\alpha \mid \alpha \in J\}$. Now define $\widetilde{\mathfrak{B}}=\bigcup_{B \in \mathfrak{B}} V_B$.
+
+  Since $p$ has countable degree this implies that $V_B$ is countable thus $\widetilde{\mathfrak{B}}$ is countable since it is a countable union of countable sets.
+
+  Since $\mathfrak{B}$ covers $X$ and $p$ is surjective this implies that $\widetilde{\mathfrak{B}}$ covers $\widetilde{X}$.
+
+  Let $\widetilde{x} \in B_1 \cap B_2$ for $B_1,B_2 \in \widetilde{\mathfrak{B}}$. By definition, we know that $B_1 \cong B$ and $B_1 \cong B'$ for some $B,B' \in \mathfrak{B}$. Thus, this implies that $p(\widetilde{x}) \in B \cap B' \implies$ there is a $B'' \in \mathfrak{B}$ s.t. $p(\widetilde{x}) \in B'' \subset B \cap B'$.
+
+  Thus, consider $p\mid_{B}^{-1}$ which is a homeomorphism onto $B_1$. Consider the open set $p\mid_{B}^{-1}(B'') \in \widetilde{\mathfrak{B}}$. This is an open set s.t. $\widetilde{x} \in p\mid_{B}^{-1}(B'') \subset B_1 \cap B_2$.
+
+  Thus, $\widetilde{\mathfrak{B}}$ is a countable basis for $\widetilde{X}$.
+
+  Let $x,y \in \widetilde{X}$ s.t. $x \neq y$. Consider $p(x),p(y)$:
+
+  If $p(x) \neq p(y)$ then let $A,B$ be two disjoint open sets s.t. $p(x) \in A$ and $p(y) \in B$. Then let $U$ and $V$ be the evenly covered neighborhoods of $p(x)$ and $p(y)$.
+
+  Consider $p^{-1}(A \cap U)$ and $p^{-1}(B \cap V)$. Since $p^{-1}(A \cap U) \cap p^{-1}(B \cap V)=p^{-1}(A \cap U \cap B \cap V)=\emptyset$. This implies that $p^{-1}(A \cap U)$ and $p^{-1}(B \cap V)$ are disjoint open neighborhoods of $x,y$.
+
+  If $p(x) = p(y)$ then let $U$ be the evenly covered neighborhood of $p(x)$.
+
+  Thus, $p^{-1}(U)=\bigsqcup_{\alpha \in J}V_\alpha$ s.t. $V_\alpha \cong U$. Since $V_\alpha \cong U$ and $x \neq y$. This implies that $x \in V_\alpha$ and $y \in V_\beta$ for $\alpha \neq \beta$. Since if $\alpha = \beta$ then this implies that $p^{-1}\mid_{V_\alpha}(p(x))=x=y$ which is a contradiction.
+
+  Thus, $\widetilde{X}$ is an $n$-manifold.
+\end{problemproof}
+
+\begin{problem}{}
+  Fix a basepoint $x_0 \in S^1$, and let
+  $\phi:\pi_1(S^1, x_0) \to \pi_1(S^1, x_0)$ be any group
+  homomorphism. Prove that there is a continuous map $f:S^1 \to S^1$
+  so that $\phi = f_*$.
+\end{problem}
+\begin{problemproof}
+  Since $S_1$ is path connected we know that $\pi(S^1,x_0) \cong \pi_(S^1,(1,0))$. Thus, make our basepoint $(1,0)$
+
+  Proven in class $\pi_1(S^1, (1,0)) \cong \Z$. This, implies that $\pi_1(S^1, (1,0))$ is cyclic and generated by a single element. Thus, let $\pi_1(S^1,(1,0))=\ang{[\alpha]}$.
+
+  Since $\phi$ is a homomorphism this map will be defined by where it sends $[\alpha]$. Thus, $\phi([\alpha])=[\beta]$, but since $[\alpha]$ generates $\pi_1(S^1,(1,0))$. This implies that $[\beta]=[\alpha]^k=([\alpha] * [\alpha] * [\alpha] * \dots * [\alpha])$.
+
+  Thus, $\phi([\alpha])=[\alpha]^k$ for some $k \in \Z$.
+
+  Define $f_k : S^1 \to S^1$ s.t. $f(\theta)=(\cos(k\theta),\sin(k\theta))$. This is continuous since $\cos,\sin$ are continuous.
+
+  Thus, $(f_k)_*([\alpha])=[f_k \circ \alpha]=[\alpha]^k=\phi([\alpha])$.
+
+  Since proven in class $(f_k)_*$ is a homomorphism, and it is defined where it sends $[\alpha]$. This implies that $(f_k)_*=\phi$.
+\end{problemproof}
+\end{document}

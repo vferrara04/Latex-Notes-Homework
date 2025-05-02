@@ -159,3 +159,75 @@
 
     Thus, $V \cap Z \subset F(U)$, so $F(U)$ is open. Thus, $F$ is an embedding into $\R^\omega$. Thus, $X$ is homeomorphic to a subspace of a metric space, so $X$ is a metric space.
 }
+
+\corp{}{
+    Let $Y$ be a space which Hausdorff, locally compact, and second countable. Then $Y$ is metrizable.
+}{
+    $Y$ is Hausdorff and locally comapact, so it has a one point compactification so $\hat{Y}$ is comapct and Hausdorff so normal. Thus, $Y$ is regular, and by the theorem it is metrizable.
+}
+
+\subsection{Partition of unity}
+\defn{Support}{
+    Let $X$ be any spaces, let $\phi: X \to \R$ be continuous. The support of $\phi$ is the closure of the set $\phi^{-1}(\R \setminus \{0\})$.
+
+    supp$(\phi)$
+}
+\defn{Partition of unity subordinate to $U$}{
+    Let $U=\{U_1,\dots,U_k\}$ be a finite open covering of a space $X$. A partition of unity subordinate to $U$ is a collection of continuous functions $\phi_1,\dots ,\phi_k : X \to [0,1]$ s.t.
+    \begin{itemize}
+        \item supp$(\phi_i) \subset U_i$
+        \item for all $x \in X$, $\displaystyle\sum_{i =1}^k \phi_i(x)=1$
+    \end{itemize}
+}
+
+\lemp{}{
+    Let $\{U_i\}_{i=1}^k$ be a finite covering of $X$. There exists another open covering $\{V_i\}_{i=1}^k$ s.t. $\overline{V_i} \subset U_i$ for all $i$
+}{
+    Consider the set $X \setminus (U_2 \cup \dots \cup U_k)$. This is a closed subset of $U_1$. By normality, $\exists V_1$ s.t. this complement is contained in $V_1$ and $\overline{V_1} \subset U_1$.
+
+    Continue inductively.
+
+    Assume $V_1,\dots,V_j,U_{j+1},\dots,U_k$ is an open covering with $\overline{V_i} \subset U_i$ for $i \leq j$.
+
+    As before, replace $U_{j+1}$ with smaller open set $V_{j+1}$ so new collection is still a covering, and $\overline{V_{j+1}} \subset U_{j+1}$.
+}
+
+\thmp{}{
+    Let $X$ be a normal spaces, let $U=\{U_1,\dots,U_k\}$ be a finite open covering of $X$. There is a partition of unity subordinate to $U$.
+}{
+    Fix finite covering $U=\{U_1,\dots,U_k\}$. Find open covering $V_1,\dots,V_k$ and $W_1,\dots,W_k$ s.t. $\overline{W_i} \subset V_i$, $\overline{V_i} \subset U_i$.
+
+    By Urysohn lemman, there is a function $i: X \to [0,1]$ s.t. $f_i(x) > 0$ on $W_i$, $f_i(x)=0$ on $X \setminus V_i$.
+
+    Thus, supp$(f_i) \subset U_i$.
+
+    Thus, $\sum_{i=1}^k f_i(x) > 0$.
+
+    Define: $\phi_i : X \to [0,1]$ s.t. $\phi_i(x)=\dfrac{f_i(x)}{\sum_{i=1}^k f_i(x)}$.
+
+    Thus, each $\phi_i$ is continuous, and the sum is $1$ for all $x \in X$.
+}
+
+\thmp{}{
+    Let $M$ be a compact $n$-mainfold. Then there exists some $N \in \N$ s.t. $X$ embeds into $\R^N$.
+}{
+    Let $M$ be a compact $n$-manifold. Cover $M$ with  finitely many open neighborhoods $U_1,\dots,U_k$ that are each homeomorphic to $\R^n$ by $g_i : U_i \to \R^n$.
+
+    Let $\phi_i$ be a partition of unity subordinate to $\{U_i\}$.
+
+    Define functions $h_i : M \to \R^n$ by: $h_i(x)= \phi_i(x)g_i(x)$ if $x \in U_i$ and $0$ if $x \in X \setminus \t{supp}(\phi_i)$.
+
+    This is well-defined and continuous.
+
+    Define map $F : M \to \R^{k} \times \R^{n^k}$ s.t. $F(x)=(\phi_1(x),\dots,\phi_k(x),h_1(x),\dots,h_k(x))$.
+
+    This is continuous. Also, injective since if $F(x)=F(y)$ for some $x,y \in M$ then $\phi_i(x)=\phi_i(y)$ for all $i$, and $\phi_i(x) >0$ for some $i$. This implies that $x,y \in U_i$ for some $i$.
+
+    Thus, $h_i(x)=h_i(y) \implies g_i(x)=g_i(y)$ but $g_i$ is a homomorphism thus $x=y$.
+
+    Since $M$ is compact, and $\R^N$ is Hausdorff we are done. Thus, $M$ is an embedding.
+}
+
+\thm{Tychonoff Theorem}{
+    Every product of compact spaces is compact.
+}

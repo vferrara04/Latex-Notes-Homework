@@ -104,7 +104,7 @@ Thus, $st^{-1} \in E$ for all $s,t \in S$ and $t \neq 0$.
 
 Therefore, $F \subset E$.
 
-Thus, $F =KL$.
+Thus, $F = KL$.
 \end{solution}
 
 \begin{problem}{}
@@ -145,17 +145,24 @@ Note that (iii) follows formally from (i) and (ii).
 
     Assume $K/F$ is finite.
 
-    Thus, let $\{b_1,\dots,b_n\}$ be a basis for $K$ has a vector space over $F$.
+    Thus, $K=F(a_1,\dots,a_n)$ for $a_1,\dots,a_n \in K$
 
-    Thus, $k=a_1b_1+\dots+a_nb_n$ for $a_i \in F$ for all $k \in k$.
+    Thus, consider $L(K)$. This is the smallest field of $L$ adjoined with elements of $K$. Thus, $KL=L(K)=L(F(a_1,\dots,a_n))$.
 
-    Thus, $kl=a_1lb_1+\dots+a_nlb_n$ for all $l \in L$.
+    Since $F \subset L$ adding $F$ does not do anything to $L$. Thus, $L(F(a_1,\dots,a_n))=L(a_1,\dots,a_n)$. Thus, $KL/L$ is finite.
+\end{problemproof}
 
-    Thus, $kl=\sum_i (a_il)b_i$ and since $l \in L$ and $a_i \in F \subset L$ we get taht $a_i,l \in L$.
+\begin{subproblem}{}
+    Show that algebraic extensions form a distinguished class.
+\end{subproblem}
+\begin{problemproof}
+    Property $(i)$ follows from class.
 
-    Thus, $kl=\sum_i l_i b_i$ for $l_i \in L$.
+    Assume $K/F$ is algebraic.
 
-    
+    Consider $x \in KL$. Thus, there is a finite number of elements of $K$ that make up $x$. Call these $(a_1,\dots,a_n)$. Consider $L(a_1,\dots,a_n)/L$. Since $K/F$ is algebraic this means that $a_1,\dots,a_n$ satisfy polynomials with coefficients in $F \subset L$. Thus, these also work for $L$.
+
+    Therefore, $L(a_1,\dots,a_n)/L$ is algebraic. Since $x \in L(a_1,\dots,a_n)$. This implies that $x$ is algebraic over $L$. Thus, $KL/L$ is algebraic.
 \end{problemproof}
 
 \qh

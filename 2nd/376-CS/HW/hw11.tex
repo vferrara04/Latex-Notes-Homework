@@ -1,0 +1,597 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+\newcommand{\E}{\mathbb{E}}
+\qh[Self assessment.]
+\begin{solution}
+    For problem 7 part b). I think my solution was better since it actually solved the geometric distribution and did not just state it.
+
+    \begin{align*}
+        \E[R]=\sum_{i=1}^k \E[R_i]&=k\E[R_1]\\
+        &=k\sum_{i=1}^\infty i \P[R_1=i]\\
+        &\leq k\sum_{i=1}^\infty i(1-p)^{i-1}p\\
+        &= \frac{kp}{(1-1+p)^2}=\frac{k}{p}
+    \end{align*}
+\end{solution}
+
+\qh[Short-answer potpourri.]
+\begin{subproblem}{}
+    Suppose that Alice's bit string is $x=101111000$ and Bob's bit string is $y=111100110$.
+    State, with justification, \textbf{all} the ``bad'' primes~$p$ for which the fingerprinting protocol from class will (wrongly) \emph{accept}, even though $x \neq y$.
+\end{subproblem}
+\begin{problemproof}
+    $x=376$, $y=486$. Since $486-376=110=2 \times 5 \times 11$. If $p \mid 110$. Then this implies that $p \mid (y-x) \implies x \equiv y \pmod{p}$. Thus, the only bad primes are $2,5,11$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Recall the fast ``spot checking'' algorithm for verifying matrix multiplication from lecture.
+    Consider the matrices
+    \[
+      A =
+      \begin{bmatrix}
+        1 & 2 & 3 \\
+        3 & 2 & 1 \\
+        2 & 1 & 3
+      \end{bmatrix}, \quad
+      B =
+      \begin{bmatrix}
+        3 & 2 & 4 \\
+        1 & 3 & 3 \\
+        2 & 5 & 1
+      \end{bmatrix}, \quad
+      A\cdot B = 
+      \begin{bmatrix}
+        11 & 23 & 13 \\
+        13 & 17 & 19 \\
+        13 & 22 & 14
+      \end{bmatrix}, \quad
+      C = 
+      \begin{bmatrix}
+        13 & 21 & 18 \\
+        13 & 17 & 19 \\
+        14 & 21 & 10
+      \end{bmatrix},
+    \]
+    and notice that $AB \neq C$.
+    Give, with justification, \textbf{all} the binary vectors for which the algorithm (wrongly) accepts. 
+\end{subproblem}
+\begin{problemproof}
+    The algorithm will accept if $A \times (Br)=Cr$. Thus, this is equivalent to $(C-AB)r=0$.
+
+    Thus,
+    \[C-AB = 
+      \begin{bmatrix}
+        2 & -2 & 5 \\
+        0 & 0 & 0 \\
+        1 & -1 & -4
+      \end{bmatrix}\]
+    Thus, for $(C-AB)r=0$ we get the equations.
+    \begin{equation*}
+        2x - 2y + 5z = 0\\
+        1x - y -4z = 0
+    \end{equation*}
+
+    Thus, we get when adding $-2$ times equation 2 to 1, $13z=0 \implies z=0$. Then when plugging this in we get $x=y$.
+
+    Thus, all the binary vetors are
+    \[r=\begin{bmatrix}
+        x\\
+        x\\
+        0
+      \end{bmatrix}\]
+    For $x \in \{0,1\}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    The ciphertext is:
+    \[ 400644095036345936514356093209515259423656091750325118
+    \]
+    Recover the original message. You may use a computer or the \href{https://onlinestringtools.com/convert-ascii-to-string}{ASCII code to string converter}. Include an explanation of what you did and clearly state the secret key.
+\end{subproblem}
+\begin{problemproof}
+    The way I solved it was brute force checking subtracting $k \in \{0,1,\dots,9\}$ $\mod 10$. Then converting to ASCII and seeing what the message was.
+
+    The message was I'M SECRETLY A TURKEY (SAT) with secret key $k=7$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that if $\gcd(x,y) = 1$ (in other words, $x$ and $y$ are coprime), then $ax \equiv 1 \pmod y$ and $by \equiv 1 \pmod x$. Then, calculate $32^{-1} \bmod 263$ and $263^{-1} \bmod {32}$ using \textsc{ExtendedEuclid}. Show you work by filling in the table below:
+\end{subproblem}
+\begin{problemproof}
+    Assume $\gcd(x,y)=1$. Then by Bezout's identiy there is an $a,b \in \Z$ s.t. $ax+by=1$.
+
+    This implies that $ax=b(-y)+1 \implies ax \equiv 1 \pmod{y}$, this is the same for $by$.
+
+    \begin{table}[H]\centering
+        \begin{tabular}{rr|rr|rr|rr}
+          \multicolumn{2}{c|}{input} & \multicolumn{2}{|c|}{division} & \multicolumn{2}{|c|}{rec ans} & \multicolumn{2}{|c}{output} \\
+           $x$   & $y$  & $q$ & $r$  & $a'$ & $b'$ & $a$ & $b$  \\ \hline
+           263   & 32   &  8  &  7   &  2  &  -9   & -9  &  74   \\
+           32    &  7   &  4  &  4   & -1  &   2   &  2  & -9   \\
+           7     &  4   &  1  &  3   &  1  &  -1   & -1  &  2   \\
+           4     &  3   &  1  &  1   &  0  &   1   &  1  & -1   \\
+           3     &  1   &  3  &  0   &  1  &   0   &  0  &  1   \\
+           1     &  0   &     &      &     &       &     &      \\
+        \end{tabular}
+      \end{table}
+
+      Thus, $32^{-1} \equiv 74 \pmod{263}$ and $263^{-1} \equiv -9 \equiv 23\pmod{32}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Compute $6^{25} \bmod 22$ using \textsc{RepeatSquare}. Show your work by first filling out the table~$P$ below (using lines 3-6). Then, list all the $P[i]$'s that you included in your product to calculate $6^{25} \bmod 22$ (using lines 8-10) in your calculation leading to the final answer. 
+\end{subproblem}
+\begin{problemproof}
+    \begin{table}[H]\centering
+        \begin{tabular}{c|c|l}
+        $i$ & $2^i$ & $P[i]$ \\
+        \hline
+         0  & 1 & 6 \\
+         1  & 2 & 14 \\
+         2  & 4 & 20 \\
+         3  & 8 & 4 \\
+         4  & 16 & 16 \\
+        \end{tabular}
+        \end{table}
+        The $P[i]$'s used were when $i \in \{0,3,4\}$
+
+        So, $6^{25} \equiv 10 \pmod{22}$.
+\end{problemproof}
+
+\begin{problem}{Trading space for time in skip lists.}
+    Recall that a skip list is essentially a linked list with multiple levels.
+  To add an item, we first find the appropriate place to insert it in the first level, and do so.
+  Then, we run the following loop: flip a fair coin; if it comes up heads, insert the item at the next-higher level and repeat; if it comes up tails, stop.
+
+  A skip list keeps duplicate copies of items, which consumes extra memory.
+  In this problem, we will obtain a trade-off between the amount of memory used and the running time of the `find' operation, by adjusting the probability with which we ``promote'' items to higher levels.
+  That is, instead of using a fair coin, we use one that comes up heads with some probability $p \in (0,1)$.
+
+  Throughout this problem, assume that there are~$n$ distinct items in the data structure.
+\end{problem}
+
+\begin{subproblem}{}
+    For any particular item in the data structure, derive the expected number of copies of it that appear in the structure, in terms of~$p$.
+\end{subproblem}
+\begin{problemproof}
+    The total number of copies depends on the highest level one item gets to. Thus, let $X_i$ be $1$ if our item is on level $i$, and zero otherwise.
+
+    Thus, $X=\sum_{i=0}^\infty X_i$ if $X$ is the number of copies of the item.
+
+    Thus, $\E[X]=\sum_{i=0}^\infty \E[X_i]= \sum_{i=0}^\infty \P[X_i=1] = \sum_{i=0}^\infty p^i= \dfrac{1}{1-p}$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Derive the expected size of the structure, i.e., the total number of copies of all the items, in terms of~$n$ and~$p$.
+    Also briefly describe how this behaves as~$p$ decreases and approaches~$0$.
+\end{subproblem}
+\begin{problemproof}
+    Let $X$ be the total number of elements. Let $X_i$ be the number of copies of item $i$.
+
+    Thus, $X=X_1+\dots+X_n$.
+
+    $\E[X]=\sum_{i=1}^n \E[X_i]$. From part (a) we know the expected number of copies for any one item. Therefore,
+
+    \[\E[X]=\sum_{i=1}^n \dfrac{1}{1-p}= \dfrac{n}{1-p}\]
+
+    As $p$ approaches $0$ $\E[X]=n/(1-p) \to n$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Derive the expected number of items on level~$i$ (where $i=0$ corresponds to the first level), in terms of~$n$, $p$, and $i$.
+\end{subproblem}
+\begin{problemproof}
+    Let $X$ be the total number of elements on level $i$. Let $X_j$ be one if item $j$ is on level $i$, and zero otherwise.
+    
+    Thus, $\E[X_j]=\P[X_j=1]=p^i$.
+
+    Therefore, since $X=X_1+\dots+X_n \implies \E[X]=\E[X_1]+\dots+\E[X_n]=np^i$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $Z$ be random variable denoting the total number of occupied levels in the structure. Show that
+    \[
+        \E[Z] \leq \frac{1}{1-p} + \frac{\log n}{\log (1/p)}.
+    \]    
+    Also briefly describe how this bound behaves as~$p$ decreases and approaches~$0$.
+\end{subproblem}
+\begin{problemproof}
+    Let $X_i$ be the number of elements on level $i$. From part $(c)$ we know that $\E[X_i]=np^i$
+
+    Let $Z_i$ be one if there is at least one item on level $i$, and zero otherwise.
+
+    Thus, $Z=\sum_{i=0}^\infty Z_i$.
+
+    Therefore,
+    \begin{align*}
+        \E[Z]&=\sum_{i=0}^\infty \E[Z_i]\\
+            &=\sum_{i=0}^\infty \P[X_i \geq 1]\\
+            \intertext{For $i \leq \lfloor \log_{1/p}n\rfloor$, we get that $\P(X_i \geq 1) \leq np^i \leq np^{\log_{1/p}n} = n \times 1/n = 1$}
+            \intertext{For $i > \lfloor \log_{1/p}n\rfloor$, we get that $\P(X_i \geq 1) \leq np^i$ so,}
+            &\leq \lfloor \log_{1/p}n\rfloor + \sum_{\lfloor \log_{1/p}n\rfloor + 1}^\infty np^i\\
+            &=\log_{1/p}n + \dfrac{np^{\lfloor \log_{1/p}n\rfloor + 1}}{1-p}
+            \intertext{Since $p^{\lfloor \log_{1/p}n\rfloor + 1} \leq p^{\log_{1/p}n}=1/n$}
+            &\leq\log_{1/p}n + \dfrac{1}{1-p}= \dfrac{1}{1-p}+\dfrac{\log n}{\log(1/p)}
+    \end{align*}
+
+    As $p \to 0$, we can see that $\E[Z] \leq \dfrac{1}{1-p} + \dfrac{\log n}{\log (1/p)} \to 1$. Thus, as $p$ approaches zero the bound approaches 1.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Consider any particular level~$i$ and an item~$y$ that appears in that level.
+    Derive a fairly tight upper bound (in terms of any of the relevant quantities) on the expected number of items preceding~$y$ \textbf{on level~$i$} that are accessed when running $\textsc{find}(y)$.
+    Also briefly describe how this bound behaves as~$p$ decreases and approaches~$0$.
+\end{subproblem}
+\begin{problemproof}
+    Let $Z$ be the number of elements touched by $\textsc{find}(y)$ on level $i$ that are before $y$.
+
+    Let $Z_j$ be one if element $j$ is on level $i$.
+
+    Let $y$ be the $r$th spot in the list order.
+
+    Therefore, $Z=Z_1+\dots+Z_{r-1}$ since we would have to touch all elements before reaching the element greater than or equal to $y$.
+
+    Thus, $\E[Z]=\sum_{j=1}^{r-1}\E[Z_j]p^i=(r-1)p^i \leq np^i$.
+
+    Thus, as $p \to 0$ this implies that $p^i \to 0$. Thus, $np^i \to 0$.
+\end{problemproof}
+
+\qh[Spot-checking polynomials.]
+\begin{subproblem}{}
+    Recall that the \emph{degree} of a nonzero polynomial is the largest exponent that appears in its nonzero monomials; the degree of the zero polynomial is undefined.
+    For example, the degree of $2x^3 + 8x^7 + 1x^6$ is~$7$, and the degree of $376$ is~$0$.
+
+    Also recall that every nonzero degree-$d$ polynomial $p(x)$ has at most~$d$ (complex) \emph{roots}, i.e., values $x^*$ such that $p(x^*)=0$.
+    So, this also holds when we restrict to integer roots.
+
+    All this suggests the following \emph{incomplete} spot-checking algorithm for zero testing:
+
+    \begin{minipage}{0.9\textwidth}
+      \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+          \Require a polynomial that is either nonzero and of degree~$d$, or is the zero polynomial
+          \Function{ZeroTest}{$p(x)$}
+          \State choose an integer $r \in \{1,2,\ldots,2d\}$ uniformly at random
+          \If{$p(r) = 0$} accept
+          \Else\ reject
+          \EndIf
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
+    \end{minipage}
+    
+    State, with justification, how to fill in the three blanks above so that:
+    \begin{itemize}
+    \item If $p(x)$ is the zero polynomial, then $\Call{ZeroTest}{p(x)}$ accepts with certainty (i.e., with probability~$1$).
+    \item If $p(x)$ is nonzero, then $\Pr[\Call{ZeroTest}{p(x)} \text{ rejects}] \geq 1/2$.
+    \end{itemize}
+\end{subproblem}
+\begin{problemproof}
+    If $p(x)$ is the zero polynomial then $p(x)=0$ for all $x$. Thus, we will always accept.
+
+    If $p(x)$ is nonzero with degree $d$. Then we know it has at most $d$ roots. 
+    
+    Thus, $\P[p(r)=0] \leq \dfrac{d}{2d}=1/2$. Since in the worst case we can have all $d$ roots in our list.
+
+    Thus, $\P[\Call{ZeroTest}{p(x)} \t{ accepts}]=\P[p(r)=0] \leq 1/2$ 
+    
+    $\implies 1-\P[\Call{ZeroTest}{p(x)} \t{ rejects}] \leq 1/2 \implies \P[\Call{ZeroTest}{p(x)}] \geq 1/2$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Accepting the zero polynomial with certainty is great, but rejecting a nonzero polynomial with probability only $1/2$ is not so great.
+    Describe, with brief justification, \emph{two different ways} of modifying the algorithm so that the probability of rejecting a nonzero polynomial improves to at least 99\% (and the zero polynomial is still accepted with certainty).
+\end{subproblem}
+\begin{problemproof}
+    We could run the algorithm $\lceil \log_2 100 \rceil=7$ times since $\dfrac{1}{2^7} < 0.01$, or we could increase our pool we pick from to be $\{1,\dots,100d\}$ since $\P[p(r)=0] \leq \dfrac{d}{100d} = 1/100$. Thus, the probability that we reject is now $99\%$.
+\end{problemproof}
+
+\begin{problem}{Pattern-matching fingerprinting}
+    \vspace{-15pt}
+    \begin{minipage}{\linewidth}
+        \begin{algorithm}[H]
+          \begin{algorithmic}[1]
+            \Function{PatternMatch}{$X,Y,k$}
+                  \State{Pick a random prime $p$ in the range $\{1, \ldots, k\}$.}
+                  \For {$j=1, \ldots, n-m+1$}
+                      \State $X_j \gets x_j \cdots x_{j+m-1}$ \Comment{Substring of length $m$ starting at $x_j$}
+                      \If{$X_j \bmod p = Y \bmod p$}
+                          \State{\textbf{accept}}
+                      \EndIf
+                  \EndFor
+                  \State{\textbf{reject}}
+            \EndFunction
+          \end{algorithmic}
+        \end{algorithm}
+      \end{minipage}
+\end{problem}
+
+\begin{subproblem}{}
+    Briefly explain why if $Y$ is a substring of $X$, the algorithm will always accept. 
+\end{subproblem}
+\begin{problemproof}
+    Assume $Y$ is a substring of $X$. Then for one of the loops in the for loop we will have $X_j=Y$ since we loop at all continuous length $m$ substrings of $X$. Thus, for that since $X_j=Y \implies X_j \equiv Y \pmod{p}$, so we will always accept.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Suppose $Y$ is not a substring of $X$. Derive an upper bound on the probability of a false positive in a single iteration of the algorithm. You may use the Prime Number Theorem which says the number of primes less than $k$ is $\pi(k)$, where $\pi(k) \approx k/ \ln k$. 
+\end{subproblem}
+\begin{problemproof}
+    Assume $Y$ is not a substring of $X$. Thus, for some $1 \leq j \leq n-m+1$ we have $X_j \equiv Y \pmod{p}$. Thus, this implies that $p \mid (X_j-Y)$.
+
+    Since $X_j-Y$ is an $m$ digit binary number we can assume that $m$ can have at most $m$ distinct prime factors. Thus, the probability of choosing a prime factor is $\leq \dfrac{m \ln k}{k}$ for one loop.
+
+    Thus, for $n-m+1$ loops we get that the probability of a false positive is 
+    
+    $\leq (n-m+1) \dfrac{m \ln k}{k}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    In this part, you'll prove a result you need for the next part.
+        
+        Let $h_{j} = X_{j} \bmod p$. Give a formula for $h_j$ in terms of $x_{j-1}$ (the leftmost bit in $X_{j-1}$), $x_{j+m-1}$ (the bit right after $X_{j-1}$), and $h_{j-1}$.
+\end{subproblem}
+\begin{problemproof}
+    Consider $X_j$. The way to construct this from $X_{j-1}$ is to first subtract $2^{m-1} x_{j-1}$ to get rid of the left most digit. We then left shift which is equivalent to multiplying by two. Then we add our new rightmost digit $x_{j+m-1}$.
+
+    Thus, $X_j=2(X_{j-1}-2^{m-1}x_{j-1})+x_{j+m-1}$. Then when we mod it my $p$ we get.
+
+    $h_j \equiv 2(h_{j-1}-2^{m-1}x_{j-1})+x_{j+m-1} \pmod{p}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    It turns out that the current implementation of \textsc{PatternMatch} still runs in $O(mn)$ time. 
+
+        Using the result in (c), modify the algorithm so that it uses at most $O(n \log k)$ numerical operations (addition, subtraction, multiplication, modulo operation, \emph{bit} comparison). Justify your answer.
+\end{subproblem}
+\begin{problemproof}
+    \begin{minipage}{\linewidth}
+        \begin{algorithm}[H]
+          \begin{algorithmic}[1]
+            \Function{PatternMatch}{$X,Y,k$}
+                \State{Pick a random prime $p$ in the range $\{1, \ldots, k\}$.}
+                \State $h \gets x_1$
+                \For {$i=2, \ldots, m$}
+                    \State $h \gets (2h + x_i)\bmod p$
+                \EndFor
+                \State $c \gets 2^{m-1} \bmod p$
+                \State $y \gets Y \bmod p$ \Comment{Do it the same way as $h$}
+                \If{$h = y$}\textbf{ accept}\EndIf
+                \For {$j=2, \ldots, n-m+1$}
+                    \State $h \gets (2(h - c \cdot x_{j-1}) + x_{j+m-1}) \bmod p$
+                    \If{$h = y$}
+                        \State{\textbf{accept}}
+                    \EndIf
+                \EndFor
+                \State{\textbf{reject}}
+            \EndFunction
+          \end{algorithmic}
+        \end{algorithm}
+      \end{minipage}
+
+      To make $h$ takes $O(m)$ operations. To make $c$ using fast exponentiation takes $O(\log m)$. If we do it the same way as $h$ making $y$ takes $O(m)$.
+
+      Now the for loop we do $O(n)$ operations then in the for loop it takes $O(\log(k))$ since we know that $h$ is now at most size $k$ which implies it is a $O(\log(k))$ length number. Then the comparison takes $O(\log(k))$. Thus, in total it takes $O(n\log k+m\log k)=O(n \log k)$.
+
+      The algorithm is also correct due to the proof in (c).
+\end{problemproof}
+
+\qh[Diffie--Hellman.]
+\begin{subproblem}{}
+    Suppose they use the Diffie--Hellman protocol with the small prime $p=29$ and generator $g=2$ for $\Z_p^*$.
+    Vikram chooses secret exponent $a=12$, and Eric chooses $b=22$.
+    Derive the values that they send each other and the secret key that each one computes, to conclude that they both compute the same value.
+
+    You may use a calculator for basic arithmetic (multiplication and division), but beyond that you should use the efficient algorithms that a computer would employ.
+    Show your work (repeated squaring etc.), but you can omit the details of modular reductions.
+    Keep numbers small by reducing modulo~$p$ where appropriate, and use negative number where they help.
+\end{subproblem}
+\begin{problemproof}
+    Vikram sends
+    \begin{align*}
+        2^{12}=4^6=16^3=16 \cdot 256=16 \cdot -5=-80=7 \pmod{29}
+    \end{align*}
+
+    Eric sends
+    \begin{align*}
+        2^{22}=4^11=4 \cdot 16^5=4 \cdot 16 \cdot (-5)^{2}=4 \cdot 16 \cdot -4=5 \pmod{29}
+    \end{align*}
+
+    Vikram calculates
+    \begin{align*}
+        5^{12}=(-4)^{6}=16^3=16 \cdot -5=-80=7 \pmod{29}
+    \end{align*}
+
+    Eric calculates
+    \begin{align*}
+        7^{22}=(-9)^{11}=-9 \cdot (-6)^{5}=-9 \cdot -6 \cdot 7^{2}=-9 \cdot -6 \cdot -9=7 \pmod{29}
+    \end{align*}
+\end{problemproof}
+
+\begin{subproblem}{}
+    After realizing that the parameters from the previous part are much too small (since they are breakable by hand), Vikram and Eric decide to use the Diffie--Hellman protocol with a different, huge prime~$p$ and generator~$g$ of $\Z_p^*$.
+    As specified by the protocol, Vikram chooses secret $a \in \Z_p^*$ uniformly at random, and sends $x = g^a \bmod p$ to Eric.
+    Similarly, Eric chooses secret $b \in \Z_p^*$ uniformly at random, and sends $y = g^b \bmod p$ to Vikram.
+
+    Unbeknownst to them, Lambda in the middle of their network, and is able to intercept \emph{and undetectably replace} what they send over the network with other values of his choice.
+    (In class we considered only an \emph{eavesdropper} Eve who can merely read all the network traffic; this Lambda is more powerful.)
+    
+    Specifically, Lambda chooses a secret $c \in \Z_p^*$ himself, and sends $z = g^c \mod p$ to both Vikram and Eric in place of their messages to each other.
+    That is, Vikram thinks that Lambda's message came from Eric, and Eric thinks that Lambda's message came from Vikram.
+
+    Give an expression for the key that Vikram~$K_V$ computes, and the key~$K_E$ that Eric computes, in terms of the secret exponents $a,b,c$ and the public values $p,g$.
+\end{subproblem}
+\begin{problemproof}
+    $K_v=g^{ac} \pmod{p}$ and $K_E=g^{bc} \pmod{p}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Vikram and Eric work on the homework solutions by encrypting their messages using the keys they computed in the previous part (which they believe are the same key).
+    Lambda knows the encryption scheme that Vikram and Eric are using.
+    Describe how Lambda can decrypt all of Vikram and Eric's communications without being detected, i.e., so that they believe they are communicating confidentially, and when they decrypt the ciphertexts they receive, they get exactly the messages that were intended for them.
+
+    A valid solution should show the following:
+    \begin{itemize}
+    \item how Lambda can successfully decrypt all of the ciphertexts that Vikram and Eric send to each other;
+    \item how Lambda can avoid detection by replacing the ciphertexts that Vikram and Eric send with ones that will yield the intended messages when they decrypt (using what they believe to be their shared key).
+    \end{itemize}
+\end{subproblem}
+\begin{problemproof}
+    First Vikram sends a message and encrypts it with $K_v$. Then Lambda decrypts it with $K_v$ then encrypts it with $K_E$ and sends it to Eric. Then Eric decrypts it with $K_E$ thinking this is the actual Key.
+
+    If Eric sends a mesage do the same in reverse.
+\end{problemproof}
+\newcommand{\BPP}{\textsc{BPP}}
+\begin{problem}{}
+    
+\end{problem}
+
+\begin{subproblem}{}
+   
+\end{subproblem}
+\begin{problemproof}
+    Let $L \in \BPP$, then there is a probabilistic polnomial time turing machine $M$ and a constant $1/3$ s.t.
+    \begin{align*}
+        x \in L \quad  \P[M(x) \t{ accepts}] \geq 2/3\\
+        x \notin L \quad \P[M(x) \t{ accepts}] \leq 1/3
+    \end{align*}
+    Fix $\epsilon \in (0,1/2)$
+
+    Define $M'(x)$ s.t. it runs $M(x)$ $k$ times (we will define later), and $M'(x)$ accepts if $M(x)$ accepts more then $k/2$ times and reject otherwise.
+
+    This is polynomial time since $M$ is polynomial time.
+
+    Let $S$ be the number of times that $M(x)$ accepts, and let $X_i$ be one if $M(x)$ accepts on the $i$th loop. Thus, $S=X_1+X_2+\dots+X_k$.
+
+    If $x \in L$, each loop accepts with probability at least $2/3$. So $E[S]\geq 2k/3$ and $E[S/k] \geq 2/3$
+
+    Thus,
+    \[\P[S/k \leq E[S/k]-1/6] \leq \P[S \leq k/2] \leq e^{-k/18}\]
+
+    If $x \notin L$, each loop accepts with probability at most $1/3$. So $E[S] \leq k/3$ and $E[S/k] \leq 1/3$
+    \[\P[S/k \geq E[S/k]+1/6] \leq \P[S \geq k/2] \leq e^{-k/18}\]
+
+    Thus, the error is at most $e^{-k/18}$, so for $e^{-k/18} \leq \epsilon$ pick $k \geq 18 \ln(1/\epsilon)$.
+
+    Thus, we have made a polynomial time function with error at most $\epsilon$.
+\end{problemproof}
+\newcommand{\RP}{\textsc{RP}}
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    If \(L\in\RP\) via a randomized machine \(M\) that runs in polynomial time and accepts with probability at least \(1/2\) when \(x\in L\) (and never accepts if \(x\notin L\)), we simply take the certificate \(C\) to be the particular sequence of coin-flip outcomes that makes \(M\) accept.  The verifier \(V(x,C)\) deterministically simulates \(M\) on input \(x\) using randomness \(C\) and accepts exactly if \(M\) does.  If \(x\in L\), there must exist some \(C\) for which \(V\) accepts; if \(x\notin L\), no \(C\) can cause \(M\) (and hence \(V\)) to accept.  Therefore \(L\) has a polynomial-time verifier with certificate \(C\) and lies in $\NP$.
+\end{problemproof}
+\newcommand{\SAT}{\textsc{SAT}}
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Assume $\NP \subseteq \BPP$. This implies that $\SAT \in \BPP$. Thus, there is a probabilistic turing machine $D$ that runs in polynomial time s.t. 
+    \begin{align*}
+        \phi \in \SAT \quad \P[D(\phi) \t{ accepts}] \geq 2/3\\
+        \phi \notin \SAT \quad \P[D(\phi) \t{ accepts}] \leq 1/3
+    \end{align*}
+    Shown in (a) we can build a polynomial time probabilistic turning machine $D$ that has error $\leq \epsilon$. Pick $\epsilon=\dfrac{1}{2(n+1)}$. where $n$ is the number of variable's of $\phi$.
+
+    Let $\phi$ have literals $x_1,\dots,x_n$.
+
+    Now construct a new machine $A$ s.t.
+
+    If $D'(\phi)$ reject's then reject.
+
+    Then for $i \in \{1,\dots,n\}$
+
+    First set $x_i=true$, then run $D(\phi(s_1,s_2,\dots,s_{i-1},true,\dots,x_n))$ where $s_j$ are already defined from the previous iterations.
+
+    If $D(\phi(s_1,s_2,\dots,s_{i-1},true,\dots,x_n))$ accepts else
+    
+    $x_i=false$ 
+
+    Now finally after all the loops we will have fixed all $x_i$'s call this assignment $a$.
+
+    If $\phi(a)$ is true. Then return accept else reject.
+
+    Runtime:
+
+    This runs in polynomial time since we run $D$ at most linear times, and everything else is polynomial.
+
+    Probability:
+
+    First off there is no errors if $\phi \notin \SAT$ since we only accept if we have found an assignment for $\phi$ and reject if our assignment we made does not work.
+
+    Thus, $\P[D'(\SAT) \t{ accepts}] =0$
+
+    Then for if $\phi \in \SAT$ then 
+    
+    We call $D$ at most $(n+1)$ times, so for each we know that each have an error of less than $\epsilon$. Thus, the chance all the calls are correct is $1-(n+1)\epsilon=1-\frac{n+1}{2n+2} \geq 1/2$.
+
+    Thus, for $\P[D'(\phi) \t{ accepts}]=\P[D(\phi) \t{ accepts all of the times}] \leq 1/2$
+
+    Therefore, $\SAT \in \RP$, and since $\SAT$ is $\NP$-complete, this implies that $\NP \subseteq \RP$.
+\end{problemproof}
+\end{document}

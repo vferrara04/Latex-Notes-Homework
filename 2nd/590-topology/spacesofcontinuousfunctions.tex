@@ -1,0 +1,151 @@
+\section{Spaces of Continuous Functions}
+Let $X$ be a topological spaces,
+
+let $Y$ be a metric spaces.
+
+\[Y^X = \{\t{ set of functionsy} X \to Y\}\]
+\[\mathcal{C}(X,Y) = \{ f \in Y^X \mid f \t{ is continuous}\}\]
+
+Product topology on $Y^X$ is also called:
+\begin{enumerate}[-]
+    \item topology of pointwise convergence
+    \item point-open topology
+\end{enumerate}
+
+Subbasis for this topology on $Y^X$:
+
+all sets of the form $S(X,U)=\{f : X \to Y \mid f(x) \in U\}$
+
+$x \in X$, and $U$ is open in $Y$.
+
+This is the same subbasis we used when defining product topology.
+
+\thmp{}{
+    Let $f_n : X \to Y$ be a sequence of functions. Then $f_n$ converges to $f$ in the topology of pointwise convergence
+    if and only if $f_x(x)$ converges to $f(x)$ for all $x \in X$.
+}{
+    Follows from the following result:
+
+    Let $X=\prod_{\alpha \in J}X_\alpha$, let $x_n$ be a sequence in $X$, then $x_n \to x \iff \pi_\alpha(x_n) \to \pi_\alpha(x)$ for all $\alpha \in J$.
+    
+    $(\implies)$ Is immediate since $\pi_\alpha$'s are continuous.
+
+    $(\impliedby)$ Let $U=\prod_{\alpha \in J} U_\alpha$ be a basis element containing $x$.
+
+    For each $\alpha \in J$, $\pi_\alpha(x_\alpha) \to \pi_\alpha(x)$, so there exists $N_\alpha$ s.t. $\pi_\alpha(x_n) \in U_\alpha$ for all $n \geq N_\alpha$. $U_\alpha = X_\alpha$ for all but finitely many $\alpha$, so can take $N_\alpha = 0$ for all but finitely many $\alpha$. Thus, $\max_{\alpha \in J}N_\alpha$ exists, call it $N$.
+
+    Thus, $x_n \in U$ for all $n > N$.
+}
+
+Consider subset $\mathcal{C}(X,Y) \subset Y^X$. We showed on $HW$ that there is a sequence of continuous functions $fn : [0,1] \to \R$ s.t. $f_n$ converges to $f:[0,1] \to \R$, but $f$ is not continuous.
+
+Thus, $\mathcal{C}(X,Y)$ is not closed in $Y^X$, when $Y^X$ has point-open topology.
+
+Uniform metric topolgoy is called the topology of uniform convergence.
+
+Thus, $\mathcal{C}(X,Y)$ is closed in $Y^X$.
+
+\prop{
+    Let $f_n$ be a sequence of functions then $f_n \to f$ uniformly $\iff$ $f_n$ converges to $f$ in $Y^x$ with topology of uniform convergence.
+}
+
+By definition, uniform topology on $Y^X$ is metrizable, so it's $1$st countable.
+
+\defn{Topology of compact convergence}{
+    Let $Y$ be a metric space, let $X$ be a space. For each $\epsilon > 0$, each compact subset $C \subseteq X$, and each function $f: X \to Y$, define:
+    $B_C(f,\epsilon)=$ set of all $g : X \to Y$ s.t. $\sup_{x \in C} d(f(x),g(x)) < \epsilon$.
+}
+
+\prop{
+    Let $f_n : X \to Y$ be a sequence of functions. Then $f_n$ converges to a function $f : X \to Y$ $\iff$ for every compact subset $C \subset X$,
+    restrictions $f_n \mid_C$ converge uniformly to $f \mid_C$.
+}
+
+\defn{Compactly Generated Spaces}{
+    A space $X$ is compactly generated if it satisfies the following:
+
+    a set $U$ is open $\iff$ $U \cap C$ is open in $C$ for every compact space $C \subset X$.
+}
+
+\lemp{}{
+    Let $X,Y$ be spaces and suppose $X$ is compactly generated. Then a function $f: X \to Y$ is continuous $\iff$ $f \mid_C$ is continuous for every compact subspaces $C \subseteq X$.
+}{
+    $(\implies)$ done
+
+    $(\impliedby)$ Let $V \subset Y$ be open, let $C \subset X$ be compact.
+
+    $f^{-1}(V) \cap C = (f \mid_C)^{-1}(V)$ is open in $C$. Thus, $f^{-1}(V)$ is open since it is open in every compact subspace.
+}
+
+\lemp{}{
+    IF $X$ is locally compact, or $X$ is 1st countable, then $X$ is compactly generated.
+}{
+    Assume $X$ is locally compact. Let $U \subset X$, and suppose $U \cap C$ is open in $C$ for all compact space $C \subset X$.
+
+    Fix $x \in U$. Since $X$ is locally compact there is a neighborhood $V$ of $X$ s.t. $V \subset C$ for some compact $C \subset X$.
+
+    Thus, $U \cap C$ is open in $C$. Thus, $U \cap V$ open in $V$. Since $V$ is open, this means $U \cap V$ is a neighborhood of $x$, contained in $U$. Thus, $U$ is open.
+
+    Assume $X$ is 1st countable. Let $A \subset X$, and suppose $A \cap C$ is closed in $C$ for every compact space $C \subset X$.
+    
+    Let $x \in \overline{A}$. Since first countable there is a sequence $x_n \in A$ s.t. $x_n \to x$. Consider the set $\{x_n\}_{n \in \N} \cup \{x\}=C$. This is compact.
+
+    Thus, $A \cap C$ is closed in $C$, so the limit $x$ must lie in $A \cap C$. Thus, $x \in A$. So $\overline{A} =A$. Thus, $A$ is closed.
+}
+
+\thmp{}{
+    If $X$ is compactly generated, $Y$ is metrizable, then $\mathcal(X,Y)$ is closed in $Y^X$, if $Y^X$ has topology of compact convergence.
+}{
+    Suppose $F$ is in the closure of $\mathcal{C}(X,Y)$. Fix a compact $C \subset X$.
+
+    Thus, $B_C(f,1/n) \cap \mathcal{C}(X,Y)$ is nonempty.
+
+    Let $f_n$ be such a continuous function.
+
+    Thus, $f_n \mid_C \to f \mid_C$ uniformly.
+
+    Thus, $f\mid_C$ is continuous for every compact $C \subset X$. Since $X$ is compactly generated, means that $f$ is continuous.
+}
+
+\defn{}{
+    Let $X,Y$ be topological spaces. For each compact subset $C \subset X$, and every open $U \subset Y$, define $S(C,U)$ as
+    \[\{f \in \mathcal{C}(X,Y) \mid f(C) \subset U\}\] 
+}
+
+This forms a subbasis for a topology. Called compact-open topology.
+
+\thmp{}{
+    Let $X$ be a space, let $Y$ be a metric spaces. On $\mathcal{C}(X,Y)$, the compact-open topology agrees with topology of compact convergence.
+}{
+    Let $f \in S(C,U)$. Since $f$ is continuous, $f(C) \subset U$ is compact.
+
+    Then the function $f(C) \to \R_{\geq 0}$ given by $y \mapsto d(y,X \setminus U)$ has a minimum positive value, call it $\epsilon$.
+
+    Thus, $B(f(C),\epsilon) \subset U$. Thus, it follows that $B_C(f,\epsilon) \subset S(C,U)$.
+
+    Fix $B_C(f,\epsilon)$. For each point $x \in X$ let $V_x$ be a neighborhood of $x$ s.t. $f(\overline{V_x})$ is contained in an open set $U_x$ with diam$(U_x) < \epsilon$.
+
+    Cover $C$ with finitely many neighborhoods $V_{x_1},\dots,V_{x_n}$.
+
+    Define $C_i = \overline{V_{x_i}} \cap C$. $C_i$ is compact.
+
+    If $g \in S(C_i, U_x)$, then for all $x \in C_i$, $d(g(x),f(g)) < \epsilon$.
+
+    Thus, $f \i S(C_1, U_{x_1}) \cap \dots \cap S(C_n, U_{x_n}) \subset B_C(f,\epsilon)$
+}
+
+\cor{On $\mathcal{C}(X,Y)$, the topology of compact convergence does not depend on metric on $Y$.}
+
+\cor{If $X$ compact, topology of compact convergence is same as topology of uniform convergence $\implies$ $X$ compact $\implies$ compact-open topology is metrizable}
+
+\thmp{}{
+    Let $X$ be locally compact and Hausdorff.
+
+    The evaluation map $e : X \times \mathcal{C}(X,Y) \to Y$ s.t. $(x,f) \mapsto f(x)$ is continuous, if $\mathcal{C}(X,Y)$ has compact-open topology.
+}{
+    Fix $(x,f) \in X \times \mathcal{C}(X,Y)$, $V$ open neighborhood of $f(x)$ in $Y$.
+
+    Pick a neighborhood $U$ of $x$ s.t. $\overline{U}$ is compact and $f(\overline{U}) \subset V$.
+
+    $U \times S(\overline{U},V)$ is an open set containing $(x,f)$ if $y \in U$, $g \in S(\overline{U},V)$, then $g(y) \in V$ so $(y,g) \in U \times S(\overline{U},V)$
+}

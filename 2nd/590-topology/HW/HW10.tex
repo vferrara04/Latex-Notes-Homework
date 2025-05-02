@@ -1,0 +1,276 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\begin{problem}{}
+    A space $X$ is \emph{locally metrizable} if each point in $X$ has a
+    neighborhood which is metrizable in the subspace topology. Prove
+    that if $X$ is a locally metrizable compact Hausdorff space, then it
+    is metrizable. \textit{Hint:} you should use the Urysohn metrization
+    theorem; for a further hint, see Exercise 7 in \S 34 of Munkres.
+\end{problem}
+\begin{problemproof}
+    Assume $X$ is locally metrizable compact Hausdorff space. Thus, by homework $X$ is normal since it is compact and Hausdorff. Therefore, $X$ is also regular.
+
+    Let $x \in X$. Let $U_x$ be a neighborhood of $x$ s.t. it is metrizable. Then define $B_x=\{U_x \cap B(x,1/n) \mid n \in \N\} \cup \{U_x \cap B(x,n) \mid n \in \N\}$.
+
+    Consider $\{U_x\}_{x \in X}$. This is an open cover of $X$. Thus, there is a finite subcover, $U_{x_1},\dots,U_{x_n}$ since $X$ is compact.
+
+    Since $U_x$ is open in $X$ and $B(x,\epsilon)$ is open in $U_x$. This implies that $B(x,\epsilon)=U_x \cap O$ for $O$ open in $X$. Thus, $U_x \cap B(x,\epsilon)=U_x \cap O$ is open in $X$.
+
+    Define $\beta$ as all finite intersections of $B=B_{x_1} \cup \dots \cup B_{x_n}$
+
+    Basis:
+
+    Let $x \in X$. Then $x \in U_{x_i}$ for some $i$. Thus, let $d$ be the metric for $U_{x_i}$. Thus, $d(x,x_i)=a$ for some $a \in \R$. Thus, fix $N \in \N$ s.t. $N > a$. Thus, $x \in B(x_i,N) \cap U_{x_i} \in \beta$.
+
+    Let $x \in B_1 \cap B_2$ s.t. $B_1 \cap B_2 \in \beta$. Thus, $B_1 \cap B_2 \in \beta$. Since $B_1$ is a finite intersection of things in $B$ and same with $B_2$, so their intersection is also a finite intersection.
+
+    Thus, $x \in B_1 \cap B_2 \subset B_1 \cap B_2$.
+
+    Thus, $\beta$ is a countable basis for $X$.
+
+    Thus, by the Urysohn metrization theorem we know that $X$ is metrizable.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a topological space and let $Y$ be a metric space. A
+  function $f:X \to Y$ is \emph{bounded} if there exists some $R > 0$
+  such that, for any $x_1, x_2 \in X$, we have
+  $d(f(x_1), f(x_2)) \le R$. The set of all bounded functions
+  $f:X \to Y$ is denoted $\mathcal{B}(X,Y)$.
+\end{problem}
+\begin{subproblem}{}
+    Is $\mathcal{B}(X, Y)$ necessarily closed in the topology of
+    pointwise convergence on $Y^X$?
+\end{subproblem}
+\begin{problemproof}
+    No consider $\R^\R$
+    \begin{equation*}
+        f_n(x)=\begin{cases*}
+            x \quad -n \leq x \leq n,\\
+            -n \quad -n < x,\\
+            n \quad n > x.
+        \end{cases*}
+    \end{equation*}
+    $f_n \in \mathcal{B}(\R,\R)$ but $f_n \to f(x)=x$ since fix $\epsilon > 0$, and $a \in \R$.
+
+    Fix $N \in \N$ big enough s.t. $|a| < N$. Thus, $d(a,f(a))=0 < \epsilon$. Thus, $f_x(x) \to f(x)$ for all $x \in \R$. Thus, $f_x \to f$, but $f$ is not bounded, so $\mathcal{B}(X,Y)$ is not closed since if it was closed it would contain all of its limit points.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Is $\mathcal{B}(X, Y)$ necessarily closed in the topology of
+    uniform convergence on $Y^X$?
+\end{subproblem}
+\begin{problemproof}
+    Let $(f_n)$ be a convergent sequence of functions in $\mathcal{B}(X,Y)$ s.t. $(f_n) \to f$. Fix $\epsilon > 0$. Thus, there is an $N \in \N$ s.t. $d(f_n(x),f(x)) < \epsilon$ for all $n \geq N$ and for all $x \in X$.
+
+    Thus, consider $d(f(x),f(y))$ s.t. $x,y \in X$. By the triangle inequality
+
+    \begin{align*}
+        d(f(x),f(y)) &\leq d(f(x),f_N(x)) + d(f(y),f_N(x)) \\
+        &\leq d(f(x),f_n(x)) + d(f(y),f_N(y)) + d(f_N(x),f_N(y)) \\ &\leq 2\epsilon + R_N
+    \end{align*}
+    for some $R_N \in \R$ since $f_N$ is bounded.
+
+    Thus, $f$ is bounded. Since $\mathcal{B}(X,Y)$ contains all of its limit points this implies that it is closed.
+\end{problemproof}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+\begin{problem}{}
+    Let $X$ and $Y$ be metric spaces; recall that $\mc{C}(X, Y)$ denotes
+  the set of continuous functions $X \to Y$. There is a map
+  $e:X \times \mc{C}(X, Y) \to Y$ defined by the rule:
+  \[
+    e(x, f) = f(x).
+  \]
+  This map is called the \emph{evaluation map.} Prove that, if
+  $\mc{C}(X, Y)$ has the topology of uniform convergence, then $e$ is
+  a continuous map.
+\end{problem}
+\begin{problemproof}
+    Let $U \subset Y$ be open. Let $(x_0,f_0) \in e^{-1}(U)$.
+
+    Thus, $f_0(x_0) \in U$. Therefore, there exists $\epsilon > 0$ s.t. $B(f_0(x_0), \epsilon) \subset U$.
+
+    Since $f_0$ is continuous, there exists an open neighborhood $V \subset X$ of $x_0$ s.t. 
+
+    $f(V) \in B(f_0(x),\epsilon/2)$.
+
+    Consider the open ball $B(f_0,\epsilon/2) \subset \mathcal{C}(X,Y)$ this implies that $d_Y(f(x),f_0(x)) \leq \epsilon / 2$ for all $x \in X$.
+
+    Thus, for $(x,f) \in V \times W$
+
+    \[d_Y(f(x),f_0(x)) \leq d_Y(f(x),f_0(x)) + d_Y(f_0(x),f_0(x_0)) \leq \epsilon\]
+
+    Thus, $f(x) \in B(f_0(x_0)) \subset U$.
+
+    Thus, $(x_0,f_0) \in V \times W \subset e^{-1}(U)$. Therefore, $e^{-1}(U)$ is open.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a space, and let $F$ be the set of all functions
+  $X \to \R$. Suppose that the uniform topology and the point-open
+  topology on $F$ agree. What must be true about $X$?
+\end{problem}
+\begin{problemproof}
+    Assume for contradiction that $X$ is infinite. Thus, let $\{x_n\}$ be a countably infinite subset of $X$.
+
+    Define $f_n(x)=1$ if $x=x_n$ or $0$ otherwise.
+
+    Fix $\epsilon >0$ and $x \in X$.
+
+    If $x \notin \{x_n\}$. Then $d(f(x),0)=0 < \epsilon$ for all $n \in \N$.
+
+    If $x \in \{x_n\}$ then $x=x_i$. Fix $N \in \N$ s.t. $N > i$. Thus, $d(f_n(x),0)=0 < \epsilon$ for all $n \geq N$.
+
+    Thus, $(f_n) \to 0$.
+
+    However, $\sup_{x \in X}d(f_n(x)-0)=1$ for all $n \in \N$. Thus, $f_n$ does not converge uniformly to $0$.
+
+    Thus, this is a contradiction thus $X$ is finite.
+\end{problemproof}
+
+\begin{problem}{}
+    Consider the sequence of functions $f_n:(-1, 1) \to \R$ defined by
+  \[
+    f_n(x) = \sum_{k=1}^n kx^k.
+  \]
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that $f_n$ converges pointwise, but \emph{not}
+    uniformly.
+\end{subproblem}
+\begin{problemproof}
+    Consider the power seires
+
+    \[\sum_{k=1}^\infty x^k = \dfrac{1}{1-x} \quad \t{for } |x| < 1\]
+
+    Thus, taking the derivative and multiplying by $x$ we get.
+
+    \[\sum_{k=1}^\infty kx^k = \dfrac{x}{(1-x)^2} \quad \t{for } |x| < 1\]
+
+    Thus, let $f(x)=\dfrac{x}{(1-x)^2}$.
+
+    Fix $\epsilon > 0$ and $x \in (-1,1)$
+
+    Thus, \[|f(x)-f_n(x)|=\lvert \sum_{k=n+1}^\infty kx^k \rvert \leq \sum_{k=n+1}^\infty k|x|^k = \sum_{j=0}^\infty (n+1+j)|x|^{n+1+j}\]
+    \[=|x|^{n+1}((n+1) \sum_{j=0}^\infty|x|^j + \sum_{j=0}^\infty j|x|^j)=|x|^{n+1}\left(\dfrac{n+1}{1-|x|} + \dfrac{|x|}{(1-|x|)^2}\right)\]
+
+    Since $(|x|^{n+1}(n+1)) \to 0$ and $(C|x|^{n+1}) \to 0$ for $C=|x|/(1-|x|)^2$. This is because $|x| < 1$.
+
+    Thus, there is an $N_1,N_2 \in \N$ s.t. $|x|^{n+1}(n+1) < \epsilon/2$ and $C|x|^{n+1} < \epsilon/2$.
+
+    For the last part use $N=\max\{N_1.N_2\}$
+
+    Thus,
+
+    \[|x|^{n+1}\left(\dfrac{n+1}{1-|x|} + \dfrac{|x|}{(1-|x|)^2}\right) < \epsilon\]
+
+    Therefore, $f_n(x)$ converges pointwise to $f$ on $(-1,1)$
+
+    Suppose $f_n$ converges uniformly to $f$ on $(-1,1)$. The for $\epsilon =1$ there exists an $N \in \N$ s.t. for all $n \geq N$ and all $x \in (-1,1)$
+    \[|f_n(x)-f(x)| <1\]
+
+    Shown above we know that $(n+1)x^{n+1} \leq |f_n(x)-f(x)|=R(x) < 1$.
+
+    Consider $x_n=1-(1/n)$
+
+    Thus, $(n+1)(1-1/n)^{n+1} \leq R(x_n)$.
+
+    Thus, as $n \to \infty$ shown in analysis $(1-1/n)^{n+1} \to e^{-1}$.
+
+    Therefore, there exists an $N_1 \in \N$ s.t. for all $n \geq N_1$ 
+    
+    $-1/2e < (1-1/n)^{n+1}-1/e < 1/2e \implies 1/2e < (1-1/n)^{n+1}$.
+
+    Thus, for such $n \geq N_1$, $R(x_n) \geq (n+1)/(2e)$.
+
+    Also for $(n+1)/(2e)$ consider $N_2=3$ s.t. for all $n \geq N_2$ $(n+1)/2e > 1$.
+
+    Thus, for $\max{N,N_1,N_2}$ we have $R(x_n) \geq (n+1)/2e > 1$. This is a contradiction thus, $f_n$ does not uniformly converge.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $f_n$ converges in the
+    topology of compact convergence, so its limit is a continuous
+    function.
+\end{subproblem}
+\begin{problemproof}
+    Let $K \subset (-1,1)$ since $(-1,1)$ is a subspace of $\R$. This implies that $K$ is closed and bounded. Thus, there exists an $r \in (0,1)$ s.t. $K \subset [-r,r]$.
+
+    Let $M_k=kr^k$.
+
+    Define a new sequence $g_n(x)=nx^n$.
+
+    Thus, for $x \in K$ we have $|g_n(x)| \leq n|x|^n \leq M_n$.
+
+    Since $\sum_{k=1}^\infty M_k$ converges by standard power series rules which is shown above since $|r|<1$. We get that by the Weierstrass M-test that $\sum_{k=1}^\infty g_n(x)$ converges uniformly on $[-r,r]$.
+
+    Thus, this implies that $f_n(x)$ converges uniformly to on $K \subset [-r,r]$.
+
+    Also, since $(-1,1)$ is a subspace of $\R$ it is metrizable thus first countable. Thus, it is compactly generated. Also since $\R$ is metrizable this implies that $\mathcal{C}((-1,1),\R)$ is closed in the topology of compact convergence which implies that the limit of $f_n$ is continuous since each $f_n$ is continuous.
+\end{problemproof}
+\end{document}
+

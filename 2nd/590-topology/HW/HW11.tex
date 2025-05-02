@@ -1,0 +1,290 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+\begin{problem}{}
+    Let $X$ and $Y$ be topological spaces, and let $\mc{C}(X, Y)$ have
+  the compact-open topology. Prove that if $Y$ is Hausdorff, then
+  $\mc{C}(X, Y)$ is Hausdorff, and if $Y$ is regular, then
+  $\mc{C}(X, Y)$ is regular.
+\end{problem}
+
+\clmp{}{
+    \setlength{\parindent}{0pt}
+    Let $X,Y$ be topological spaces, and let $\mathcal{C}(X,Y)$ have the compact-open topology. Let $U,V$ be open in $Y$.
+
+    Prove that
+  if $C$ is a compact set of $X$ and $\overline{U} \subset V$, then the
+  subbasis sets satisfy $\overline{S(C, U)} \subset S(C, V)$.
+}{
+    \setlength{\parindent}{0pt}
+    Assume $C$ is compact and $\overline{U} \subset V$. Let $f \in \overline{S(C,U)}$, and $x \in C$.
+
+    Assume for contradiction that $f(x) \notin \overline{U}$. Then consider $W=Y \setminus \overline{U}$ which is open neighborhood of $f(x)$.
+
+    Thus, consider $S(\{x\},W)$. Since $\{x\}$ is finite it is compact thus $S(\{x\},W)$ is an open neighborhood of $f$ since $f(x) \in W$.
+
+    Thus, there exists a $g \in S(\{x\},W)$ s.t. $g \in S(C,U)$. However, this is a contradiction since this implies that $g(x) \in W \cap U \subseteq W \cap \overline{U} = \emptyset$.
+
+    Therefore, $f(x) \in \overline{U} \subseteq V$. Thus, $f \in S(C,V)$.
+}
+\begin{problemproof}
+    Assume $Y$ is Hausdorff. Let $f,g \in \mc{C}(X,Y)$ s.t. $f \neq g$. Thus, there is an $x \in X$ s.t. $f(x) \neq g(x)$. Then, because $Y$ is Hausdorff, you can
+    find disjoint open neighborhoods $U$ and $V$ in $Y$ for $f(x)$ and $g(x)$.
+
+    Now consider $\{x\}$ it is finite thus compact. Therefore, $S(\{x\},U)$ is an open neighborhood of $f$ and $S(\{x\},V)$ is an open neighborhood of $g$.
+
+    Assume for contradiction that there is an $h \in S(\{x\},U) \cap S(\{x\},V)$. This implies that $h(x) \in U \cap V$ which is a contradiction. Thus, we have found disjoint neighborhoods of $f,g$. Thus, $\mathcal{C}(X,Y)$ is Hausdorff.
+
+    Assume $Y$ is regular. Let $f \in \mathcal{C}(X,Y)$ and let $U$ be an open neighborhood of $f$. Thus, there exists subbasis sets s.t.
+    \[f \in S(C_1,U_1) \cap S(C_2,U_2) \cap \dots \cap S(C_n,U_n) \subseteq U\]
+
+    Let $y \in f(C_i)$, since $Y$ is regular this implies there is an open neighborhood $W_y$ s.t. $y \in \overline{W_y} \subset U_i$.
+
+    Since $f(C_i)$ is compact and covered by these $W_y$'s. This implies there is a finite subcover s.t. $f(C_i) \subset W_{y_1} \cup \dots \cup W_{y_k}$.
+
+    Define $W_i=W_{y_1} \cup \dots \cup W_{y_k}$.
+
+    Since for all $j$ $\overline{W_{y_j}} \subset U_i$. This implies that $\overline{W_i} \subset U_i$.
+
+    Now consider $S(C_i,W_i)$. Since $f(C_i) \subset W_i$ this implies that $f \in S(C_i,W_i)$.
+
+    Therefore,
+
+    \[f \in V=\bigcap_{i =1}^n S(C_i,W_i)\]
+
+    Now consider $\overline{V}$
+
+    \[\overline{V}=\overline{\bigcap_{i =1}^n S(C_i,W_i)} \subset \bigcap_{i =1}^n \overline{S(C_i,W_i)} \subset \bigcap_{i =1}^nS(C_i,U_i) \subset U\]
+
+    Therefore, but the claim above $f \in \overline{V} \subset U$. Thus, $\mathcal{C}(X,Y)$ is regular.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $A_n$ be a sequence of matrices in $\textsc{GL}(d, \R)$, and let $A$ be
+  another matrix. Recall that each $A_n$ and $A$ can be viewed as
+  linear maps $\R^d \to \R^d$, and consider each of the four following
+  conditions:
+  \begin{enumerate}[(i)]
+  \item The maps $A_n:\R^d \to \R^d$ converge \emph{pointwise} to $A$.
+  \item The maps $A_n:\R^d \to \R^d$ converge \emph{uniformly} to $A$.
+  \item The maps $A_n:\R^d \to \R^d$ converge \emph{uniformly on
+      compacts} to $A$.
+  \item For every $1 \le i,j \le d$, the $(i,j)$ entry of the matrix
+    $A_n$ converges to the $(i,j)$ entry of $A$.
+  \end{enumerate}
+
+  Three of these conditions are equivalent to each other, but the
+  fourth is not equivalent to any of the other three. Which one is not
+  the same?
+\end{problem}
+\begin{problemproof}
+    $(i),(iii),(iv)$ are equivalent.
+
+    $(i) \implies (iv)$
+
+    Assume $(i)$. Let $e_1,\dots,e_d$ be the standard basis vectors. This implies that
+
+    \[A_n(e_j) \to A(e_j)\]
+
+    Consider $\pi_i : \R^d \to \R$. Since this is continuous in $\R^d$ this implies that 
+    
+    $\pi_i(A_n(e_j))=(A_n)_{ij} \to A_{ij}$.
+
+    Therefore, $(iv)$.
+
+    $(iv) \to (iii)$
+    
+    Assume $(iv)$
+
+    This implies that $|(A_n)_{ij}-A_{ij}| \to 0$.
+
+    Now consider the norm
+
+    \[|| A_n -A || = \sqrt{\sum_{i,j}|(A_n)_{ij}-A_{ij}|^2}\]
+
+    Since there are finitely many times for any $\epsilon$ we just pick the max $N$ of all the terms thus $||A_n -A|| \to 0$.
+
+    Now let $K$ be a compact set in $\R^n$. This means it is bounded. Thus, there is an $M > 0$ s.t. $||x|| < M$.
+
+    Therefore,
+    \[||(A_n-A)(x)|| \leq ||A_n-A||||x||\]
+
+    So, for $\sup K$ this implies that 
+
+    \[\sup_{x \in K} || (A_n-A)(x)|| \leq||A_n-A|| \sum_{x \in K}||x|| \leq M ||A_n-A||\]
+
+    Since $||A_n-A|| \to 0 \implies \sup_{x \in K} || (A_n-A)(x)|| \to 0$.
+
+    Therefore, $A_n$ converges uniformly on compacts to $A$.
+
+    $(iii) \to (i)$
+
+    Assume $(iii)$ compact convergence implies point wise convergence since $\{x\}$ is compact.
+
+    Why $(ii)$ is not equivalent.
+
+    Consider $A_n=(1+1/n)I_d$. $A_n$ converges point wise to the identity matrix. However, consider $\sup_{x \in \R^d}||A_n(x) -I_d(x)||$. Since $\R^d$ is unbounded consider a vector $x$ s.t. $||x||=M$. Thus, $||A_n(x)-I_d(x)||=(1/n)M$, since we can pick an $M \in \R$. This implies that the supremum is infinite and does not exist. Thus, it does not uniformly converge.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a compact Hausdorff space, and equip the set $\t{Homeo}(X)$
+  with the compact-open topology. Prove that $\t{Homeo}(X)$ is a
+  topological group.
+\end{problem}
+\begin{problemproof}
+    Let $G=\t{Homeo}(X)$
+    
+    Define $i : G \to G$ s.t. $i(x)=x^{-1}$.
+
+    Let $C$ be compact and $U$ open in $X$. Consider $W=S(C,U) \cap G$ which is open in $G$.
+
+    Consider $i^{-1}(W)$. 
+
+    Consider $S(X \setminus U, X \setminus C) \cap G$. This is open since $X \setminus U$ is closed which implies compact, since $X$ is compact Hausdorff, and $X \setminus C$ is open because $C$ is compact in a Hausdorff space.
+
+    Let $f \in i^{-1}(W)$ then $f^{-1}(C) \subset U \implies X \setminus U \subset f^{-1}(X \setminus C) \implies f(X \setminus U) \subset X \setminus C \implies f \in S(X \setminus U, X \setminus C)$.
+
+    Let $f \in S(X \setminus U, X \setminus C) \implies f(X \setminus U) \subset X \setminus C \implies X \setminus U \subset f(X \setminus C) \implies f^{-1}(C) \subset U \implies f^{-1} \in W \implies f \in i^{-1}(W)$.
+
+    Thus, $i^{-1}(W)=S(X \setminus U, X \setminus C) \cap G$ which is open in $G$. Thus, $i$ is continuous since we can build every other open set in $G$ from this type.
+
+    Define $h : G \times G \to G$ s.t. $h(x,y)=x \circ y$.
+
+    Consider $h^{-1}(W)$. Let $(f,g) \in h^{-1}(W)$. Thus, $f \circ g \in W$.
+
+    Consider $g(C)$ which is compact and $f^{-1}(U)$ which is open.
+
+    Since $g(C) \subset f^{-1}(U)$. Since $X$ is Hausdorff and compact thus locally compact. This implies that for $x \in g(C)$ there exists an open neighborhood $W_x$ of $x$ s.t. $\overline{W_x}$ is compact, and $\overline{W_x} \subset f^{-1}(U)$.
+
+    Thus, $W_x$ form an open cover of $g(C)$ which is compact. Thus, there is a finite subcover $A=W_{x_1} \cup \dots \cup W_{x_n} \subset f^{-1}(U)$.
+
+    Since $\overline{W_{x_i}} \subset f^{-1}(U) \implies \overline{A} \subset f^{-1}(U)$.
+
+    Thus, consider $S(\overline{A},U) \times S(C, A)$.
+
+    Let $(a,b) \in S(\overline{A},U) \times S(C, A)$. Then we can see that $a \circ b(C) \subset a(A) \subset a(\overline{A}) \subset U$.
+
+    Thus, $a\circ b \in W$. Thus, $h$ is continuous.
+\end{problemproof}
+
+\begin{problem}{}
+    Again, let $X$ be a compact Hausdorff space, and let
+  $\mathrm{MCG}(X)$ denote the collection of connected components of
+  $\t{Homeo}(X)$. One can define an operation $\cdot$ on
+  $\mathrm{MCG}(X)$ as follows: if $C_1, C_2$ are elements in
+  $\mathrm{MCG}(X)$, and $f_1 \in C_1$, $f_2 \in C_2$, then
+  $C_1 \cdot C_2$ is the connected component of $\t{Homeo}(X)$ containing
+  $f_1 \circ f_2$.
+
+    Prove that the operation $\cdot$ makes $\mathrm{MCG}(X)$ into
+    a group. \textit{Note:} most of the work here is proving that the
+    operation $\cdot$ is actually well-defined, i.e. proving that it
+    does not matter which maps $f_1, f_2$ you pick in the definition
+    above.
+\end{problem}
+\begin{problemproof}
+    Well-defined:
+
+    Consider $C_1$ and $C_2$ which are connected components of Homeo$(X)$. Since these are both connected this implies that $C_1 \times C_2$ is connected in $\t{Homeo}(X) \times \t{Homeo}(X)$.
+
+    Because the group operation map is continuous this implies that $h(C_1 \times C_2)$ is connected in $\t{Homeo}(X)$, so this is some subset of connected component lets call $C_3$.
+    
+    Thus, for $f,f' \in C_1$ and $g,g' \in C_2$, consider $h(f,g)=f\circ g \in C_3$ and $h(f',g')=f' \circ g' \in C_3$. Thus, the group operation is well defined.
+
+    Associativity:
+
+    This comes from function composition being associative.
+
+    Identity:
+
+    This is the connected component where the identity is because $[f] \cdot [id] = [f] = [id] \cdot [f]$.
+
+    Inverses:
+
+    For $f \in C_1$ the inverse is just which connected component $f^{-1}$ is in. Thus, $[f] \cdot [f^{-1}] = [id] = [f^{-1}] \cdot [f]$. 
+\end{problemproof}
+
+\begin{problem}{}
+  Let $X$ be a completely regular space, and let $\beta(X)$ denote the
+  Stone-\v{C}ech compactification of $X$. Prove that $X$ is connected
+  if and only if $\beta(X)$ is connected.
+\end{problem}
+\begin{problemproof}
+  Assume that $\beta(X)$ is disconnected.
+
+  Thus, $\beta(X)=A \cup B$ for disjoint open sets $A,B$. Thus, $A \cap X$ and $B \cap X$ are disjoint open sets in $X$. These are non-empty since $X$ is dense in $\beta(X)$. Therefore,
+  $X=A \cup B \cup X$. Thus, this implies that $X$ is disconnected.
+
+  Assume that $X$ is disconnected. Let $X=A \cup B$ for disjoint open sets of $A,B$.
+
+  Consider $f: X \to \{0,1\}$ s.t. $f(x)=1$ if $x \in A$ and 0 otherwise.
+
+  Let $U$ be open in $\{0,1\}$. So $U=\{1\},\{0\},\{1,0\}$. In the first case $f^{-1}(\{1\})=A$, $f^{-1}(\{0\})=B$, $f^{-1}(\{0,1\})=X$. Thus, $f$ is continuous.
+
+  Since $\{0,1\}$ is compact and Hausdorff this implies that $f$ can be extended to a continuous function $\hat{f} : \beta(X) \to \{0,1\}$ s.t. $\hat{f} \mid_X = f$.
+
+  Also, $\hat{f}$ is still surjective since $\hat{f}\mid_X=f$ which is surjective. Thus, $\hat{f}^{-1}(0)$, and $\hat{f}^{-1}(1)$ are disjoint open sets that union to $\beta(X)$. Thus, $\beta(X)$ is disconnected.
+\end{problemproof}
+\end{document}

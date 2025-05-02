@@ -1,0 +1,46 @@
+\section{Stone-Čech compactification}
+\thmp{}{
+    There exists a compactification $Y$ of a completly regular $X$ st.t for every $f: X \to \R$ bounded continuous, there exists $\hat{f}: Y \to \R$ s.t. $\hat{f}\mid_X = f$
+}{
+    Let $\{f_\alpha\}_{\alpha \in J}$ be all the bounded continuous functions on $X$. Let $I_\alpha=[\inf f_\alpha(X), \sup f_\alpha(X)]$.
+
+    Thus, $I=\prod_{\alpha \in J} I_\alpha$ is compact Hausdorff.
+
+    Define $h : X \to I$ by $h(x)=(f_\alpha(x))_{\alpha \in J}$.
+
+    By complete regularity, $h$ is an embedding.
+
+    Thus, $\overline{h(X)}$ is a compactification.
+
+    Let $f: X \to \R$ be a  bounded function.
+
+    Thus, $\exists \beta \in J$ s.t. $f=f_\beta$.
+
+    Thus, define $\hat{f} : \overline{h(X)} \to I_\beta$ s.t. $\hat{f}(x)=f(\pi_\beta(x))$
+
+    Called $\beta(X)$, Stone-Čech compactification.
+}
+
+\thmp{}{
+    Suppose $f : X \to C$, $C$ compact Hausdorff then there exists $\hat{f}$ s.t. $\hat{f}: \beta(X) \to C$ is continuous and extends $f$.
+}{
+    Since $X$ is completely regular we know that $C$ embeds into some product of $[0.1]$. So assume that $C \subset [0,1]^Y$.
+
+    Then $f : X \to C$ can be written as $f_y : X \to I$, $y \in Y$. Then by the proof above there is a function $\hat{f}_y : \beta(X) \to I$.
+
+    Thus, let $\hat{f}=(\hat{f}_y)_{y \in Y}$
+}
+
+\lemp{}{
+    Let $X$ be completely regular, and $Y$ be Hausdorff. Let $A \subset X$, $f : A \to Y$ continuous. Suppose $f$ extends $g : \overline{A} \to Y$. Then $g$ is unique.
+}{
+    Suppose $g_1,g_2$ extend $f$. Since they will agree on $A$ suppose $g_1 \neq g_2$ for $x \in \overline{A} \setminus A$.
+
+    Thus, $g_1(x) \neq g_2(x)$. Thus, we can separate these two points $U_1,U_2$ open.
+
+    Thus, consider $V=g_1^{-1}(U_1) \cap g_2^{-1}(U_2)$. But on $V \cap A$, $g_1 = g_2$. This is a contradiction since 
+}
+
+\thm{}{
+    Suppose $Y$ is a compactification of $X$. Then, there exists a unique quotient map from $\beta(X) \to Y$.
+}

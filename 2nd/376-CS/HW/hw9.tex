@@ -1,0 +1,721 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathsf{P}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\qh[Self assessment.]
+\begin{solution}
+    \[
+        \begin{array}{|c|c|c|}
+          \hline
+          s_1 & s_2 & s_3 \\
+          \hline
+          s_1 & s_2 & s_3 \\
+          \hline
+        \end{array}
+        \quad
+        \begin{array}{|c|c|c|}
+            \hline
+            q_a & 1 & s_3 \\
+            \hline
+            s_1 & \bot & s_3 \\
+            \hline
+        \end{array}
+        \quad
+        \begin{array}{|c|c|c|}
+              \hline
+              s_1 & q_a & 1 \\
+              \hline
+              q_b & s_1 & \bot \\
+              \hline
+        \end{array}
+        \quad
+        \begin{array}{|c|c|c|}
+            \hline
+            s_1 & s_2 & q_a \\
+            \hline
+            s_1 & q_b & s_2 \\
+            \hline
+        \end{array}
+        \quad
+        \begin{array}{|c|c|c|}
+            \hline
+            s_1 & s_2 & s_3 \\
+            \hline
+            s_1 & s_2 & q_b \\
+            \hline
+        \end{array}
+      \]
+      $s_1,s_2,s_3 \in \{0,1,\bot\}$
+
+    \noindent In my solution, I mistakenly overlooked the configuration where the $1$ is positioned on the far left of the 2x3 window, resulting in only five cases instead of six. This omission affects the completeness of the enumeration. To fix this, I need to carefully re-examine the layout possibilities and explicitly list them all. This ensures a fully rigorous and correct solution.
+\end{solution}
+
+\qh[Approximation warm-up.]
+\begin{subproblem}{}
+    Suppose you have an instance of a minimization problem whose optimal value is 6.
+    Specify the range of values that a 3/2-approximation algorithm could output when run on this instance.
+\end{subproblem}
+\begin{solution}
+    For a minimization problem with an optimal value of 6, a \( \frac{3}{2} \)-approximation algorithm guarantees that the solution it produces will be no more than \( \frac{3}{2} \) times the optimal value. That means the worst-case output is:
+\[
+\frac{3}{2} \times 6 = 9.
+\]
+Since the best-case scenario is that the algorithm finds the optimal solution, the output could be as low as 6. Thus, the algorithm could output any value in the range \([6, 9]\).
+\end{solution}
+\begin{subproblem}{}
+    Suppose you have an instance of a maximization problem whose optimal value is 25.
+    Specify the range of values that a 2/5-approximation algorithm could output when run on this instance.
+\end{subproblem}
+\begin{solution}
+    With the same reasoning as above we get the output could be nay value in the range $[10,25]$
+\end{solution}
+
+\newcommand{\KPATH}{\textsc{K-PATH}}
+\begin{problem}{Revisiting Times Square.}
+    \[
+    \KPATH = \left\{
+\begin{aligned}
+(G=(V,E),s,t,k) :~ &\text{$G$ has a simple path from $s$ to $t$ that}\\
+&\text{visits at least $k$ vertices in $V$}
+\end{aligned}
+\right\}.
+\]
+\end{problem}
+\begin{subproblem}{}
+    Show that $\KPATH$ is $\NP$-hard.
+\end{subproblem}
+\newcommand{\HAM}{\textsc{HAMCYCLE}}
+\begin{problemproof}
+    Wts: $\HAM \leq \KPATH$
+
+    Define $f: \Sigma^* \to \Sigma^*$ s.t. $f(G=(V,E)) \to (G'=(V',E'),v,v',|V|+1)$
+
+    WLOG let $V=\{v_1,\dots,v_n\}$. Define $V'=V \cup \{v'\}$.
+    
+    Let $v=v_1$ and define $E'$ s.t. $E \subset E'$ and if $(v,u) \in E$ then $(v',u) \in E'$ for $u \in V$.
+
+    Correctness:
+
+    \begin{itemize}
+        \item If \(G\) has a Hamiltonian Cycle, then \((G',v,v',|V|+1) \in \KPATH\):
+    
+        Suppose \(G\) has a Hamiltonian cycle. That is, there is a cycle
+            \[
+            (v_1, v_{i_2}, v_{i_3}, \dots, v_{i_n}, v_1)
+            \]
+            that visits every vertex exactly once.
+        In \(G'\), we can form a simple path from \(v\) to \(v'\) by following the cycle from \(v_1\) through the other vertices:
+            \[
+            v_1 \to v_{i_2} \to \dots \to v_{i_n}
+            \]
+            and then, because \(v'\) has the same outgoing edges as \(v_1\), we know there is an edge from the last vertex \(v_{i_n}\) to \(v'\) (since in the original cycle there is an edge from \(v_{i_n}\) to \(v_1\)).
+        This produces a simple path of length \(|V|+1\) (counting vertices \(v_1, v_{i_2}, \dots, v_{i_n}, v'\)).
+        Hence, \((G',v,v',|V|+1) \in \KPATH\).
+    
+        \item If \((G',v,v',|V|+1) \in \KPATH\), then \(G\) has a Hamiltonian Cycle:
+    
+        Assume there exists a simple path in \(G'\) from \(v\) to \(v'\) of length \(|V|+1\). Because \(G'\) has \(|V|+1\) vertices in total and the path is simple, it must include every vertex in \(V\) exactly once (with \(v'\) appearing only at the end).
+        Denote this path as:
+            \[
+            v_1 \to v_{j_2} \to \dots \to v_{j_n} \to v'.
+            \]
+        Notice that all edges on the segment \(v_1 \to v_{j_2} \to \dots \to v_{j_n}\) lie in \(E\) (since \(E \subset E'\)) and thus form a simple path in \(G\) that visits every vertex in \(V\).
+        Finally, because \(v'\) was defined to have the same outgoing edges as \(v_1\), the edge from the second-to-last vertex \(v_{j_n}\) to \(v'\) implies that there is an edge from \(v_{j_n}\) to \(v_1\) in \(G\).
+        Therefore, by adding the edge \((v_{j_n},v_1)\), we complete a cycle that visits every vertex exactly once—i.e., a Hamiltonian cycle in \(G\).
+    \end{itemize}
+
+    Runtime:
+
+    The transformation will only take $O(|G|)$ to copy $G$ into $G'$ then it will take $O(|E|)$ to add all the new vertices for $v'$. Thus, we get $O(|G|)$ this is polynomial in respect to the input.
+    
+    Therefore, $\HAM \leq_p \KPATH$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Given an efficient decider $D_\text{KP}$ for $\KPATH$, design and analyze (both correctness and runtime) an efficient algorithm that given $(G=(V,E),s,t)$, and $k^*$, the length of the longest path from $s$ to $t$, finds an actual simple path\textit{} from $s$ to $t$ that goes through $k^*$ vertices. The path should be returned as a set of edges (the edges do \textbf{not} have to be ordered). You may assume that $\{s,t\} \subseteq V$. If no such path exists, output $\emptyset$.
+\end{subproblem}
+\begin{problemproof}
+    This algorithm outputs the simple path from $s$ to $t$ using $k^*$ vertices.
+    \begin{algorithm}[H]
+        \caption{ReconstructLongestPath($G=(V,E),\, s,\, t,\, k^*$)}
+        \begin{algorithmic}[1]
+    \Require{A graph $G=V,E$, two vertices $s,t \in V$ and $k^*$ the number of vertices in a longest simple path from $s$ to $t$}
+    \Ensure{A set $P \subset E$ of edges representing a simple path from $s$ to $t$ using $k^*$ vertices, or $\emptyset$ if no such path exists}
+        \If{($k^* > |V|$)} \State \Return $\emptyset$
+        \EndIf
+        \State $P \gets \emptyset$ \Comment{Initialize the set of edges in the path.}
+        \State $Visited \gets \{s\}$
+        \State $current \gets s$
+        \State $rem \gets k^*$ \Comment{Remaining vertices to include (including the current one).}
+        \While{$rem > 1$} \Comment{While the path is not complete.}
+            \State $found \gets \text{false}$
+            \State Let $G' = G[V \setminus Visited]$ \Comment{Restrict to unvisited vertices.}
+            \ForAll{$v \in V$}
+                \If{($(current, v) \in E$ or $(v,current) \in E$) and $v \notin Visited$ and
+                
+                DKP($G',\, v,\, t,\, rem - 1$) returns \texttt{YES}}
+                    \State $P \gets P \cup \{ (current,v) \}$
+                    \State $Visited \gets Visited \cup \{v\}$
+                    \State $current \gets v$
+                    \State $rem \gets rem - 1$
+                    \State $found \gets \text{true}$
+                    \State \textbf{break} \Comment{Proceed to next iteration of while loop.}
+                \EndIf
+            \EndFor
+            \If{$found$ is \textbf{false}}
+                \State \Return $\emptyset$ \Comment{No valid continuation found.}
+            \EndIf
+        \EndWhile
+        \State \Return $P$
+        \end{algorithmic}
+    \end{algorithm}
+    Correctness
+    
+    If the algorithm returns \(P\)
+    
+    \begin{enumerate}
+        \item Initialization:
+           The algorithm starts at \(s\) with \(Visited = \{s\}\) and sets \(rem = k^*\). Thus, initially, the intended path will include \(s\) and have a total of \(k^*\) vertices.
+        
+        \item While-Loop Invariant: 
+           In each iteration of the while loop, the algorithm does the following:
+           \begin{itemize}
+            \item It restricts the graph to the unvisited vertices by computing \(G' = G[V \setminus Visited]\).  
+            \item It iterates over all vertices \(v\) (or more precisely, those such that there is an edge \((current,v)\) or \((v,current)\) and \(v \notin Visited\)).  
+            \item For each candidate \(v\), it calls DKP on \((G', v, t, rem-1)\). This DKP call asks whether there is a simple path from \(v\) to \(t\) that uses exactly \(rem-1\) vertices.  
+            \item If DKP returns YES, it means there is a continuation from \(v\) to \(t\) that, when appended to the current partial path, yields a path using exactly \(rem-1\) more vertices. The algorithm then appends the edge \((current,v)\) to \(P\), marks \(v\) as visited, updates \(current\) to \(v\), and decrements \(rem\).
+           \end{itemize}
+        
+           At the beginning of each iteration, there is a simple \(s\)-to-\(current\) path that visits exactly \(k^* - rem + 1\) vertices, and the algorithm has ensured that there is a simple continuation from \(current\) to \(t\) that uses the remaining \(rem\) vertices since we return $P$ at the end.
+        
+        \item Termination: 
+           When \(rem = 1\), the loop terminates. At that point, the path built (represented by \(P\)) is a simple path from \(s\) to \(current\) with exactly \(k^*\) vertices. Because the DKP calls guarantee that each step has a valid continuation to \(t\), the final vertex \(current\) must be \(t\) (or else the DKP would have returned NO at some point). Thus, the set \(P\) forms a simple \(s\)-to-\(t\) path using exactly \(k^*\) vertices.
+    \end{enumerate}
+    
+    If there exists a simple path from \(s\) to \(t\) with \(k^*\) vertices
+    
+    \begin{enumerate}
+        \item Suppose there is a simple path \(P^*\) from \(s\) to \(t\) that uses exactly \(k^*\) vertices.  
+        \item In the first iteration, because \(P^*\) is simple, there is a neighbor \(v\) of \(s\) along \(P^*\) (and \(v \notin Visited\)) such that the remainder of \(P^*\) (from \(v\) to \(t\)) is a simple path using exactly \(k^*-1\) vertices. Thus, the DKP call on \((G', v, t, k^*-1)\) returns YES.  
+        \item The algorithm will choose this \(v\), add \((s,v)\) to \(P\), update \(Visited\) and continue.  
+        \item By an inductive argument, in each iteration the correct choice (the next vertex on \(P^*\)) will satisfy the DKP check, and the algorithm will eventually reconstruct \(P^*\).
+    \end{enumerate}
+    
+    Therefore, if a simple \(s\)-to-\(t\) path with \(k^*\) vertices exists, the algorithm will find it and return the corresponding set of edges \(P\).
+    
+    Runtime
+
+    If $k^* > |V|$ then the runtime is $O(1)$.
+    
+    Thus, now assume that $k^* \leq |V|$
+
+   The outerloop takes $O(k^*)$
+
+   The innerloop takes $O(|V|)$.
+
+   The creation of $G'$ takes $O(|G|)$
+
+   $DKP$ takes $O(|G|^c)$ for some $c \in \N$.
+
+   Thus, the total runtime is $O(k^*(|G|+|V||G|^c))$ which is polynomial with respect to $G$ since $k^*,|V| < |G|$. Thus, the algorithm is efficient.
+\end{problemproof}
+\newcommand{\SAT}{\textsc{3SAT}}
+\newcommand{\TCOLOR}{\textsc{3-COLORING}}
+\begin{problem}{Finding the colors through SAT.}
+    \vspace{-20pt}
+    \begin{align*}
+        \TCOLOR &= \{G: \text{$G$ is a graph and is 3-colorable}\} \\
+        \SAT &= \{\phi: \text{$\phi$ is a satisfiable Boolean formula}\}
+    \end{align*}
+\end{problem}
+\begin{problemproof}
+    \begin{algorithm}[H]
+        \caption{Find3Coloring($G=(V,E)$)}
+        \begin{algorithmic}[1]
+            \Require A graph $G=(V,E)$
+            \Ensure A set $C \subseteq V \times \{r,g,b\}$ representing a 3-coloring of $G$, or $\emptyset$ if none exists.
+            
+            \State $\phi \gets f(G)$ \Comment{$f$ is the function from the PTMR above}
+            \If{$D_{\SAT}(\phi)$ returns \texttt{NO}}
+                \State \Return $\emptyset$
+            \EndIf
+            \State $C \gets \emptyset$ \Comment{Coloring: set of vertex-color pairs.}
+            \ForAll{$v \in V$}
+                \ForAll{$c \in \{r,g,b\}$}
+                    \State Let $\phi_{v=c}$ be the formula $\phi$ s.t. we set $c_i$ be true, so we can collapse all the clauses that are now true.
+                    \If{$D_{\SAT}(\phi_{v=c})$ returns \texttt{YES}}
+                        \State $C \gets C \cup \{(v,c)\}$
+                        \State Update $\phi \gets \phi_{v=c}$ \Comment{Fix the color for $v$ for future queries.}
+                        \State \textbf{break} \Comment{Proceed to next vertex.}
+                    \EndIf
+                \EndFor
+            \EndFor
+            \State \Return $C$
+        \end{algorithmic}
+        \end{algorithm}
+
+    If the algorithm outputs $C$:
+
+    then at every step, when the algorithm fixes a color for vertex $v_i$ based on a YES from $D_\SAT$, it is guaranteed that there exists a satisfying assignment (i.e. a valid 3-coloring) that extends the current partial assignment since we assume it outputs $C$. Thus, the final assignment is consistent and satisfies the constraints of the 3-coloring encoding.
+
+    If $G$ is 3-colorable:
+
+    then the initial formula $\phi$ is satisfiable since $G$ is 3 colorable if and only if $f(G)=\phi \in \SAT$. Then, by trying each color for each vertex, at least one color choice for every vertex will lead to a satisfiable formula. Hence, the algorithm will eventually assign a color to every vertex.
+
+    No False Positives:
+
+    If the graph is not 3-colorable then the initial $D_\SAT(\phi)$ call will return NO, and the algorithm correctly outputs $\emptyset$.
+
+    Runtime:
+
+    $f$ takes $O(|V|+|E|)$
+
+    $D_\SAT$ takes $O((|V|+|E|)^c)$ for $c \in \N$.
+
+    Both loops take $O(3|V|)=O(|V|)$
+
+    Inside the loop the making $\phi_{v=c}$ takes $O(|V|+|E|)$ since there are $O(|V|+|E|)$ clauses thus we check everyone and remove it if $c_i$ is in it.
+
+    Thus, again $D_\SAT$ takes $O(|V|+|E|)^c$ for $c \in \N$ since $\phi_{v=c}$ in the worse case is size $O(|V|+|E|)$.
+
+    Then the rest are $O(1)$ operations.
+
+    Thus overall $O(|V|+|E|+(|V|+|E|)^c+|V|((|V|+|E|)^c+|V|+|E|))=O(|V|(|V|+|E|)^c)$.
+
+    Thus, this is polynomial with respect to $|G|$. Thus, this is efficient.
+\end{problemproof}
+\newcommand{\SC}{\textsc{SET-COVER}}
+\begin{problem}{Approximate $f$-\SC.}
+    In this question, you will consider a variant of the $\SC$ problem where each element of the universe is in a limited number of subsets.
+  Formally, in the $f$-\SC problem, we are given a ``universe'' (set)~$U$ and subsets $S_1, \ldots, S_n \subseteq U$ \emph{where each universe element appears in at most~$f$ of the subsets}.
+  The goal is to find a \emph{smallest} number of the subsets that ``covers''~$U$, i.e., an $I \subseteq \{1,\ldots,n\}$ such that $\bigcup_{i \in I} S_{i} = U$.
+  We assume that $\bigcup_{i=1}^{n} S_{i} = U$, otherwise no solution exists.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that $I(u) \cap I(u') = \emptyset$ for every distinct $u, u' \in E$.
+    In other words, prove that if $u$ and $u'$ are each selected as the uncovered element in different iterations, then no~$S_i$ has both~$u$ and~$u'$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $u,u'$ are distinct and are each selected as the uncovered element in different interactions.
+
+    Assume for contradiction that $I(u) \cap I(u') \neq \emptyset$. Thus, there is a $S_i$ s.t. $u,u' \in S_i$.
+
+    WLOG let $u$ be picked at an earlier iteration than $u'$. Therefore, this implies that we will add $S_i$ to $C$.
+
+    However, this is a contradiction since we would not have picked $u'$ at a later step since it is not in $U \setminus C$ anymore. Thus, $I(u) \cap I(u') = \emptyset$.
+\end{problemproof}
+
+\newcommand{\OPT}{\textsc{OPT}}
+\newcommand{\ALG}{\textsc{ALG}}
+\begin{subproblem}{}
+    We want a lower bound on $\OPT = |I^*|$.
+    Using the previous part, prove that $|E| \leq |I^*|$.
+\end{subproblem}
+\begin{problemproof}
+    Assume for contradiction that $|E| > |I^*|$. This would imply that we picked more elements as the uncovered element then there were indices in the optimal cover. This implies that by the pigeonhole principle that at least two $u,v \in E$ have to share the same index in $I^*$. However, proven above in part (a) this cannot happen.
+
+    Thus, $|I^*| \leq |E|$
+\end{problemproof}
+
+\begin{subproblem}{}
+    We want an upper bound on $\ALG = |I|$.
+    Prove that $|I| \leq f \cdot |E|$, and conclude that the $f$-cover algorithm is an $f$-approximation algorithm for the $f$-\SC $\;$problem.
+\end{subproblem}
+\begin{problemproof}
+    By definition, we know that $|I(u)| \leq f$.
+
+    Also since,
+    \[I=\bigcup_{u \in E}I(u)\]
+    and proven in part (a) that all the $I(u)$ are disjoint this implies that 
+    \[|I|=\sum_{u \in E}|I(u)| \leq \sum_{u \in E}f = f|E|\]
+
+    Therefore, by part (b), $|I| \leq f|E| \leq f |I^*|$.
+
+    Thus, the $f$-cover algorithm is an $f$-approximation algorithm.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that for every positive integer~$f$, there is an input for which the $f$-cover algorithm necessarily outputs a cover that is $f$ times as large as an optimal one.
+\end{subproblem}
+\begin{problemproof}
+    Let $f \in \Z$. Let $U=\{x\}$. Let $S_1=\{x\}$, and $S_i=\{x\}$ for $i \in \{2,\dots,f\}$.
+
+    So first we pick $x$ then we will add $1,\dots,f$ to $I$. Thus, $|I|=f$, but the optimal solution is 1.
+\end{problemproof}
+
+\begin{problem}{}
+    \newcommand{\Allocate}{\textsc{ALLOCATE}}
+    \vspace{-15pt}
+\[
+    \Allocate = \left\{
+    \begin{aligned}
+    (n, C=\{c_1\ldots c_m\}, k) :~ &\text{$C$ can be partitioned into $n$ subsets}\\
+    &\text{where each subset sums to at most $k$}
+    \end{aligned}
+    \right\}.
+\]
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that $\textsc{ALLOCATE} \in \NP$.
+\end{subproblem}
+\begin{problemproof}
+    Let the certificate be an array of $m$ pairs of integers s.t. the first number is bounded by $m$ and the second by $m$. Each pair takes $\log(n)+ \log(m)$ spaces. Thus, our certificate takes up $O(m \log(n) + m\log(m))$ which is polynomial with respect to the input which is $O(m \log c + \log n + \log k)$ for $c = \max\{c_1,\dots,c_m\}$.
+
+    \begin{algorithm}[H]
+        \caption{Verify Certificate for ALLOCATE}
+        \begin{algorithmic}[1]
+            \Require A certificate $V = \{v_1, \dots, v_m\}$, item counts $C=\{c_1,\dots,c_m\}$, number of cashiers $n$, and workload limit $k$
+            \Ensure Accept if the certificate is valid, reject otherwise
+            \If{$n \geq m$}
+                \For{$i \in \{1,\dots,m\}$}
+                    \If{$c_i > k$} \Return \textbf{reject}
+                    \EndIf
+                \EndFor
+                \State \Return \textbf{accept}
+            \EndIf
+
+            \State $S[1,\dots,n] \gets [0,0,\dots,0]$
+            \For{$i \in \{1,\dots,m\}$}
+                \State $S[v_i] \gets S[v_i] + c_i$
+            \EndFor
+
+            \For{$i \in \{1,\dots,n\}$}
+                \If{$S[i] > k$} \Return \textbf{reject}
+                \EndIf
+            \EndFor
+            \State \Return \textbf{accept}
+        \end{algorithmic}
+        \end{algorithm}
+    
+        Runtime: 
+        
+        If $n \geq m$ then the run time takes $O(m)$
+
+        If $n < m$ then the run time takes $O(2n+m)=O(m)$.
+
+        Thus, in both cases we get $O(m)$ which is polynomial with respect to the input.
+
+        Correctness:
+
+        In general if $c_i > k$ then $(n,C,k) \notin \textsc{ALLOCATE}$ this is because there would be no where to place this customer without going over the item limit.
+
+        If $(n,C=\{c_1,\dots,c_m\},k) \in \textsc{ALLOCATE}$:
+
+        If $n \geq m$ the one valid partition of $C$ would be to make each customer go into their own lane since each customer has less than $k$ items as shown above. Thus, $S_1=\{c_1\}, S_2=\{c_2\},\dots, S_m=\{c_m\}, S_{m+1}=\emptyset,\dots,S_n=\emptyset$.
+
+        Thus, since we can always make this partition when $n \geq m$ we only have to chekc if $c_i \leq k$. Thus, since this is the case when we are in Allocate. We know the algorithm will accept on line 4 with any certificate.
+
+        If $n < m$ then now we now there is a valid partition $S_1,\dots,S_n$ s.t. the sum of elements in $S_i$ is at most $k$. Thus, define $V=\{v_1,\dots,v_m\}$ s.t. $v_i = j$ if $c_i \in S_j$.
+
+        Now what the algorithm now does is sum all the $c_i,c_j$ together in $S$ if $v_i=v_j$. This is the same as summing the partition set $S_{v_j}$. THen we checkk later that each $S[i] < k$. Since we know that each $S_i$ the sum is less than $k$. We know that $S[i]$ will be too. Thus, the algorithm will accept on line 10.
+
+        If there exists a certificate $V$ s.t. the verifier will accept $(n,C,k)$
+
+        If it accepted on line 4. Then we know that $n \geq m$ and that each $c_i > k$ so similar argument to above we know that we can partition this so each customer is in their own lane. Thus, $(n,C,k) \in \textsc{ALLOCATE}$.
+
+        If it accepted on line 10 then consider the partition $S_j=\{c_{i_1},\dots,c_{i_r}\}$ s.t. $v_{i_k}=j$.
+
+        Shown by the program since we know that the sum of $c_{i_1}+\dots+c_{i_r} < k$ we know that this applies for each $S_j$. Thus, $S_1,\dots,S_n$ is a valid partition s.t. each $S_j$ will sum to at most $k$.
+\end{problemproof}
+
+\newcommand{\SSUM}{\textsc{SUBSET-SUM}}
+\begin{subproblem}{}
+    Prove that $\SSUM \leq_p \textsc{ALLOCATE}$
+\end{subproblem}
+\begin{problemproof}
+    Define $f : \Sigma^* \to \Sigma^*$ s.t. $S$ is the sum of all elements in $A$.
+    \begin{equation*}
+        f(A,s)=\begin{cases*}
+            (2,A \cup \{S-2s\}, S-s) \quad \t{ if $2s \leq S$},\\
+            (2,A \cup \{2s-S\}, s) \quad \t{ otherwise}.
+        \end{cases*}
+    \end{equation*}
+
+    Runtime: 
+    
+    It takes $|A|$ to sum all the elements to get the value $S$.
+
+    Then it takes $|A|$ to copy $A$, and the rest are $O(1)$ operations.
+
+    Thus, the runtime is overall $O(|A|)$ which is polynomial with respect to the input.
+
+    Correctness:
+
+    If $(A,s) \in \SSUM$ then there is a subset $S_1$ s.t. the sum of $S_1$ sums to $s$.
+
+    If $2s \leq S$(the sum of $A$): 
+    
+    Let cashier 1 get $S_1 \cup \{S-2s\}$ and let cashier 2 get $A \setminus S_1$.
+
+    Thus, 1 gets $s+S-2s=S-s$ and 2 gets $S-s$. Thus, $(2,A \cup \{S-2s\}, S-s) \in \textsc{ALLOCATE}$
+
+    If $S < 2s$:
+
+    Let cashier 1 get $S_1$ and let cashier 2 get $A \setminus S_1 \cup \{2s-S\}$.
+
+    Thus, 1 gets $s$ and 2 gets $S-s+2s-S=s$. Thus, $(2,A \cup \{2s-S\}, s) \in \textsc{ALLOCATE}$.
+
+    If $f(A,s) \in \textsc{ALLOCATE}$ then :
+
+    If $2s \leq S$ then $(2,A \cup \{S-2s\}, S-s) \in \textsc{ALLOCATE}$
+
+    Then since the total sum of $A \cup \{S-2s\}$ is $S+S-2s=2S-2s$. This means that each cashier will get exactly $S-s$.
+
+    Thus, since one cashier gets the element $S-2s$ we now that for some collection $S_1$ that $S_1 + S-2s=S-s \implies S_1 = s$. Thus, $(A,s) \in \SSUM$.
+
+    If $S < 2s$ then $(2,A \cup \{2s-S\}, s) \in \textsc{ALLOCATE}$
+
+    Then since the total sum of $A \cup \{2s-S\}$ is $S+2s-S=2s$. This means that each cashier will get exactly $s$. Thus, take the cashier with the collection that does not have the element $\{2s-S\}$. Thus, that is a collection of elements of $A$ that sum to $s$.
+
+    Thus, $(A,s) \in \SSUM$.
+
+    Therefore, $\SSUM \leq_p \textsc{ALLOCATE}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Letting $\OPT$ be the optimal workload, prove that $\OPT \geq \max \{c_1, c_2, \ldots, c_m\}$.
+\end{subproblem}
+\begin{problemproof}
+    Let $M = \max\{c_1,\dots,c_m\}$. Since one cashier line will have $M$ this requires that the workload must already at least $M$ to fit it. Since if it was less than $M$ then there would be no where for $M$ to go. Thus, $M \leq \OPT$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $m \leq n$, \textsc{GreedyAllocate} necessarily returns an optimal allocation.
+\end{subproblem}
+\begin{problemproof}
+    If $m \leq n$ then this implies that the greedy allocate will allocate all customers to their own cashier. Thus, the computed allocation for this solution will be $M=\max\{c_1,\dots,c_m\}$. Since we know from part (c) that $M=\ALG \leq \OPT$ this implies that $\ALG = \OPT$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\OPT \geq \frac{1}{n} \cdot \sum_{j=1}^{m} c_j$.
+\end{subproblem}
+\begin{problemproof}
+    Since there is a way to partition the items to each cashier has a maximum of $\OPT$ items. This implies that the total amount of items scanned by all $n$ of the cashiers is at most $n \cdot \OPT$.
+
+    Thus:
+    \[\sum_{j=1}^m c_j \leq n \cdot \OPT \implies (1/n) \sum_{j=1}^m c_j \leq \OPT\]
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\ALG \leq 2\cdot \OPT$, where $\ALG$ is the workload obtained by \textsc{GreedyAllocate}.
+\end{subproblem}
+\begin{problemproof}
+    Let $j$ be the cashier that ends up with the max load. Let the load of cashier $j$ right before the last customer was assigned to $j$ be $L$, and let $c$ be the number of items of the last customer.
+
+    Thus, $\ALG = L + c$.
+
+    Since the algorithm is greedy we know that cashier $j$ has the smallest number of items before adding $c$. Thus, we know every other cashier had at total of $L$.
+
+    Thus, $n \cdot L \leq \sum_{i=1}^m c_i$.
+
+    By part (e)
+
+    \[L \leq (1/n) \sum_{j=1}^m c_j \leq \OPT\]
+
+    By part (a) since $c \leq \OPT$
+
+    \[\ALG = L + c \leq (1/n) \sum_{j=1}^m c_j + \OPT \leq 2 \OPT\]
+\end{problemproof}
+
+\begin{problem}{}
+    An algorithm runs in \emph{pseudo-polynomial} time if its runtime is polynomial in the numeric value of the input (e.g. $C$), rather than the bit-length of the input (e.g. $\log C$). We have seen such algorithm in the algorithm unit, namely, the dynamic programming algorithm for the 0-1 knapsack problem, which runs in $O(nC)$ time. 
+
+ Let $\Pi$ be an optimization problem. An algorithm $A$ is called an \emph{approximation scheme} for $\Pi$ if, for every instance $I \in \Pi$ and every error parameter $\epsilon > 0$, it outputs a solution $A(I)$ satisfying the following \emph{approximation guarantee}: 
+\begin{itemize} 
+    \item $A(I) \geq (1 - \epsilon)\OPT(I)$ if $\Pi$ is a maximization problem. 
+    \item $A(I) \leq (1 + \epsilon)\OPT(I)$ if $\Pi$ is a minimization problem. 
+\end{itemize}
+    We call $A$ a \emph{polynomial-time approximation scheme (PTAS)} if, for every fixed $\epsilon > 0$, its runtime is polynomial in the input size $|I|$. If the runtime is polynomial in \textbf{both} $|I|$ and $1/\epsilon$, we call it a \emph{fully polynomial-time approximation scheme (FPTAS)}.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that \textsc{FPTAS-Knapsack} is a fully polynomial-time approximation scheme for the $0$-$1$ knapsack problem. In particular, justify both the correctness of the approximation guarantee and the runtime of the algorithm.
+\end{subproblem}
+\begin{problemproof}
+    First we can assume that $W[i] \leq C$ for all $i$.
+
+    This is because if we assume that this algorithm is a $FPTAS$ whcih we are trying to prove then consider this example.
+
+    $V=\{100,1\}$, $W=\{10,1\}$, $C=1$, $\epsilon=1/2$.
+
+    Thus, $\ALG=0$ and $\OPT=1$. However, this contradicts $0 \geq 1/2(\OPT)=1/2$.
+
+    Thus, we can assume $W[i] \leq C$ for all $i$. This implies that $V_{max} \leq \OPT$ since if it was not then consider the knap sack with just $V_{max}$ in it this would be a solution larger than $\OPT$, thus contradiction.
+
+    Let $S^*$ be an optimal solution for the original value with total value $\OPT = \sum_{i \in S^*}V[i]$
+
+    Let $S$ be the computed solution with value $\ALG = \sum_{i \in S} V'[i]$.
+
+    For each i we have $\dfrac{V[i]}{k}-1 < V'[i] \leq \dfrac{V[i]}{k} \implies V[i]-k < kV'[i] \leq V[i]$.
+
+    Thus, for  $S^*$ of items we have:
+    \[\sum_{i \in S^*} V[i]=\OPT - k|S| < \sum_{i \in S^*} V'[i] \leq \sum_{i \in S^*} V[i]=\OPT\]
+
+    Since $k|S^*| \leq k \cdot n = \epsilon V_{max} \leq \epsilon \OPT$ Since $k=(\epsilon V_{max}/n)$ and $V_{max} \leq \OPT$
+
+    \[\OPT - \epsilon \OPT < \sum_{i \in S^*} V'[i] \leq \OPT\]
+
+    Since the algorithm outputs the max value for the scaled values we get that $\sum_{i \in S^*} V'[i] \leq \ALG$
+
+    Therefore,
+    \[\OPT - \epsilon \OPT < \sum_{i \in S^*} V'[i] \leq \ALG\]
+
+    Thus,
+
+    \[\ALG \geq (1-\epsilon)\OPT\]
+
+    Runtime:
+
+    This runs in $O(n+T(DP))$, but $DP$ runs in $O(n \times V'_{total})$ and $V'_{total} \leq n \times (V_{max}/k)=n^2/ \epsilon$. Which leads to a run time of $O(n^3/\epsilon)$
+
+    Thus, the total runtime is $O(n+ n^3/\epsilon)=O(n^3/\epsilon)$.
+
+    Thus, $FPTAS-KNAPSACK$ is a fully polynomial-time approximation scheme.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $\P \neq \NP$, then no polynomial time approximation algorithm for the knapsack problem can guarantee
+    \[
+        |\text{ALG} - \text{OPT}| \leq k
+    \]
+    for any fixed constant $k > 0$, where $\OPT$ is the maximum total value achievable by an optimal solution and $\ALG$ is the total value returned by the approximation algorithm.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\P \neq \NP$.
+
+    Assume for contradiction that there exists a polynomial-time approximation algorithm $A$ for the knapsack problem s.t.
+    \[|\ALG - \OPT | \leq k\]
+    for $k > 0$.
+
+    Consider the decision problem of knapsack which is $\NP$-complete. Consider the decider:
+
+    Input: $(V,W,T,C)$ where the algorithm finds if there is a subset of items of total weight at most $C$ whose total value is at least $T$.
+    
+    First scale $V$ s.t. $V'=(k+1)V$. All elements multiplies by $k+1$
+
+    Compute $A(V',W,C)=\ALG$ in polynomial time.
+
+    If $\ALG \geq T(k+1)$ then return "accept"
+
+    else return "reject"
+
+
+    Correctness:
+
+    Assume that $(V,W,T,C)$ is in $\textsc{KNAPSACK}$. Then by assumption we know that for $A(V',W,C)=\ALG$ that $|\OPT - \ALG| \leq k$. However, since $\OPT$ and $\ALG$ are multiples of $k+1$. This implies there difference is too. Thus, $\OPT=\ALG$ since there is no multiple of $k+1$ in $[0,k]$ other than 0.
+
+    Thus, we know that the actual optimal solution is $\ALG/(k+1)$. Thus, since we know that $\ALG/(k+1) \geq T \implies \ALG \geq (k+1)T$. Thus, we would accept $(V,W,T,C)$.
+
+    If our algorithm accepted $(V,W,T,C)$ then this would imply that $\ALG \geq (k+1)T$, but since by a similar proof to above we know that $\OPT=\ALG$ thus we know that the actual optimal solution is $\ALG / (k+1)$. Thus, $(V,W,T,C) \in \textsc{KNAPSACK}$.
+
+    Also the algorithm halts on all inputs since $A$ halts on every input, and the rest is all for loops or $O(1)$ operations.
+
+
+Correctness
+
+If \(\bigl(V,W,T,C\bigr)\in \textsc{KNAPSACK}\)
+
+Because there is a subset \(S\) with total original value \(\ge T\), in the scaled instance we have a subset \(S\) of total value
+  \[
+    \sum_{i\in S}v_i' \;=\;\sum_{i\in S}\bigl((k+1)\,v_i\bigr)
+    \;=\;(k+1)\,\sum_{i\in S}v_i
+    \;\ge\;(k+1)\,T.
+  \]
+  Thus, the optimal solution in the scaled instance satisfies
+  \[
+    \OPT \;\ge\;(k+1)\,T.
+  \]
+The approximation guarantee says \(|\ALG - \OPT| \leq k\).  But both \(\ALG\) and \(\OPT\) are multiples of \((k+1)\).  Since every \(v_i'\) is a multiple of \((k+1)\). 
+The only way \(\ALG\) can differ from \(\OPT\) by at most \(k\) (but remain a multiple of \((k+1)\)) is if \(\ALG = \OPT\). 
+Thus \(\ALG = \OPT \ge (k+1)\,T\).
+Our decider checks whether \(\ALG \ge (k+1)\,T\).  Since \(\ALG \ge (k+1)\,T\) is indeed true, the decider accepts.
+
+If our decider accepts \((V,W,T,C)\)
+
+Suppose the decider accepts, which means we found \(\ALG \ge (k+1)\,T\).
+As before, \(\ALG\) and \(\OPT\) are multiples of \((k+1)\), and \(\bigl|\ALG - \OPT\bigr|\le k\).  The only possibility is \(\ALG = \OPT\).
+Thus \(\OPT \ge (k+1)\,T\) in the scaled instance.  It follows there exists a feasible subset \(S\) in the scaled instance with 
+  \[
+    \sum_{i\in S}v_i' \;=\; (k+1)\,\sum_{i\in S}v_i
+    \;\ge\;(k+1)\,T.
+  \]
+  Dividing by \((k+1)\), we get \(\sum_{i\in S}v_i \ge T\).  So \(S\) is a feasible solution in the *original* instance with total value at least \(T\).  Hence \(\bigl(V,W,T,C\bigr)\in \textsc{KNAPSACK}\).
+
+Runtime
+
+Our only expensive subroutine is calling \(A\), which (by assumption) is polynomial-time.  
+Scaling item values, checking \(\ALG\ge(k+1)\,T\), and returning accept or reject are all polynomial (or linear) steps.  
+
+Hence the decider runs in polynomial time overall.
+
+Also, the decider is a decider since it halts on every input since there is only for loops, and $A$ which halts on every input.
+
+Since, the decision problem for Knapsack $0-1$ is $\NP$-complete, and we showed there is a polynomial algorithm that decides it this implies that $\P = \NP$ which is a contradiction. Thus, there is no algorithm $A$.
+\end{problemproof}
+\end{document}

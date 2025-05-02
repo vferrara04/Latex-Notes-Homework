@@ -1,0 +1,317 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{amssymb,amsfonts}
+\usepackage{mathptmx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[all,arc]{xy}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usetikzlibrary{calc,intersections}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\usepackage[nointegrals]{wasysym}
+
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{cleveref}
+\usepackage{multicol}
+\usepackage{mathpazo}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{xparse}
+
+
+\input{../../../homework}
+\usepackage[all]{xypic}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\coker}{\mathrm{coker}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\thepage}
+
+\begin{problem}{}
+    The finite fields $\F_3 [X]/ (X^3 + 2X +1)$ and  $\F_3 [X]/ (X^3 + 2X^2 +1)$
+are isomorphic, since both have $27$ elements.  Construct directly an isomorphism between these fields. 
+\end{problem}
+\begin{problemproof}
+    Let $A=\F_3 [X]/ (X^3 + 2X +1)$ and $B=\F_3 [X]/ (X^3 + 2X^2 +1)$
+
+    Define $\varphi : A \to B$ s.t. $\varphi(g(X))=g(2X^2+X)$
+
+    Well-Defined:
+
+    Consider $X^3+2X+1=0$ in $A$.
+
+    $\varphi(X^3)+\varphi(2X)+1=8X^6+X^3+4X^2+2X+1=16(X^2+X)+X^2+2+4X^2+2X+1=3(X^2+X+1)=0$
+
+    Homomorhphism:
+
+    $\varphi(1)=1$
+
+    $\varphi(g(X)+f(X))=g(2X^2+X)+f(2X^2+X)=\varphi(g(X)) + \varphi(f(X))$
+
+    $\varphi(g(X)f(X))=g(2X^2+X)f(2X^2+X)=\varphi(g(X))\varphi(f(X))$
+
+    Kernel: 
+
+    Since $X \notin \ker{\varphi}$ this implies that the kernel is not the whole field. Since the kernel is an ideal and $A$ is a field this implies that $\ker(\varphi)=\{0\}$.
+
+    Thus, $\varphi$ is injecitve.
+
+    Since we know these are degree 3 extensions of $\F_3$ we know they both have 27 elements, and since $\varphi$ is injective this means it is also surjective.
+
+    Thus, $A \cong B$.
+\end{problemproof}
+
+\begin{problem}{}
+    Factor the polynomial $X^{16}-X$ in $\F_2 [X]$ as a product of irreducibles.
+\end{problem}
+\begin{problemproof}
+    $X^{16}-X=X(X+1)(X^2+X+1)(X^4+X^3+X^2+X+1)(X^4+X^3+1)(X^4+X+1)$
+
+    $X,X+1,X^2+X+1$ are all irreducible and $X^2+X+1$ is the unique degree 2 irreducible polynomial in $F_2[X]$.
+
+    Thus, for the degree 4 we know that we must start with $X^4$ and end with $1$, so we cannot factor an $X$, and we must have an even amount of $X$ terms, so we cannot factor an $X+1$, and thus the only one we cannot pick that follows these rules is $(X^2+X+1)^2=X^4+X^2+1$.
+
+    Thus, these are all irreducible and multiply to $X^16-X$.
+\end{problemproof}
+
+\begin{problem}{}
+    Show that every element of a finite field can be written as a sum of two squares in that field. 
+\end{problem}
+\begin{problemproof}
+    Let $F$ be a finite field with $p^k$ elements. Proven in 493 we know that the multiplicative group of $F$ is cyclic with $p^k-1$ elements. Thus, let $g$ be the generator. Thus, to be a square all we have to do is look at the even powers. Thus, we get $\dfrac{p^k-1}{2}$ squares not including zero. Call this set $S$.
+
+    Now add back $0$ to $S$. Thus, we have $\dfrac{p^k+1}{2}$ elements in $S$. Now let $h \in F$. Consider $h-S=\{h-s \mid s \in S\}$. Since $F$ has $p^k$ elements and both sets have $\dfrac{p^k+1}{2}$ elements, by the pigeonhole principle this implies that there is an element $s \in S \cap h-S$.
+
+    Thus, $s=h-t$ for some $t \in S$. Thus, $h=s+t$ for $s,t \in S$. Thus, every element can be written as the sum of squares.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $K/F$ be a finite extension. Show that the following are equivalent:
+\begin{enumerate}
+\item $K/F$ admits a primitive element. i.e., there exists an element $\alpha\in K$ such that $K=F(\alpha)$. 
+\item There are only finitely many intermediate fields $F \subseteq L \subseteq K$. 
+\end{enumerate}
+\end{problem}
+\begin{problemproof}
+    If $F$ is finite the $K$ is finite. Proven in 493 that the multiplicative group $K^\times$ of a finite group is cyclic. Thus, let $\alpha$ be a generator. Thus, $F(\alpha)=K$. Also, there are only finitely many intermediate fields. If $F=\F_{p^k}$ and $K=\F_{p^n}$ for $k \mid n$. Then $F \subset L \subset K$ for $L=\F_{p^i}$ for $k \mid i$ and $i \mid n$. Thus, there are only finite many choices for those.
+
+    Now assume $F$ is infinite thus $k$ is infinite.
+
+    Assume $K/F$ admits a primitive element. Thus, $K=F(\alpha)$ for $\alpha \in K$. Let $L$ be an intermediate field of $K/F$.
+
+    Let $f(x) \in F[x]$ be the minimal polynomial for $\alpha$ over $F$, and $g(x) \in L[x]$ be the minimal polynomial for $\alpha$ over $L$. Thus, it follows that $g(x)$ must divide $f(x)$.
+
+    Let $a_1,\dots,a_n$ be the coefficients of $g(x)$.
+
+    Consider $L'=F(a_1,\dots,a_n)$. Thus, $L' \subset L$. Since $g(x)$ is irreducible over $L$ this implies it is still irreducible over $L'$ thus, $[K:L']=[K:L]$ since they share the same irreducible polynomial $g$.
+
+    Thus, $L'=L$.
+
+    Thus, $L$ is generated by the coefficients of some monic polynomial dividing $f(x)$. Thus, there are only finitely many ways to factor $f$. Thus, there are finitely many intermediate fields.
+
+    Assume $K/F$ has finitely many intermediate fields.
+
+    If we can show that $F(\alpha,\beta)$ has a primitive element then the result will follow by induction since $K/F$ is finite.
+
+    Consider $F(\alpha + c\beta)$ for $c \in F$. Since $F$ is infinite, but there are only finitely many intermediate fields this implies there are distinct $a,b \in F$ s.t. $F(\alpha + a\beta)=F(\alpha+ b\beta)=L$.
+
+    Then $L \subset F(\alpha,\beta)$. Also, since $\alpha + a\beta, \alpha + b\beta \in L \implies (a-b)\beta \in L \implies \beta \in L$ since $a,b \in F$. Thus, $\alpha \in L$. Therefore, $L=F(\alpha,\beta)=F(\alpha + b\beta)$.
+
+    Thus, $L$ is has a primitive element, so we can keep extending this till we get to $K$. Thus, $K=F(\alpha)$ for some $\alpha \in K$.
+\end{problemproof}
+
+\begin{problem}{}
+    Give an example of a finite extension $K/F$ that does not admit a primitive element.
+\end{problem}
+\begin{problemproof}
+    Consider $F=\F_p(X,Y)$ and $K=(X^{1/p},Y^{1/p})$. $K/F$ has degree $p^2$ thus finite since they satisfy $(T^p-X)(T^p-Y)$.
+
+    Assume there exists an $\alpha \in K$ s.t. $K=F(\alpha)$.
+
+    Thus,
+    \[\alpha=g(X^{1/p},Y^{1/p})/f(X^{1/p},Y^{1/p})\] for $g,f \in \F_p[U,V]$ with $f \neq 0$.
+
+    Consider $\alpha^p=g(X,Y)/f(X,Y)$. Thus, $\alpha^p \in F$.
+
+    Since $\alpha$ is a root to $T^p-\alpha^p$ for this polynomial over $F$. This implies that $\alpha$'s minimal polynomial divides this. This implies that $[F(\alpha):F] \leq p$. This is a contradiction. Therefore, $K/F$ does not have a primitive element.
+
+    
+\end{problemproof}
+
+\begin{problem}{}
+    Let $K$ be a field and let $G$ be a finite subgroup of the automorphism group of $K$.  
+Let $F=K^G$, the fixed field of $G$.  Show that $K/F$ is Galois with Galois group $G$.  
+\end{problem}
+\clmp{}{Let $K/F$ be an algebraic extension. If $K/F$ is infinite extension. Then there exists elements in $K$ whose degrees over $F$ are unbounded}{
+    Let $K/F$ be an algebraic extension. Assume $[K:F]$ is infinite.
+
+    \noindent Let $\alpha_1 \in K\setminus F$ and let $F_1=F(\alpha_1)$. $\alpha_1$ is algebraic over $F$, so $[F_1:F]$ is finite. 
+    Let $a_2 \in K \setminus F_1$, and let $F_2=(\alpha_1,\alpha_2)$. Then keep doing this for all $n \in \N$.
+
+    \noindent Thus, we get a strictly increasing chain of finite extension of $F$, and $[F_i:F] > [F_{i-1}:F]$. Thus, there exists elements in $K$ with unbounded degrees.
+}
+\begin{problemproof}
+    Let $\alpha \in K$ then consider
+    \[f=\prod_{\sigma \in G} (X-\sigma(\alpha))\]
+
+    Since $\tau(G)=G$ for $\tau \in G$. This implies that $\tau(f)=f \implies f \in F[X]$
+
+    Also, let $m$ be the minimal polynomial for $\alpha$ in $F$. Thus, $m \mid f$. Therefore, since $f$ splits completely in $K$ this implies $m$ splits completely. Therefore, the extension is normal.
+
+    Now consider $O=\{\sigma(\alpha) \mid \sigma \in G\}$, and define,
+    \[g=\prod_{\beta \in O}(X-\beta)\]
+    
+    Consider $\beta \in O$ s.t. $\beta=\sigma(\alpha)$ for $\sigma \in G$. Let $\tau \in G$.
+
+    Consider $\tau\sigma(\alpha)$ since $\tau\sigma \in G \implies \tau\sigma(\alpha) \in O$.
+
+    Thus, $\tau(O) \subset O$.
+
+    Therefore, $O=\tau(O)$ since $|O|=|\tau(O)|$
+
+    Thus, $\tau(g)=g \implies g \in F[X]$. Therefore, $m \mid g$ which implies $m$ has unique roots since $g$ does.
+
+    Thus, $K/F$ is seperable. Thus, $K/F$ is Galois.
+
+    Consider $[F(\alpha):F]$ since we know $f$ is degree $|G|$ this implies that $[F(\alpha):F] \leq |G|$. Thus, the degree of all elements over $F$ is bounded. Thus, using the contrapositive of the proof above this implies that $K/F$ is finite.
+
+    Thus, by the primitive element theorem there exists a $\alpha \in K$ s.t. $K=F(\alpha)$.
+
+    If $\sigma(\alpha)=\alpha$ this implies that $\sigma = e$. Therefore, consider $f=\prod_{\alpha \in G}(X-\sigma(\alpha))$.
+
+    Let $g$ be another polynomial with $\sigma(\alpha)$ as a root in $F[X]$. This implies that $\tau\sigma(\alpha)$ is also a root since $\tau(g)=g$. Thus, $\tau(\alpha)$ is a root of $g$ for all $\tau \in G$.
+
+    Thus, this implies that $f \mid g$ for all $g$ with a root. Since $\alpha$'s minimal polynomial also has $\alpha$ as a root thus all of the $\sigma(\alpha)$. This implies that $f$ divides this minimal polynomial too. Thus, $f$ is $\alpha$'s minimal irreducible polynomial.
+
+    Therefore, $[F(\alpha):F]=|G|=|\t{Gal}(K/F)|$.
+
+    First one can see that $G \subset \t{Gal}(K/F)$ and since these are both the same size. This implies that $G=\t{Gal}(K/F)$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $K=\Q(\zeta)$ where $\zeta$ is a primitive seventh root of unity. Identify all the intermediate fields $\Q \subset F \subset K$, giving in each case a primitive element for the extension $F/\Q$. 
+\end{problem}
+\begin{problemproof}
+    Since Gal$(K/\Q) \cong (\Z \times 7\Z)^\times \cong C_6$. This means there are only two intermediate fields since there are two non trivial subgroups of $C_6$ which are $C_2,C_3$.
+
+    Thus, we need a degree $3$ and degree $2$ extension.
+
+    Consider $\Q(\zeta + \zeta^{2} + \zeta^4)$ and $\Q(\zeta + \zeta^6)$.
+
+    First $\zeta + \zeta^{2} + \zeta^4$ is fixed by only the order 3 subgroup of Gal$(K/\Q)$. Thus, this must be the degree 2 extension.
+
+    Also, $\zeta + \zeta^6$ is fixed only by the order 2 subgroup of the Galois group. Thus, this must be the degree 3 extension.
+
+    Also the reason why we know these are not $K$ is because they are only fixed by some of the automorphisms of $K$.
+
+    Thus, $\Q(\zeta + \zeta^{2} + \zeta^4)$ and $\Q(\zeta + \zeta^6)$ are the only intermediate fields.
+\end{problemproof}
+
+\begin{problem}{}
+    Express $\cos{15^\circ}$ in terms of real square roots.
+\end{problem}
+\begin{problemproof}
+    $\cos(15^\circ)= \cos(45^\circ - 30^\circ)=\cos(45^\circ)\cos(30^\circ)+\sin(45^\circ)\sin(30^\circ)=\sqrt{6}/4+\sqrt{2}/4=\dfrac{\sqrt{6}+\sqrt{2}}{4}$
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that the regular pentagon can be constructed by ruler and compass (a) by field theory, (b) by finding an explicit construction.
+\end{problem}
+\begin{problemproof}
+    Consider $2\cos (\pi/5)=\zeta+\zeta^{-1}$ for $\zeta=e^{i\pi/5}$.
+    \begin{align*}
+        \zeta^4 - \zeta^3 + \zeta^2 - \zeta + 1 = 0\\
+        \zeta^2 - \zeta + 1 - \zeta^{-1} + \zeta^{-2} = 0\\
+        (\zeta^2 + \zeta^{-2}) - (\zeta + \zeta^{-1}) + 1=0\\
+        (\zeta + \zeta^{-1})^2 - (\zeta + \zeta^{-1}) -1=0\\
+        \zeta + \zeta^{-1} = \dfrac{1+\sqrt{5}}{2}
+    \end{align*}
+
+    Thus, $\cos(\pi/5)=\dfrac{1+\sqrt{5}}{4}$. Thus, $\cos(\pi/5) \in \Q(\sqrt{5})$. Which is a degree 2 extension of $\Q$. Thus, $\cos{\pi/5}$ is constructable which implies the pentagon is constructable.
+
+    \begin{enumerate}
+        \item Draw the Circumcircle:
+        Draw a circle with center O. This will be the circumcircle that will eventually pass through all five vertices of the pentagon.
+        
+        \item Mark a Diameter:
+        Choose any point A on the circle. Draw the line (using your straightedge) through A and O, and extend it to meet the circle again at point B. (AB is a diameter.)
+        
+        \item Locate the Midpoint of a Radius:
+        Focus on the radius OB. Construct its midpoint—call it M. (This can be done by constructing the perpendicular bisector of OB.)
+        
+        \item Construct the Auxiliary Circle:
+        With center M, set your compass to the distance from M to A (which is equal to M to O, since A lies on the circle through O) and draw an arc (or full circle). Let this auxiliary circle intersect the original circle at point C.
+        
+        \item Determine the Side Length:
+        Draw the chord connecting A and C. It can be shown (via properties of isosceles triangles and the golden ratio) that the length of AC is exactly the side length of the regular pentagon.
+        
+        \item Step Off the Pentagon's Sides:
+        With your compass set to the length of AC, place the compass point on A and mark an arc on the original circle. Label the intersection D. Next, place the compass at D, mark the next intersection, and continue around the circle until you have marked all five vertices.
+        
+        \item Connect the Vertices:
+        Use your straightedge to draw straight lines between consecutive vertices. The resulting figure is a regular pentagon inscribed in the circle.
+    \end{enumerate}
+    
+
+\end{problemproof}
+
+\begin{problem}{}
+    Decide whether or not the regular 9-gon is constructable by ruler and compass.
+\end{problem}
+\begin{problemproof}
+    Let $\zeta=e^{i\pi/9}$
+
+    Thus, $2\cos{\pi/9}=\zeta+\zeta^{-1}$.
+
+    Thus, $\cos{\pi/9} \in \Q(\zeta + \zeta^{-1})$.
+
+    Consider $\Q(\zeta)$ this is a degree 6 over $\Q$ since $\phi(18)=6$
+
+    Consider $x^2-(\zeta + \zeta^{-1})x+1$.
+
+    $\zeta^2-(\zeta + \zeta^{-1})\zeta+1=0$.
+
+    Thus, $[\Q(\zeta) : \Q(\zeta + \zeta^{-1})]$ is at most 2, but since $\Q(\zeta + \zeta^{-1}) \subset \R$ and $\Q(\zeta)$ is not we now that the degree is 2.
+
+    Thus, $[\Q(\zeta + \zeta^{-1}): \Q] = [\Q(\zeta) : \Q]/[\Q(\zeta) : \Q(\zeta + \zeta^{-1})] = 3$.
+
+    Thus, $\cos{\pi/9}$ is not constructable since it is in a degree 3 extension of $\Q$ which implies the 9-gon is also not constructable.
+\end{problemproof}
+\end{document}
