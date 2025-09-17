@@ -1,0 +1,418 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+\newcommand{\skcgen}{{\sf Gen}} \newcommand{\skcenc}{{\sf Enc}}
+\newcommand{\skcdec}{{\sf Dec}}
+\newcommand{\white}{\color{white}} \newcommand{\red}{\color{red}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW1 --- \thepage}
+\fancyhead[C]{\color{\TextColor}EECS 475}
+
+\begin{problem}{}
+    Recall that an encryption scheme is formally
+  defined by algorithms $\skcgen, \skcenc$, and $\skcdec$
+  (respectively, the key generator, encryption, and decryption),
+  together with a message space, ciphertext space, and key space.  
+\end{problem}
+\begin{subproblem}{}
+    Give a formal specification for the shift cipher, assuming the message can be any three-letter sequence.
+\end{subproblem}
+\begin{solution}
+    \begin{itemize}
+        \item $\mathcal{M}$: $\{0,1,\dots,25\}^3$
+        \item $\mathcal{K}$: $\{0,1,\dots,25\}$
+        \item $\mathcal{C}$: $\{0,1,\dots,25\}^3$
+        \item $\skcgen$: $k \overset{\$}{\leftarrow} \mathcal{K}$
+        \item $\skcenc(k,m)$: $c_i = (m_i+k) \mod 26$ where $c_i,m_i$ is the $i$th letter in the message and ciphertext.
+        \item $\skcdec(k,m)$: $m_i = c_i-k \mod 26$ where $c_i,m_i$ are the same as defined above.
+    \end{itemize}
+    Correctness:
+
+    $\skcdec(k,\skcenc(k,m))=m+k-k=m$
+\end{solution}
+
+\begin{subproblem}{}
+    Give a formal specification for the
+      Vigen\`ere cipher\footnotemark. You may assume that the key has a length 5.
+    
+    \footnotetext{Vigen\`ere cipher can be found in Section 1.1.3 from Vipul Goyal's lecture notes (see Canvas for the link). }
+\end{subproblem}
+\begin{solution}
+    \begin{itemize}
+        \item $\mathcal{M}$: $\{0,1,\dots,25\}^5$
+        \item $\mathcal{K}$: $\{0,1,\dots,25\}^5$
+        \item $\mathcal{C}$: $\{0,1,\dots,25\}^5$
+        \item $\skcgen$: $k \overset{\$}{\leftarrow} \mathcal{K}$
+        \item $\skcenc(k,m)$: $c_i = (m_i+k_i) \mod 26$ where $c_i,m_i,k_i$ is the $i$th letter in the message, ciphertext, and key.
+        \item $\skcdec(k,m)$: $m_i = c_i-k_i \mod 26$ where $c_i,m_i,k_i$ are the same as defined above.
+    \end{itemize}
+
+    Correctness:
+
+    $\skcdec(k,\skcenc(k,m))=m+k-k=(m_1+k_1-k_1,\dots,m_n+k_n-k_n)=m$
+\end{solution}
+
+\begin{problem}{}
+    For each of the following functions, decide whether they are negligible or not in $n$. You only have to provide your answer (whether each one is negligible or not)
+and you will get full points if the answer is correct.
+You may write your reasoning if you want, and if your answer
+is incorrect but your reasoning partly makes sense, 
+you may get some partial-credit.
+All the logs are two-based.
+\end{problem}
+\begin{subproblem}{}
+    $2^{-\sqrt{n}}$
+\end{subproblem}
+\begin{solution}
+    This is negligible.
+\end{solution}
+
+\begin{subproblem}{}
+    $(\log n)^{100}$
+\end{subproblem}
+\begin{solution}
+    This is not negligible.
+\end{solution}
+
+\begin{subproblem}{}
+    $n^{-10}$
+\end{subproblem}
+\begin{solution}
+    This is not negligible.
+\end{solution}
+
+\begin{subproblem}{}
+    $n^{-\log n}=(2^{\log n})^{- \log n}= 2^{-(\log n)^2}$
+\end{subproblem}
+\begin{solution}
+    This is negligible.
+\end{solution}
+
+\begin{subproblem}{}
+    $2^{-\log n \cdot \log( \log n)}$
+\end{subproblem}
+\begin{solution}
+    This is negligible.
+\end{solution}
+
+\begin{problem}{}
+    Prove that if a private-key encryption scheme $(\skcgen,\skcenc,\skcdec)$ satisfies Shannon secrecy, then it satisfies perfect secrecy.
+\end{problem}
+\begin{problemproof}
+    Assume a private-key encryption scheme satisfies Shannon secrecy.
+
+    Let $m \in \mathcal{M}$ and $c \in \mathcal{C}$, and let $M,C$ be random variables for the messages, ciphertext respectively.
+
+    Consider
+    \[\P[C = c \mid M = m] = \frac{\P[C=c \t{ and } M=m]}{\P[M=m]}=\frac{\P[M=m \mid C=c]\P[C=c]}{\P[M=m]}\]
+    From Shannon secrecy we have
+    \[=\frac{\P[M=m]\P[C=c]}{\P[M=m]}=\P[C=c]\]
+    Since we did this for a general message $m$ we can also do this process with a $m' \in \mathcal{M}$ which implies
+    \[=\P[C = c \mid M= m']\]
+    Therefore, the private-key encryption scheme satisfies perfect secrecy.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Suppose that for some private-key encryption scheme,
+the ciphertext always starts with the letter ``c'', 
+can this be a perfectly secure encryption?
+Please explain why.
+\end{subproblem}
+Yes this can be perfectly secure.
+
+\begin{problemproof}
+    Assume $\Sigma=(\skcgen, \skcenc, \skcenc)$ is a perfectly secure encryption.
+
+    Define a new scheme $\Sigma'=(\skcgen', \skcenc', \skcenc')$ s.t. the message space, and the key space is the same, but the ciphertext space is the same except add a $c$ to the start of all the strings.
+
+    Let $\skcgen' = \skcgen$, $\skcenc'(k,m)= c + \skcenc(k,m)$ where $+$ means append, and $\skcdec'(k,c+y)=\skcdec(k,y)$.
+    
+    This is correct since for $k$ output by $\skcgen'$, and $m \in \mathcal{M}$ we have
+
+    \[\skcdec'(k, \skcenc'(k,m))=\skcdec'(k,c+\skcenc(k,m))=\skcdec(k,\skcenc(k,m))=m\]
+    
+    Let $m,m' \in \mathcal{M}$, and $x \in \mathcal{C}$ for $\Sigma'$. By definition of $\Sigma'$ this implies that $x=c+y$ for some $y$ in the ciphertext space of $\Sigma$.
+
+    Consider
+    \begin{align*}
+        \P[\skcenc'(K,m)=x] &= \P[\skcenc(K,m)=y]
+        \intertext{This is by definition of what $\skcenc'$ is.
+        Also since $\Sigma$ is perfectly secure this implies that}
+        \P[\skcenc(K,m)=y] &= \P[\skcenc(K,m')=y] = \P[\skcenc'(K,m')=x]
+    \end{align*}
+    Therefore, $\Sigma'$ is perfectly secure, and has all ciphertext's start with c.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Suppose that for some private-key encryption scheme,
+the key always starts with the letter ``c''; 
+can this be a perfectly secure encryption?
+Please explain why.
+\end{subproblem}
+Yes this can be perfectly secure.
+
+\begin{problemproof}
+    Assume $\Sigma=(\skcgen, \skcenc, \skcenc)$ is a perfectly secure encryption.
+
+    Define a new scheme $\Sigma'=(\skcgen', \skcenc', \skcenc')$ s.t. the message space, and the ciphertext space is the same, but the key space is the same except add a $c$ to the start of all the strings.
+
+    Let $\skcgen' = c + \skcgen$, $\skcenc'(c+k,m)=\skcenc(k,m)$, and $\skcdec'(c+k,c)=\skcdec(k,c)$.
+    
+    This is correct since for $c+k$ output by $\skcgen'$, and $m \in \mathcal{M}$ we have
+
+    \[\skcdec'(c+k, \skcenc'(c+k,m))=\skcdec(k,\skcenc(k,m))=m\]
+
+    Let $m,m' \in \mathcal{M}$, and $x \in \mathcal{C}$ for $\Sigma'$.
+
+    Consider
+    \begin{align*}
+        \P[\skcenc'(K'=c+K,m)=x] &= \P[\skcenc(K,m)=x]
+        \intertext{This is by definition of what $\skcenc'$ is.
+        Also since $\Sigma$ is perfectly secure this implies that}
+        \P[\skcenc(K,m)=x] &= \P[\skcenc(K,m')=x] = \P[\skcenc'(c+K=K',m')=x]
+    \end{align*}
+    Therefore, $\Sigma'$ is perfectly secure, and has all ciphertext's start with c.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Suppose a message is a string containing letters from 
+``a'' to ``z''. If the ciphertext always contains the first letter of the message, can it be perfectly secure encryption? 
+Please explain why.
+\end{subproblem}
+Yes this can be perfectly secure.
+
+\begin{problemproof}
+    Assume $\Sigma'(\skcgen, \skcenc, \skcenc)$ is a perfectly secure encryption.
+
+    Let $H="abcdefghijklmnopqrstuvxyz"$
+
+    Define a new scheme $\Sigma'=(\skcgen', \skcenc', \skcenc')$ s.t. the message space, and the key space is the same, but the ciphertext space is the same except add $H$ to the start of all the strings.
+
+    Let $\skcgen'=\skcgen$, $\skcenc'=H+\skcenc$, and $\skcdec'(k,H+y)=\skcdec(k,y)$.
+
+    The proof for why this is correct and perfectly secure is the same as in (a) just replace the $c$ with $H$.
+
+    Also, this is a scheme where the first letter is always in the ciphertext since $H$ contains all the letters $"a" to "z"$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $\mathbb{Z}_n$ denote integers modulo $n$,
+and let $\mathbb{Z}_n \setminus \{0\}$ denote all the elements of $\mathbb{Z}_n$ except $0$ (e.g. $\mathbb{Z}_3 = \{0, 1, 2\}$ and $\mathbb{Z}_3 \setminus \{0\} = \{1, 2\}$). 
+% Definition
+For some fixed message length $\ell$,
+let key space $\mathcal{K}$, message space $\mathcal{M}$, and ciphertext space $\mathcal{C}$ all be $(\mathbb{Z}_{n} \setminus \{0\})^\ell$ (i.e. vectors of length $\ell$ over elements from $\mathbb{Z}_{n} \setminus \{0\}$).
+We partially define the following encryption scheme over $\mathbb{Z}_n \setminus \{0\}$:
+\begin{align*}
+    \mathsf{Gen}(1^\ell) &: (k_1, \dots, k_\ell) \overset{\$}{\leftarrow} (\mathbb{Z}_{n} \setminus \{0\})^\ell\\
+    \mathsf{Enc}(k, m) &: (k_1 \cdot m_1, k_2 \cdot m_2, \dots, k_\ell \cdot m_\ell)\mod n
+\end{align*}
+\end{problem}
+
+\begin{subproblem}{}
+    Define a decryption algorithm for the above encryption scheme over $\mathbb{Z}_3 \setminus \{0\}$
+    (i.e. $\mathcal{K} = \mathcal{M} = \mathcal{C} = \mathbb{Z}_{3} \setminus \{0\}$), 
+    and prove its correctness.
+\end{subproblem}
+\begin{solution}
+    Since $1*1=1$ and $2*2=1 \implies 2^{-1}=2$ the multiplicative inverse this implies that every non-zero element of $\Z_3$ has a multiplicative inverse.
+
+    \noindent Therefore, $k_i^{-1}$ is well-defined.
+
+    \noindent Let $\skcdec(k,c): (k_1^{-1} \cdot c_1,\dots, k_\ell^{-1} \cdot c_{\ell}) \mod 3$
+
+    \noindent Correctness:
+
+    \noindent Let $k$ be in the output of $\skcgen(1^\ell)$, and $m \in \mathcal{M}$.
+    \[\skcdec(k, \skcenc(k,m))=\skcdec(k, c)\]
+
+    \noindent Since shown above every non-zero element has an inverse this implies that $m_i = k_i^{-1} \cdot c_i$ Thus,
+    \[=\skcdec(k, c)=(k_1^{-1}\cdot c_1,\dots, k_\ell^{-1} \cdot c_\ell)=m\]
+\end{solution}
+
+\begin{subproblem}{}
+    Show that the encryption scheme over $\mathbb{Z}_{3} \setminus \{0\}$ is perfectly secret.
+\end{subproblem}
+\begin{problemproof}
+    Let $m,m' \in \mathcal{M}$, $c \in \mathcal{C}$.
+
+    Let $m=(m_1,\dots,m_\ell)$. Since each $m_i$ is invertible this implies that there is a unique key
+
+    $k = c \odot m^{-1}$ where $\odot$ is component wise multiplication. This implies that $k \odot m = c$ Therefore,
+
+    \begin{align*}
+        \P[\skcenc(K,m)=c]=\P[K=k]=(1/2)^\ell
+    \end{align*}
+
+    Since $m$ is general this also holds for  $m'$. Thus,
+
+    \[\P[\skcenc(K,m)=c]=\P[\skcenc(K,m')=c]\]
+\end{problemproof}
+
+\begin{subproblem}{}
+    Suppose we define the encryption scheme over $\mathbb{Z}_4 \setminus \{0\}=\{1,2,3\}$. 
+    Is this a valid encryption scheme?
+\end{subproblem}
+\begin{problemproof}
+    This is not a valid encryption scheme.
+
+    Consider if $k_i=2$ and $c_i=2$. Since $k_i \cdot 1 = 2 = k_i \cdot 3$.
+
+    This leads to use not being able to invert the message from the ciphertext since in this situation under the encryption scheme both $m_i=1$ and $m_i=3$ leads to this ciphertext.
+
+    Thus, we cannot fully decrypt the ciphertext given the key which implies it is not a valid encryption.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove or give a counter example: An encryption scheme with a
+  finite message space $\mathcal{M}$ is perfectly secure if and only
+  if for every probability distribution $\mathcal{D}$ over
+  $\mathcal{M}$ and every $c_0, c_1 \in \mathcal{C}$ over the cipher
+  space $\mathcal{C}$, we have $\Pr[C = c_0] = \Pr[C = c_1]$, where
+  $C$ is the ciphertext corresponding to a message chosen according to
+  $\mathcal{D}$.
+\end{problem}
+\begin{problemproof}
+    Let $\Sigma=(\skcgen, \skcenc, \skcdec)$ be an encryption scheme s.t. $\mathcal{M}$ is finite, and $\mathcal{C}$ is the set of ciphertexts that can be returned by the encryption function.
+
+    Assume for every distribution $\mathcal{D}$ over $\mathcal{M}$ and all $c,c' \in \mathcal{C}$,
+    \[\P[C=c]=\P[C=c']\]
+    
+    Since $\mathcal{M}$ is finite this implies that $\mathcal{C}$ is also finite since we only take this space to be the output of $\skcenc$.
+
+    Therefore, $\sum_{c \in \mathcal{C}} \P[C=c]=1 \implies |\mathcal{C}| \P[C=c] = 1 \implies \P[C=c]=\dfrac{1}{|\mathcal{C}|}$
+
+    Thus, for any message distribution it will give $\mathcal{C}$ the uniform distribution.
+
+    This implies that $\P[C=c \mid M=m]=\P[C=c]$ since $C,M$ are independent since the distribution over $\mathcal{M}$ has no effect on the distribution over $\mathcal{C}$.
+
+    Therefore, for $m,m' \in \mathcal{M}$ and $c \in \mathcal{C}$
+
+    \[\P[C=c \mid M=m] = \P[C=c] = \P[C=c \mid M=m']\]
+
+    Thus, we have perfect secrecy.
+
+    The converse to this statement is not true.
+
+    Let $\mathcal{M} = \{0,1\}$, $\mathcal{C}=\{a,b,c\}$, and $\mathcal{K}=\{k_1,\dots,k_6\}$.
+
+    Define $\skcgen$ by uniformly picking one of the keys.
+
+    Define $\skcenc$ by
+    \begin{center}
+        \begin{tabular}{c|cc}
+            $k$ & $\skcenc(0)$ & $\skcenc(1)$\\
+            \hline
+            $k_1$  & $a$ & $b$\\
+            $k_2$  & $a$ & $b$\\
+            $k_3$  & $a$ & $c$\\
+            $k_4$  & $b$ & $a$\\
+            $k_5$  & $b$ & $a$\\
+            $k_6$  & $c$ & $a$\\ 
+        \end{tabular}
+    \end{center}
+
+    $\P[C=a]=1/2$, $\P[C=b]=1/3$, and $\P[C=c]=1/6$.
+
+    $\P[C=a \mid M = 0] = \P[K=k_1 \t{ or } K=k_2 \t{ or } K=k_3]=1/6+1/6+1/6=1/2$
+
+    $\P[C=a \mid M = 1] = 1/2$
+
+    $\P[C=b \mid M = 0] = 1/3 = \P[C=b \mid M = 1]$
+
+    $\P[C=c \mid M = 0] = 1/6 = \P[C=c \mid M = 1]$
+
+    Therefore, this encryption scheme has perfect secrecy, but $\P[C=a] \neq \P[C=b]$.
+\end{problemproof}
+
+\begin{problem}{}
+    Consider the probability ensembles $\{X_n\}_n$ and 
+$\{Y_n\}_n$. Consider distinguishers $\mathcal{D}_1, \ldots, \mathcal{D}_m$ where 
+$m = \t{poly}(n)$ 
+for some polynomial function $\t{poly}(\cdot)$, 
+such that only one can distinguish $\{X_n\}_n$ and $\{Y_n\}_n$ 
+with non-negligible probability, but you do not know which one. 
+Construct a distinguisher $\mathcal{D}^*$ that can distinguish between $\{X_n\}_n$ 
+and $\{Y_n\}_n$ with non-negligible probability. 
+Please describe your construction of $\mathcal{D}^*$ and provide a proof. 
+\end{problem}
+\begin{problemproof}
+    Construct $\mathcal{D}^*$ s.t. pick $i \leftarrow \{1,\dots, m(n)\}$ uniformly at random independent of the input.
+
+    Then output $D_i$
+
+    Let $\Delta_i(n)=\P[x \leftarrow X_n \mid D_i(x)=1]-\P[y \leftarrow Y_n \mid D_i(y)=1]$.
+
+    By assumption there exists a unique index $j$ and a polynomial $c \in \R_{>0}$ with $\mid \Delta_j(n) \mid \geq 1/n^c$,
+    while for all $i \neq j$, $|\Delta_i| \leq \t{negl}(n)$.
+
+    Thus, 
+    \[|\P[x \leftarrow X_n \mid D^*(x)=1]-\P[y \leftarrow Y_n \mid D^*(y)=1]|= \left\lvert 1/m \sum_{i=1}^m \Delta_i(n)\right\rvert \geq 1/m(|\Delta_j(n)| - |\Sigma_{i \neq j} \Delta_i(n)|) \]
+
+    Since a polynomial times a negligible function is negligible this implies that 
+    
+    $(m-1) \t{negl}(n)$ is negligible. Thus, for sufficiently large $n$,
+
+    \[(m-1) \t{negl}(n) \leq \dfrac{1}{2n^c}\]
+
+    This implies that,
+    \[|\P[x \leftarrow X_n \mid D^*(x)=1]-\P[y \leftarrow Y_n \mid D^*(y)=1]| \geq (1/m)(1/n^c - 1/2n^c) = \frac{1}{2m n^c}\]
+
+    Since $m$ and $n^c$ are polynomial this implies that $m \cdot n^c$ is a polynomial. Thus, $\frac{1}{2m \cdot n^c}$ is non-negligible. Thus, $D^*$ distinguishes $\{X_n\}_n$ from $\{Y_n\}_n$ with non-negligible probability.
+\end{problemproof}
+\end{document}

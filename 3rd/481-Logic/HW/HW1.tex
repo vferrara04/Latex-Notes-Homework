@@ -1,0 +1,182 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\t{Spec}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW1 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 481}
+
+\begin{problem}{}
+   Prove, using induction, that any wff, constructed from $\{\land, \lor, \top, \bot\}$ using parentheses as usual, is monotonic. 
+\end{problem}
+\begin{problemproof}
+    Base Case:
+    \begin{itemize}
+        \item $\top$. Then $\top(\top) = \top$ and $\top(\bot) = \top$ is monotonic trivially.
+        \item $\bot$. Then $\bot(\top) = \bot$ and $\bot(\bot) = \bot$ is again monotonic trivially.
+        \item $p$ a variable. Then $p(\top) = \top$ and $p(\bot) = \bot$ is monotonic since changing a false to a true changes the output from a false to a true.
+    \end{itemize}
+
+    Inductive Step:
+
+    Assume that $\varphi$ and $\psi$ are constructed from $\{\land, \lor, \top, \bot\}$ and are monotonic.
+
+    If $\varphi$ and $\psi$ have no inputs then let their fixed values be $a_{\varphi}, b_\psi \in \{\t{False}, \t{True}\}$.
+
+    Then for every truth assignment $v,w$ we have $\varphi * \psi(v) = a_\varphi * b_\psi = \varphi * \psi(w)$ for $* \in \{\land, \lor\}$
+
+    If one of them has no inputs. WLOG let $\varphi$ have no inputs. 
+    
+    If $a_\varphi =$True then for all assignments $v,w$ $\varphi \lor \psi(v)=\t{ True }=\varphi \lor \psi(w)$, and $\varphi \land \psi = \psi$, so these are both monotonic.
+
+    If $a_\varphi =$False then for all assignments $\varphi \land \psi(v)= \t{ False} = \varphi \land \psi(w)$, and $\varphi \lor \psi = \psi$, so these are again both monotonic.
+
+    If $\varphi$ and $\psi$ have at least one input.
+
+    Let $v,w$ be truth assignments for the wffs $\varphi * \psi$ $* \in \{\land, \lor\}$ that differ on exactly one variable $p$, with $v(p)=\t{False}$ and $w(p)=\t{True}$.
+
+    \begin{itemize}
+        \item Case $* = \land$
+        
+        If $\varphi(v)=\t{True}$ and $\psi(v)=\t{True}$ then by the Induction hypothesis we have that $\varphi(w)=\psi(w)=\t{True}$. Hence,
+        \[\varphi \land \psi(v)= \t{ True } = \varphi \land \psi(w)\]
+
+        Otherwise, $\varphi \land \psi(v)= \t{False}$, so certainly either  $\varphi \land \psi(w)$ is true or false in both cases it shows $\varphi \land \psi$ is monotonic.
+
+        \item Case $* = \lor$
+        
+        If $\varphi(v)=\t{True}$ (or symmetrically $\psi(v)=\t{True}$), then $\varphi(w)=\t{True}$ since it is monotonic, so
+        \[\varphi \lor \psi(v)= \t{ True } = \varphi \lor \psi(w)\]
+
+        Otherwise, $\varphi(v)=\psi(v)=\t{False}$, so $\varphi \lor \psi(v) = \t{False}$, so again either $\varphi \lor \psi(w)$ is true or false, but in both cases it shows $\varphi \lor \psi$ is monotonic. 
+    \end{itemize}
+    Finally, if $v,w$ differ s.t. $v(p_i)=\t{False}$ and $w(p_i)=\t{True}$ for $i \in \{1,\dots,n\}$ then flip those variables one at a time from false to true applying the single flip result at each step.
+
+    Therefore, $\varphi * \psi$ are monotonic.
+
+    Therefore, by induction wffs made from $\{\land, \lor, \top, \bot\}$ are monotonic.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that $\{\land, \lor, \top, \bot\}$ is complete for the \textbf{MONOTONIC} boolean functions, where here $\top$ and $\bot$.
+take no inputs.
+\end{problem}
+\begin{problemproof}
+    Fix variables. View $\{0,1\}^n$ as a partially ordered set:
+    \[x \leq y \iff x_i \leq y_i \t{ for all i}\]
+    Consider a function $f : \{0,1\}^n \to \{0,1\}$ that is monotonic.
+
+    Let
+    \[T = \{x \in \{0,1\}^n \mid f(x)=1\}\]
+    be the true set of $f$.
+
+    Let $M=\{a \in T \mid \nexists b \in T \t{ s.t } b < a\}$.
+
+    Since $\{0,1\}^n$ is finite it has minimal elements and if $T \neq \emptyset$ then $M \neq \emptyset$.
+
+    For each $a=(a_1,\dots,a_n) \in \{0,1\}^n$, define
+    \[C_a = \bigwedge_{i \in A}p_i\]
+    where $A=\{i \in \{1,\dots,n\} \mid a_i=1\}$
+
+    Define \[\varphi_f = \bigvee_{a \in M} C_a\] 
+    If $M= \emptyset$ then replace with $\bot$.
+
+    I claim that $\varphi_f$ is equivalent to $f$.
+
+    For $x \in \{0,1\}^n$
+
+    If $\varphi_f(x)=1$, then $C_a(x)=1$ for some $a \in M$. Thus, $a \leq x$. Since $a \in T$ and $f$ is monotonic this implies that $x \in T$ thus $f(x)=1$.
+
+    If $f(x)=1$, then $x \in T$. Then consider the finite nonempty set $S=\{y \in T \mid y \leq x\}$. There is a minimal element $a$ of $S$. Then $a  \in M$ and $a \leq x$, so $C_a(x)=1$, hence $\varphi_f(x)=1$.
+
+    Thus, $f,\varphi_f$ agree on all inputs.
+
+    Edge Cases:
+
+    If $f(x)=0$ for all inputs, then $T=\emptyset$ and $\varphi_f=\bot$.
+
+    If $f(x)=1$ for all inputs, then $T=\{0,1\}^n$ and $M=\{(0,\dots,0)\}$. Thus, $C_{(0,\dots,0)}$ is the empty conjunction $\top$, so $\varphi_f=\top$.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove, using induction, that wffs built from the \textbf{binary (2-input)} operators $\land, \lor$ and sentences can not express any of $\top, \bot, \lnot$
+\end{problem}
+\clmp{}{
+    For every wff $\varphi$ built from sentence letters using only $\land$ and $\lor$ (with at least one sentence symbol):
+    \begin{itemize}
+        \item If $v$ assigns False to every letter that occurs in $\varphi$, then $\varphi(v)=$False.
+        \item If $v$ assigns True to every letter that occurs in $\varphi$ then $\varphi(v)=$True. 
+    \end{itemize}
+}{
+    Base Case:\\
+    If $v(p)=False$ then $p(v)=false$, and if $v(p)=true$ then $p(v)=false$.\\
+    Inductive Step:\\
+    Assume that $\varphi,\psi$ are wffs built from sentences letters using only $\land$ and $\lor$, and the claim holds.\\
+    Let $v$ be a truth assignment that sets all sentence symbols in $\varphi * \psi$ false, where $* \in \{\land, \lor\}$\\
+    Since $v$ sets all sentence symbols false this implies that every sentence symbol of $\varphi,\psi$ is false. Thus, by the induction hypothesis, $\varphi(v_1)=$False, and $\psi(v_2)=$False where $v_1,v_2$
+    are truth assignments that are all false.\\
+    Therefore, $(\varphi * \psi)(v)=\varphi(v_1) * \psi(v_2)=\t{False } * \t{ False}$. If $*=\land$ then $\t{False } \land \t{ False}=\t{False}$, and if $*=\lor$ then $\t{False } \lor \t{ False}=\t{False}$\\
+    There is a similar argument for all the sentence symbols being true.\\
+    Thus, the claim is true.
+}
+\begin{problemproof}
+    Do the proof in problem 1 but just remove $\top$ and $\bot$ to prove that all sentence symbols made from $\land$ and $\lor$ are monotonic. This implies that any wff made only from $\land$ and $\lor$ cannot express $\lnot$ since it is not monotonic we cannot express $\lnot$ using just $\land$ and $\lor$.
+
+    If a wff contains at least one sentence symbol, then by the claim above it is False under the all-False assignment to its symbols, and also it is True under the all-True assignment.
+    Hence, its truth value is non-constant. Therefore, $\top$ and $\bot$ cannot be expressed from just $\land$ and $\lor$.
+\end{problemproof}
+\end{document}

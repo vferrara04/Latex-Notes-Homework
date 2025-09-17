@@ -1,0 +1,453 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW1 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Let $R$ be a ring. Prove that the following conditions are equivalent:
+    \begin{enumerate}[(a)]
+        \item $R$ is a local ring.
+        \item $\Spec(R)$ has a unique closed point.
+        \item There exists a proper ideal $\mathfrak{m} \subsetneq R$ s.t. every element of $R \diagup \mathfrak{m}$ is invertible.
+        \item $R$ is nonzero and for any element $x \in R$, either $x$ or $1-x$ is invertible.
+    \end{enumerate}
+\end{problem}
+\clmp{}{
+    There is a bijection between 
+    \[A=\{\t{Closed points of $\Spec(R)$}\} \leftrightarrow B=\{\t{Maximal ideals in $R$}\}\]
+}{
+    Define $\varphi: A \to B$ s.t. $\varphi(\{\mf{m}\})=\mf{m}$.\\
+    Well-Defined:\\
+    Let $\mf{m}$ be a closed point in $\Spec(R)$ then shown in class
+    \[\{\mf{m}\}=\overline{\{\mf{m}\}}=V(\mf{m})=\{\mf{q} \in \Spec(R) \mid \mf{m} \subseteq \mf{q}\}\]
+    This implies there is no prime ideal that contains $\mf{m}$.\\
+    Assume for contradiction that $\mf{m}$ is not maximal then there is an ideal $I$ s.t. $\mf{m} \subsetneq I \subsetneq R$.\\
+    Since every ideal is contained in a maximal ideal. This implies that $I \subset \mf{M}$ where $\mf{M}$ is maximal.
+    However, this is a contradiction since $\mf{M}$ is prime and no prime ideal contains $\mf{m}$. Thus, $\mf{m}$ is maximal and well-defined.\\
+    Injective:\\
+    Let $\{\mf{m}\},\{\mf{n}\} \in A$ s.t. $\varphi(\{\mf{m}\})=\varphi(\{\mf{n}\})$.\\
+    This implies that $\mf{m}=\mf{n}$. Thus, $\{\mf{m}\}=\{\mf{n}\}$.\\
+    Surjective:\\
+    Let $\mf{m}$ be a maximal ideal in $R$. Consider $\{\mf{m}\}$. Show in class.
+    \[\overline{\{\mf{m}\}}=V(\mf{m})=\{\mf{q} \in \Spec(R) \mid \mf{m} \subseteq \mf{q}\}\]
+    Since $\mf{m}$ is maximal this implies that $\overline{\{\mf{m}\}}=\{\mf{m}\}$. Thus, $\varphi(\{\mf{m}\})=\mf{m}$.\\
+    Therefore, $\varphi$ is a bijection.
+}
+\begin{problemproof}
+    $(a) \iff (b)$:
+
+    By the claim above since closed points of $Spec(R)$ is in bijection with Maximal ideals in $R$. This implies that $R$ has a unique maximal ideal if and only if $\Spec(R)$ has a unique closed point.
+
+    $(a) \implies (c)$:
+
+    Assume $(a)$. Let $\mf{m}$ be the unique maximal ideal of $R$. Let $x \in R \setminus \mf{m}$.
+
+    Consider $(x)$. Since there is a unique maximal ideal this implies that $(x)$ is not contained in any maximal ideal thus $(x)=R$. Therefore, there exists $r \in R$ s.t. $xr=1$.
+
+    Thus, all elements in $R \setminus \mf{m}$ are invertible.
+
+    $(c) \implies (d)$:
+
+    Assume $(c)$. Let $\mf{m}$ be a proper ideal s.t. every element of $R \setminus \mf{m}$ is invertible. 
+    
+    Let $x \in R$.
+
+    If $x \in R \setminus \mf{m}$ then $x$ is invertible.
+
+    Let $ab \in \mf{m}$ for  $a,b \in R$. Assume $a \notin \mf{m}$.
+
+    This implies that $a$ is invertible.
+
+    Thus, $a^{-1}ab=b \in \mf{m}$.
+    
+    Therefore, $\mf{m}$ is prime since it is proper by assumption.
+
+    If $x \in \mf{m}$.
+
+    Consider $1-x$: $1-x \notin \mf{m}$ since if it was then $(1-x)+x=1 \in \mf{m}$ which is a contradiction since $\mf{m}$ is prime.
+
+    Thus, by assumption $1-x \in R \setminus \mf{m}$ thus invertible.
+
+    $(d) \implies (a)$:
+
+    Assume $(d)$. Let $M$ be the set of nonunits of $R$.
+
+    Let $a,b \in M$ and assume $a+b$ is a unit.
+
+    Then $(a+b)(a+b)^{-1}=1 \implies a(a+b)^{-1}+b(a+b)^{-1}=1 \implies a(a+b)^{-1} = 1-b(a+b)^{-1}$.
+
+    By assumption either $b(a+b)^{-1}$ or $a(a+b)^{-1}$ is invertible.
+
+    If $b(a+b)^{-1}$ is invertible then $b(a+b)^{-1}r=1$ for some $r \in R$. This implies $b$ is invertible which is a contradiction.
+
+    This is the same for if $a(a+b)^{-1}$ is invertible. Thus, $a+b \in M$.
+
+    Let $a \in M$ and $r \in R$. $ar$ is not a unit since if it was then $ar \cdot (ar)^{-1}=1 \implies a$ is a unit which is a contradiction.
+
+    Thus, $M$ is an ideal.
+
+    $M$ is proper since $1$ is a unit.
+
+    Thus, $M$ is contained in a maximal ideal $\mf{M}$.
+
+    Since there are no units in $\mf{M}$ this implies that for $a \in \mf{M}$ $1-a \in \mf{M}$ is a unit.
+
+    Assume that $\mf{M}$ is not unique. This implies there is another maximal ideal $\mf{N}$ s.t. $\mf{N} \cap R \diagup \mf{M} \neq \emptyset$. This implies that $\mf{N}$ has a unit since all non units are contained in $\mf{M}$. Thus, $\mf{M}$ is a unique maximal ideal.
+    Therefore, $R$ is a local ring. 
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Let $R$ be a ring, $I \subseteq R$ be an ideal, and $S \subset R$ be a multiplicative system.
+    Let $S^{-1}I \subset S^{-1}R$ denote the ideal obtained by the extension of $I$ along the natural ring
+    homomorphism $R \to S^{-1}R$, i.e. $S^{-1}I$ is deal generated by the image of $I$. Let $\pi: R \to R \diagup I$ 
+    be the quotient map and $T=\pi(S) \subset R \diagup I$ be the image of $S$, which is easily 
+    seen to be a multiplicative system. Prove that there is a ring isomorphism
+    \[T^{-1}(R \diagup I) \cong S^{-1}R \diagup S^{-1}I.\]
+\end{subproblem}
+\begin{problemproof}
+    Let $f : R \diagup I \to T^{-1}(R \diagup I)$ and $i : R \to S^{-1}R$ be the standard localization maps.
+
+    Let $s \in S$. Then $\pi(s) \in T \implies f(\pi(s))$ is a unit. Therefore, by the universal property, there exists a unique map $h : S^{-1}R \to T^{-1}(R \diagup I)$ that makes the diagram commute.
+    \[\begin{tikzcd}
+	R & {R \diagup I} & {T^{-1}(R \diagup I)} \\
+	& {S^{-1}R}
+	\arrow["\pi", from=1-1, to=1-2]
+	\arrow["i", from=1-1, to=2-2]
+	\arrow["f", from=1-2, to=1-3]
+	\arrow["h", dashed, from=2-2, to=1-3]
+    \end{tikzcd}\]
+    Surjective:
+
+    Let $r \diagup t \in T^{-1}(R \diagup I)$ then $r \in R \diagup I$ and $t \in T$.
+
+    Since $\pi$ is Surjective let $\pi(r')=r$ and $\pi(t')=t$ for  $r' \in R$ and $t' \in S$.
+
+    Thus, $h(r'/t')=\pi(r')/\pi(t')=r/t$.
+
+    Kernel:
+
+    Let $j/s \in S^{-1}\diagup I$.
+
+    $h(j/s)=\pi(j)/\pi(s)$. Since $j \in I \implies \pi(j)=0$. Thus, $h(j/s)=0$. Thus, $S^{-1} \diagup I \subset \ker(h)$.
+
+    Let $x/s \in \ker(h)$
+
+    $h(x/s)=\pi(x)/\pi(s)=0$. Since $\pi(s)$ is invertible. $\pi(x)/\pi(s) \cdot \pi(s)/1=\pi(x)/1=0$. Thus, there exists a $\pi(t) \in T^{-1}$ s.t. $t \in S$ and $\pi(t) \cdot \pi(x) = 0$.
+
+    Thus, $\pi(tx)=0 \implies tx \in I$.
+
+    Thus, $x/s=tx/ts$. Since $tx \in I$ this implies $tx/ts \in S^{-1}I$ thus $x/s \in S^{-1}I$.
+
+    Therefore, $\ker(h)=S^{-1}I$.
+
+    Thus, by first isomorphism theorem we have that $S^{-1}R \diagup S^{-1}I \cong T^{-1}(R \diagup I)$
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $R$ be a ring and $\p \in \Spec(R)$. Explain why (a) implies there is an isomorphism
+\[\kappa(\p) \cong R_\p\diagup \p R_\p,\]
+where recall that $\kappa(\p) = \t{Frac}(R\diagup \p)$ is the residue field of p and pRp is the maximal
+ideal of the local ring $R_\p$.
+\end{subproblem}
+\begin{problemproof}
+    Let $\pi: R \to R\diagup \p$ be the standard quotient map.
+
+    Consider $\pi(R \setminus \p)$
+
+    Let $x \in \pi(R \setminus \p)$. Thus, there exists a $x' \in R \setminus \p$ s.t. $\pi(x')=x$. Since $x' \notin \p \implies \pi(x')\neq 0$. Thus, $x \in (R \diagup \p \setminus \{0\})$.
+
+    Let $x \in R \diagup \p \setminus \{0\}$. Since $\pi$ is surjective this implies there exists a $x' \in R$ s.t. $\pi(x')=x$. Since $x \neq 0 \implies x' \in R \setminus p$. Thus, $x \in \pi(R \setminus \p)$.
+
+    Thus, $\pi(R \setminus \p)=R \diagup \p \setminus \{0\}$.
+    
+    Since $R \diagup \p$ is an integral domain this implies that $\kappa(\p)=\t{Frac}(R \diagup \p)=(R \diagup \p \setminus \{0\})^{-1} R\diagup \p$.
+
+    Therefore, by (a) we have that $\kappa(\p)=\t{Frac}(R \diagup \p)=(R \diagup \p \setminus \{0\})^{-1} R\diagup \p = \pi(R \setminus p)^{-1}(R \diagup \p) \cong R_\p \diagup \p R_\p$.
+
+    
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Let $F : \mathcal{I} \to \mathrm{Ring}$ be a functor.
+
+    Let $R_i := F(i)$ and $f_{ij} := F(\phi_{ij})$.
+    
+    Define $L := \sqcup_{i \in I} R_i \diagup \sim$
+
+    where for $x_i \in R_i$ and $x_j \in R_j$ and $x_i \sim x_j$ if and only iff there exists a $k \in I$ s.t. $k \geq i,j$ and $f_{ik}(x_i)=f_{jk}(x_j)$.
+
+    Equivalence Relation:
+
+    Reflexive: Since $f_{ij}(x_i)=f_{ij}(x_i)$ for any $j \geq i$, $x_i \sim x_i$.
+
+    Symmetric: Assume $x_i \sim x_j$. Then there exists a $k \geq i,j$ s.t. $f_{ik}(x_i)=f_{jk}(x_j) \implies f_{jk}(x_j)=f_{ik}(x_i) \implies x_j \sim x_i$.
+
+    Transitive: Assume $x_i \sim x_j$ and $x_j \sim x_k$. Thus, there exists $s \geq i,j$ and $t \geq j,k$ s.t. $f_{is}(x_i)=f_{js}(x_j)$ and $f_{jt}(x_j)=f_{kt}(x_k)$. Let $m \geq s,t$.
+
+    Thus, $f_{im}(x_i)=f_{sm}(f_{is}(x_i))=f_{sm}(f_{js}(x_j))=f_{tm}(f_{jt}(x_j))=f_{tm}(f_{kt}(x_k))=f_{km}(x_k)$.
+
+    Therefore, $x_i \sim x_k$.
+
+    Thus, $\sim$ is an equivalence relation.
+
+    Ring:
+
+    $1_L := [1_{R_i}]$ and $0_L := [0_{R_i}]$ for $i \in I$ since $f_{ij}(1)=1$ and $f_{ij}(0)=0$ for all $j \geq i$ for $i,j \in I$ since $f_{ij}$ are ring homomorphisms.
+
+    Addition + Multiplication:
+
+    \[[x_i]*[x_j]=[f_{ik}(x_i)*f_{jk}(x_j)]\] where $k \geq i,j$ and $*$ is multiplication or addition.
+
+    Thus, $L$ has a natural ring structure.
+
+    Well-Defined:
+
+    Let $x_i \in R_i$ and $x_j \in R_j$ and $k,k' \geq i,j$.
+    \[[x_i]*[x_j]=[f_{ik}(x_i)*f_{jk}(x_j)] \quad [x_i]*[x_j]=[f_{ik'}(x_i)*f_{jk'}(x_j)]\]
+
+    Let $m \geq k,k'$. Thus,
+    \[[f_{ik}(x_i)*f_{jk}(x_j)] = [f_{im}(x_i) * f_{jm}(x_j)] =[f_{ik'}(x_i)*f_{jk'}(x_j)]\]
+
+    Since $f_{km}(f_{ik}(x_i)*f_{jk}(x_j))=f_{mi}(x_i)*f_{mj}(x_j)=f_{k'm}(f_{ik'}(x_i)*f_{jk'}(x_j))$
+
+    If $[x_i]=[x_i']$ and $[x_j]=[x_j']$. Let $k \geq i,j$ and $k' \geq i',j'$
+
+    Let $m \geq k,k'$ then $f_{mi}(x_i)=f_{mi'}(x_{i'})$ and $f_{mi'}(x_i)=f_{mj'}(x_{j'})$. Thus, $*$ agrees in $R_m$, so addition and multiplication are well-defined.
+
+    Colimit:
+
+    Let $R$ be another ring s.t. it has maps $\psi_i : R_i \to R$ s.t. $\psi_j \circ f_{ij} = \psi_i$.
+
+    Let $\psi: L \to R$ s.t. $\psi([x_i])=\psi_i(x_i)$.
+
+    Assume $[x_i]=[x_j]$. Thus, there implies $k \geq i,j$ s.t. $f_{ik}(x_i)=f_{jk}(x_j)$.
+
+    Thus, $\psi([x_i])=\psi_{i}(x_i)=\psi_k(f_{ik}(x_i))=\psi_k(f_{jk}(x_j))=\psi_{j}(x_j)=\psi(x_j)$.
+
+    Also, $\psi$ is a homomorphism since it is defined by $\psi_i$ and these are homomorphism.
+
+    This is clearly unique. Thus, $L$ is the colimit of $F$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Define
+    \[\mf{m} = \{[f] \in \mathcal{O}_p \mid f(p)=0\}\]
+
+    This is an ideal since if $f(p)=0=g(p)$ then $f+g(p)=0$. Also, if $f(p)=0$ and $g$ is any germ then $f\cdot g(p)=0$.
+
+    It is proper since $[1] \notin \mf{m}$ and $[1]$ never vanishes.
+
+    Thus, all germs in $\mathcal{O}_p \setminus \mf{m}$ are units since there do not vanish on $p$, so you can divide with them at $p$.
+
+    Thus, by problem one $\mf{m}$ is a proper ideal s.t. $\mathcal{O}_p \setminus \mf{m}$ are all units implies $\mathcal{O}_p$ is a local ring.
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    If $f \mid f'$ with $f'=fg$ for $g \in R$, then the universal property of localization gives a unique map
+    \[\varphi_{f,f'}: R_f \to R_{f'}\]
+    s.t. $\varphi(r/f^n)=rg^n/(f')^n$.
+
+    For each $f \in S$ define $\psi_f : R_f \to S^{-1}R$, s.t. $\psi_f(r/f^n)=r/f^n$. If $f \mid f'$ s.t. $f'=fg$ then
+    \[\psi_{f'}(\varphi_{f,f'}(r/f^n))=\psi_{f'}(rg^n/(f')^n)=\frac{rg^n}{(f')^n}=\frac{r}{f^n}=\psi_f(r/f^n)\]
+
+    Therefore, by the universal property of the colimit, there exists a unique ring map,
+    \[\psi: \underset{f \in S}{\mathrm{colim}}R_f \to S^{-1}R\]
+    with $\psi \circ g_f = \psi_f$ s.t. $g_f: R_f \to \underset{f \in S}{\mathrm{colim}}R_f$ and $g_f$ is the family of morphism associated with the colimit.
+
+    Define: $\alpha: R \to \underset{f \in S}{\mathrm{colim}}R_f$ s.t. $\alpha = g_1 \circ \eta$ s.t. $\eta : R \to R_1 \cong R$.
+
+    Let $s \in S$ then $\alpha(s)=g_s(\varphi_{1,s}(s))=g_s(s)$ which is invertible in $R_s$ thus invertible in the colimit. Thus, by the universal property of localization there exists a unique ring map
+    \[h: S^{-1}R \to \underset{f \in S}{\mathrm{colim}}R_f\]
+    with $h \circ v = \alpha$ where $v: R \to S^{-1}R$ is the localization map.
+
+    This is well-defined since if $r/s = r'/s'$ in $S^{-1}R$, there exists $t \in S$ with $t(s'r-sr')=0$ then in $R_{ss't}$,
+    \[\varphi_{s,ss't}(r/s)=\frac{rs't}{ss't}=\frac{r'st}{ss't}=\varphi_{s',ss't}(r'/s')\]
+
+    Inverses:
+
+    Let $r/s \in S^{-1}R$,
+    \[\psi \circ h(r/s)=\psi(g_s(r/s))=\psi_s(r/s)=r/s\]
+
+    Let $x \in \underset{f \in S}{\mathrm{colim}}R_f$ then there exists a $f \in S$ and $r \in R$ s.t. $g_f(r/f^n)=x$.
+    \[h \circ \psi(x)=h \circ \psi(g_f(x))=h(\psi_f(x))=h(r/f^n)=\alpha(r)\alpha(f)^{-n}\]
+    \[=g_{f^n}(r/1)g_{f^n}(1/f^n)=g_{f^n}(r/f^n)=g_f(\varphi_{f,f^n}(r/f^n))=g_f(r/f^n)=x\]
+
+    Therefore, $S^{-1}R \cong \underset{f \in S}{\mathrm{colim}}R_f$
+\end{problemproof}
+
+\begin{problem}{}
+    A topological space $X$ is called \textit{irreducible} if it is nonempty and for any expression of $X$
+    as a union $X=Z_1 \cup Z_2$ where $Z_1,Z_2 \subset X$ is closed, we have $X=Z_1$ or $X=Z_2$.
+
+    Consider the ring
+    \[R=\C[x,y,z,w] \diagup ((x+2)^5, xyzw + 3xyz + 2yzw + 6yz, (y+z)^4)\]
+    Determine, with proof, whether $\Spec(R)$ is irreducible.
+\end{problem}
+\clmp{}{
+    $\Spec(R \diagup I)$ is irreducible if and only if $\sqrt{I}$ is prime.
+}{
+    Proven in class $\Spec(R \diagup I)$ is irreducible if and only if the nilradical of $R \diagup I$ is prime.\\
+    But the nilradical of $R \diagup I$ is $\sqrt{I} \diagup I$, and $\sqrt{I} \diagup I$ is prime if and only if $\sqrt{I}$ is prime.\\
+    Thus, combining both implications we get $\Spec(R \diagup I)$ is irreducible if and only if $\sqrt{I}$ is prime.
+}
+\begin{problemproof}
+    Do change of variables where
+    \begin{itemize}
+        \item $u=x+1$
+        \item $y=y$
+        \item $t=w+3$
+        \item $v=y+z$
+    \end{itemize}
+    Thus, $R \cong \C[u,y,v,t] \diagup (u^5, v^4, uy(v-y)t)$.
+
+    Shown in class $\Spec(R)$ is irreducible if and only iff the nilradical of $R$ is prime.
+
+    Consider $I=(u^5,v^4,uy(v-y)t)$
+
+    Since $u^5 \in I$ and $v^4 \in I$ this implies that $(u,v) \subseteq \sqrt{I}$.
+
+    Also, $I \subseteq (u,v)$ since $u^5 \in (u,v)$, $v^4 \in (u,v)$, $uy(v-y)t \in (u) \subseteq (u,v)$.
+
+    Thus, $\sqrt{I} \subseteq \sqrt{(u,v)}$, but since $\C[u,y,v,t] \diagup (u,v) \cong \C[y,t]$ is an integral domain. This implies $(u,v)$ is prime thus $\sqrt{(u,v)}=(u,v)$.
+
+    Therefore, $\sqrt{I}=(u,v)$. This implies that $\Spec(R)$ is irreducible.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $X$ be a topological space. An \textit{irreducible component} $Z$ of $X$ is a maximal irreducible subset
+    $Z \subset X$. In other words, $Z$ is irreducible and if $Z' \subset X$ is another irreducible closed subset s.t. $Z \subset Z'$, then $Z=Z'$.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that if $Z \subset X$ is an irreducible component of $X$, then $Z$ is closed.
+\end{subproblem}
+\begin{problemproof}
+    Assume $Z$ is an irreducible component. Shown in class since $Z$ is irreducible this implies that $\overline{Z}$ is irreducible. Since $Z \subset \overline{Z}$, this implies $Z=\overline{Z}$. Thus, $Z$ is closed.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $Z \subset X$ is an irreducible subset of $X$, then there exists an irreducible component $W \subset X$ s.t. $Z \subset W$
+\end{subproblem}
+\begin{problemproof}
+    Consider $\Sigma=\{Y \subset X \mid Z \subset Y \t{ and } Y \t{ is irreducible}\}$, and order it by inclusion.
+
+    If $\{Y_i\}_{i \in I} \subseteq \Sigma$ is a chain, then $Y=\bigcup_{i \in I} Y_i$ is irreducible.
+
+    Let $U,V$ be nonempty open in the subspace $Y$. Then let $x \in U$ and $y \in V$. There exists $i,j \in I$ with $x \in Y_i$ and $y \in Y_j$. Since $\{Y_i\}_{i \in I}$ is a chain. WLOG let $Y_i \subset Y_j$. Then $U\cap Y_j, V \cap Y_j$ are open in the subspace topology on $Y_j$. Since $Y_j$ is irreducible this implies that $(U \cap V) \cap Y_j \neq \emptyset$. Therefore, this implies that $U \cap V \neq \emptyset$.
+
+    Thus, $Y$ is irreducible by the open set characterization of an irreducible set shown in class. Thus, $Y$ is an upper bound for this chain in $\Sigma$.
+    
+    Therefore, by Zorn's Lemma we have that $\Sigma$ has a maximal element $W$ s.t. $Z \subset W$ and $W$ is an irreducible component since $W$ is maximal.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $X$ is the union of its irreducible components.
+\end{subproblem}
+\begin{problemproof}
+    Let $x \in X$. Consider $\{x\}$ this is trivially irreducible. Thus, by (b) we have that $\{x\} \subset W_x$ where $W_x$ is a maximal component.
+    
+    Therefore, $X \subset \bigcup_{x \in X}W_x$. Thus, $X= \bigcup_{x \in X}W_x$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $R$ be a ring. Prove there is a bijection
+\[\{\t{minimal prime ideals } \p \subset R\} \to\{\t{irreducible components of }\Spec(R)\}\]
+given by the construction  $\p \to V(\p)$ of taking the vanishing locus of the ideal $\p$.
+\end{subproblem}
+\begin{problemproof}
+    Define $\varphi : \{\t{minimal prime ideals } \p \subset R\} \to\{\t{irreducible components of }\Spec(R)\}$ s.t. $\varphi(\p)=V(\p)$
+
+    Well-Defined:
+
+    Let $\p$ be a minimal prime. Shown in class $V(\p)$ since $\p$ is prime this implies that $V(\p)$ is irreducible and closed.
+
+    Let $V(\p) \subseteq Y$ s.t. $Y$ is an irreducible closed subset. Also shown in class this implies that $Y=V(I(Y))$ s.t. $I(Y)=\mf{q}$ is prime.
+
+    This implies that $V(\p) \subseteq V(\mf{q})$. Since $\p \in V(\p) \implies \p \in V(\mf{q})$. Thus, $\q \subset \p$. Since $\p$ is minimal this implies $\q=\p$.
+
+    Therefore, $V(\p)=Y$. Thus, $V(\p)$ is an irreducible component.
+
+    Injective:
+
+    Assume $V(\p)=V(\mf{q})$ for $\p, \mf{q}$ minimal primes.
+
+    This implies that $\p \subset \mf{q}$ and $\mf{q} \subseteq \p$. Thus, $\mf{q} = \p$.
+
+    Surjective:
+
+    Assume $Y$ is an irreducible component. Then $Y=V(I(Y))$ s.t. $I(Y)=\mf{q}$ is prime.
+
+    If $\p \subset \mf{q}$, then $V(\mf{q}) \subset V(\p)$ which implies $Y=V(\mf{q})=V(\p)$. Thus, $\mf{q}=\p$. Therefore, $\mf{q}$ is minimal. Thus, $\varphi(\mf{q})=Y$.
+
+    Therefore, $\varphi$ is a bijection.
+\end{problemproof}
+\end{document}

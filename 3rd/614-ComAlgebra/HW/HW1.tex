@@ -1,0 +1,496 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\t{Spec}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW1 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+
+\begin{problem}{}
+    Prove the following standard fact about maximal ideals: for any proper ideal
+    $I \subset R$ in a ring, there exists a maximal ideal $\mathfrak{m}$ such that $I \subset \mathfrak{m} \subset R$.
+\end{problem}
+\begin{problemproof}
+    Let $I \subset R$ be a proper ideal of $R$.
+
+    Let $\Sigma$ be the set of proper ideals in $R$ that contain $I$. Order $\Sigma$ by inclusion for example if $A \subset B$ then $A \leq B$.
+
+    Let $\Sigma'$ be a chain in $\Sigma$.
+
+    Consider \[J = \bigcup_{I' \in \Sigma'} I'\]
+
+    Let $a,b \in J$. Thus, $a \in A$ and $b \in B$ for some ideals in $\sigma'$.
+
+    Since $\Sigma'$ is a chain WLOG, $A \leq B \implies a \in B$. Thus, $a+b \in B \subset J$.
+
+    Let $a \in J$ and $r \in R$. Thus, $a \in A$ for some ideal in $\Sigma'$. Since $A$ is an ideal, $ra \in A \subset J$.
+
+    Therefore, $J$ is an ideal. It is also a proper ideal since if it were not proper then it would contain one but since it is made of the union of proper ideals there is no way for one to be in $J$.
+
+    Then it follows that $J$ is an upper bound for $\Sigma'$ in $\Sigma$.
+
+    By Zorn's lemma it follows that $\Sigma'$ has a maximal element $\mathfrak{m}$, which is then a maximal ideal.
+
+    Therefore, $\mathfrak{m}$ is a maximal ideal s.t. $I \subset \mathfrak{m} \subset R$.
+\end{problemproof}
+
+\stepcounter{problemcounter}
+
+\qh[]
+\addtocounter{subproblemcounter}{1}
+\begin{subproblem}{}
+    Prove that the function $\mathcal{O}$ is fully faithful.
+\end{subproblem}
+\begin{problemproof}
+    Fix affine varieties $X \subseteq \C^n$ and $Y \subseteq \C^m$, the functor gives a map,
+    \[\varphi_{X,Y} : \t{Hom}_{Aff}(X,Y) \to \t{Hom}_{\C-alg}(\mathcal{O}(Y),\mathcal{O}(X)), \quad \phi \to \phi*\]
+
+    Define $y_1,\dots,y_m \in \mathcal{O}(Y)$ s.t. $\mathcal{O}(Y) \cong \C[t_1,\dots,t_m] \diagup I(Y), \quad y_i = \bar{t_i}$
+
+    Define $\psi_{\mathcal{O}(Y),\mathcal{O}(X)}: \t{Hom}_{\C-alg}(\mathcal{O}(Y),\mathcal{O}(X)) \to \t{Hom}_{Aff}(X,Y)$
+
+    s.t. given a $\C$-algebra homomorphism $f : \mathcal{O}(Y) \to \mathcal{O}(X)$, let
+    \[f_j = f(y_j) \in \mathcal{O}\]
+    and let
+    \[\psi_{\mathcal{O}(Y),\mathcal{O}(X)}(f)(x)=(f_1(x),\dots,f_m(x))\]
+
+    Well-Defined:
+
+    For any $F \in I(Y)$ we have $F(y_1,\dots,y_m)=0$ in $\mathcal{O}(Y)$.
+
+    Thus, $F(f_1,\dots,f_m)=f(F(y_1,\dots,y_m))=f(0)=0$. Therefore, for all $x \in X$ we get that $F(f_1(x),\dots,f_m(x))=0$.
+
+    So every polynomial in $I(Y)$ vanishes at the point $f(x) \in C^m$. Thus, $\psi_{\mathcal{O}(Y),\mathcal{O}(X)}(f)(X) \subseteq Y$.
+
+    Inverses:
+
+    Let $f : X \to Y$ and for $x \in X$
+
+    $\psi(\varphi(f))(x)=\psi(f^*)(x)=(f^*(y_1)(x),\dots,f^*(y_m)(x))=(y_1(f(x)),\dots,y_m(f(x)))=$
+    
+    $=(f(x)_1,\dots,f(x)_m)=f(x)$ where $f(x)_i$ is the $i$th coord of $f(x)$.
+
+    Thus, $\psi(\varphi)=id$
+
+    Let $f : \mathcal{O}(Y) \to \mathcal{O}(X)$. To show $\varphi(\psi(f))=f$ it suffices to check on generators $y_1,\dots,y_m$ of $\mathcal{O}(Y)$
+
+    $\varphi(\psi(f))(y_i)=\phi(f)^*(y_i)=y_i \circ \psi(f)$, so for any $x \in X$.
+
+    $y_i \circ \psi(f)(x)=y_i(f(y_1)(x),\dots,f(y_1)(x))=f(y_i)(x)$.
+
+    Since $\varphi(\psi(f))(y_i)(x)=f(y_i)(x)$ for every $i$. Therefore, $\varphi(\psi(f))=f$.
+
+    Therefore, these are inverses, and it shows that $\mathcal{O}$ is fully faithful.
+\end{problemproof}
+
+\begin{problem}{}
+    Consider the variety $X = \{(x,y) \in \C^2 \mid y^2 = x^3\}$. Show that there exists a bijective morphism of affine varieties $\C \to X$,
+    but that there does not exist an isomorphism off affine varieties $C \cong X$.
+\end{problem}
+\begin{problemproof}
+    Define:
+    \[\phi : \C \to X \t{, s.t. } t \to (t^2, t^3)\]
+    This is a morphism since it is defined by polynomials. Also, for every $t$ we have that $f(t^2,t^3)=(t^3)^2-(t^2)^3=0$, thus $\phi(t) \in X$.
+
+    Injective:
+
+    Let $\phi(t)=\phi(s)$ for $t,s \in \C$. This implies that $t^2=s^2$ and $t^3=s^3$.
+
+    From $t^2=s^2$ we get $t=\pm s$. If $t=-s$, then this implies $t^3=-s^3$, but $t^3=s^3$ thus $t=s$.
+
+    Surjective:
+
+    Let $(x,y) \in X$, so $y^2=x^3$.
+
+    If $x=0$ then $y=0$, and $\phi(0)=(0,0)=(x,y)$.
+
+    If $x\neq 0$, then set  $t=y/x \in \C$. Then
+    \[t^2=\frac{y^2}{x^2}=\frac{x^2}{x^2}=x, \quad t^3=t \cdot t = \frac{y}{x} \cdot x = y\]
+
+    Therefore, $\phi$ is a bijective morphism from $\C \to X$.
+
+    Consider the coordinate rings $\mathcal{O}(\C) = \C[x] \diagup (0) \cong \C[t]$, and $\mathcal{O}(X) = \C[x,y] \diagup (y^2-x^3)$
+
+    Define: $\varphi : \C[x,y] \to \C[t^2,t^3]$ s.t. $\varphi(x)=t^2$, $\varphi(y)=t^3$, and $\varphi(a)=a$ for $a \in \C$.
+
+    Homomorphism:
+
+    $\varphi(1)=1$
+
+    $\varphi(f(x,y)+g(x,y))=f(t^2,t^3)+g(t^2,t^3)=\varphi(f)+\varphi(g)$
+
+    $\varphi(f(x,y)g(x,y))=f(t^2,t^3)g(t^2,t^3)=\varphi(f)\varphi(g)$
+
+    Injective:
+
+    Let $f \in \ker(\varphi)$. Thus implies that $\varphi(f)=0$
+
+    Surjective:
+
+    Let $f \in \C[t^2,t^3]$. Thus, there exists a polynomial $g$ s.t. $g(t^2,t^3)=f$. Now consider $\varphi(g(x,y))=g(t^2,t^3)=f$.
+
+    Kernel:
+
+    Consider $\varphi(y^2-x^3)=0$. Therefore, $(y^2-x^3) \subseteq \ker(\varphi)$.
+
+    Let $f \in \ker(\varphi)$. View $\C[x,y]=\C[x][y]$. Since $\C[x]$ is a PID we have a division algorithm for polynomials in $y$.
+
+    Thus, $f=q(y)(y^2-x^3)+r(y)$ s.t. $r(y)=a(x)+yb(x)$ for $a,b \in \C[x]$.
+
+    Thus, $\varphi(f)=\varphi(r)=a(t^2)+t^3b(t^2)=0 \in \C[t^2,t^3]$.
+
+    Since $a(t^2)$ is an even polynomial and $t^3b(t^2)$ is an odd polynomial the only way for them to add to be zero is if they are both zero.
+
+    Thus, $a(t^2)=0$ and $t^3b(t^2)=0$.
+
+    Since $\C[t]$ is an integral domain this implies that $b(t^2)=0$.
+
+    Also, since $t \to t^2$ is surjective on $\C$ this implies that $a(u)=b(u)=0$ for all $u \in \C$. Thus, $r(y)=0$.
+
+    Therefore, $f \in (y^2-x^3)$. Thus, $(y^2-x^3)=\ker(\varphi)$.
+
+    By the first isomorphism theorem, $\mathcal{O}(X) \cong \C[t^2,t^3]$.
+
+    Since $t^2,t^3$ are irreducible in $\C[t^2,t^3]$ and $(t^2)^3=t^6=(t^3)^2$. This implies that $\C[t^2,t^3]$ is not a UFD, but $\C[t]$ is a UFD. 
+    
+    Thus, $\mathcal{O}(X) \ncong \mathcal{O}(\C)$. Therefore, by problem three this implies that the affine varieties are not isomorphic.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that all elements of Spec$(\C[x,y])$ are given as follows:
+    \begin{itemize}
+        \item $(x-a,y-b) \t{ for } a,b \in \C$,
+        \item $(f(x,y))$ where $f(x,y) \in \C[x,y]$ is an irreducible polynomial, and
+        \item $(0)$.
+    \end{itemize}
+\end{problem}
+
+\clmp{}{
+    Let $R$ be a ring. If $S^{-1}R$ is a localization of $R$ then even ideal in $S^{-1}R$ is an extended ideal.
+}{
+    Consider an ideal $I \subseteq S^{-1}R$, and $I^{ce}$, the extension of the contraction of $I$ under the inclusion map from $R$ to $S^{-1}R$.
+
+    \noindent Let $\frac{a}{s} \in I^{ce}$. This implies that $a \in I^c$, thus $\frac{a}{1} \in I$ by the inclusion map. Now since $I$ is an ideal we get that $\frac{a}{1} \cdot \frac{1}{s} = \frac{a}{s} \in I$.
+    Therefore, $I^{ce} \subseteq I$.
+
+    \noindent Let $\frac{a}{s} \in I$. Since $I$ is an ideal this implies that $\frac{a}{s} \cdot \frac{s}{1} = \frac{a}{1} \in I$. We then have that $a \in I^c$. Thus, it follows that $\frac{a}{s} \in I^{ce}$ by the characterization of extended ideals.
+}
+
+\clmp{}{
+    Let $S^{-1}R$ be a localization of $R$. If $\p$ is a prime ideal of $R$ s.t. $S \cap P = \emptyset$ then $S^{-1}\p$ is a prime ideal of $S^{-1}R$. 
+    This gives a bijection between the prime ideals of $S^{-1}R$ and prime ideals of $R$ that do not meet $S$.
+}{
+    Let $S^{-1}\p$ be a prime ideal in $S^{-1}R$. Elements in $S^{-1}\p$ are of the form $\frac{a}{s}$ s.t. $a \in \p$ and $s \in S$.
+
+    \noindent Let $\p$ be a prime ideal in $R$ that does not meet $S$. Now look at $S^{-1}\p$. Assume for contradiction that $1=\frac{b}{t} \in S^{-1}\p$ for $b \in \p$ and $t \in S$. 
+    This means there exists a $s \in S$ s.t. $s(t-b)=0$. This gives us $st=sb$. However, $sb \in \p$, but $st$ cannot be in $\p$, since $s,t \in S$ and $\p \cap S = \emptyset$. Thus, $S^{-1}\p$ is proper.
+
+    \noindent Let $\frac{a}{s} \cdot \frac{b}{t} \in S^{-1}\p$. This implies that $ab \in \p$. Thus, WLOG let $a \in \p$. Thus implies that $\frac{a}{s} \in S^{-1}\p$, meaning $S^{-1}\p$ is prime.
+
+    \noindent Let $\varphi : R \to S^{-1}R$ be the natural inclusion homomorphism.
+
+    \noindent The bijection of the ideals is formed from the extension and contraction of this map.
+
+    \noindent Let $S^{-1}\p$ be a prime ideal in $S^{-1}R$ from the proof above we know that this ideal must be an extension from some ideal $\p$.
+
+    \noindent By the proof above we have that $S^{-1}\p^{ce}=S^{-1}\p$.
+
+    \noindent Let $\p$ be a prime ideal of $R$ s.t. it does not meet $S$.
+
+    \noindent Consider $\p^{ec}$.
+
+    \noindent Let $a \in \p^{ce}$. This means that $\frac{a}{1} \in \p^{e}$ thus there exists $b \in \p$ and $s \in S$ s.t. $\frac{a}{1}=\frac{b}{s}$.
+    
+    \noindent Therefore, there exists a  $t \in S$ s.t. $tsa-tb=0 \implies tsa=tb$. Since $\p \cap S = \emptyset$ and $b \in \p$, $a \in \p$. Thus, $\p^{ec} \subseteq \p$.
+    
+    \noindent Let $a \in \p$. Thus, $\frac{a}{1} \in \p^e$. Thus, $a \in \p^c$. Therefore, $\p^{ec}=\p$.
+
+    \noindent Thus, the extension and contraction are inverses for primes ideals between $S^{-1}R$ and prime ideals in $R$ that do not meet $S$.
+}
+
+\begin{problemproof}
+    Let $\mathfrak{p} \subset \mathbb{C}[x,y]$ be a prime ideal.  
+Consider $\mathfrak{q} = \mathfrak{p} \cap \mathbb{C}[x]$. Let $a,b \in \mathbb{C}[x]$ with $ab \in \mathfrak{q}$.  
+Since $\mathfrak{p}$ is prime, either $a \in \mathfrak{p}$ or $b \in \mathfrak{p}$. WLOG, assume $a \in \mathfrak{p}$.  
+Thus, $a \in \mathfrak{q}$, and so $\mathfrak{q}$ is a prime ideal of $\mathbb{C}[x]$.
+
+---
+
+\textbf{Case 1:} $\mathfrak{q} \neq (0)$
+Since $\mathbb{C}$ is a field, $\mathbb{C}[x]$ is a PID. Hence,  
+\[
+\mathfrak{q} = (f) \quad \text{for some irreducible } f \in \mathbb{C}[x].
+\]
+Since $\mathbb{C}$ is algebraically closed, $f = x-a$ for some $a \in \mathbb{C}$.  
+Thus, $\mathfrak{q} = (x-a)$.
+
+Now consider the quotient map
+\[
+\pi : \mathbb{C}[x,y] \to \mathbb{C}[x,y]/(x-a) \cong \mathbb{C}[y].
+\]
+
+If $cd \in \pi(\mathfrak{p})$ with $c,d \in \mathbb{C}[y]$, then there exist $u,v \in \mathbb{C}[x,y]$ such that $\pi(u)=c$, $\pi(v)=d$.  
+Since $cd = \pi(uv)$ and $\mathfrak{p}$ is prime, we conclude $\pi(\mathfrak{p})$ is prime in $\mathbb{C}[y]$.
+
+Moreover, $\pi(\mathfrak{p}) \neq \mathbb{C}[y]$, since otherwise $1 \in \pi(\mathfrak{p})$ and hence $1 \in \mathfrak{p}$, a contradiction.  
+Thus, $\pi(\mathfrak{p})$ is a proper prime ideal of $\mathbb{C}[y]$, so
+\[
+\pi(\mathfrak{p}) = (0) \quad \text{or} \quad (y-b), \; b \in \mathbb{C}.
+\]
+
+- If $\pi(\mathfrak{p}) = (0)$, then $\mathfrak{p} = (x-a)$.
+
+- If $\pi(\mathfrak{p}) = (y-b)$, then $\mathfrak{p} = (x-a, y-b)$.
+
+---
+
+\textbf{Case 2:} $\mathfrak{q} = (0)$
+Let $S = \mathbb{C}[x] \setminus \{0\}$, which is multiplicative, and has one.
+Consider the localization
+\[
+S^{-1}\mathbb{C}[x,y] \cong \mathbb{C}(x)[y].
+\]
+
+By the proof above we know there is a bijection between prime ideals of $\mathbb{C}[x,y]$ disjoint from $S$ and prime ideals of $\mathbb{C}(x)[y]$.  
+Since $\mathbb{C}(x)$ is a field, $\mathbb{C}(x)[y]$ is a PID. Thus,
+\[
+\mathfrak{p}^e = (0) \quad \text{or} \quad (f),
+\]
+for some irreducible $f \in \mathbb{C}(x)[y]$.
+
+- If $\p^{e}=(0)$ then $\p^{ec}=\p=(0)$.
+
+- If $\p^{e}=(f)$:
+
+Write $f = c \cdot g$ with $g \in \mathbb{C}[x,y]$ primitive and irreducible since all we did was factor out units.  
+Then $(f) = (g)$ in $\mathbb{C}(x)[y]$, and by Gauss' lemma since $(g)$ is irreducible and primitive in $\C(x)[y]$ we know it is irreducible in $\C[x,y]$. Thus, $\mathfrak{p}^{ce}=\p = (g)$ in $\mathbb{C}[x,y]$.
+
+---
+
+Therefore, Prime ideals $\mathfrak{p} \subset \mathbb{C}[x,y]$ are of the form:
+
+\begin{enumerate}
+    \item $(0)$,  
+    \item $(x-a, y-b)$ for $a,b \in \mathbb{C}$, or  
+    \item $(g)$ where $g \in \mathbb{C}[x,y]$ is irreducible.  
+\end{enumerate}
+
+\end{problemproof}
+    
+\begin{problem}{}
+    Prove that for any ring $R$, that Spec$(R)$ is quasi-compact.
+\end{problem}
+\clmp{}{
+    Let $R$ be a ring and consider the Zariski topology on $X=\t{Spec}(R)$. For any element $f \in R$, define $D(f)$ to be the complement of $V(f)$ in $X$.
+    
+    Show that $D(f)$ forms a basis for the topology.
+}{
+    Let $\p \in X$. Consider $D(1)=X \setminus V(1) = X \setminus V(R) = X \setminus \emptyset = X$. Thus, these sets cover $X$.
+
+    \noindent Consider $D(f),D(g)$ for $f,g \in R$. Let $\p \in D(f) \cap D(g)$. This means that $f,g \notin \p$. Thus, $fg \notin \p$, so $\p \in D(fg)$.
+
+    \noindent Let $\mathfrak{q} \in D(fg)$ thus $fg \notin \mathfrak{q}$ since $\mathfrak{q}$ is an ideal this implies that $f,g \notin \mathfrak{q}$ thus $\mathfrak{q} \in D(f) \cap D(g)$. Thus, $\p \in D(fg) \subseteq D(f) \cap D(g)$.
+
+    \noindent Therefore, these sets form a basis for the topology.
+}
+\begin{problemproof}
+    Let $R$ be a ring and $X=\t{Spec}(R)$ with the Zariski topology.
+
+    Proven above since the sets $D(f)$ form a basis we only have to consider open covers of the form $\{D_{f_i}\}_{i \in I}$ since every open set can be written as a union of basis sets.
+
+    Let $\{D(f_i)\}_{i \in I}$ be an open cover for $X$.
+
+    Thus,
+    \begin{align*}
+        X&=\bigcup_{i \in I} D(f_i) = \bigcup_{i \in I}(X \setminus V(f_i)) = X \setminus \bigcap_{i \in I} V(f_i)
+        \intertext{Shown in class this becomes}
+        &= X \setminus V\left( \bigcup_{i \in I}\{f_i\} \right) = X \setminus V((f_i \mid i \in I))
+    \end{align*}
+    Since $X= X \setminus V((f_i \mid i \in I))$ where $(f_i \mid i \in I)$ is the ideal generated by all the $f_i$'s. This means that $V((f_i \mid i \in I)) = \emptyset$.
+
+    If the ideal $(f_i \mid i \in I)$ is proper, then by problem one it is contained in a maximal ideal $\mathfrak{m}$, but maximal ideals are prime so $\mathfrak{m} \in V((f_i \mid i \in I))$ which is a contradiction thus $(f_i \mid i \in I) = R$.
+
+    This means there exits a finite combination of $f_i$ and $a_i \in R$ s.t. $1=\sum_{j=1}^n a_j f_{i_j}$.
+
+    Let $\p \in X$. Suppose $\p \notin \bigcup_{j=1}^n f_{i_j}$
+
+    Thus, $f_{i_j} \in \p$ for all $j \in \{1,\dots,n\}$ thus $\sum_{j=1}^n a_j f_{i_j}=1 \in \p$ which is a contraction.
+
+    Therefore, $\p \in \bigcup_{j=1}^n f_{i_j}$ which implies $X \subseteq \bigcup_{j=1}^n f_{i_j} \implies X=\bigcup_{j=1}^n f_{i_j}$. Thus, $X$ is quasi compact.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    For rings $R_1,\dots,R_n$ prove that there is a homeomorphism
+    \[
+    A=\t{Spec}\left( \prod_{i=1}^n R_i \right) \cong B=\coprod_{i=1}^n \t{Spec}(R_i)
+    \]
+\end{subproblem}
+
+\clmp{}{
+    For rings $R,S$, an ideal $\p$ of $R \times S$ is prime if and only if $\p$ is of the form $I \times S$ and $R \times J$ where $I,J$ are prime ideals in the respective ring.
+}{
+    Assume than an ideal $I$ has the form $\p \times S$ where $\p$ is prime in $R$.
+
+    \noindent Then $(R \times S) \diagup (\p \times S) \cong R \diagup \p$ which is an integral domain thus $I$ is prime.
+
+    \noindent You can do the same thing for the other form.
+
+    \noindent Assume that $\p$ is a prime ideal of $R \times S$.
+
+    \noindent Let $x \in (R \times 0)(0 \times S)$. Then $x= \sum_{i=1}^n (r_i,0)(0,s_i)=0 \in \p$ for $r_i \in R$ and $S_i \in S$.
+
+    \noindent This implies that $(R \times 0)(0 \times S) \subseteq \p$, so either $R \times 0 \subseteq \p$ or $0 \times S \subseteq \p$.
+    
+    \noindent If $(R \times 0) \subseteq \p$ then since all ideals in $R\times S$ are of the form $I \times J$ for $I,J$ ideals in their respective rings. This implies that $\p = R \times J$ for some ideal $J$ in $S$.
+
+    \noindent Since $(R \times S) \diagup (R \times J) \cong S \diagup J$ and since we know that $R \times J$ is prime this implies that $S \diagup J$ is an integral domain thus $J$ is prime. Also same argument for if $0 \times S \subseteq \p$.
+
+    \noindent Therefore, an ideal $\p$ of $R \times S$ is prime iff $\p$ is of the form $I \times S$ and $R \times J$ for $I,J$ prime.
+}
+
+\begin{problemproof}
+    Base Case: $n=2$
+    
+    Let $R,S$ be rings. Consider $A=\t{Spec}(R \times S)$ and $B=\t{Spec}(R) \sqcup \t{Spec}(S)$
+
+    Since all prime rings are of the form $R \times \p$ and  $\mathfrak{q} \times S$ by the proof above we can define the function
+
+    $\varphi: A \to B$ s.t. $\varphi(\p)=\begin{cases}
+        (1, \pi_R(\p)), & \t{if $\p=I \times S$}\\
+        (2, \pi_S(\p)), & \t{otherwise}.
+    \end{cases}$
+    
+    where $\pi_R,\pi_S$ are the projection maps from $R\times S \to R$ and $R \times S \to S$.
+
+    Also consider,
+
+    $\psi: B \to A$ s.t. $\varphi(i,\p)=\begin{cases}
+        \pi_R^{-1}(\p), & \t{if $i = 1$}\\
+        \pi_S^{-1}(\p), & \t{otherwise}.
+    \end{cases}$
+
+    Let $(1, \p) \in B$ with $\p \in \t{Spec}(R)$.
+
+    $\psi(1,\p)=\pi_R^{-1}(\p)=\p \times R$ then $\varphi(\p \times R)=(1,\p)$. Similar thing will work if $\p \in \t{Spec}(S)$.
+
+    Let $\p \in A$ s.t. $\p=\mathfrak{q} \times S$.
+
+    $\varphi(\p)=(1,\pi_R(\p))=(1,\mathfrak{q})$ then $\psi(1,\mathfrak{q})=\pi_R^{-1}(\mathfrak{q})=\mathfrak{q} \times S = \p$. Again similar thing will work if $\p = R \times \mathfrak{q}$.
+
+    Therefore, $\varphi$ has an inverse thus it is bijective.
+
+    Homeomorphism:
+
+    Let $D(a_1,a_2)$ be a basic open set of $A$ s.t. $a_1 \in R$ and $a_2 \in S$.
+    
+    Let $\p \in D(a_1,a_2)$. Let $\varphi(\p)=(1,\mathfrak{q})$. Then since $(a_1,a_2) \notin \p \implies a_1 \notin \mathfrak{q}$.
+
+    So $\varphi(p)=(1,\mathfrak{q}) \in D_R(a_1) \subset B$. Thus $\varphi(D(a_1,a_2)) \subseteq D_R(a_1) \sqcup D_S(a_2)$. Do something similar for $(2,\mathfrak{q})$
+
+    Let $(1,\mathfrak{q}) \in D_R(a_1) \sqcup D_S(a_2)$ s.t. $\mathfrak{q} \in \t{Spec}(R)$. Thus, $\psi(1,\mathfrak{q})=\mathfrak{q} \times S$. Since $a_1 \notin \mathfrak{q}$ this implies that $(a_1,a_2) \notin \mathfrak{q} \times S$. Thus, $\mathfrak{q} \times S \in D(a_1,a_2) \implies \mathfrak{q} \in \varphi(D(a_1,a_2))$.
+
+    Therefore, $\varphi(D(a_1,a_2))= D_R(a_1) \sqcup D_S(a_2)$ which is a basic open set in the disjoint union topology. Thus, $\varphi$ is an open map.
+
+    Let $D_R(a_1) \sqcup D_S(a_2)$ be a basic open set of $B$ s.t. $a_1 \in R$ and $a_2 \in S$.
+
+    Let $(1,\p) \in D_R(a_1) \sqcup D_S(a_2)$ for $\p \in \t{Spec}(R)$. Thus $\psi(1,\p)=\p \times S$. Since $\p \in D_R(a_1) \sqcup D_S(a_2)$ this implies that $a_1 \notin \p \implies \p \times S \in D(a_1,a_2)$.
+    Do something similar for $(2,\p)$, and then this implies $\psi(D_R(a_1) \sqcup D_S(a_2)) \subseteq D(a_1,a_2)$.
+
+    Let $\p \in D(a_1,a_2)$ s.t. $\p=\mathfrak{q} \times S$. Thus, $\varphi(\p)=(1,\mathfrak{q})$. Since $(a_1,a_2) \notin \p \implies a_1 \notin \mathfrak{q} \implies (1,q) \in D_R(a_1) \sqcup D_S(a_2) \implies \p \in \psi(D_R(a_1) \sqcup D_S(a_2))$.
+
+    Do something similar for $\p = R \times \mathfrak{q}$ Therefore, $\psi(D_R(a_1) \sqcup D_S(a_2))=D(a_1,a_2)$, nd since $D(a_1,a_2)$ is a basic open set this implies that $\psi$ is an open map.
+
+    Since both $\psi,\varphi$ are open maps this implies they are homeomorphisms.
+
+    Therefore, $A \cong B$.
+
+    Inductive Step: 
+    
+    Assume that spectrum of the direct product of $k$ rings in homeomorphic to the disjoint union of spectrum of the $k$ rings under the disjoint union topology.
+
+    Consider for $R_1,\dots,R_{k+1}$.
+
+    By the base case we know that
+    \[\Spec\left( \prod_{i=1}^{k+1}R_i \right)=\Spec\left( \left( \prod_{i=1}^k R_i  \right)\times R_{k+1} \right) 
+    \cong \Spec\left( \prod_{i=1}^k R_i \right) \sqcup \Spec(R_{k+1})\]
+
+    By the induction hypothesis we know that
+    \[\cong \coprod_{i=1}^{k} \Spec(R_i) \sqcup \Spec(R_{k+1}) = \coprod_{i=1}^{k+1} \Spec(R_i)\]
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove or disprove that there is a homeomorphism
+    \[A=\Spec\left( \prod_{i=1}^\infty \F_2 \right) \cong B=\coprod_{i=1}^\infty \Spec(\F_2)\]
+\end{subproblem}
+\begin{problemproof}
+    This is false.
+
+    Consider the basic open set $C=\emptyset \sqcup \emptyset \sqcup \dots \sqcup D_i(1) \sqcup \emptyset \sqcup \dots \subseteq B$.
+
+    Where $D_i(1)$ is the open set in the $i$th $\Spec(\F_2)$. Since $\F_2$ is a field it has only one prime ideal the zero ideal, and $D_i(1)$ will contain all ideals of $\F_2$.  This implies that $D_i(1)=\{(0)\}$.
+
+    Therefore, the basic open set $C=\{(i,(0))\}$. This implies that singletons are open. Therefore, $B$ has the discrete topology.
+
+    Since $B$ is infinite this implies that it is not compact since for the open cover 
+    
+    $\mathcal{C}=\{\{(i,(0))\} \mid i \in \N\}$ if we take a finite subcover $\{(a_1,(0))\},\dots,\{(a_n,(0))\}$ then we have only covered finitly many points in $B$. Thus, $B$ is not compact.
+
+    However, by the proof in 6 we know that $A$ is compact. Thus, there is no homeomorhpism between $A$ and $B$.
+\end{problemproof}
+\end{document}
