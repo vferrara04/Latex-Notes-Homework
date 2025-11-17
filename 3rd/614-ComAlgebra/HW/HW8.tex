@@ -1,0 +1,355 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW8 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+
+\begin{problem}{}
+    Let $R$ be a ring. Let $I_1,\dots, I_n \subset R$ be ideals. Let 
+    $\pi : R \to \prod_{i=1}^n R \diagup I_i$ be the homomorphism
+given by $x \to (\pi_1(x), \dots, \pi_n(x))$, where $\pi_i : R \to R \diagup I_i$ is the quotient map. We will say
+that the ideals $I_i$ are pairwise coprime if for all $i \neq j$ the ideals $I_i$ and $I_j$ are coprime.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that if the ideals $I_i$ are pairwise coprime, then $I_1I_2\dots I_n = I_1 \cap I_2 \cap \dots \cap I_n$
+\end{subproblem}
+\begin{problemproof}
+    Base Case:
+
+    Assume $I, J$ are coprime.
+
+    This implies there exists $x \in I$ and $y \in J$ s.t. $x+y=1$. Thus, let $a \in I \cap J \implies ax+ay=a \implies a \in IJ$.
+    Thus, $I \cap J = IJ$.
+
+    Inductive Case:
+
+    Assume this words for $k \leq n$. Consider $n+1$.
+
+    Also since $I_n$ and $I_{n+1}$ are coprime this implies that $I_nI_{n+1}=I_n \cap I_{n+1}$.
+
+    Let $j \neq n,n+1$. Consider $I_j + I_n I_{n+1}$. Since $I_j + I_n = 1$ and $I_j + I_{n+1} = 1$ this implies that there exists $a,b \in I_j$ and $x \in I_n$ and $y \in I_{n+1}$ that $a+x=1$
+    and $b+y=1$. Thus, $(a+x)(b+y)=1 \implies ab+ay+bx+xy = 1$. Since $ab+ay+bx \in I_j$ and $xy \in I_nI_{n+1} \implies I_j + I_nI_{n+1} = 1$.
+
+    Thus, by induction hypothesis $I_1 \cap \dots \cap I_nI_{n+1} = I_1I_2\dots I_{n+1}$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Give an example to show that the equality $I_1I_2 \dots I_n = I_1 \cap I_2 \cap \dots \cap I_n$ can fail if
+the ideals Ii are not pairwise coprime.
+\end{subproblem}
+\begin{problemproof}
+    Consider $\Z$. Consider the ideals $(12)$ and $(8)$. First $(12) \cap (8) = (4)$, and $(12)(8)=(24)$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\pi : R \to \prod_{i=1}^n R \diagup I_i=S$ is surjective if and only if $I_i$ are pairwise coprime.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\pi$ is surjective. Let $e^{(i)} \in S$ s.t. it has a 1 in the $i$th spot and 0 everywhere else.
+    
+    Since surjective let $e_i \in R$ s.t. $\pi(e_i)=e^{(i)}$.
+
+    Since $e_i \equiv 1 \mod I_i \implies 1-e_i \in I_i$.
+
+    Also, for $i \neq j$ $e_i \in I_j$ since $\pi_j(e_i)=0$.
+
+    This implies that $1=(1-e_i)+e_i \in I_i + I_j$. Therefore, $I_i$'s are pairwise coprime.
+
+    Assume $I_i$ are pairwise coprime.
+
+    For $i \neq j,k$ and $j \neq k$ this implies that $I_i+I_j=1$ and $I_i+I_k=1$. Thus, there exists $a,b \in I_i$, $x \in I_j$, and $y \in I_k$ s.t.
+    $a+x=1$ and $b+y=1$. Thus, $ab+ay+bx+xy=1$. This implies that $I_i + I_j I_k = 1$. Thus, inducting on all $j \neq i$, you can show that
+    $I_i + \prod_{i \neq j} I_j = 1$.
+
+    Thus, for each $i$ there exists $a_i \in I_i$ and $b_i \in \prod_{i \neq j} I_j$ s.t. $a_i + b_i =1$. This implies that $b_i \equiv 1 \mod I_i$ and $b_i \in I_j$ for $i\neq j$.
+
+    Thus, given $(\bar{x}_1,\dots,\bar{x}_n) \in S$ consider $x=\sum_{j=1}^n b_jx_j \in R$.
+
+    Then for each $k$ we get that $x \equiv b_kx_k \equiv x_k \mod I_k$ since $b_k \equiv 1 \mod I_k$ and $b_k \in I_k$ for $k \neq i$.
+
+    Thus, $\pi(x)=(\bar{x}_1,\dots,\bar{x}_n)$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\pi$ is injective if and only if $I_1 \cap \dots \cap I_n = 0$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\pi$ is injective.
+
+    Let $x \in I_1 \cap \dots \cap I_n$. This implies that $\pi_i(x)=0$ since $x \in I_i$ thus $\pi(x)=0 \in \ker(\pi)$ thus since $\pi$ is injective this implies $x=0$. Thus, $I_1 \cap \dots \cap I_n =0$.
+
+    Assume $I_1 \cap \dots \cap I_n = 0$. 
+    
+    Let $x \in \ker(\pi)$. This implies that $\pi(x)=0$. This implies that
+    $\pi_i(x)=0 \implies x \in I_i$ for all $i$. Thus, $x \in I_1 \cap \dots \cap I_n$ this implies $x = 0$. Thus, $\ker(\pi)=0 \implies \pi$ is inejctive.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a noetherian ring. For an $R$-module $M$, prove that the following conditions are
+equivalent:
+    \begin{itemize}
+        \item $M$ has finite length.
+        \item $M$ is a finitely generated $R$-module and $\dim \Supp_R(M) \leq 0$.
+    \end{itemize}
+\end{problem}
+\begin{problemproof}
+    Assume $M$ has finite length.
+
+    If $M = 0$ then $\dim \Supp_R(M) = - \infty$.
+
+    If $M \neq 0$
+    
+    Shown in class this implies $M$ is noetherian and artinian thus, $M$ is finitely generated $R$-module.
+
+    Since $M$ has finite length it has a composition series
+    \[0=M_0 \subset M_1 \subset \dots \subset M_n = M\]
+    Shown in class $M_i \diagup M_{i-1} \cong R \diagup m_i$ for some maximal ideal $m_i$.
+
+    Also shown in class since $0 \to M_{i-1} \to M_i \to M_i \diagup M_{i-1} \to 0$ is a short exact sequence we get that
+    \[\Supp(M_i) = \Supp(M_{i-1}) \cup \Supp_(M_i \diagup M_{i-1}) = \Supp(M_{i-1}) \cup \Supp_(R \diagup m_i)\]
+
+    Thus, $\Supp(M) = \bigcup_{i=1}^n \Supp(M_i \diagup M_{i-1})$,
+    but since $(R \diagup m)_\p \cong R_\p \diagup mR_\p \neq 0 \iff m \subset \p$ this implies that $m=\p$ thus, $\Supp(R \diagup m)=\{m\}$.
+
+    Therefore, $\Supp(M)$ is finite set of maximal ideals, so the dimension is 0.
+
+    Assume $M$ is finitely generated and $\dim \Supp_R(M) \leq 0$.
+
+    If $M = 0$ then $M$ is finite length.
+    
+    If $M \neq 0$
+
+    Since $M$ is finitely generated this implies that $\Supp(M) = V(\Ann(M))$.
+    Therefore, $\dim \Supp(M) = \dim \Spec(R \diagup \Ann(M)) = \dim(R \diagup \Ann(M)) \leq 0$.
+
+    Since $R$ is noetherian this implies that $R \diagup \Ann(M)$ is noetherian, and therefore, it is artinian since it is dimension 0.
+
+    Since we can view $M$ as a finitely generated $R \diagup \Ann(M)$ module and we know that this quotient is artinian this implies that $M$ is artinian and noetherian. Thus, $M$ has finite length.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ an artinian ring. For an $R$-module $M$, prove that the following conditions are equivalent:
+    \begin{enumerate}[(a)]
+        \item $M$ is finitely generated $R$-module.
+        \item $M$ is an artinian $R$-module.
+        \item $M$ is a noetherian $R$-module.
+        \item $M$ is finite length $R$-module.
+    \end{enumerate}
+\end{problem}
+\begin{problemproof}
+    $(a) \implies (b),(c) \implies (d)$ by proofs in class.
+
+    $(c) \implies (a)$ by definition of noetherian.
+
+    $(d) \implies (b),(c) \implies (a)$ by proofs in class.
+
+    $(b) \implies (a)$
+
+    Assume not $(a)$. Thus, $M$ is not finitely generated.
+
+    Let $N$ be a countably infinite submodule. This implies that $N=(n_1,n_2,\dots)$.
+
+    Consider $(n_1,n_2,\dots) \supsetneq (n_2,n_3,\dots) \supsetneq \dots$
+
+    Thus, $N$ is not artinian since this does not stabalize. Thus, $M$ is not artinian since $N$ is not.
+
+    Thus, $(b) \implies (a)$.
+\end{problemproof}
+
+\begin{problem}{}
+    For a ring $R$, prove that the following conditions are equivalent:
+    \begin{enumerate}[(a)]
+        \item $R$ is artinian.
+        \item $R$ is noetherian and $\Spec(R)$ is discrete and finite.
+        \item $R$ is noetherian and $\Spec(R)$ is discrete.
+    \end{enumerate}
+    Also, give an example of a ring $R$ such that $\Spec(R)$ is discrete and finite,
+but $R$ is not artinian. 
+\end{problem}
+\begin{problemproof}
+    $(a) \implies (b)$ in class we have shown that $R$ being artinian implies $R$ is noetherian and $\Spec(R)=\mathrm{mSpec}(R)$ is finite.
+
+    Consider $\mf{m} \in \Spec(R)$ since $\mf{m}$ is maximal this implies that $V(\mf{m})=\{\mf{m}\}$. Thus, all singletons are closed which implies every set is closed since we only have a finite amount of elements. Thus, every set is open. Thus, $\Spec(R)$ is discrete.
+
+    $(b) \implies (c)$ trivial.
+
+    $(c) \implies (a)$
+
+    Assume $(c)$ since $\Spec(R)$ is discrete this implies that every set is closed. Thus, all singletons are closed. This implies for all $\p \in \Spec(R)$ that $V(\p) = \{\p\}$. This implies that no other prime ideal contains $\p$.
+    This, implies that $\p$ is maximal. Thus, $\Spec(R)$ only has maximal ideals, so $\dim \Spec(R) = 0$. Thus, since $R$ is noetherian and dimension zero this implies $R$ is artinian.
+
+    Consider $R=\C[x_1,x_2,\dots] \diagup (x_1^2,x_2^2,\dots)$
+
+    $\Spec(R)=\{(2),(3)\}$
+
+    Consider $\sqrt{(0)}$ since $x_i^2 = 0 \implies x_i \in \sqrt{(0)}$ thus, $(x_1,x_2,\dots) \subset \sqrt{(0)}$.
+
+    If $f \in (x_1,x_2,\dots)$ then $f$ contains no constant term. Thus, $f^2=0$, so $f \in \sqrt{(0)}$. Therefore, the nilradical is a maximal ideal. Since the nilradical is in the intersection of all prime ideals this implies that the nilradical is the only prime ideal since it is maximal.
+
+    Thus, $\Spec(R)$ is discrete and finite, but it is not artinian since
+
+    $(x_1,x_2,\dots) \supsetneq (x_2,x_3,\dots) \supsetneq (x_3,x_4,\dots) \supsetneq \dots$
+\end{problemproof}
+
+\begin{problem}{}
+    Give an example of a ring $R$ such that $\dim R = 0$ and $\Spec(R)$ is infinite.
+\end{problem}
+\begin{problemproof}
+    Consider $R = \prod_{i=1}^\infty \F_2$.
+
+    Shown in homework 1 this has all maximal ideals and has an infinite amount. Thus, $\dim R=0$
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be an artinian ring. Prove that there is an isomorphism
+    \[R \cong \prod_{\mf{m} \in \Spec(R)} R_{\mf{m}}\]
+\end{problem}
+\begin{problemproof}
+    Shown in class since $R$ is artinian this implies there exists an integer $k > 0$ s.t. $R \cong \prod_{\mf{m} \in \Spec(R)} R \diagup \mf{m}^k$
+
+    Consider $\pi : R \to R_m$
+
+    Since $m^k = m^{k+1} \implies m^k R_m = m^{k+1}R_m \implies m^kR_m =0$ by nakayma's lemma.
+
+    Thus, for $x \in m^k \implies \pi(x)=0 \implies x \in \ker(\pi) \implies m^k \subset \ker(\pi)$.
+
+    Let $x \in \ker(\pi) \implies sx = 0$ for $s \notin m$.
+
+    Assume for contradiction that $(s)+m^k \neq R$ this implies $(s) + m^k \subset n$ for some maximal ideal $n$.
+
+    However, since $m^k \subset (s)+m^k \subset n \implies m \subset n \implies m=n$.
+
+    Thus, $s+a^k=n$ for $a,n \in m$. This implies that $s=n-a^k \in m$ this is a contradiction.
+
+    Thus, $(s)+m^k = R$. This implies there exists $a \in R$ and $b \in m^k$ s.t. $as+b=1 \implies xas+xb=x \implies x=xb \in m^k$.
+
+    Therefore, $\ker(\pi) = m^k$.
+
+    Let $r/s \in R_m$. As above pick $a \in R$ and $b \in m^k$ s.t. $as+b=1$.
+
+    In $R_m$ we have $b/1 = 0$ thus, $(a/1)(s/1)=1$, so $s^{-1}=a/1$.
+
+    Thus, $r/s=(r/1)s^{-1}=(r/1)(a/1)=(ra/1)= \pi(ra)$. Thus, $\pi$ is surjective.
+
+    Therefore, by the first isomorphism theroem we get that $R_m \cong R \diagup m^k$.
+
+    Thus, from the above isomorphism we get that $R \cong \prod_{\mf{m} \in \Spec(R)} R_\mf{m}$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be an artinian ring.
+\end{problem}
+\begin{subproblem}{}
+    Let $(0)=\mf{q}_1 \cap \dots \cap \mf{q}_n$ be a minimal primary decomposition. Prove that there is an isomorphism
+    \[R \cong \prod_{i=1}^n R \diagup \mf{q}_i\]
+\end{subproblem}
+\begin{problemproof}
+    Since $R$ is artinian this implies that $\sqrt{\mf{q}_i}=m_i$ for some maximal ideal $m_i$.
+
+    Consider $\mf{q}_i \subset m$ for some $m \in \Spec(R)$. This implies $m_i \subset m$ thus, $m_i = m$. This implies that the only prime ideal that contains $q_i$ is $m_i$.
+
+    Thus, $R \diagup \mf{q}_i$ is an artinian local ring. This implies that jacobson radical is nilpotent. Thus, $J=m_i \diagup \mf{q}_i$ and there exists a $k_i > 0$ s.t. $(m_i \diagup \mf{q}_i)^{k_i} = 0 \implies m_i^{k_i} \subset \mf{q}_i$.
+
+    Thus, for $i \neq j$ since $m_i + m_j = R$ we get that $m_i^{k_i} + m_j^{k_j} = R$ by a similar proof in the previous problem.
+
+    This, implies $R= m_i^{k_i} + m_j^{k_j} \subset \mf{q}_i + \mf{q}_j$.
+    Therefore, all $\mf{q}_i$ are pairwise coprime.
+
+    Also since the intersection is zero by problem one we get that $R \cong \prod_{i=1}^n R \diagup \mf{q}_i$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Suppose that $R \cong \prod_{i=1}^n R_i$ and $R \cong \prod_{j=1}^m R_j'$ are isomorphisms, where $R_i$ and $R_j'$ are artinian local rings.
+    Prove that $n=m$ and there exists a permutation $\sigma$ of $\{1,\dots,n\}$ s.t. $R_i = R_\sigma(i)'$ for all $1 \leq i \leq n$.
+\end{subproblem}
+\begin{problemproof}
+    Let $\mf{q}_i = \ker(R \to R_i)$. Since $\ker(R \to \prod_i R_i) = \cap \ker(R \to R_i) = \{0\}$ this implies that $\cap q_i = (0)$.
+
+    Since $\varphi : R \to R_i$ is surjective this implies that $r \in \sqrt{\ker(\varphi)} \iff \varphi(r)^n=\varphi(r^n)=0 \iff \varphi(r) \in \sqrt{(0)}$.
+
+    Thus, since $R$ is artinian and local this implies that $\sqrt{(0)}=m_{R_i}$ the unique prime ideal in $R_i$.
+
+    Thus, $m_i = \sqrt{q_i} = \varphi^{-1}(m_{R_i})$.
+
+    This implies that $q_i$ is $m_i$-primary since its radical is a maximal ideal $m_i$.
+
+    Consider $e_i = (0,0,\dots,0,1,0,\dots,0) \in \prod_{i=1}^n R_i$ and $e_j \in \prod_{i=1}^n R_i$ where there is a $1$ in the $i$th spot for $e_i$ and 0 everywhere else. Same for $e_j$.
+
+    Since there is an isomorphism this implies there exists $a,b \in R$ s.t. $\phi(a)=e_i$ and $\phi(b)=e_j$.
+
+    This implies that $a \notin \sqrt{q_i}=m_i$ since $e_i$ has a 1 in the $i$th coord and $1 \notin m_i$, and $a \in \sqrt{q_i'}=m_{i'}$ for $i \neq i'$ since $0$ is in the $i'$th coord.
+
+    Thus, $\sqrt{q_i} \neq \sqrt{q_i'}$. Therefore, all $\sqrt{q_i}$ are distinct.
+    Also, for $q_i$ consider $\cap_{i \neq k} q_k$. This is not a subset set of $q_i$ since if it was this would implies that $\sqrt{\cap_{i \neq k} q_k} \subset \sqrt{q_i} \implies \cap_{i \neq k} m_k \subset m_i$. This implies that $m_j = m_i$ for some $j \neq i$, but this is a contradiction since $\sqrt{q_i} \neq \sqrt{q_j}$ for $i \neq j$.
+
+    Thus, this is also not redundant intersection.
+
+    Since all the primes in $\{\sqrt{q_i} = m_i\}$ are maximal this implies they are all also minimal in that set. Thus, shown in class we know that all the $m_i$ are uniquely determined by $(0)$.
+
+    Thus, by a similar proof $q_i' = \ker(R to R_j')$ are also a minimal primary decomposition for $(0)$ this implies that $q_i = q_{\sigma(i)}'$. Thus, $m=n$.
+    
+    Also, from the first isomorphism theroem since each $R \to R_i$ is surjective we get that $R \diagup q_i \cong R_i$. Therefore, since $q_i = q_{\sigma(i)}'$ this implies that $R_i \cong R_{\sigma(i)}'$.
+\end{problemproof}
+\end{document}

@@ -1,0 +1,306 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW5 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Let $R$ be a ring, let $I \subset R$ be an ideal, and let $\p \subset R$ be a prime ideal such that $I \subset \p$.
+Prove that the collection of prime ideals
+\[\{\mf{q} \in \Spec(R) \mid I \subset \mf{q} \subset \p\}\]
+contains a minimal element.
+\end{problem}
+\begin{problemproof}
+    Let the set $\{\mf{q} \in \Spec(R) \mid I \subset \mf{q} \subset \p\}$ be ordered by super set relation. This is nonempty since $\p$ is in it. 
+    Let $\Sigma$ be a chain in that set.
+
+    Consider $\bigcap_{\mf{q} \in \Sigma} \mf{q}=A$. Let $ab \in A$.
+
+    Assume for contradiction that $a \notin A$ and $b \notin A$. Thus, there exists some $\mf{q} \in \Sigma$ s.t. $a \notin \mf{q}$ and $\mf{q}' \in \Sigma$ s.t. $b \notin \mf{q}'$.
+
+    Since there are a chain either $\mf{q} \subset \mf{q}'$ or $\mf{q}' \subset \mf{q}$. WLOG let $\mf{q} \subset \mf{q}'$.
+
+    This implies that $ab \notin \mf{q}$ since $a \notin \mf{q}$ and $b \notin \mf{q}' \implies b \notin \mf{q}$. This is a contradiction that $ab \in A$.
+
+    Therefore, this implies that either $a \in A$ or $b \in A$. Thus, $A$ is prime.
+
+    This is an upper bounder under the super set relation. Thus, by Zorn's lemma we have that there exists a maximal element in $\{\mf{q} \in \Spec(R) \mid I \subset \mf{q} \subset \p\}$
+    which under normal inclusion relation is a minimal element.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $f : R \to S$ be a ring homomorphism.
+\end{problem}
+\begin{subproblem}{}
+    If $\p \subset R$ is a minimal prime ideal which is contained in the image of the map
+$\Spec(f ) : \Spec(S) \to \Spec(R)$, prove that $\p$ is the image of a minimal prime ideal
+in $S$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\p \in \mathrm{Im}(\Spec(f))$. This implies that $f^{-1}(\mf{q})=\p$ for $\mf{q} \in \Spec(S)$.
+    By 1, this implies that there exists a minimal prime $n$ s.t. $n \subset \mf{q}$.
+
+    Thus, $f^{-1}(n) \subset f^{-1}(\mf{q})=\p$, but since $\p$ is minimal this implies that $f^{-1}(n)=\p$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    If $f$ is injective, prove that every minimal prime ideal of $R$ is contained in the image
+of the map $Spec(f ) : Spec(S) \to Spec(R)$, and give an example showing that this can
+fail if $f$ is not injective.
+\end{subproblem}
+\begin{problemproof}
+    Assume that $f$ is injective this implies that $R$ can be considered a subring in $S$, so consider $f$ just the inclusion map.
+
+    Let $\p$ be a minimal prime in $\Spec(R)$. Assume for contradiction that $\Spec(f)^{-1}(\p) = \emptyset$. In homework 4, we showed that $\Spec(S_\p \diagup \p S_\p) \cong \Spec(f)^{-1}(\p)$.
+
+    This implies that $S_\p \diagup \p S_\p = (0)$. Thus, $S_\p = \p S_\p$. This implies that $a/s = 1/1$ for $a \in \p$ and $s \in R \cap (R \setminus \p)$. This implies that there exists a $r \in R \cap ( R \setminus \p)$ s.t.
+    $r(a-s)=0$ thus $ra=rs$. This implies that $rs \in \p$ but $r \notin \p$ and $s \notin \p$ this is a contradiction, thus $\Spec(f)^{-1}(\p) \neq \emptyset$. Therefore, $\p$ is in the image of $\Spec(f)$, so by (a) we have that $\p$ is in the image of a minimal prime ideal in $S$.
+
+    Example:
+
+    Consider $R = k[x,y] \diagup (xy)$.
+
+    Consider $f : R \to R \diagup (x) \cong k[y]$. This is surjective and not injective.
+
+    $(y)$ does not lie in the image since $\mathrm{Im}(\Spec(f)) \cong V((x))$, and $(y)$ is not contained in $V((x))$.
+\end{problemproof}
+
+\begin{problem}{}
+    For each of the following statements, either provide an example or prove that none exists:
+\end{problem}
+
+\begin{subproblem}{}
+    A $Z$-module $M$ whose support is not closed.
+\end{subproblem}
+\begin{problemproof}
+    Consider $M=\bigoplus_{p \t{ prime}} \Z \diagup p\Z$.
+
+    $(\Z \diagup p \Z)_{(q)} = 0$ if $p\neq q$ since $p$ is a unit in $Z_{(q)}$, and if $p=q$ then $(\Z \diagup p \Z)_{(q)} \cong \Z \diagup p \Z$ since everything is already invertible.
+
+    This implies that $\Supp(M)=\{(p) \in \Spec(\Z) \mid \t{$p$ is prime}\}$.
+
+    This set is not closed since every closed subset of $\Spec(\Z)$ is $V(n)$ for $n \in \Z$.
+
+    If $n \neq 0$, then $V(n)$ contains all the prime ideals $(p)$ s.t. $p \mid n$, so $V(n)$ is finite.
+
+    If $n = 0$, then $V(0)= \Spec(\Z)$, but $(0) \notin \Supp(M)$, so we have that $\Supp(M)$ is not closed.
+\end{problemproof}
+
+\begin{subproblem}{}
+    A ring $R$ and a $R$-module $M$ such that the support $\mathrm{Supp}(M ) \subset \Spec(R)$ is not stable
+under specialization.
+\end{subproblem}
+\begin{problemproof}
+    False, let $R$ be a ring and $M$ a $R$-module. Let $\p \in \Supp(M)$ and $\mf{q} \in V(\p) \iff \p \subset \mf{q}$.
+
+    This implies that $M_\p \neq 0$. 
+    
+    Since $R \setminus \mf{q} \subset R \setminus \p \implies M_\p \cong S^{-1}M_\mf{q}$ where $S=R \setminus \p$.
+
+    Therefore, if $M_\mf{q} = 0$ then this implies that $S^{-1}M_\mf{q} = 0$, so $M_\p =0$, so by contrapositive we have that since  $M_\p \neq 0$ we know  that $M_{\mf{q}} \neq 0$. Therefore, $\mf{q} \in \Supp(M)$.
+
+    Thus, the $\Supp(M)$ is stable under specialization.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $M$ be a module over a ring $R$, and let $S \subset R$ be a multiplicative system. Let
+$\varphi : \Spec(S^{-1}R) \to \Spec(R)$ be the injection induced by the canonical homomorphism
+$R \to S^{-1}R$. Prove that
+\[\mathrm{Supp}_{S^{-1}R}(S^{-1}M ) = \{S^{-1}\p \mid \p \in \mathrm{Supp}_R(M ), \p \cap S = \emptyset\} = \varphi^{-1}(\mathrm{Supp}_R(M )),\]
+\end{problem}
+\begin{problemproof}
+    $S^{-1}\p \in \varphi^{-1}(\mathrm{Supp}_R(M)) \iff \exists \p \in \mathrm{Supp}_R(M)$ s.t. $\varphi^{-1}(\p)=S^{-1}\p$
+
+    $\iff \p \cap S = \emptyset$ and $p \in \mathrm{Supp}_R(M)$. This iff comes from the bijection between primes in $\Spec(S^{-1}R)$ and primes in $\Spec(R)$ disjoint from $S$.
+
+    Thus, $\{S^{-1}\p \mid \p \in \mathrm{Supp}_R(M), \p \cap S = \emptyset\}=\varphi^{-1}(\mathrm{Supp}_R(M))$
+
+    For any prime $\p \in \Spec(R)$ and $\p \cap S=\emptyset$. This implies that $S$ is already invertible in $M_\p$. Thus, $(S^{-1}M)_{S^{-1}\p} \cong M_\p$. If $\p \cap S \neq \emptyset$ then $S^{-1}\p=(0)$.
+
+    Therefore, $S^{-1}\p \in \mathrm{Supp}_{S^{-1}R}(S^{-1}M) \iff \p \in \mathrm{Supp}_R(M)$ and $\p \cap S = \emptyset$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $M$ be a module over a ring $R$, and let $S \subset R$ be a multiplicative system.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that there is an inclusion
+\[\{S^{-1}\p \mid \p \in \mathrm{Ass}_R(M ), \p \cap S = \emptyset\} \subset \mathrm{Ass}_{S^{-1}R}(S^{-1}M ).\]
+\end{subproblem}
+\begin{problemproof}
+    Let $S^{-1}\p \in \{S^{-1}\p \mid \p \in \mathrm{Ass}_R(M ), \p \cap S = \emptyset\}$. This implies that $\p = \mathrm{Ann}_R(m)$ for $m \in M$.
+
+    Consider $\mathrm{Ann}_{S^{-1}R}(m/1)$. Let $a/s \in S^{-1}\p$ then $a/s \cdot m/1 = am/s = 0$ since $am = 0$. Thus, $a/s \in \mathrm{Ann}_{S^{-1}R}(m)$.
+
+    Let $a/s \in \mathrm{Ann}_{S^{-1}R}(m/1)$. This implies that $a/s \cdot m/1=am/s=0$. Thus, this implies there exists a $t \in R \setminus \p$ s.t. $tam=0$. This implies that $ta \in \mathrm{Ann}_R(m)=\p \implies a \in \p$. Thus, $a/s \in S^{-1}\p$.
+
+    Therefore, $\mathrm{Ann}_{S^{-1}R}(m/1)=S^{-1}\p$. Thus, $S^{-1}\p \in \mathrm{Ass}_{S^{-1}R}(S^{-1}M)$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    If $R$ is noetherian, prove that the above inclusion is an equality.
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is noetherian. Let $S^{-1}\p \in \mathrm{Ass}_{S^{-1}R}(S^{-1}M)$. This implies that $S^{-1}\p = \mathrm{Ann}_{S^{-1}R}(m/s)$ for $m/s \in S^{-1}R$. Since $R$ is noetherian this implies that $\p = (a_1,\dots,a_n)$. Thus, $S^{-1}\p=(a_1/1,\dots,a_n/1)$.
+
+    This implies that $a_i/1 \cdot m/s = 0$ for all $i$.
+
+    Thus, there exists a $c_i \in R \setminus \p$ s.t. $g_i a_i m = 0$.
+    
+    Consider $\mathrm{Ann}_{R}(c_1c_2\dots c_nm)$
+
+    Since $a_i \cdot c_1\dotsc_nm = 0 \implies (a_1,\dots,a_n)=\p \subset \mathrm{Ann}_{R}(c_1\dotsc_nm)$
+
+    Let $x \in \mathrm{Ann}_R(c_1\dotsc_nm)$.
+
+    Thus, $xc_1\dotsc_nm=0 \implies  x/1 \cdot m/s = xm/s = \frac{xc_1\dotsc_nm}{c_1\dotsc_ns}=0 \implies x/1 \in S^{-1}\p \implies x \in \p$.
+
+    Thus, $\p = \mathrm{Ann}_R(c_1\dotsc_nm)$, so $\p \in \mathrm{Ass}_R(M)$, and since there is a bijection of primes in $S^{-1}R$ and primes in $R$ that don't meet $\p \cap S = \emptyset$. We know that $\p \cap S = \emptyset$.
+
+    Therefore, $S^{-1}\p \in \{S^{-1}\p \mid \p \in \mathrm{Ass}_R(M), \p \cap S = \emptyset\}$.
+\end{problemproof}
+
+\begin{problem}{}
+    An embedded prime of a ring $R$ is an associated prime of $R$ (regarded as an $R$-module)
+which is not minimal among the associated primes of $R$.
+\end{problem}
+
+\begin{subproblem}{}
+    Prove that if $R$ is reduced, then $R$ does not have any embedded primes.
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is reduced. Let $\p \in \Ass_R(R)$. This implies that $\p = \Ann(r)$ for $r \in M$.
+    
+    Thus, $ra = 0$ for all $a \in \p$.
+
+    Assume for contradiction there exists a prime ideal $\mf{q}$ s.t. $\mf{q} \subsetneq \p$.
+
+    This implies that there exists a $a \in \p \setminus \mf{q}$ s.t. $ra=0 \implies r \in \mf{q}$.
+
+    Therefore, $r^2=0$ since $r \in \mf{q} \subsetneq \p$. Thus, $r \in \sqrt{(0)} = (0) \implies r =0$. This is a contradiction since $\Ann(0)=\Spec(R)$.
+
+    Thus, $\p$ is a minimal prime.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Give an example of a nonreduced ring which does not have any embedded primes.
+\end{subproblem}
+\begin{problemproof}
+    Consider $k[x,y] \diagup (xy^2)$. This is not reduced since $(xy)^2=0$, and $xy \neq 0$.
+
+    Shown in class since  $k[x,y]$ is a UFD and being quotiented by a principal ideal this implies the associated primes are primes that divide $xy^2$.
+
+    Thus, $\Ass(k[x,y] \diagup (xy^2))=\{(x),(y)\}$, and these are both minimal primes.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $\p$ is an embedded prime of $R$, then the localization $R_\p$ is nonreduced.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\p$ is an embedded prime of $R$. This implies that $\p=\Ann(r)$ for $r \in R$.
+    Therefore, in $R_\p$ we have that $\p R_\p = \Ann(r/1)$.
+    
+    Assume for contradiction that $R_\p$ is reduced.
+
+    Let $\mf{q} \subsetneq \mf{p} R_\p$ be a prime ideal. This exists since if it doesn't, it would imply that $\p$ is a minimal prime.
+
+    Thus, there exists a $a/s \in \mf{p} R_\p \setminus \mf{q}$ s.t. $r/1 a/s = 0 \implies r/1 \in \mf{q}$.
+
+    Therefore, $r^2/1 = 0 \implies r/1=0$ since $R_\p$ is reduced. This implies there is a $t \in R \setminus \p$ s.t. $tr \in R \setminus \p$, but this is a contradiction since it was shown that $r/1 \in \p R_\p \implies r \in \p$. Thus, $tr \in \p$.
+
+    Therefore, $R_\p$ is not reduced.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $M$ be a module over a noetherian ring $R$. Let $\Ass^\mathrm{max}(M )$ denote the set of maximal
+elements in $\Ass(M )$; note that this set is nonempty since $R$ is noetherian. Prove that the
+homomorphism
+\[\varphi : M \to \prod_{p \in \Ass^{\mathrm{max}}(M)} M_\p, \quad m \mapsto (f_\p(m))_{p \in \Ass^{\mathrm{max}}(M)}\]
+is injective, where $f_\p : M \to M_\p$ is the localization homomorphism.
+\end{problem}
+\begin{problemproof}
+    Let $m \in \ker(\varphi)$. Thus, $\varphi(m)=0$. Thus, $m/1=0 \in M_\p$ for all $\p \in \Ass^\mathrm{max}(M )$.
+
+    This implies there exists a $c_\p \notin \p$ s.t. $c_\p m = 0$. Let $J=\Ann_R(m)$.
+
+    If $m = 0$ then done.
+
+    If $m \neq 0$ then $J \neq R$, so it is contained in some maximal ideal.
+
+    Consider the $R$-linear map $\varphi : R \to Rm$, $r \mapsto rm$.
+
+    This is surjective since every element of $Rm$ looks like $rm$, and its kernel is $J$ since if $r \in \ker(\varphi) \iff rm = 0 \iff r \in J$.
+
+    Thus, by first isomorphism theorem we get that $R \diagup J \cong Rm$. Thus, since $R$ is noetherian we know that $\Ass(Rm)$ is nonempty since $Rm \neq 0$ since $m \neq 0$.
+
+    Let $\p \in \Ass(Rm)$. Since $Rm$ is a submodule shown in class we know that $\p \in \Ass(M)$. Since $\Ass(M)$ is nonempty and $R$ is noetherian we know that there exists a maximal element $\mf{q}$ s.t. $\p \subset \mf{q}$.
+
+    Since $\p \in \Ass(Rm) \implies \exists a \in Rm$ s.t. $\Ann(a)=\p$. If $a/1 = 0$ in $(Rm)_\mf{q}$, then we have some $s \in R \setminus \mf{q}$ s.t. $sa=0$.
+    This implies that $s \in \Ann(y)=\p \subset \mf{q}$ which is a contradiction. Therefore, $a/1 \neq 0$, so $(Rm)_\mf{q} \subset M_\mf{q}$ are not zero.
+
+    However, since $m/1 = 0 \in M_\mf{q}$ this implies that for any $a=mx \in Rm$ that $a/1=(r/1)(m/1)=0$. This implies that $(Rm)_\mf{q}$ is zero which is a contradiction.
+
+    Therefore, $m=0$, so the kernel is trivial, so $\varphi$ is injective.
+\end{problemproof}
+\end{document}

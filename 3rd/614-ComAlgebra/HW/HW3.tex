@@ -1,0 +1,437 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW3 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Let $R$ be a ring, $S \subset R$ a multiplicative system, and $M$ an $R$-module.
+\end{problem}
+\begin{subproblem}{}
+    Formulate and prove a universal property for the natural $R$-module homomorphism $M \to S^{-1}M$, analogous to our universal
+    property for the localization homomorphism $R \to S^{-1}R$ for rings.
+
+    (Universal Property):
+
+    Let $N$ be a $R$-module s.t. every $s \in S$ acts invertibly (i.e. $n \mapsto sn$ is an automorphism).
+
+    Then for every $R$-linear map $f: M \to N$ there exists a unique $S^{-1}R$-linear map $g: S^{-1}M \to N$ s.t. the diagram commutes
+    \[\begin{tikzcd}
+	M & {S^{-1}M} \\
+	& N
+	\arrow["\pi", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=2-2]
+	\arrow["g", dashed, from=1-2, to=2-2]
+    \end{tikzcd}\]
+\end{subproblem}
+\clmp{}{
+    For $S^{-1}R$ a localization of $R$ if $N$ is a $R$-module where $s \in S$ acts invertibly on $N$ then the action
+    \[(r/s)n = h_s(rn) = n(r/s)\]
+    where $h_s$ is the inverse map of $n \to sn$ makes $N$ a $S^{-1}R$ module.
+}{
+    \setlength\parindent{0pt}
+    Well-Defined:
+
+    If $r/s=r'/s'$ then there exists a $t \in S$ s.t. $t(rs'-r's)=0$. So for $n$ in $N$
+    \[0=t(rs'-r's)n=t(rs'n-r'sn)\]
+
+    Thus since $t$ acts invertibly,
+    \begin{align*}
+        rs'n&=r'sn\\
+        rn&=sh_{s'}(r'n)\\
+        h_{s}(rn)&=h_{s'}(r'n)
+    \end{align*}
+
+    Thus, $h_{s}(rn)$ only depends on the equivalence class of $r/s$, so the action is well-defined.
+
+    Module:
+
+    Let $r/s, r'/s' \in S^{-1}R$ and $n,m \in N$ then
+    \begin{enumerate}
+        \item \[(r/s)(n+m)=h_{s}(r(n+m))=h_{s}(rn+rm)=h_{s}(rn)+h_{s}(rm)=(r/s)n+(r/s)m\] 
+        \item \[(r/s+r'/s')n=(\frac{rs'+r's}{s's})n=h_{s's}(rs'n+r'sn)\]
+    \[=h_{s}(h_{s'}(rs'n+r'sn))=h_s(rn)+h_{s'}{r'n}=(r/s)n+(r'/s')n\]
+        \item \[(r/s \cdot r'/s')n=(rr'/ss')n=h_{s'}(r'h_{s}(rn))=h_{s'}(r'(r/s)n)=(r'/s')((r/s)n)\]
+        \item \[1/1 \cdot n= h_{1}(n)=n\]
+    \end{enumerate}
+    Therefore, $N$ can be seen as a $S^{-1}R$ module under this action, and so any $R$-module which has all elements $s \in S$ act invertibly on it this implies it is a $S^{-1}R$-module.
+}
+\begin{problemproof}
+    Existence: Shown in class $S^{-1}M$ is a well-defined $S^{-1}R$ module where all $s \in S$ act invertibly.
+
+    This is true since for $m/t \in S^{-1}M$ we have that $s^{-1}s(m/t)=m/t$ and $ss^{-1}(m/t)=mt$
+
+    Let $N$ be a $R$-modules s.t. every $s \in S$ acts invertibly.
+
+    Let $f : M \to N$ be a $R$-linear map.
+
+    Define: $g : S^{-1}M \to N$ s.t. $g(m/s)=h_s^{-1}f(m)=f(m)/s$ under the action defined above where $h_s^{-1}$ is the inverse of the map $n \mapsto sn$.
+
+    Well-Defined: Suppose $m/s=m'/s'$ in $S^{-1}M$. Then there exists a $t \in S$ s.t.
+    \[t(s'm-sm')=0\]
+    Now apply $f$\[\begin{tikzcd}
+	M & {S^{-1}M} \\
+	& N
+	\arrow["\pi", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=2-2]
+	\arrow["g", dashed, from=1-2, to=2-2]
+\end{tikzcd}\]
+    \[t(s'f(m)-sf(m'))=0\]
+    Since $t$ acts invertible apply its inverse, and we get
+    \begin{align*}
+        s'f(m)&=sf(m')\\
+        h_s(s'f(m))&=h_s(sf(m'))\\
+        s'h_s(f(m))&=f(m')\\
+        h_{s'}s'(h_s(f(m)))&=h_{s'}(f(m'))\\
+        h_s(f(m))&=h_{s'}(f(m'))\\
+        g(m/s)&=g(m'/s')
+    \end{align*}
+
+    Homomorphism:
+
+    Let $m/s,m'/s' \in S^{-1}M$
+
+    Since $s'sn=s'(sn) \implies h_{s's}=h_{s}\circ h_{s'}$
+
+    \[g(\frac{m}{s}+\frac{m'}{s'})=g(\frac{s'm+sm'}{ss'})=h_{ss'}(s'f(m)+sf(m'))\]
+    \[=h_{s'}(s'h_{s}(f(m)))+h_{s'}(h_{s}(f(m')))=h_{s}(f(m))+h_{s'}(f(m'))=g(m/s)+g(m'/s')\]
+
+    Let $m/s \in S^{-1}M$ and $r/t \in S^{-1}R$.
+    \begin{align*}
+        g(r/t \cdot m/s)=g(rm/ts)=g(rm/st)=h_{st}(f(rm))=h_{t}(h_{s}(rf(m)))\\
+        =h_{t}(rh_s(f(m)))=(r/t)(g(m/s))
+    \end{align*}
+
+    Thus, $g$ is $S^{-1}R$-linear.
+
+    Diagram:
+    
+    Let $m \in M$ then $g(\pi(m))=g(m/1)=h_{1}(f(m))=f(m)$. Thus, $g \circ \pi = f$.
+
+    Uniqueness:
+
+    Let $h : S^{-1}M \to N$ be $S^{-1}R$-linear with $h \circ \pi = f$. For $m/s \in S^{-1}M$,
+    \[h(m/s)=(1/s)h(\pi(m))=(1/s)f(m)=h_{s}f(m)=g(m/s)\]
+    Thus, $g$ is unique.
+\end{problemproof}
+\begin{subproblem}{}
+    Prove that if $M$ is an $R$-module such that every element $u \in S$ acts invertibly on
+$M$, then there is an isomorphism $M \cong S^{-1}M$ of $R$-modules.
+\end{subproblem}
+\begin{problemproof}
+    Assume $M$ is an $R$ modules s.t. for all $s \in S$ $s$ acts invertibly on $M$. Let $h_s$ be the inverse of $m \mapsto sm$.
+
+    Define $\pi : M \to S^{-1}M$ s.t. $\varphi(m)=m/1$
+
+    By the claim you can view $M$ as a $S^{-1}R$ module with the action $(r/s)m=h_s(rm)$.
+
+    Using the universal property this implies that there is a unique map $S^{-1}R$-linear map s.t. $\psi : S^{-1}M \to M$ s.t. $\psi \circ \pi = \mathrm{id}$.
+    
+    Again using the universal property with $S^{-1}M$ we get there exists a unique map $\theta : S^{-1}M \to S^{-1}M$ s.t. $\theta \circ \pi = \pi$
+
+    Since $\mathrm{id}$ also works this implies that $\theta = \mathrm{id}$
+
+    Also, $(\pi \circ \varphi) \circ \pi = \pi$ also works this implies $\pi \circ \varphi =\mathrm{id}$.
+
+    Thus, $\pi$ and $\varphi$ are $S^{-1}R$-linear maps and are inverses.
+
+    Thus, $S^{-1}M \cong M$ as $S^{-1}R$ modules.
+
+    But the same maps work for $R$ modules since $\varphi(rm/s)=r\varphi(m/s)$ and $\pi(rm)=rm/1=(r)(m/1)$.
+
+    Thus, $S^{-1}M \cong M$ as $R$ modules.
+\end{problemproof}
+\begin{subproblem}{}
+    Let $f : M \to N$ be an $R$-module homomorphism. Show that there is a natural 
+    $S^{-1}R$-module homomorphism $S^{-1}f : S^{-1}M \to S^{-1}N$ induced by $f$, given by 
+    $\frac{m}{s} \to \frac{f(m)}{s}$ for $s \in S$ and $m \in M$.
+\end{subproblem}
+\begin{problemproof}
+    Well-Defined:
+
+    Let $m/s=m'/s'$ this implies there exists a $t\in S$ s.t. $t(s'm+sm')=0$
+
+    $0=f(t(s'm+sm'))=t(s'f(m)+sf(m'))$ since $f$  is $R$-linear.
+
+    Therefore, this implies $f(m')/s'=f(m)/s$ thus well-defined.
+
+    Homomorphism:
+
+    Let $m/s, m'/s' \in S^{-1}M$
+
+    $S^{-1}f(m/s+m'/s')=S^{-1}f(\frac{ms'+m's}{ss'})=f(ms'+m's)/s's=s'f(m)/s's+sf(m')/s's=f(m)/s+f(m')/s=S^{-1}f(m/s)+S^{-1}f(m'/s')$.
+
+    Let $r/t \in S^{-1}R$
+
+    $S^{-1}f(r/t \cdot m/s)=S^{-1}f(rm/ts)=rf(m)/ts=(r/t) \cdot f(m)/s = (r/t) \cdot S^{-1}f(m/s)$
+
+    Thus, $S^{-1}f$ is a $S^{-1}R$-module homomorphism.
+\end{problemproof}
+
+\begin{problem}{}
+    
+\end{problem}
+\stepcounter{subproblemcounter}
+\begin{subproblem}{Localization is Exact}
+    Let $S \subset R$ be a multiplicative system. Given an exact sequence
+    $L \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} N$, prove the sequence of $S^{-1}R$-module homomorphisms
+    \[S^{-1}L \overset{S^{-1}f}{\longrightarrow} S^{-1}M \overset{S^{-1}g}{\longrightarrow} S^{-1}N\]
+    is also exact.
+\end{subproblem}
+\begin{problemproof}
+    Assume $L \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} N$ is an exact sequence of modules.
+
+    Let $x \in \mathrm{Im}(S^{-1}f)$ thus $f(l)/s=x$ for some $l \in L$.
+
+    So, since the sequence is exact this implies that $f(l) \in \ker(g)$. Thus, $S^{-1}g(f(l)/s)=0/s=0 \implies x \in \ker(S^{-1}g)$.
+    
+    Let  $x \in \ker(S^{-1}g)$ then $x=m/s$ for $m \in M$ and $s \in S$, so $S^{-1}g(m/s)=g(m)/s=0$. This implies there exists a $t \in S$ s.t. $tg(m)=0$. Since $g$ is
+    a $R$-module homomorphism this implies that $tg(m)=g(tm)$. Thus, $tm \in \ker{g} = \mathrm{Im}(f)$. So there is an $l \in L$ s.t. $f(l)=tm$. So,
+    \[\frac{m}{s}=\frac{tm}{ts}=\frac{f(l)}{ts}=S^{-1}f\left( \frac{l}{ts} \right)\]
+    This shows $m/s \in \mathrm{Im}(S^{-1}f)$.
+
+    Therefore, $\mathrm{Im}(S^{-1}f)=\ker(S^{-1}g)$, so this is an exact sequence.
+\end{problemproof}
+
+\begin{subproblem}{Exactness is a local property}
+    For any sequence $L \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} N$ of $R$-modules homomorphisms,
+    prove that the following are equivalent:
+    \begin{enumerate}[i.]
+        \item The sequence $L \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} N$ is exact.
+        \item The sequence $L_\p \overset{f_\p}{\longrightarrow} M_\p \overset{g_\p}{\longrightarrow} N_\p$ is exact for all $\p \in \Spec(R)$.
+        \item The sequence $L_\mf{m} \overset{f_\mf{m}}{\longrightarrow} M_\mf{m} \overset{g_\mf{m}}{\longrightarrow} N_\mf{m}$ is exact for all maximal ideals $\mf{m} \in \mathrm{mSpec}(R)$.
+    \end{enumerate}
+\end{subproblem}
+\begin{problemproof}
+    $(i.) \implies (ii.)$ from part (b). $(ii.) \implies (iii.)$ since maximal ideals are a subset of $\Spec(R)$.
+
+    $(iii.) \implies (i.)$:
+
+    Assume $(iii.)$
+
+    Let $x \in \mathrm{Im}(f)$ then there exists an $l \in L$ s.t. $f(l)=x$. Let $A=\{r \in R \mid rg(x)=0\}$.
+
+    This is an ideal since if $a,b \in A$ then $(a+b)g(x)=ag(x)+bg(x)=0$ and for $a \in A$ and $r \in R$ we have $ra g(x)=r\cdot 0 =0$, so $A$ is an ideal.
+
+    Assume $A$ is a proper ideal then $A$ is in some maximal ideal $\mf{m}$. By assumption, we know that $g_m(f_m(l/1))=0$. This implies that $g(f(l))/1=0/1$, so there exists some $a \in R \setminus \mf{m}$ s.t. $ag(f(l))=0$ but this is a contradiction since $A$ is a subset of $\mf{m}$.
+
+    Thus, $A$ is not proper and $A=R$, thus $g(x)=0 \implies x \in \ker{g}$.
+
+    Let $x \in \ker{g}$. Let $A=\{r \in R \mid rx \in \mathrm{Im}(f)\}$. This is an ideal for similar reasons as above. Assume that this is a proper ideal.
+
+    Thus, there exists a maximal ideal $\mf{m}$ that contains $A$.
+
+    Since $x/1 \in \ker(g_\mf{m})=\mathrm{Im}f_\mf{m}$ by assumption, 
+    there exists a $l / s \in L_\mf{m}$ s.t. $f_m(l/s)=f(l)/s=x/1$. 
+    This implies there exists a $a \in R \setminus \mf{m}$ s.t.
+    
+    $a(f(l)-ns)=0 \implies f(al)=asx$, so $asn \in \mathrm{Im}(f)$. 
+    Thus, $as \in A$, but since $a \in R \setminus \mf{m}$ and $s \in R \setminus \mf{m}$ this implies that $as \in R \setminus \mf{m}$ since $\mf{m}$ is prime, but this is a contradiction. Thus, $A=R$, so $1*x=x \in \mathrm{Im}(f)$.
+
+    Thus, $\ker(g)=\mathrm{Im}(f)$, so the sequence is exact.
+\end{problemproof}
+
+\stepcounter{problemcounter}
+
+\begin{problem}{}
+    Let $(R, m)$ be a local domain (i.e. a local ring which is also a domain) which is not a field.
+Let $K$ be the fraction field of $R$, which is naturally an $R$-algebra via the inclusion $R \subset K$.
+Prove that $K$ is not a finite R-algebra.
+\end{problem}
+\begin{problemproof}
+    Assume $K$ is a finite $R$-algebra. Proven in class this implies that $K$ is integral.
+
+    This implies that for all $1/r \in K$ s.t. $r \neq 0\in R$ then there exists $r_0,\dots,r_{n-1} \in R$ s.t. $(1/r)^n+r_{n-1}(1/r)^{n-1}+\dots+r_0=0$.
+
+    Multiplying by $r^n$ gives $1+r_{n-1}r+\dots+r_0r^n=0$. This implies that $1 \in (r) \implies (r)=R$. Thus, $r$ is a unit, but this implies that $R$ is a field since $r$ was arbitrary.
+
+    This is a contradiction thus $K$ is not a finite $R$-algebra.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a domain with fraction field K. The normalization $\widetilde{R}$ of $R$ is the integral closure
+of $R$ in $K$, i.e. $\widetilde{R} = \{y \in K \mid y \t{ is integral over } R\}$, and we say that R is normal if $R = \widetilde{R}$.
+Prove that any UFD is normal.
+\end{problem}
+\begin{problemproof}
+    Let $x = a/b \in \widetilde{R}$ with $a,b \in R$ s.t. $b \neq 0$, and $\gcd(a,b)=1$.
+
+    Then there exists $r_{n-1},\dots,r_0 \in R$ s.t. $x^n+r_{n-1}x^{n-1}+\dots+r_0=0$.
+    
+    Multiply by $b^n$
+    \[a^n+r_{n-1}ba^{n-1}+\dots+r_0b^n=0\]
+    \[a^n=-b(r_{n-1}a^{n-1}+\dots+r_0b^{n-1})\]
+    This implies that $b \mid a^n$ in $R$. Since $R$ is a UFD factor $a,b$ into irreducibles. Then if $p \mid b$ for some irreducible $p$. Then $p \mid a^n$, so $p \mid a$ since $p$ is irreducible. But this is a contradiction since $\gcd(a,b)=1$, so $b$ is a unit and $x \in R$.
+
+    Therefore, $\widetilde{R} = R$.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Show that $\C[x,y] \diagup (y^3-x^5)$ is a domain which is not normal, and compute its normalization.
+\end{subproblem}
+\begin{problemproof}
+    $\C[x,y] \diagup (y^3-x^5) \cong \C[t^3,t^5]$.
+
+    Consider $x^3-t^3=0$ for $x=t$. This implies $t \in \widetilde{\C[t^3,t^5]}$. Thus, $\C[t] \subset \widetilde{\C[t^3,t^5]}$, but since $\C[t]$ is a UFD this implies it is normal thus $\widetilde{\C[t^3,t^5]}=\C[t]$. So $\C[t^3,t^5]$ is not normal, with normalization $\C[t]$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Compute the normalization of $\Z\left[ \sqrt{-3} \right]$
+\end{subproblem}
+\clmp{}{
+    If $\alpha$ is integral over $R$ then $R[\alpha]$ is finite.
+}{
+    Assume $\alpha$ is integral over $R$. This implies there exists a $r_{n-1},\dots,r_0 \in R$ s.t.
+    \[\alpha^n+r_{n-1}\alpha^{n-1}+\dots+r_0=0\]
+    This implies that for $\alpha^k$ for $k \geq n$ are a $R$-linear combination of $1,\dots,\alpha^{n-1}$, so $\{1,\dots,\alpha^{n-1}\}$ generate $R[\alpha]$
+    as an $R$-module. Thus, $R[\alpha]$ is finite over $R$.
+}
+\begin{problemproof}
+    Consider $\omega$ where $\omega$ is the cube root of unity.
+
+    Since $\omega^2+\omega+1=0$ this implies that $\omega$ is integral over $\Z$, so $\Z[\omega]$ is integral over $\Z$ by the proof above.
+
+    Since $\Z \subset \Z[\sqrt{-3}] \subset \Z[\omega]$ this implies $\Z[\omega]$ is integral over $\Z[\sqrt{-3}]$ since the same monic equation in $\Z$ will work in $\Z[\sqrt{-3}]$.
+
+    Thus, $\Z[\omega] \subseteq \widetilde{\Z[\sqrt{-3}]}$
+    
+    Since $\Z[\omega]$ is a UFD by problem 5, this implies that $\Z[\omega]$ is normal thus integrally closed. Therefore, $\Z[\omega] = \widetilde{\Z[\omega]}$.
+
+    Let $a \in \widetilde{\Z[\sqrt{-3}]}$. This implies that there exists $r_{n-1},\dots,r_0 \in \Z[\sqrt{-3}]$ s.t. $a^n+r_{n-1}a^{n-1}+\dots+r_0=0$. Since $\Z[\sqrt{-3}] \subset \Z[\omega] \implies r_i \in \Z[\omega]$.
+
+    Thus, $a \in \widetilde{\Z[\omega]}=\Z[\omega]$.
+    
+    Therefore, $\Z[\omega]=\widetilde{\Z[\sqrt{-3}]}$.
+\end{problemproof}
+
+\qh[]
+\begin{subproblem}{Normalization commutes with localization}
+    Let $R$ be a domain and $S \subset R$ a multiplicative system.
+    Via the inclusion $R \hookrightarrow \widetilde{R}$, we can also regard $S$ as a
+    multiplicative system in the normalization $\widetilde{R}$. Prove that there is an isomorphism
+    of rings
+    \[S^{-1}\widetilde{R} \cong \widetilde{S^{-1}R},\]
+    where $\widetilde{S^{-1}R}$ is the normalization of $S^{-1}R$.
+\end{subproblem}
+\begin{problemproof}
+    Let $K = \mathrm{Frac}(S^{-1}R) \cong \mathrm{Frac}(R)$ since $R$ is a domain, and we are give $S^{-1}R$ is a domain. 
+    
+    Consider $\varphi : S^{-1}\widetilde{R} \hookrightarrow K$, so $S^{-1}\widetilde{R}$ is isomorphic to a subring of $K$ and $\widetilde{S^{-1}R} \subset K$.
+
+    Let $A$ be the isomorphic subring.
+
+    Since $\widetilde{R}$ is integral over $R$ this implies that for $x=r/s \in S^{-1}\widetilde{R}$. Thus $r \in \widetilde{R}$, so there exists a monic polnomial s.t. 
+    $r^n+r_{n-1}r^{n-1}+\dots+r_0=0$ for $r_i \in R$.
+
+    Thus, in $S^{-1}\widetilde{R}$, $(r^n/1)+r_{n-1}(r^{n-1}/1)+\dots+r_0=0 \implies x^n+r_{n-1}/s \cdot x^{n-1} + \dots + r_0/s^n=0$
+
+    Thus, $S^{-1}\widetilde{R}$ is integral over $S^{-1}R$. This implies since $A$ is isomorphic that $A$ is integral over $S^{-1}R$ thus $A \subset \widetilde{S^{-1}R}$.
+
+    Let $x \in \widetilde{S^{-1}R}$. This means that $x$ is integral over $S^{-1}R$, then
+    
+    $x^n+a_{n-1}x^{n-1}+\dots+a_0 = 0$ for $a_i \in S^{-1}R$.
+
+    Let $a_i=c_i/s_i$. Let $d=\prod_{i=0}^{n-1}s_i \in S$ be a common denominator then multiply by $d^n$. We get
+
+    $(dx)^n+c_{n-1}(dx)^{n-1} +  \dots + c_0=0$ for $c_i \in R$.
+
+    Thus, $dx$ is integral over $R$, so $dx \in \widetilde{R} \implies sx/1 \cdot 1/s = x \in A$. Thus, $A=\widetilde{S^{-1}R}$.
+
+    Therefore, $S^{-1}\widetilde{R} \cong A = \widetilde{S^{-1}R}$
+\end{problemproof}
+
+\begin{subproblem}{Normality is a local property}
+    Let $R$ be a domain. Prove that the following are
+equivalent:
+\begin{enumerate}[i.]
+    \item $R$ is normal
+    \item $R_\p$ is normal for all $\p \in \Spec(R)$.
+    \item $R_\mf{m}$ is normal all $\mf{m} \in \mathrm{mSpec}(R)$
+\end{enumerate}
+\end{subproblem}
+\begin{problemproof}
+    $(i) \implies (ii)$ by (a) since if $R$ is normal then $S^{-1}R = S^{-1}\widetilde{R} \cong \widetilde{S^{-1}R}$.
+
+    $(ii) \implies (iii)$ since maximal ideals are a subset of prime ideals.
+
+    $(iii) \implies (i)$:
+
+    Assume $(iii)$.
+
+    Let $x \in \widetilde{R}$ then there exists $r_0,\dots,r_{n-1} \in R$ s.t. $x^n+r_{n-1}x^{n-1}+\dots+r_0=0$.
+
+    Let $I=\{a \in R \mid ax \in R\}$ where $ax$ is multiplication in $R$'s fraction field.
+
+    Assume $I$ is proper, so there exists a maximal ideal $\mf{m}$ that contains $I$.
+
+    Consider $R_{\mf{m}}$ we can view the relation $x$ has in $R_\mf{m}$ thus
+
+    $x^n+r_{n-1}/1 \cdot x^{n-1}+\dots+r_0/1=0$ thus $x \in R_\mf{m}$ since by assumption $R_\mf{m}$ is normal.
+    
+    Let $x=r/s$ for $r \in R$ and $s \in R \setminus \mf{m}$.
+
+    This implies that $(sx)^n+r_{n-1}s(sx)^{n-1}+\dots+s^nr_0=0$ $sx \in \widetilde{R}$ and $sx \in R$.
+
+    Thus, $s \in I$ but this is a contradiction since $s \in R \setminus \mf{m}$ and $I$ is contained in $\mf{m}$. Thus, $I=R$ and $1x=x \in R$.
+    
+    Thus, $\widetilde{R}=R$.
+\end{problemproof}
+\end{document}

@@ -1,0 +1,241 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+\newcommand{\skcgen}{{\sf Gen}} 
+\newcommand{\skcenc}{{\sf Enc}}
+\newcommand{\skcdec}{{\sf Dec}}
+\newcommand{\mac}{{\sf MAC}}
+\newcommand{\ver}{{\sf Vrfy}}
+\newcommand{\bit}{{\{0,1\}}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW3 --- \thepage}
+\fancyhead[C]{\color{\TextColor}EECS 475}
+
+\begin{problem}{}
+    Let $F\colon \bit^n \times \bit^n \rightarrow \bit^n$ be pseudorandom function.
+  Show that each of the following MACs is insecure, even if used to
+  authenticate fixed-length
+  messages. (In each case $\skcgen$ outputs a uniform $k \in \bit^n$,
+  $n$ being even, and $\langle i \rangle$ denotes an $n/2$-bit binary
+  encoding of the integer $i$).
+\end{problem}
+\begin{subproblem}{}
+    To authenticate a message $m = m_1\| \cdots \| m_\ell$, where
+          $m_i \in \bit^n$, compute \\
+          $t := F_k(m_1)\oplus \cdots \oplus F_k(m_\ell)$.
+\end{subproblem}
+\begin{problemproof}
+    Let $m_1,m_2,m_3 \in \bit^n$ s.t. they are all distinct. Then query the oracle twice on
+    $\mathcal{O}(m_1||m_2)=F_k(m_1) \oplus F_k(m_2)$ and $\mathcal{O}(m_1||m_3)=F_k(m_1) \oplus F_k(m_3)$.
+
+    Then calculate $(F_k(m_1) \oplus F_k(m_2)) \oplus (F_k(m_1) \oplus F_k(m_3)) = F_k(m_2) \oplus F_k(m_3)=t$.
+
+    Then, return $(m_2||m_3, t)$ which is a valid pair.
+\end{problemproof}
+
+\begin{subproblem}{}
+    To authenticate a message $m = m_1 \| \cdots \| m_\ell$, where
+          $m_i \in \bit^{n/2}$, compute \\
+          $t := F_k(\langle 1 \rangle \| m_1) \oplus \cdots \oplus
+            F_k(\langle \ell \rangle \| m_\ell)$.
+\end{subproblem}
+\begin{problemproof}
+    Let $m_1,m_2,m_3 \in \bit^{n/2}$ s.t. they are all distinct. Then query the oracle three times on
+    $\mathcal{O}(m_1||m_3)=F_k(\langle 1 \rangle \| m_1) \oplus F_k(\langle 2 \rangle \| m_3)$
+    
+    $\mathcal{O}(m_3 || m_2) = F_k(\langle 1 \rangle \| m_3) \oplus F_k(\langle 2 \rangle \| m_2)$.
+    
+    $\mathcal{O}(m_3 || m_3)= F_k(\langle 1 \rangle \| m_3) \oplus F_k(\langle 2 \rangle \| m_3)$.
+
+    Then calculate $\mathcal{O}(m_1||m_3) \oplus \mathcal{O}(m_3 || m_2) \oplus \mathcal{O}(m_3 || m_3) = F_k(\langle 1 \rangle \| m_1) \oplus F_k(\langle 2 \rangle \| m_2)=t$.
+
+    Then return $(m_1||m_2, t)$ which is a valid pair.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that if a MAC scheme $(\mathsf{Gen}, \mathsf{Mac}, \mathsf{Vrfy})$ is strongly existentially unforgable under a chosen-message attack, then it is existentially unforgable under a chosen-message attack.
+\end{problem}
+\begin{problemproof}
+    Assume that a MAC scheme $(\mathsf{Gen}, \mathsf{Mac}, \mathsf{Vrfy})$ is not existentially unforgable under a chosen-message attack.
+
+    This implies there exists an adversary $\mathcal{A}$ can produce a valid pair of message and tag with non-negligible probability s.t. the message was never queried before.
+
+    Define $C$ s.t.
+    \[\begin{tikzcd}
+	\begin{array}{c} \square\\\ k \leftarrow \skcgen(1^n) \end{array} && C && {\mathcal{A}} \\
+	{} && {} && {}
+	\arrow["{\mathsf{MAC}(m,k)=t}"', shift right=3, from=1-1, to=1-3]
+	\arrow["m"', shift right=3, from=1-3, to=1-1]
+	\arrow["t"', shift right=3, from=1-3, to=1-5]
+	\arrow["m"', shift right=3, from=1-5, to=1-3]
+	\arrow[shift right=5, from=1-5, to=1-5, loop, in=325, out=35, distance=10mm]
+	\arrow["{(m',t')}", shift right=3, from=2-3, to=2-1]
+	\arrow["{(m',t')}", shift right=3, from=2-5, to=2-3]
+\end{tikzcd}\]
+   Since $\mathcal{A}$ produces a valid pair with non-negligible probability s.t. $m'$ has not been queried before this implies that $C$ also produces a valid pair with non-negligible probability s.t. $(m',t')$ is a unique pair.
+   This is a unique pair since $m'$ is unique and has not been seen before.
+
+   Therefore, if a MAC scheme is strongly existentially unforgable under a chosen-message attack, then it is existentially unforgable under a chosen-message attack.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $H\colon \bit^\ell \to \bit^n$ be a collision-resistant hash function,
+    where $\ell > n$, and $F\colon \mathcal{K} \times \bit^n \to \bit^n$ be a PRF.
+    Show that the function $F'\colon \mathcal{K} \times \bit^\ell \to \bit^n$
+    given by $F'_k(x) := F_k(H(x))$ is a PRF.  In practice, this construction
+    can produce a PRF with arbitrary-length inputs.
+\end{problem}
+\begin{problemproof}
+    Assume there exists a decider $D$ that can decide between a random function $R$ from $\ell$ bits to $n$ and $F \circ H$.
+
+    Case 1: There exists queries from $D$ s.t. $x_i \neq x_j$ but $H(x_i)=H(x_j)$.
+
+    Case 2: Is Case 1 not happening.
+
+    Thus, 
+    
+    $\P[D \t{ decides correct}] = \P[D \t{ decides correct and Case 1}] + \P[D \t{ decides and Case 2}]$.
+
+    Assume $\P[D \t{ decides correct and Case 1}]$ is non-negligible. Then define $C$ s.t.
+
+    \[\begin{tikzcd}
+	\square && \begin{array}{c} C\\ H^s(x) \end{array} && D
+	\arrow["s"', from=1-1, to=1-3]
+	\arrow["{y \overset{\$}{\leftarrow}U_n}"', shift right=3, from=1-3, to=1-5]
+	\arrow["{x_i}"', shift right=3, from=1-5, to=1-3] \end{tikzcd}\]
+    First get $x_i$ from $D$ and save $(x_i, H^s(x_i))$ then check
+    if we got $H^s(x_i)$ before where the input is different if this happens we are done and return the pair we got.
+
+    If we do not get a match then return $D$ a uniformly random $n$-bit string.
+
+    Since the probability of getting a collision from $D$ is non-negligible this implies that $C$ also makes a collision of $H$ with non-negligible probability.
+
+    Assume $\P[D \t{ decides correct and Case 2}]$ is non-negligible. Then define $C$ s.t.
+    \[\begin{tikzcd}
+	\begin{array}{c} \square\\\ k \leftarrow \mathcal{K} \end{array} && C && {D} \\
+	{} && {} && {}
+	\arrow["{\mathcal{O}(H(x))=y}"', shift right=3, from=1-1, to=1-3]
+	\arrow["{H(x)}"', shift right=3, from=1-3, to=1-1]
+	\arrow["y"', shift right=3, from=1-3, to=1-5]
+	\arrow["x"', shift right=3, from=1-5, to=1-3]
+	\arrow[shift right=5, from=1-5, to=1-5, loop, in=325, out=35, distance=10mm]
+	\arrow["{b'}", shift right=3, from=2-3, to=2-1]
+	\arrow["{b'}", shift right=3, from=2-5, to=2-3]
+    \end{tikzcd}\]
+    Since we are assuming that the collisions are negligible in the queries this implies that $H$ restricted to the set $Q = \{x \mid x \t{ was queried}\}$ is injective with 1 - negligible probability. This implies that
+
+    Each $x \in Q$ maps to a unique hash value h$ = H(x)$.
+    When we compose $R \circ H$, we are simply asking $R_0$ for independent uniform outputs on the distinct points $H(Q)\subseteq{0,1}^n$.
+    For a random function $R$, the outputs $R(h)$ for distinct $h$ are independent and uniformly random in ${0,1}^n$.
+    Thus, the induced mapping $x \mapsto R(H(x))$ assigns independent uniform outputs to each distinct $x\in Q$.
+    This is exactly the defining property of a truly random function $R_\ell : {0,1}^\ell \to {0,1}^n$, since $R_\ell(x_i)$ are also independent and  uniformly random for distinct $x_i$.
+    
+    This implies that the induced map $R \circ H \mid_{Q}$ is indistinguishable to a random function $R_\ell$ from $\ell$ bits to $n$ bits.
+
+    Therefore, since $D$ decides between $F'$ and $R_\ell \approx R \circ H$(given $H$ is injective on the queries) with non-negligible probability then $C$ will decide between $F$ and $R$ with non-negligible probability
+\end{problemproof}
+\begin{problem}{}
+    Let $n\in\Z$ be a positive integer. Consider the
+    following set \[\mathbb{G}_n := \{ an + 1 \mid a \in \{0, \ldots, n-1\} \}.\]
+    Every element of $\mathbb{G}_n$ also belongs to the multiplicative group $\Z_{n^2}^*$ (recall that  $\Z_{n^2}^*$ contains all integers from $\{0,...,n^2-1\}$ that are coprime with $n^2$.)
+
+    Show that $\mathbb{G}_n$ is a multiplicative subgroup of $\Z_{n^2}^*$.
+\end{problem}
+\begin{problemproof}
+    (Associativity): Follows from multiplication.
+    
+    (Closure):
+
+    Let $g,g' \in \mathbb{G}_n$ then $g=an+1$, and $g'=bn+1$ for $a,b \in \{0,\dots,n-1\}$.
+
+    Consider $g \cdot g' = (an+1)(bn+1)=abn^2+an+bn+1=(a+b)n+1$ if $(a+b) < n$ then we are done. 
+
+    If $(a+b) \geq n$ then $a+b=n+c$ for $c \in \{0,\dots,n-1\}$ since the max $(a+b)$ could be is $2n-2$, so we would get $n+n-2$, so $n-2$ is the max $c$ could be. Thus, $(a+b)n+1=(n+c)n+1 = cn+1 \in \mathbb{G}_n$. Thus, we have Closure.
+
+    (Identity): Let $a = 0$ then $1 \in \mathbb{G}_n$ and $1 \cdot g = g \cdot 1 = g$ for all $g \in \mathbb{G}_n$.
+
+    (Inverse): Let $g=an+1 \in \mathbb{G}_n$ for $a \in \{0,\dots,n-1\}$ then consider $g'=(n-a)n+1$.
+
+    Thus, $g \cdot g' = (an+1)((n-a)n+1)=a(n-a)n^2+an+(n-a)n+1=an+n^2-an+1=1$. Also, $g' \cdot g = 1$.
+
+    Thus, $\mathbb{G}_n$ is a subgroup of $\Z_{n^2}^*$
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Show that if there exists a p.p.t. adversary $\mathcal{A}$ that breaks the DLOG problem, then there exists a p.p.t. adversary $\mathcal{B}$ that breaks the CDH problem.
+\end{subproblem}
+\begin{problemproof}
+    Assume there exists a p.p.t. adversary $\mathcal{A}$ that breaks the DLOG problem.
+
+    Define $C$ s.t. first get $(\mathbb{G},q,g,g^a,g^b)$ from the oracle. Then send $g^a$ to $\mathcal{A}$ and get back $a$ with non-negligible probability. Then send $g^b$ to $\mathcal{A}$  and get back $b$ with non-negligible probability. Then return $(g^a)^b$.
+
+    Thus, $C$ breaks CDH problem with non-negligible probability.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that if there exists a p.p.t. adversary $\mathcal{B}$ that breaks the CDH problem, then there exists a p.p.t. adversary $\mathcal{C}$ that breaks the DDH problem.
+\end{subproblem}
+\begin{problemproof}
+    Assume there exists a p.p.p adversary $\mathcal{B}$ that breaks the CHD problem.
+
+    Define $C$ s.t. first get $(\mathbb{G},q,g^x,g^y,g^z)$ s.t. $z$ is either random or $xy$. Then send $g^a$ and $g^b$ to $\mathcal{B}$ and get back $g^{ab}$ with non-negligible probability. Then check whether $g^z=g^{ab}$. If this is true return 1 else return 0.
+
+    Thus, $C$ breaks DDH problem with non-negligible probability.
+\end{problemproof}
+\end{document}

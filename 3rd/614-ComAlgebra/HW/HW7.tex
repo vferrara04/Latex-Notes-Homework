@@ -1,0 +1,116 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW7 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Let $X$ be a topological space and let $Y \subset X$ be a subspace. Prove that $\dim Y \leq \dim X$.
+\end{problem}
+\begin{problemproof}
+    Let $Y_1 \subsetneq Y_2 \subsetneq \dots \subsetneq Y_n$ be a max chain in $Y$.
+
+    Let $C_i = \overline{Y_i}$ the closure of $Y_i$ in $X$.
+
+    Assume for contradiction $C_i = C_{i+1}$  this implies $Y \cap C_i = Y \cap C_{i+1} \implies Y_i = Y_{i+1}$ which is a contradiction.
+
+    Thus, $C_i \subsetneq C_{i+1}$, also since $Y_i$ is irreducible this implies the closure is also irreducible this was shown in class.
+
+    Therefore, since $C_1 \subsetneq C_2 \subsetneq \dots \subsetneq C_n$ is also a chain this implies $\dim Y \leq \dim X$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R_1,\dots,R_n$ be rings. Prove that
+    \[R=\dim \left(  \prod_{i=1}^n R_i \right) = \sup \{\dim(R_i) \mid 1 \leq i \leq n\}\]
+\end{problem}
+\begin{problemproof}
+    Shown in previous homework the prime ideals in the product ring are $\prod_{i=1}^n I_i$ s.t. one $I_j=\p$ s.t. $\p$ is prime in $R_i$ and $I_i$ for $i \neq j$ is $I_i=R_i$.
+
+    Therefore, this implies that a chain in $R$ is equivalent to a chain in $R_i$. Thus, the dimension of $R$ is the max of the $R_i$'s if each dimension is finite and if otherwise then the dimension is infinite. Therefore, the dimension of $R$ is the supremum of the dimensions of each $R_i$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $k$ be a field.
+\end{problem}
+\begin{subproblem}{}
+    Let $(R, \mf{m})$ be a local ring which is a finite type $k$-algebra. Let $M$ be an $R$-module of finite length.
+    Prove that $\dim_k(R \diagup \mf{m})$ and $\dim_k(M)$ are finite, and that
+    \[\mathrm{length}_R(M) \cdot \dim_k(R \diagup \mf{m}) = \dim_k(M)\]
+\end{subproblem}
+\begin{problemproof}
+    Shown in class since $M$ is finite length this implies that $M$ is noetherian. This implies that all submodules are finitely generated which implies $M$ is finitely generated since it is a submodule.
+
+    Shown in class we know that $R \diagup \mf{m}$ is a finite extension of $k$. Therefore, this implies that it is a finite dimension vector space.
+
+    Let $M_0=0 \subsetneq M_1 \subsetneq \dots \subsetneq M_n = M$ be a composition series which is implies from $M$ being finite length.
+
+    Let $S$ be a simple $R$-module. 
+    This implies that $\mf{m}S=S$ or $\mf{m}S=0$
+
+    Assume for contradiction that $\mf{m}S=S$ by Nakayama's lemma this implies that $S=0$ which is a contradiction of $S$ being simple.
+
+    Therefore, $\mf{m}S=0$. This implies that $\Ann_R(S) = \mf{m}$ since $\Ann_R(S) \neq R$ and $\mf{m}$ is maximal.
+
+    This implies that $S$ is a simple $R \diagup \mf{m}$-module. Thus, since $R \diagup m$ is a field, and $S \neq 0$ this implies $S$ that $S$ must be $1$
+\end{problemproof}
+\end{document}

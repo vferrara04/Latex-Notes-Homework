@@ -1,0 +1,421 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\codim}{\mathrm{codim}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW10 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\qh
+\addtocounter{subproblemcounter}{1}
+\begin{subproblem}{}
+    Theorem. Let $R$ be a domain which is a finite type $k$-algebra for a field $k$. Then for
+any ideal $I \subset R$, we have
+\[\dim R = \dim R \diagup I + \codim I\]
+\end{subproblem}
+\begin{problemproof}
+    Let $\p \in \Spec(R)$ give a maximal chain with $\p$
+    \[(0)=\p_0 \subsetneq \p_1 \subsetneq \dots \subsetneq \p_r=\p \subsetneq \dots \subsetneq \p_n\]
+    and by (a) we get that $n=\dim R$ for all of $\p$'s maximal chains.
+
+    Consider $\p_r \subsetneq \dots \subsetneq \p_n$
+
+    This can also be considered a chain in $R \diagup \p$.
+
+    Thus, $\dim R \diagup \p \geq \dim R - \codim \p$.
+
+    Now let $0 \subsetneq \mf{q}_1 \subsetneq \dots \subsetneq \mf{q}_r$ be a max chain in $R \diagup \p$ s.t. $\dim R \diagup \p = r$
+
+    This corresponds to a chain $\p \subsetneq \p_1 \subsetneq \dots \subsetneq \p_r$ in $R$.
+
+    Now extend this chain downwards s.t. we achieve $\p$'s codimension. Thus, we get a chain of length $r+\codim \p$.
+
+    Thus, $\codim \p + r \leq \dim R$.
+
+    Therefore, we get that $\dim R = \dim R \diagup \p + \codim \p$ for $\p$ prime.
+
+    Now let $I$ be an ideal in $R$. Since $R$ is noetherian we know that $I$ has finitly many minimal prime ideals over it.
+
+    Thus, $\dim R \diagup I = \max \{\dim R \diagup \p \mid \p \t{ is minimal over } I\}$
+
+    Also, by definition of codimension we have $\codim I = \{\codim \p \mid \p \t{ is minimal over } I\}$.
+
+    Thus, applying the lemma above to each $\p$ we get that $\dim R \diagup \p = \dim R - \codim \p$.
+
+    Thus, $\dim R \diagup I = \max \{\dim R \diagup \p \mid \p \t{ is minimal over } I\}$
+
+    $=\max \{\dim R - \codim  \p \mid \p \t{ is minimal over } I\} = \dim R - \min \{\codim \p \mid \p \t{ is minimal over } I\}$.
+
+    Thus, $\dim R \diagup I = \dim R - \codim I$.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Compute the dimension of $\Q[x,y,\sqrt{x^7 + y^2}]$.
+\end{subproblem}
+\begin{problemproof}
+    Since $R=\Q[x,y,\sqrt{x^7+y^2}] \cong \Q[x,y,z] \diagup (z^2-x^7-y^2)$. This implies 
+    $R$ is a finite type $\Q$-algebra. Thus, by problem 1 we get that $\dim \Q[x,y,z] = \dim R + \codim (z^2-x^7-y^2)$.
+
+    Since $(z^2-x^7-y^2)$ is irreducible this implies it is prime, and this also implies that no ideal but the zero ideal is contained in this. Therefore, since $\Q[x,y,z]$
+    is a domain this implies that $(z^2-x^7-y^2)$ has codimension $1$.
+
+    Therefore, $\dim R = 3-1=2$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Compute the dimension of the ring $R=\Z[x, y, z, w]/(x^3 + yzw + w^5)$.
+\end{subproblem}
+\begin{problemproof}
+    Since $(x^3+yzw + w^5)$ is irreducible this implies it is prime. Thus, by the PIT we get that $\codim (x^3+yzw+w^5) \leq 1$, but since we are in a domain its codimension is one. Thus, shown in class we have that $\dim \Z[x,y,z,w] - \codim I \geq \dim R \implies 4 \geq \dim R$.
+
+    Also since $(x^3+yzw+w^5) \subsetneq (x,w) \subsetneq (2,x,w) \subsetneq (2,x,y,w) \subsetneq (2,x,y,z,w)$ is a chain. This implies that $4 \leq \dim R$. Therefore, this implies $\dim R = 4$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $f \in \Q[x,y,z]$ be a nonzero polynomial. Compute the dimension of the ring $\Q[x,y,z]_f$.
+\end{subproblem}
+\begin{problemproof}
+    Since $\Q[x,y,z]_f \cong \Q[x,y,z,t] \diagup (tf-1)$.
+
+    Again by problem 1 since $(tf-1)$ is irreducible thus prime by PIT its codimension is at most one, but since we are in a domain this implies it has codimension one. Thus, $\dim \Q[x,y,z]_f = \dim \Q[x,y,z,t] - \codim (tf-1) = 3$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $R = \C[x,y,z] \diagup (xy,xz)$. Compute the dimension of $R_{\bar{x}}$.
+\end{subproblem}
+\begin{problemproof}
+    Since $\R_{\bar{x}} \cong \C[x,y,z,t] \diagup (xy,xz,tx-1)$. 
+    
+    Also since $x$ is now a unit in $\C[x,y,z,t] \diagup (xy,xz,tx-1)$ this implies we can cancel the $x$'s thus, $\C[x,y,z,t] \diagup (xy,xz,tx-1) = \C[x,y,z,t] \diagup (y,z,tx-1) \cong \C[x,t] \diagup (tx-1)$. Then from a similar proof to $(c)$ we get that $\dim \C[x,t] \diagup (tx-1) = 1$ since $\dim \C[x,t]=2$ and $\codim (tx-1)=1$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Compute the codimension of the ideal $(x_1, \dots, x_m) \subset k[x_1,\dots , x_n]$, where $m \leq n$ and
+$k$ is a field.
+\end{subproblem}
+\begin{problemproof}
+    From problem one since $\k[x_1,\dots,x_n]$ is a finite type $k$ algebra this implies $\codim (x_1,\dots,x_m) = m$ since $\dim \k[x_1,\dots,x_n] = n$ and $\dim \k[x_1,\dots,x_n] \diagup (x_1,\dots,x_m) = n -m$.
+\end{problemproof}
+
+\begin{problem}{}
+    This problem is about UFDs from the point of Noetherian rings and dimension theory.
+\end{problem}
+\addtocounter{subproblemcounter}{1}
+\begin{subproblem}{}
+    Prove that a domain $R$ is a UFD if and only if the following conditions holds:
+    \begin{enumerate}[i.]
+        \item For every nonzero, noninvertible element $x \in R$ there exists a factorization
+$x = \pi_1 \dots \pi_r$ where $\pi_1, \dots , \pi_r \in R$ are irreducible.
+        \item Every irreducible element in $R$ is prime.
+    \end{enumerate}
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is a UFD.
+
+    $i.$ is immediate from the definition of UFD.
+
+    Let $x \in R$ be irreducible.
+
+    Let $x \mid ab$. Then $ab=xr$ s.t. $r \in R$.
+
+    Then factor $a,b,c$ into irreducibles. By the uniqueness of factorizations this implies that $x$ must appear
+    among the irreducible factors of either $a$ or $b$. Thus, $x \mid a$ or $x \mid b$.
+
+    Therefore, $x$ is prime.
+
+    Assume $i.$ and $ii.$
+
+    First existence of factorization exits from $i$.
+
+    Suppose $x\in R$ has two factorizations $x=p_1\dots p_n = q_1 \dots q_m$.
+
+    Since $p_1 \mid q_1 \dots q_m$ by $ii.$ this implies $p_1 \mid q_j$. Thus, $q_j = u p_1$ for some unit $u$.
+
+    Therefore, you can do this over and over which implies $n=m$ and $p_i = u_j q_j$ for units $u_j$.
+
+    Therefore, factorizations are unique up to units.
+
+    Thus, $R$ is a UFD.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $R$ is a noetherian domain, then for every nonzero, noninvertible element
+$x \in R$, there exists a factorization $x = \pi_1 \dots \pi_r$ where $\pi_1, \dots , \pi_r \in R$ are irreducible
+elements. In particular, combined with (b), we see that a noetherian domain is a UFD
+if and only if every irreducible element is prime.
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is a noetherian domain.
+
+    Let $S = \{x \in R \setminus \{0\} \mid x \t{ is not a unit, and $x$ does not factor into irreducibles}\}$.
+
+    Assume for contradiction that $S \neq \emptyset$.
+
+    Then consider $\{(x) \mid x \in S\} \neq \emptyset$. Since $R$ is noetherian this implies that there exists a maximal element $(y)$ in this set.
+
+    Since $y \in S$ this implies $y$ is not irreducible thus $y=ab$ s.t. $a,b \in R$ and are not units.
+
+    Since $(x) \subsetneq (a),(b)$. This implies $a,b$ do factor into irreducibles since $(x)$ is maximal thus, $a,b \notin S$.
+
+    Thus, $a=p_1\dots p_n$ and $b=q_1 \dots q_m$, but this implies $x=p_1\dots p_n q_1 \dots q_m$ which is a contradiction. Therefore, $S = \emptyset$.
+
+    Therefore, all noninvertible elements factor into irreducibles.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $R$ is a noetherian domain, then $R$ is a UFD if and only if every prime
+ideal $\p \in \Spec(R)$ with $\codim \p = 1$ is a principal ideal.
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is a noetherian domain and a UFD.
+
+    Let $\p \in \Spec(R)$ s.t. $\codim \p = 1$. Let $\p=(a,c_1,\dots,c_n)$
+
+    Then consider $(a) \subsetneq \p$. Since $R$ is a domain this implies that $(a)$ is not prime since if it was then we would have $(0) \subsetneq (a) \subsetneq \p$. Which would implies $\p$ has codimension 2.
+
+    Thus, $(a)$ is not prime. Thus, $a$ is not irreducible this implies $a=p_1 \dots p_n$ s.t. $p_i$ are irreducible. Consider $(p_1)$ which is prime since we are in a UFD. This implies that $(0) \subsetneq (p_1)$ is a chain. Thus,
+    $(p_1)$ has codimension 1 by the PIT, but since $(p_1) \subset \p$ this implies that $(p_1) = \p$. Therefore, $\p$ is a principal ideal.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Let $f \in k\{\{t\}\}$ s.t. $f=\sum_{i=i_0}^\infty a_i t^{i/n}$ for some $i_0 \in \Z$ and $n \in \N$, and $a_i \in k$ and $a_{i_0} \neq 0$.
+
+    Suppose $f$ also is equal to $\sum_{j=j_0}^\infty b_j t^{j/m}$ for some $j_0 \in \Z$ and $m \in \N$, and $b_j \in k$ and $b_{j_0} \neq 0$.
+
+    Let $N = \mathrm{lcm}(n,m)$. Then this implies both can be written as s.t. $i/n = (iN/n)/N$ and same for $j/m$.
+    \[f=\sum_{r=r_0}^\infty c_r t^{r/N} = \sum_{r=r_0}^\infty d_r t^{r/N}\]
+
+    This implies $c_r = d_r$ for all $r$.
+
+    Therefore, this implies that the first non zero term for $c_r$ has power on $t$ eaul to $i/n=(iN/n)/N$ since these are the same series this implies that $(iN/n)/N=(jN/m)/M \implies i/n=j/m$.
+
+    Thus, the valuation map is well-defined.
+
+    Let $f \in k\{\{t\}\}$ s.t. $v(f)=\infty$ this implies that there is no nonzero terms in $f$. Thus, $f=0$.
+
+    If $f=0$ then this implies that there is no minimal nonzero term thus $v(f)=\infty$.
+
+    Let $f,g \in k\{\{t\}\}$ s.t.
+    \begin{align}
+        f = \sum_{i=i_0}a_i t^{i/n}, \quad a_{i_0} \neq 0\\
+        g = \sum_{j=j_0}b_j t^{j/m}, \quad b_{j_0}  \neq 0
+    \end{align}
+    Then $fg = \sum_{k=mi_0+nj_0} c_k t^{k/(nm)}$ s.t. $c_k = \sum_{mi+nj=k}a_ib_j$.
+
+    Thus, looking at the smallest possible exponent we get $c_{mi_0+nj_0}=a_{i_0}b_{j_0} \neq 0$ since $a_{i_0} \neq 0 \neq b_{j_0}$.
+
+    Therefore, $v(fg)=(mi_0+nj_0)/(nm) = i_0/n + j_0/m = v(f)+v(g)$.
+
+    If one of $f,g$ are zero then $v(fg)=\infty = v(f)+v(g)$.
+
+    Let $f,g \in k\{\{t\}\}$.
+
+    If $g = 0$ then $v(f+g) = v(f) \geq \min \{v(f), \infty\}= v(f)$.
+
+    So assume $f,g \neq 0$.
+
+    First choose some common denominator for the exponents in the series call this $n$.
+
+    Thus, $f=\sum_{i=i_0}a_it^{i/n}$ and $g=\sum_{j=j_0}b_jt^{j/n}$.
+
+    Let $f+g=\sum_{k=l_0} c_k t^{k/n}$
+
+    If $f+g = 0$ then $v(f+g)= \infty \geq \min\{v(f),v(g)\}$
+
+    Assume $f+g \neq 0$ then if $v(g) < v(f)$ then $v(f+g)=j_0/n  \geq v(g)$.
+
+    If $v(g)=v(f)$ Then
+
+    if $c_{i_0} \neq 0$ then $v(f+g)= i_0/n \geq i_0/n$
+
+    if $c_{i_0} = 0$ then this implies that the first nonzero term has a greater exponent then $i_0$. Thus, $v(f+g)=l_0 > i_0=j_0$.
+
+    Therefore, $v(f+g) \geq \min \{v(f),v(g)\}$
+
+    Therefore, $v$ is a valuation map.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $k$ be a field and let $k(x, y)$ be the fraction field of $k[x, y]$. Show that there is a
+valuation $v : k(x, y) \to \Z^{\oplus 2} \cup \{\infty\}$, where $\Z^{\oplus 2}$ is given the lexicographical order, which
+is uniquely determined by $v(x^ay^b) = (a, b) for (a, b) \in \Z^{\oplus 2}$.
+\end{subproblem}
+\begin{problemproof}
+    Define $w : k(x,y) \to \Z^{\oplus 2} \cup \infty$ s.t. $w(0) = \infty$
+    and for $f \in k[x,y]$ s.t. $f=\sum c_{i,j}x^iy^j$ that $w(f)=(a,b)$ s.t. $(a,b)$ is the min element in $\{(i,j) \in \N^2 \mid c_{i,j} \neq 0\}$.
+
+    Now for $f \in k(x,y)$ s.t. $f=g/h$ s.t. $g,h \in k[x,y]$ and $h \neq 0$ that $w(f)=w(g)-w(h)$.
+
+    Multiplicativity on $k[x,y]$:
+
+    Let $f,g \in k[x,y]$ then consider $w(fg)$ this implies the new minimal nonzero term are just the minimal terms of $f,g$ multiplied together. Thus, if $w(f)=(a,b)$ and $w(g)=(i,j)$ then $w(f+g)=(a+i,b+j) = w(f)+w(g)$.
+    
+    Well-Defined on $k(x,y)$:
+
+    Suppose $f/g = h/e$. This implies $fe=hg \neq 0$. Thus, by above we have that $w(fe)=w(hg) \implies w(f)-w(g)=w(h)-w(e)$. Thus, this is well-defined.
+    
+    Multiplicativity on $k(x,y)$:
+
+    $w(f/g \cdot h/e) = w(fh) - w(ge) = (w(f)-w(g)) + (w(h)-w(e)) = w(f/g) + w(h/e)$.
+
+    Inequality:
+
+    $w(f/g + h/e) = w((fe+hg)/ge) = w(fe+hg) - w(ge)$.
+
+    Consider $w(fe+hg)$. Assume $fe$ or $hg$ are not zero since if $fe$ is then we get $w(fe+hg)=w(fe) \geq w(fe)$. Same with if $fe+hg=0$ then $w(fe+hg)=\infty \geq \min\{w(fe),w(hg)\}$.
+    
+    If $w(fe) < w(hg)$ then $w(fe+hg) = w(fe) \geq \min\{w(fe),w(gh)\}$.
+
+    If $w(fe)=w(hg)$ and the minimal term with exponent $w(fe)$ is not zero. Then $w(fe+hg) =w(fe) \geq w(fe)$.
+
+    If the term with exponent $w(fe)$ is zero. This implies the minimal nonzero term is bigger. Thus, $w(fe+hg) \geq \min w(fe)$.
+
+    Thus, $w(f/g+h/e) \geq \min\{w(fe)+w(hg)\} - w(ge) = \min\{w(f)+w(e),w(h)+w(g)\} - w(g) - w(e) \geq \min\{w(f)-w(g), w(g)-w(e)\} = \min\{w(f/g),w(g/e)\}$.
+
+    Also, if $w(a) = \infty \iff a = 0$ by definition of $w$.
+
+    Now for $x^ay^b$ for $(a,b) \in \N^2$ we get that $v(x^ay^b) = (a,b) = w(x^a,y^b)$.
+
+    So for general $a,b \in \Z^{\oplus 2}$ pick $A,B$ large enough s.t. $a+A \geq 0$ and $b+B \geq 0$ thus $x^ay^b = (x^{a+A}y^{b+B})/(x^Ay^B)$.
+
+    Thus, $w(x^ay^b)=w(x^{a+A}y^{b+B})-w(x^Ay^B)=(a,b)=v(x^ay^b)$.
+
+    uniqueness:
+
+    Let $v$ be a valuation on $k(x,y)$ to $\Z^{\oplus 2} \cup \{\infty\}$ with the property $v(x^ay^b)=(a,b)$.
+
+    Let $f \in k[x,y]$ s.t. $f \neq 0$.
+
+    \[f = \sum c_{i,j}x^iy^j\]
+    let $(a_0,b_0)$ be the exponents on the minimal degree term with lexicographical order.
+
+    This implies that $f=x^{a_0}y^{b_0}c_{(a_0,b_0)}(1+c_{(a_0,b_0)}^{-1}h(x,y))$ s.t. $h(x,y) \in k[x,y]$.
+
+    Consider $v(1+c_{(a_0,b_0)}^{-1}h(x,y)) \geq v(1)=0$, also $v(h) > (0,0)$ since is either zero on a polynomial with a zero constant term since we factored out all the lower degree terms.
+
+    Thus, $v(h) > (0,0)$.
+
+    Consider $1=(1+h)-h$.
+
+    $(0,0)=v(1)=v(1+h-h) \geq \min\{v(1+h),v(h)\}$ but since $v(h) > (0,0)$ we know that $(0,0) \geq v(1+h)$.
+
+    Also since $v(1+h) \leq \min\{v(h),v(1)\} = (0,0)$. This implies $v(1+h)=v(0,0)$.
+
+    Thus, $v(1+c_{(a_0,b_0)}^{-1}h) =(0,0)$ also since $v(c_{(a_0,b_0)}^{-1}h) = (0,0) + v(h)$.
+
+    So, do the same proof with that therefore, applying $v$ to $f$ we get that.
+
+    $v(f=v(x^{a_0}y^{b_0}c_{(a_0,b_0)}(1+c_{(a_0,b_0)}^{-1}h(x,y))))=v(x^{a_0}y^{b_0})+v(c_{(a_0,b_0)})+v(1+c_{(a_0,b_0)}^{-1}h)=(a,b)+(0,0)+(0,0)=(a+b)$.
+
+    Therefore, $v(f)=w(f)$.
+
+    Thus, for $f \in k(x,y)$ s.t. $f \neq 0$.
+
+    Then consider $v(1)=v(ff^{-1}) \implies 0 = v(f) + v(f^{-1}) \implies v(f)=-v(f^{-1})$.
+
+    Thus, consider $f/g \in k(x,y)$.
+
+    This implies $v(f/g)=v(fg^{-1})=v(f)-v(g)=w(f)-w(g)=w(f/g)$. Therefore, $v=w$.
+\end{problemproof}
+
+\begin{problem}{}
+Let $v' : K \to \Gamma' \cup \{\infty\}$ be any valuation on $K$ such that $R = \{x \in K \mid v'(x) \geq 0\}$ is the
+valuation ring of $v'$. Prove that there is an injective order preserving group homomorphism
+$\phi : \Gamma \to\Gamma'$ such that $v'(x) = \phi(v(x))$ for all $x \in K^\times$.
+\end{problem}
+\begin{problemproof}
+    Define $\phi : \Gamma \to \Gamma'$ s.t. $\phi([x])= v'(x)$.
+
+    Well-Defined:
+
+    If $[x]=[y]$ in $\Gamma$ then $x/y, y/x \in R$ thus, $v(x/y),v(y/x) \geq 0$.
+
+    Thus, $v'(x)=v'(yxy^{-1})=v'(y)+v'(xy^{-1}) \geq v'(y)$ and $v'(y)=v'(xyx^{-1})=v'(x)+v'(yx^{-1}) \geq v'(x)$.
+
+    Therefore, $\phi([x])=v'(x)=v'(y)=v([y])$.
+
+    homomorphism:
+
+    Consider $\phi([x]+[y])=\phi([xy]) = v'(xy) = v'(x)+v'(y)=\varphi([x])+\varphi([y])$.
+
+    Order:
+
+    Let $[x] \leq [y]$ this implies $y/x \in R \implies v'(y/x) \geq 0$.
+
+    Thus, $\phi([y])=v'(y)=v'(xyx^{-1}) = v'(x) + v'(yx^{-1}) \geq v'(x) = \phi([x])$.
+    
+    Injective:
+
+    Let $[x] \in \Gamma$ s.t. $\phi([x]) = 0$.
+
+    This implies $v'(x)=0$ thus $0=-v'(x)=v'(x^{-1})$. This implies that $x,x^{-1} \in R$. Thus, $x/1 \in R$ and $1/x \in R$. This implies that $[1]=[x]$. Thus, $\phi([x])=\phi([1])=v'(1)=0$.
+
+    Thus, injective.
+
+    Also since $v(x)=[x]$ this implies $\phi(v(x))=\phi([x])=v'(x)$.
+\end{problemproof}
+\end{document}

@@ -1,0 +1,330 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+\newcommand{\skcgen}{{\sf Gen}} 
+\newcommand{\skcenc}{{\sf Enc}}
+\newcommand{\skcdec}{{\sf Dec}}
+\newcommand{\mac}{{\sf MAC}}
+\newcommand{\ver}{{\sf Vrfy}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW2 --- \thepage}
+\fancyhead[C]{\color{\TextColor}EECS 475}
+
+\begin{problem}{}
+    Suppose that $G : \{0, 1\}^n \to \{0, 1\}^{2n}$ is a secure pseudorandom generator
+that expands an $n$-bit random seed into a $2n$-bit pseudorandom string. For each of the
+following questions: first, give a YES/NO answer; if the answer is YES, please prove it; if
+the answer is NO, please provide a counter-example
+\end{problem}
+
+\begin{subproblem}{}
+    Let $\wedge$ denote the bit-wise and operation. Is $G((0^{n-1}|| 1) \wedge s)$ a secure pseudorandom
+generator that expands a random seed of length $n$ into a pseudorandom string of
+length $2n$?
+\end{subproblem}
+\begin{problemproof}
+    No, this is not secure since for $G(0^{n-1}||1 \wedge s)$ for a random $n$-bit string $s$. $G(0^{n-1}||1 \wedge s)$ is either
+    $G(0^n)$ or $G(0^{n-1}||1)$.
+
+    Now define a distinguisher $D$ s.t.
+    \[D(y)=\begin{cases*}
+        1 \quad \t{if } y \in \{G(0^n), G(0^{n-1}||1)\},\\
+        0 \quad \t{otherwise.}
+    \end{cases*}\]
+
+    If $y \leftarrow G((0^{n-1}|| 1) \wedge U_n)$, then $\P[D(y)=1]=1$
+
+    If $y \leftarrow U_{2n}$, then $\P[D(y)=1] = 2/2^{2n}$
+
+    Thus,
+
+    \[\P[D(G(0^{n-1}|| 1) \wedge U_n)=1] - \P[D(U_{2n})=1] \geq 1-2^{1-2n}\]
+
+    this is not negligible. Therefore, this is not a secure PRG.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Is $G(\t{first half of } G(s))\,||\,G(\t{second half of } G(s))$ a secure pseudorandom generator that
+maps $n$ bits to $4n$ bits?
+\end{subproblem}
+\begin{problemproof}
+    Consider these distributions:
+    \begin{itemize}
+        \item $X_0 = \{G(\t{first half of } G(s))\,||\,G(\t{second half of } G(s)) \mid s \overset{\$}{\leftarrow} \{0,1\}^n\}$
+        \item $X_1 = \{G(\t{first half of } s)\,||\,G(\t{second half of } s) \mid s \overset{\$}{\leftarrow} \{0,1\}^{2n}\}$ 
+                   
+                   $= \{G(x) || G(y) \mid x,y \overset{\$}{\leftarrow} \{0,1\}^{n}\}$
+        \item $X_2 = \{G(s) || x \mid s \overset{\$}{\leftarrow} \{0,1\}^{n} \t{ and } x \overset{\$}{\leftarrow} \{0,1\}^{2n}\}$
+        \item $X_3 = \{x || y \mid x,y \overset{\$}{\leftarrow} \{0,1\}^{2n}\} =  \{s \mid s  \overset{\$}{\leftarrow} \{0,1\}^{4n}\}$
+    \end{itemize}
+
+    Since we know that $G$ is a secure PRG we know that 
+    
+    $\{G(s) \mid s \overset{\$}{\leftarrow} \{0,1\}^{n}\} \approx \{s \mid s \overset{\$}{\leftarrow} \{0,1\}^{2n}\}$
+
+    This implies that $X_0 \approx X_1$ since a $2n$-bit string from $G$ or uniformly random looks the same, so taking the first and second half will also look the same.
+
+    Again since we know that 
+
+    $\{G(s) \mid s \overset{\$}{\leftarrow} \{0,1\}^{n}\} \approx \{s \mid s \overset{\$}{\leftarrow} \{0,1\}^{2n}\}$
+
+    This implies that $X_1 \approx X_2$, then again use the same thing, and we get $X_2 \approx X_3$.
+
+    Therefore, by hybrid argument we have shown that $X_0 \approx X_3$, and thus, this is a secure PRG.
+\end{problemproof}
+
+\begin{problem}{}
+    Determine whether the following $F : \{0, 1\}^{2n} \times \{0, 1\}^n \to \{0, 1\}^{2n}$ is a pseudo-
+random function. If yes, prove it; if not, describe and analyze a feasible distinguisher that
+has non-negligible advantage in distinguishing $F$ from random function family.
+\[F_k (x) := G(x) \oplus k \t{ where } G : \{0, 1\}^n \to \{0, 1\}^{2n} \t{ is a PRG.}\]
+\end{problem}
+\begin{problemproof}
+    No, this is not a secure PRF.
+
+    First choose distinct $x_1,x_2 \in \{0,1\}^n$. Query the oracle twice to get $y_i \leftarrow \mathcal{O}(x_i)$ then define $D$ s.t.
+    \[D(y_1,y_2) = \begin{cases}
+        1 \quad \t{if } y_1 \oplus y_2 = G(x_1) \oplus G(x_2),\\
+        0 \quad \t{otherwise.}
+    \end{cases}\]
+    Thus, $\P[D(y_1,y_2)=1 \mid y_i = G(x_i)]=1$, but for a truly random function $F$, since $y_1,y_2$ 
+    are independent and uniform across $\{0,1\}^{2n}$ this implies that $y_1 \oplus y_2$ is also uniform across $\{0,1\}^{2n}$.
+    Therefore, $\P[D(y_1,y_2)=1 \mid y_i = F(x_i)]=2^{-2n}$.
+
+    Therefore, the advantage is $1-2^{-2n}$ which is non negligible.
+\end{problemproof}
+
+\begin{problem}{}
+    Give a distinguisher that has non-negligible advantage in distinguishing the
+following $F' : \{0, 1\}^{2n} \times \{0, 1\}^{2n} \to \{0, 1\}^{2n}$ from a random function family.
+
+\phantom{text}
+
+$F'_{k_1||k_2} (x_1||x_2) := F_{k_1} (x_1)|| F_{k_2} (x_2)$ where $F : \{0, 1\}^n \times \{0, 1\}^n \to \{0, 1\}^n$ is a PRF and
+$|x_1| = |x_2|$. Here $k_1$ and $k_2$ are drawn uniformly from the keyspace of $F$.
+\end{problem}
+\begin{problemproof}
+    First choose distinct $x_1,x_2 \in \{0,1\}^n$. Query the oracle three times
+    \begin{itemize}
+        \item $\mathcal{O}(x_1 || x_1) = y_1 || y_1'$
+        \item $\mathcal{O}(x_1 || x_2) = y_2 || y_2'$
+        \item $\mathcal{O}(x_2 || x_1) = y_3 || y_3'$
+    \end{itemize}
+    then define $D$ s.t.
+    \[D(y_1||y_1', y_2|| y_2', y_3||y_3') \begin{cases*}
+        1 \quad \t{if } y_1=y_2 \t{ and } y_1' = y_3',\\
+        0 \quad \t{otherwise}.
+    \end{cases*}\]
+    Thus, $\P[D(y_1||y_1', y_2|| y_2', y_3||y_3')=1 \mid \mathcal{O}=F']=1$, but for a truly random function $H$, since
+    $x_1 || x_1, x_1 || x_2, x_2 || x_1$ are all distinct this implies that the three outputs from $H$ are all independent and uniform over $\{0,1\}^{2n}$.
+    Thus, $\P[D(y_1||y_1', y_2|| y_2', y_3||y_3') \mid \mathcal{O}=H]=2^{-n} \cdot 2^{-n}=2^{-2n}$.
+
+    Therefore, the advantage is $1-2^{-2n}$ which is non negligible.
+\end{problemproof}
+
+\begin{problem}{}
+    Consider two encryption schemes 
+$\Pi_1 = (\mathsf{Gen}_1, \mathsf{Enc}_1, \mathsf{Dec}_1)$ and 
+$\Pi_2 = (\mathsf{Gen}_2, \mathsf{Enc}_2, \mathsf{Dec}_2)$ 
+over the key space $\mathcal{K}$, message space $\mathcal{M}$ and ciphertext $\mathcal{C}$. 
+Suppose that $\mathcal{K} = \mathcal{M} = \mathcal{C}$.
+Now suppose that at least one of $\Pi_1$ and $\Pi_2$ is 
+CPA secure but you do not know which one. 
+Construct a CPA secure encryption scheme using $\Pi_1$ and $\Pi_2$.
+\\\\
+Please describe your construction and prove it correct and CPA secure, assuming that both encryption scheme are correct, and at least
+one of the underlying encryption schemes is CPA secure.
+Besides the two encryption schemes $\Pi_1$ and 
+$\Pi_2$, 
+please do not use other cryptographic 
+primitives in your construction.
+\end{problem}
+\begin{problemproof}
+    Define $\Pi' = (\mathsf{Gen}', \mathsf{Enc}', \mathsf{Dec}')$ s.t. $\skcgen'=\skcgen_1||\skcgen_2$,
+    $\skcenc'(k_1||k_2, m)=\skcenc_1(k_1 \skcenc_2(k_2, m))$, and $\skcdec'(k_1||k_2, c)=\skcdec_2(k_2, \skcdec_1(k_1, c))$, where $k_1||k_2$ is the key given from $\skcgen'$.
+
+    Correctness:
+
+    Given $\skcgen' = k_1||k_2$. Let $m \in \mathcal{M}$.
+
+    $\skcdec'(k_1||k_2, \skcenc'(k_1||k_2, m))=$ 
+    
+    $\skcdec_2(k_2, \skcdec_1(k_1, \skcenc_1(k_1, \skcenc_2(k_2, m))))=$
+    $\skcdec_2(k_2, \skcenc_2(k_2, m))=m$.
+
+    CPA secure:
+
+    Case 1: $\Pi_1$ is CPA secure.
+
+    Assume $D$ has non negligible advantage against $\Pi'$. Define $C$ s.t.
+    \[\begin{tikzcd}
+	\begin{array}{c} \square \\\Pi_1 \\ k_1 \leftarrow \skcgen_1 \end{array} && \begin{array}{c} C\\ k_2 \overset{}{\leftarrow}\skcgen_2 \end{array} && D \\
+	{c \leftarrow \skcenc_1(k_1, \skcenc_2(k_2,m_i)) } && {} && {} \\
+	\begin{array}{c} \end{array} && \begin{array}{c} \end{array} && \phantom{D}
+	\arrow["{\skcenc_1(k_1, c)}"', shift right=3, from=1-1, to=1-3]
+	\arrow["{\skcenc_2(k_2,m)=c}"', shift right=3, from=1-3, to=1-1]
+	\arrow["{\skcenc_2(k_2, c)}"', shift right=3, from=1-3, to=1-5]
+	\arrow["m"', shift right=3, from=1-5, to=1-3]
+	\arrow[shift right=5, from=1-5, to=1-5, loop, in=325, out=35, distance=10mm]
+	\arrow["c"', shift right=3, from=2-1, to=2-3]
+	\arrow["{\skcenc_2(k_2,m_0), \skcenc_2(k_2,m_1)}"', shift right=3, from=2-3, to=2-1]
+	\arrow["c"', shift right=3, from=2-3, to=2-5]
+	\arrow["{m_0,m_1}"',shift right=3, from=2-5, to=2-3]
+	\arrow["{\skcenc_1(k_1, c)}"', shift right=3, from=3-1, to=3-3]
+	\arrow["{\skcenc_2(k_2,m)=c}"', shift right=3, from=3-3, to=3-1]
+	\arrow["{\skcenc_1(k_1, c)}"', shift right=3, from=3-3, to=3-5]
+	\arrow["m"', shift right=3, from=3-5, to=3-3]
+	\arrow[shift right=5, from=3-5, to=3-5, loop, in=325, out=35, distance=10mm]
+    \end{tikzcd}\]
+    Then output what $D$ outputs. This implies that $C$ distinguishes $\Pi_2$. This implies if $\Pi_2$ is secure then $\Pi'$ is secure.
+
+    Case 2: $\Pi_2$ is CPA secure.
+
+    Assume $D$ has non negligible advantage against $\Pi'$. Define $C$ s.t.
+    \[\begin{tikzcd}
+	\begin{array}{c} \square \\\Pi_2 \\ k_2 \leftarrow \skcgen_2 \end{array} && \begin{array}{c} C\\ k_1 \leftarrow \skcgen_1 \end{array} && D \\
+	{c \leftarrow \skcenc_2(k_2, m_i)} && {} && {} \\
+	{} && {} && {\phantom{D}}
+	\arrow["{\skcenc_2(k_2, m)=c}"', shift right=3, from=1-1, to=1-3]
+	\arrow["m"', shift right=3, from=1-3, to=1-1]
+	\arrow["{{\skcenc_1(k_1, c)}}"', shift right=3, from=1-3, to=1-5]
+	\arrow["m"', shift right=3, from=1-5, to=1-3]
+	\arrow[shift right=5, from=1-5, to=1-5, loop, in=325, out=35, distance=10mm]
+	\arrow["c"', shift right=3, from=2-1, to=2-3]
+	\arrow["{m_0,m_1}"', shift right=3, from=2-3, to=2-1]
+	\arrow["{\skcenc_1(k_1,c)}"', shift right=3, from=2-3, to=2-5]
+	\arrow["{{m_0,m_1}}"', shift right=3, from=2-5, to=2-3]
+	\arrow["{\skcenc_2(k_2, m)=c}"', shift right=3, from=3-1, to=3-3]
+	\arrow["m"', shift right=3, from=3-3, to=3-1]
+	\arrow["{\skcenc_1(k_1,c)}"', shift right=3, from=3-3, to=3-5]
+	\arrow["m"', shift right=3, from=3-5, to=3-3]
+	\arrow[shift right=5, from=3-5, to=3-5, loop, in=325, out=35, distance=10mm]
+\end{tikzcd}\]
+    Then output what $D$ outputs. This implies that $C$ distinguishes $\Pi_1$. This implies if $\Pi_1$ is secure then $\Pi'$ is secure.
+
+    Therefore, in both cases we know that $\Pi'$ is secure given $\Pi_1$ or $\Pi_2$ is secure.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $F\colon \{0,1\}^n \times \{0,1\}^n \rightarrow \{0,1\}^n$ be a PRF. 
+  Consider the following\\ $\t{MAC}=(\skcgen,{\sf Mac},{\sf Vrfy})$ given by
+  \begin{itemize}
+    \item $\skcgen(1^n)$: outputs a uniformly random key $k\gets \{0,1\}^n$.
+    \item ${\sf Mac}(k,m)$: given a message $m=m_1\|m_2\in\{0,1\}^{2n}$, 
+      where $|m_1|=|m_2|=n$, output the tag $t:=F_k(m_1)\| F_k(F_k(m_2))$.
+    \item ${\sf Vrfy}(k,m,t)$: check whether ${\sf Mac}(k,m)=t$.
+  \end{itemize}
+  Is this MAC secure (existential unforgeabilty under chosen message attack)? Prove your answer either by giving a formal reduction
+  to $F$ being a PRF or by constructing a forger with non-negligible advantage
+  in the security game against MAC. 
+\end{problem}
+\begin{problemproof}
+    This is not secure. First pick $m \in \{0,1\}^{2n}$ s.t. $m=m_1||m_2$ where $m_1,m_2$ are distinct $n$-bit strings.
+    Query the oracle two times
+    \begin{itemize}
+        \item $\mac(m_1||m_1)=F_k(m_1)||F_k(F_k(m_1))=t_1$
+        \item $\mac(m_2||m_2)=F_k(m_2)||F_k(F_k(m_2))=t_2$
+    \end{itemize}
+    then return $(m, F_k(m_1)||F_k(F_k(m_2)))$ we can make this tag since we know the values from the queries before, and since $m$ has never queried before and the tag sent is valid this implies this is not 
+    MAC secure.
+\end{problemproof}
+
+\begin{problem}{}
+    For each of the following hash functions $H$, determine whether it
+  is \emph{necessarily} collision resistant. If it is, describe and
+  analyze an appropriate reduction. If it's not, describe and analyze
+  a feasible attacker against the collision resistance of $H$.
+\end{problem}
+
+\begin{subproblem}{}
+    $H^{s}(x) = H_1^{s}(x) \oplus H_2^{s}(x)$, where $\{H^s_1\}, \{H^s_2\}$ are both
+    collision-resistant hash functions families.
+\end{subproblem}
+\begin{problemproof}
+    False, let $\{H_1^s\}$ be a collision-resistant hash function family and let $\{H_2^s\}=\{H_1^s\}$. These are both collision
+    resistant
+
+    Then consider $H^s(x)=H_1^s(x) \oplus H_2^s(x)=H_1^s(x) \oplus H_1^s(x)=0^n$.
+
+    Thus, define an attacker $D$ s.t. $D$ returns $x,y \in \{0,1\}^n$ s.t. $x \neq y$. Then $H^s(x)=0^n=H^s(y)$. Thus, with probability 1 $D$ can find a collision.
+
+    Therefore, $H$ is not necessarily collision resistant.
+\end{problemproof}
+
+\begin{subproblem}{}
+    $H^s(x) = \widetilde{H}^s(\widetilde{H}^s(x))$, where $\{\widetilde{H}^s\}$ is a collision-resistant hash
+    function family (that can support arbitrary length inputs).
+\end{subproblem}
+\begin{problemproof}
+    Assume there exists a adversary $D$ that can produce a valid collision for $H^s$ with non negligible probability.
+\[\begin{tikzcd}
+	\square && C && D
+	\arrow["s", shift left=3, from=1-1, to=1-3]
+	\arrow["{}", shift left=3, from=1-3, to=1-1]
+	\arrow["s", shift left=3, from=1-3, to=1-5]
+	\arrow["{(m,m*)}", shift left=3, from=1-5, to=1-3]
+\end{tikzcd}\]
+Case 1: $\widetilde{H}^s(m)=\widetilde{H}^s(m*)$ return $m,m*$
+
+Case 2: $\widetilde{H}^s(m)\neq\widetilde{H}^s(m*)$ return $\widetilde{H}^s(m),\widetilde{H}^s(m*)$
+
+Therefore, in both cases we provide a valid collision for $\widetilde{H}^s$ with non negligible probability.
+
+Therefore, this implies if $\{\widetilde{H}^s\}$ is a collision-resistant hash function family then $\{H^s\}$ is also.
+\end{problemproof}
+\end{document}

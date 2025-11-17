@@ -1,0 +1,428 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW6 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    If $X$ is a topological space and $Z \subset X$ is an irreducible closed subset prove that when $X= \Spec(R)$ for a ring $R$,
+    every irreducible closed subset $Z \subset X$ has a unique generic point, given explicitly by $I(Z)$.
+\end{problem}
+\begin{problemproof}
+    Assume $X=\Spec(R)$ and $Z$ is an irreducible closed subset. Shown in class since there is a bijection between prime ideals and irreducible closed subsets
+    this implies that $Z=V(\p)$ for $\p \in \Spec(R)$.
+
+    Consider $V(\p) \cong \Spec(R \diagup \p)$.
+
+    Since $\Spec(R \diagup \p)$ is an integral domain this implies $(0)$ is a generic point since $(0)$ is prime in an integral domain. 
+    Consider $\overline{\{(0)\}}=V((0))=\Spec(R \diagup \p)$.
+
+    This is unique since for any $0 \neq \mf{q} \in \Spec(R \diagup \p) \implies \overline{\{\mf{q}\}}=V(\mf{q})$ but since $\mf{q} \neq 0 \implies \mf{q} \nsubseteq (0)$ thus, $(0) \notin V(\mf{q})$. 
+    So $\mf{q}$ is not dense then going back up to $\Spec(R)$ we get that $\{\p\}$ is the unique generic point.
+\end{problemproof}
+
+\qh[]
+\begin{subproblem}{}
+    Prove that $\p \in \Spec(R)$ is weakly associated prime of $M$ if and only if  there exists $m \in M$ s.t. $\p$ is a generic point of an irreducible component of $\Supp_R(m)$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\p \in \Spec(R)$ is a weakly associated prime of $M$. This implies that there exists an $m \in M$ s.t. $\p$ is a minimal element of the set of prime ideals $\{\mf{q} \in \Spec(R) \mid \Ann_R(m) \subset \mf{q}\}$.
+
+    Consider $\Supp_R(m) = \Supp_R(Rm) \implies \Supp_R(Rm) = V(\Ann_R(m))$ since $Rm$ is finitely generated.
+
+    Now since $V(\Ann_R(m)) \cong \Spec(R \diagup \Ann_R(m))$, and $\p$ is minimal over $\Ann_R(m)$ this implies that $\overline{\p}$ the image of $\p$ in $\Spec(R \diagup \Ann_R(m))$ is a minimal prime.
+
+    Proven in homework this implies that $\overline{\{\overline{\p}\}}=V(\overline{\p})$ is an irreducible component of $\Spec(R \diagup \Ann_R(m))$ which implies $V(\p)$ in $\Spec(R)$ is an irreducible component of $V(\Ann_R(m))$,
+    so $\p$ is a generic point of an irreducible component of $\Supp_R(m)$.
+
+    Assume there exists $m \in M$ s.t. $\p$ is a generic point of an irreducible component of $\Supp_R(m)$. This implies that $V(\p)$ is an irreducible component of $\Supp_R(m)=V(\Ann_R(m))$. Which implies that $\p$ is minimal over $V(\Ann_R(m))$ by using the fact that $V(\Ann_R(m)) \cong \Spec(R \diagup \Ann_R(m))$ thus, $\p$ is a weakly
+    associated prime of $M$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove the following conditions of $\p \in \Spec(R)$ are equivalent:
+    \begin{enumerate}[i.]
+        \item $\p$ is a weakly associated prime of $M$.
+        \item $\p R_\p$ is a weakly associated prime of $M_\p$.
+        \item There exists an element $m \in M_\p$ with $\sqrt{\Ann_{R_\p}(m)}=\p R_\p$
+    \end{enumerate}
+\end{subproblem}
+\begin{problemproof}
+    $i. \implies ii.$
+
+    Assume $\p$ is a weakly associated prime of $M$. Then there exists a $m \in M$ s.t. $\p$ is minimal over $\Ann_R(m)$.
+
+    Consider $\Ann_R(m) R_\p = \Ann_{R_\p}(m/1)$ this is true since $r/t \in \Ann_{R_\p}(m/1) \iff \exists u \in S : urm = 0 \in M \iff ur/ut \in \Ann_R(m) R_\p \iff r/t \in \Ann_R(m) R_\p$.
+
+    Also, since no prime $\mf{q} \nsubseteq \p$ contains  $\Ann_R(m)$ this implies that $\p R_\p$ is a minimal prime over $\Ann_R(m) R_\p = \Ann_{R_\p}(m/1)$. 
+    
+    This is because if $I \subset R$ is an ideal then the minimal primes over $I R_\p$ are exactly $\mf{q} R_\p$ where $\mf{q}$ is minimal over $I$ in $R$ with $\mf{q} \subset \p$.
+    
+    Therefore, $\p R_\p$ is a weakly associated prime of $M_\p$.
+
+    $ii. \implies i.$
+
+    Assume $\p R_\p$ is a weakly associated prime of $M_\p$. Then there exists a $m/s \in M_\p$ s.t. $\p R_\p$ is minimal over $\Ann_{R_\p}(m/s)=\Ann_{R_\p}(m/1) = \Ann_R(m) R_\p$.
+
+    Let $\mf{q}$ be a prime of $R$ minimal over $\Ann_R(m)$ with $\mf{q} \subset \p$. Then $\mf{q} R_\p$ is minimal over $\Ann_R(m) R_\p$, but this implies that $\mf{q} R_\p = \p R_\p$, therefore $\mf{q} = \p$. Therefore, $\p$ is minimal over
+    $\Ann_R(m)$ thus, $\p$ is a weakly associated prime of $M$.
+
+
+    $ii. \implies iii.$
+
+    Assume $\p R_\p$ is a weakly associated prime of $M_\p$. This implies there exists a $m/1 \in M_\p$ s.t. $\p R_\p$ is minimal over $\Ann_{R_\p}(m/1) = \Ann_R(m) R_\p$.
+
+    Since $\p R_\p$ is maximal this implies that no prime $\mf{q} \subsetneq \p R_\p$ contains $\Ann_R(m) R_\p$ by minimality. Since every prime is contained in $\p R_\p$, the only prime containing $\Ann_R(m)R_\p$ is $\p R_\p$.
+
+    Therefore, since $\sqrt{\Ann_R(m) R_\p}$ is the intersection of all primes that contain $\Ann_R(m) R_\p$ this implies that this is just equal to $\p R_\p$.
+
+    $iii. \implies ii.$
+
+    Assume there exists an element $m \in M_\p$ s.t. $\sqrt{\Ann_{R_\p}(m)}=\p R_\p$.
+
+    Let $\mf{q}$ be any prime of $R_\p$ s.t. $\Ann_{R_\p}(m) \subset \mf{q} \subset \p R_\p \implies \sqrt{\Ann_{R_\p}(m)} \subset \mf{q} \subset \p R_\p \implies \mf{q} = \p R_\p$. Therefore, $\p R_\p$ is the unique minimal prime over $\Ann_{R_{\p}}(m)$ therefore, $\p R_\p$ is a weakly associated prime of $M_\p$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Let $\p$ be an associated prime then $\Ann_R(m)=\p$ for $m \in M$ then $\p$ is trivially minimal over $\Ann_R(m)$. Hense, associated primes are a subset of weakly associated primes.
+
+    Let $\p$ be a weakly associated prime of $M$.
+
+    From problem set 5 since $R$ is noetherian we have 
+    \[\mf{q} \in \Ass_R(M) \iff \mf{q} R_{\mf{q}} \in \Ass_{R_\mf{q}}(M_\mf{q})\]
+    Therefore it suffices to show that $\p R_\p \in \Ass_{R_\p}(M_\p)$
+
+    By (b) this implies that there exists a $m \in M_\p$ s.t. $\sqrt{\Ann_{R_\p}(m)} = \p R_\p$.
+
+    Consider $R_\p m \cong R_\p \diagup \Ann_{R_\p}(m)$. Since $R$ is noetherian this implies $R_\p$ is also noetherian therefore $\Ass_{R_\p}(R_\p \diagup \Ann_{R_\p}(m))$ is equal to the primes minimal over $\Ann_{R_{\p}}(m)$.
+
+    Since the only minimal prime over $\Ann_{R_\p}(m)$ is $\p R_\p$ this implies $\p R_\p \in \Ass_{R_\p}(R_\p \diagup \Ann_{R_\p}(m))$.
+
+    Therefore, there exsits an $a \in R_\p$ s.t. $\bar{a} \in R_\p \diagup \Ann_{R_\p}(m)$ has $\Ann_{R_\p}(\bar{a})=\p R_\p$.
+
+    Then pulling back to $R_\p m$, the element $am \in M_\p$ staisfifes
+
+    \[\Ann_{R_\p}(am) = \p R_\p\]
+    This is because $b \in \Ann_{R_\p}(am) \iff bam = 0 \iff ba \in \Ann_{R_\p}(m) \iff \bar{b}\bar{a} = 0 \in R_\p \diagup \Ann_{R_\p}(m) \iff \bar{b} \in \Ann_{R_\p}(\bar{a})= \p R_\p$.
+
+    Therefore, $\p R_\p \in \Ass_{R_\p}(M_\p)$, thus $\p \in \Ass_R(M)$.
+
+    Therefore, $\Ass_R(M)=\{\p \in \Spec(R) \mid \p \t{ is a weakly associated prime of } M\}=\mathrm{wAss}_R(M)$
+
+    Then by (a) we get that 
+    
+    $\mathrm{wAss}_R(M)=\{\p \in \Spec(R) \mid \exists m \in M \t{ s.t. } V(\p) \t{ is an irreducible component of } \Supp_R(m)\}$
+
+    (3rd equality)
+
+    If $\p \in \Ass_R(M)$ then this implies $\Ann_R(m)=\p \implies V(\Ann_R(m))=\Supp_R(m)$.
+
+    Thus, $\Supp_R(m)=V(\p)$ is irreducible with generic point $\p$ due to the bijection between irreducible closed subsets and prime ideals.
+
+    If  $\Supp_R(m)$ is irreducible with generic point $\p$, then this implies that $\Supp_R(m)=V(\p)=V(\Ann_R(m))$. Applying $I$ this implies that $I(\Supp_R(m))=\p = \sqrt{\Ann_R(m)}$.
+
+    This implies that $\p$ is minimal over $\Ann_R(m)$, so $\p$ is a weakly associated prime thus it is an associated prime.
+
+    (4th equality)
+    
+    If $\p$ is an associated prime then this implies that $\p = \Ann_R(m)$ for $m \in M$. Thus, $\Supp_R(m)=V(\p) \implies I(\Supp_R(m))=\p$.
+    
+    If $\Supp_R(m)=V(\Ann_R(m))$ is irreducible then by the bijection between irreducible closed subsets and primes we get that $I(\Supp_R(m))$ is a prime ideal. This implies that $I(\Supp_R(m))=\p$ for some prime. This implies with the same argument as above since $I(\Supp_R(m))=\sqrt{\Ann_R(m)}=\p$ that
+    $\p$ is an associated prime.
+
+    Therefore, all equalities have been shown.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $\mf{q} = (x,y^2) \subset k[x,y]$. Prove that $\mf{q}$ is primary but is not a power of a prime ideal.
+\end{problem}
+\begin{problemproof}
+    Consider $\sqrt{\mf{q}}$. First $x \in \mf{q}$, so $x \in \sqrt{\mf{q}}$. Also, $y^2 \in \mf{q} \implies y \in \sqrt{\mf{q}}$. Thus, $(x,y) \subset \sqrt{\mf{q}}$, but since $\mf{q} \subset (x,y)$ and $(x,y)$ is maximal this implies $\sqrt{\mf{q}} \subseteq (x,y)$.
+
+    Therefore, $\sqrt{\mf{q}}=(x,y)$. Shown in class this implies that $\mf{q}$ is $(x,y)$-primary since $(x,y)$ is maximal.
+
+    If $\mf{q} = \p^n$ for some prime $\p$, then $\sqrt{q}=\p=(x,y)$. Reducing modulo $(y)$ we get
+
+    $\mf{q}=(x,y^2) \to (x)$, and $(x,y)^n \to (x^n)$.
+
+    If $\mf{q} = (x,y)^n$, we would get $(x)=(x^n)$ in $k[x]$, which implies $n=1$ which would imply $\mf{q} = (x,y)$ which is a contradiction. Therefore, $\mf{q}$ is not a power of a prime.
+\end{problemproof}
+
+
+\begin{problem}{}
+    Let $R=k[x,y,z] \diagup (xy-z^2)$ where  $k$ is a field.
+\end{problem}
+
+\begin{subproblem}{}
+    Show that the ideal $\p = (\bar{x},\bar{z})$ is prime.
+\end{subproblem}
+\begin{problemproof}
+    $R \diagup \p \cong k[x,y,z] \diagup (xy-z^2,x,z) \cong  k[y]$ which is a domain so $\p$ is prime.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\sqrt{p^2} = \p$, but $\p^2$ is not a primary ideal. Thus powers of prime ideals need not be primary in general.
+\end{subproblem}
+\begin{problemproof}
+    In any ring $\sqrt{I^n}=\sqrt{I}$, so $\sqrt{\p^2}=\p$.
+
+    Consider $\p^2=(x^2,xz,z^2)=(x^2,xz,xy)$
+
+    Consider $xy=z^2 \in \p^2$, but $x \notin \p^2$ and $y \notin \p$. Thus, $\p^2$ is not primary.
+\end{problemproof}
+
+\begin{subproblem}{}
+    On the other hand, prove if $A$ is a ring with a maximal ideal $\mf{m}$, then for any integer $n>0$ the ideal $\mf{m}^n \subset A$ is primary.
+\end{subproblem}
+\begin{problemproof}
+    Suppose $ab \in \mf{m}^n$ and $b \notin \mf{m}$. Since $(\mf{m},b) = A \implies s+tb=1$ for $s \in \mf{m}$ and $t \in A$. 
+    
+    Then $1=(s+tb)^n \in \mf{m}^n + (b)$.
+
+    This implies there exists a $u \in A$ and $r \in \mf{m}^n$ with $ub+r=1$. Thus, $a=(au)b+ar \in \mf{m}^n$. Therefore, $a \in \mf{m}^n$. Thus, $\mf{m}^n$ is $\mf{m}$-primary.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Going back to the ring $R$, find a minimal primary decomposition for the ideal $\p^2 \subset R$.
+\end{subproblem}
+\begin{problemproof}
+    WTS: $\p^2 = (x) \cap (x,y,z)^2 = (x) \cap (x^2,xy,xz,y^2,yz,z^2)$.
+
+    First, $\p^2=(x^2,xy,xz) \subset (x)$ and $\p^2 \subset (x,y,z)^2$
+
+    If $f \in (x) \cap (x,y,z)^2$ then $f=xg$ for $g \in R$. If $g$ had a nonzero constant term, $f$ would have a degree-1 component this contradicts $f \in (x,y,z)^2$ since $(x,y,z)^2$ has no polynomials with any degree one components. Therefore, $g \in (x,y,z)$, since it has no constant term.
+
+    Therefore, $f \in \p^2 = x(x,y,z)$.
+
+    Thus, $\p^2 = (x) \cap (x,y,z)^2$ which is a minimal primary decomposition since $(x)$ is prime so it is $(x)$-primary and $(x,y,z)^2$ is $(x,y,z)$-primary since it is a power of a maximal ideal.
+
+    Also, it is irredundant.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Find the associated primes of the $R$-module $R \diagup \p^2$.
+\end{subproblem}
+\begin{problemproof}
+    Since $k[x,y]$ is noetherian this implies $R$ is noetherian, and shown in class the associated primes of $R \diagup I$ are exactly the radicals of the primary components in a minimal primary decomposition of $I$.
+
+    Thus, $\Ass_R(R \diagup \p^2)  \{\p, (x,y,z)\}$
+\end{problemproof}
+
+\begin{problem}{}
+    Let $I \subset R$ be an ideal with primary decomposition $I = q_1 \cap \dots \cap q_n$. Let $\p_i = \sqrt{q_i}$.
+    Prove that the minimal elements in the set $\{\p \in \Spec(R) \mid I \subset \p\}$ coincide with the minimal elements in the set $\{\p_1,\dots,\p_n\}$
+\end{problem}
+\begin{problemproof}
+    Let $\p$ be a minimal prime over $I$. Then $I \subset \p \implies \sqrt{I} \subset \p$. Since $\sqrt{I} = \sqrt{\bigcap q_i} = \bigcap \sqrt{q_i} = \bigcap \p_i$.
+
+    Since  $\prod \p_i \subset \bigcap \p_i$ we have $\sqrt{\prod \p_i} \subset \bigcap \p_i$.
+
+    Let $x \in \bigcap \p_i$ then $x \in \p_i$ for all $i$. This implies that $x^n \in \prod \p_i$ thus $x \in \sqrt{\prod \p_i}$.
+
+    Therefore, $\sqrt{\prod \p_i} = \bigcap \p_i$.
+
+    This implies that $\prod \p_i \subset \p$ since $\p$ is radical. Since $\p$ is prime if none of the $\p_i$ were contained in $\p$ we could pick $a_i \in \p_i \setminus \p$ for each $i$. Then
+
+    $a_1a_2\dots a_n \in \prod \p_i \subset \p$. Since $\p$ is prime and $a_1\dots a_n \in \p$ it follwos that some $a_j \in \p$ contradicting the choice $a_j \notin \p$.
+
+    Thus, there must be some $j$ with $\p_j \subset \p$, but each $\p_j$ contains $I$, so by minimality of $\p$, we have $\p = \p_j$. Moreover, if 
+    some $\p_k \subset \p_j$, then $\p_k$ would also contain $I$, contradicting the minimality of $\p$. Thus, $\p$ is minimal among $\{\p_i\}$.
+
+    Let $\p_j$ be minimal among $\{\p_i\}$. Suppose there is a prime $\mf{q}$ with $I \subset \mf{q} \subsetneq \p_j$.
+
+    Then, as above, $\prod \p_i \subset \mf{q}$, so $\p_k \subset \mf{q}$ for some $k$. But then
+    $\p_k \subset \mf{q} \subsetneq \p_j$, which contradicts the minimality of $\p_j$ among the $\p_i$. Therefore, $\mf{q}$ does not exists and $\p_j$ is minimal over $I$.
+
+    Therefore, the minimal primes over $I$ are exactly the minimal elements among $\{p_i\}$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $\C[x_1, x_2, \dots]$ be the polynomial ring on infinitely many generators $x_i, i \in \Z_{>0}$ over the
+complex numbers, let $(x_1x_2, x_3x_4, x_5x_6, \dots)$ be the ideal generated by the products $x_ix_{i+1}$
+for odd $i \in \Z_{>0}$, and let $R =\C[x_1, x_2, \dots]\diagup(x_1x_2, x_3x_4, x_5x_6, \dots)$.
+\end{problem}
+\begin{subproblem}{}
+    Prove that $R$ contains infinitely many minimal prime ideals.
+\end{subproblem}
+\begin{problemproof}
+    For any subset $T \subset \Z_{>0}$, choose exactly one variable from each pair $\{x_{2k-1},x_{2k}\}$.
+    take $x_{2k-1}$ if $k \in T$ and $x_{2k}$ if $k \notin T$.
+
+    Define $\p_T = (\{\bar{x}_{2k-1} \mid k \in T\} \cup \{\bar{x}_{2k} \mid k \notin T\})$.
+
+    Let $K_T = \{x_{2k-1} \mid k \in T\} \cup \{x_{2k} \mid k \notin T\}$
+
+    Consider $R \diagup \p_T \cong \C[x_1, x_2, \dots] \diagup (I+(K_T))$
+
+    For each $k$, the generator $x_{2k-1}x_{2k} \in I$ has at least one factor in $(K_T)$.
+
+    This implies that $I \subset (K_T)$, so $I + (K_T) = (K_T)$.
+
+    Therefore, $R \diagup \p_T \cong \C[x_1,x_2,\dots] \diagup (K_T) \cong \C[\{x_1,x_2,\dots\} \setminus K_T]$ which is an integral domain.
+
+    Therefore, $\p_T$ is prime.
+
+    Consider $\p_T$ for some subset $T \subset \Z_{>0}$.
+
+    Let $\p \subset \p_T$.
+
+    For each $k$, we have $\bar{x}_{2k-1}\bar{x}_{2k} =0 \in \p$, so at least one factor is in $\p$ for all $k$.
+
+    However, for each $k$, if $k \notin T$ then $\bar{x}_{2k-1} \notin \p_T \implies \bar{x}_{2k-1} \notin \p \implies \bar{x}_{2k} \in \p$.
+
+    Also, if $k \in T$ then $\bar{x}_{2k} \notin \p_T \implies \bar{x}_{2k} \notin \p \implies \bar{x}_{2k-1} \in \p$. Thus, $\p$ contains all generators of $\p_T$. Thus, $\p_T=\p$.
+
+    Therefore, $\p_T$ is minimal. Thus, $R$ has infinitely many minimal primes.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that the zero ideal $(0) \subset R$ does not have a primary decomposition.
+\end{subproblem}
+\begin{problemproof}
+    If $(0)$ has a primary decomposition, it would be a finite intersection, so $R$ would only have finitely many primes over $(0)$ from problem 5. This is a contradiction since $R$ has infinitely many minimal primes which means infinitely many over $(0)$. Thus, $(0)$ does not have a primary decomposition in $R$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a ring and $S\subset R$ be a multiplicative system.
+\end{problem}
+
+\begin{subproblem}{}
+    Let $\p \subset R$ be a prime ideal and let $\mf{q} \subset R$ be a $\p$-primary ideal. Prove the following:
+    \begin{enumerate}[i.]
+        \item $S^{-1} \mf{q} = S^{-1}R$ if and only if $\p \cap S \neq \emptyset$.
+        \item If $\p \cap S = \emptyset$, then extension and contraction of ideals along the ring homomorphism $R \to S^{-1}R$
+              provides a bijection between $\p$-primary ideals $\mf{q} \subset R$ and $S^{-1}\p$-primary ideals in $S^{-1}R$.
+    \end{enumerate}
+\end{subproblem}
+\begin{problemproof}
+    Let $\p \subset R$ be prime and $\mf{q} \subset R$ be $\p$-primary.
+
+    i.:
+
+    Assume $S^{-1}\mf{q} = S^{-1}R$. This implies $\mf{q} \cap S \neq \emptyset$. Thus, let $s \in \mf{q} \cap S$. Thus, $s \in \mf{q} \implies s \in \sqrt{\mf{q}}=\p$. Therefore, $\p \cap S \neq \emptyset$.
+
+    Assume $\p \cap S \neq \emptyset$. Let  $s \in \p \cap S$. Then this implies $s \in \p = \sqrt{\mf{q}} \implies s^n \in \mf{q}$ for $n \in \N$, but since $S$ is a multiplicative system this implies $s^n \in S$. Therefore,
+    $\mf{q} \cap S \neq \emptyset$.
+    
+    ii.:
+
+    Assume $\p \cap S \neq \emptyset$.
+
+    If $\mf{q}$ is $\p$-primary then
+
+    Since $\sqrt{\mf{q}} = \p$ and $\p \cap S = \emptyset$, this implies that $\sqrt{S^{-1}\mf{q}}=S^{-1}\sqrt{\mf{q}}=S^{-1}\p$.
+
+    Let $a/s \cdot b/t \in S^{-1}\mf{q}$ and $a/s \notin S^{-1}\mf{q}$, then there is a $u \in S$ s.t. $uab \in q$.
+
+    If $b/t \notin S^{-1}\p$ then  $b \notin \p$. Since $\mf{q}$ is $\p$-primary and $a(ub) \in \mf{q}$ with $ub \notin \p$, we get $a \in \mf{q} \implies a/s \in S^{-1}\mf{q}$ which is a contradiction. Thus, $b/t \in S^{-1}\p$.
+    Therefore, $S^{-1}\mf{q}$ is $S^{-1}\p$-primary.
+
+    If $Q$ is $S^{-1}\p$-primary, then let $Q^c = \mf{q}$.
+
+    $\sqrt{\mf{q}}=(\sqrt{Q})^c = (S^{-1}\p)^c = \p$. If $ab \in \mf{q}$ and $b \notin \p$, then $a/1,b/1 \in Q$ and $b/1 \notin S^{-1}\p$, so $a/1 \in Q \implies a \in \mf{q} = Q^c$. Thus, $\mf{q}$ is $\p$-priamry.
+
+    Therefore, this is a bijection.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $I \subset R$ be an ideal with a primary decomposition $I = \mf{q}_1 \cap \dots \cap \mf{q}_n$, and let $\p_i = \sqrt{\mf{q}_i}$.
+    Prove that $S^{-1}I$ is a proper ideal in $S^{-1}R$ if and only if there exists an $i$ s.t. $S \cap \p_i = \emptyset$, and in this case prove that
+    \[S^{-1}I = \bigcap_{\p_i \cap S = \emptyset} S^{-1}\mf{q}_i \t{ and } \varphi^{-1}(S^{-1}I) = \bigcap_{\p_i \cap S = \emptyset} \mf{q}_i\]
+    are primary decompositions, where $\varphi: R \to S^{-1}R$ is the localization homomorphism.
+\end{subproblem}
+\begin{problemproof}
+    Let $I=\bigcap \mf{q}_i$ be a primary decomposition.
+
+    First $S^{-1}I = \bigcap_i S^{-1}\mf{q}_i$. By (a), $S^{-1}\mf{q}_i=S^{-1}R$ iff $\p_i \cap S \neq \emptyset$. Therefore,
+
+    $S^{-1}I \t{ is proper } \iff \exists i$ with $S^{-1}\mf{q_i} \neq S^{-1}R \iff \exists i$ with $\p_i \cap S = \emptyset$
+
+    In the proper case we have,
+
+    $S^{-1}I = \bigcap S^{-1}\mf{q}_i = \bigcap_{\p_i \cap S = \emptyset} S^{-1}\mf{q}_i$
+
+    By (a) we also know that each $S^{-1}\mf{q}_i$ is $S^{-1}\p_i$-primary, thus $\bigcap_{\p_i \cap S = \emptyset} S^{-1}\mf{q}_i$ is a primary decomposition in $S^{-1}R$.
+
+    Again by (a) using the bijection we get that
+
+    $\varphi^{-1}(S^{-1}I)=\varphi^{-1}\left( \bigcap_{\p_i \cap S = \emptyset} S^{-1}\mf{q_i} \right) = \bigcap_{\p_i \cap S = \emptyset} \varphi^{-1}(S^{-1}\mf{q}_i)=\bigcap_{\p_i \cap S = \emptyset} \mf{q_i}$
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Let $I = \bigcap \mf{q}_i$ be a minimal primary decomposition. Fix $i$ s.t. $\p_i$ is minimal among $\{\p_j\}$.
+
+    Let $S = R \diagup \p_i$
+
+    By $(b)$ applied to $S$, only the components with $\p_j \cap S = \emptyset$ survive upon localizing at $\p_i$, but since $\p_i$ is minimal in the set $\{\p_j\}$. the only such $j$ is $j=i$.
+
+    Therefore, $I R_{\p_i} = \mf{q}_i R_{\p_i}$.
+
+    Now contradicting back we get $\varphi^{-1}(I R_{\p_i}) = \varphi^{-1}(\mf{q}_i R_{\p_i}) = \mf{q}_i$, where the last equality uses (a).
+\end{problemproof}
+\end{document}

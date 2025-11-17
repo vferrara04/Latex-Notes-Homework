@@ -1,0 +1,253 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW9 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+
+\begin{problem}{}
+    Let $R$ be a noetherian ring such that $\Spec(R)$ is finite. Prove that $\dim R \leq 1$, and give an
+example for which $\dim R = 1$.
+\end{problem}
+\begin{problemproof}
+    Assume $R$ is noetherian and that $\Spec(R)$ is finite.
+
+    Let $\p \in \Spec(R)$. Let $\{\mf{q}_1,\dots,\mf{q}_n\}$ be the primes in $\Spec(R)$ that do not contain $\p$.
+    This is a finite list since $\Spec(R)$ is finite.
+
+    By the prime avoidence lemma this implies that $\p \nsubset \bigcup_{i=1}^n \mf{q}_i$.
+
+    This implies there exists an $x \in \p \setminus \bigcup_{i=1}^n \mf{q}_i$.
+
+    If $\tau \nsupset \p$ and $\tau \in \Spec(R)$ this implies that $\tau = \mf{q}_i$ for some $i$. Thus, $x \notin \tau$.
+    
+    If $\tau \supset \p$ and $\tau \in \Spec(R)$ this implies that $x \in \tau$.
+
+    Thus, $x \in \tau \iff \p \subset \tau$.
+
+    This implies $V(x) = \{\mf{q} \in \Spec(R) \mid x \in \mf{q}\} = \{\mf{q} \in \Spec(R) \mid \p \subset \mf{q}\} = V(\p)$.
+
+    This implies that $\sqrt{(x)} = \sqrt{\p} = \p$.
+
+    Thus, $\p$ is minimal over $(x)$.
+
+    Therefore, by the principle ideal theorem this implies that $\dim \p \leq 1$.
+
+    Thus, since $\p$ is arbitrary we get that $\dim R \leq 1$.
+
+    Example $\Z_{(p)}$ s.t. $p$ is prime. The prime ideals in here are $(0),(p)R_{(p)}$. Thus, $\dim \Z_{(p)} = 1$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a noetherian ring, and let $R[x]$ be the polynomial ring over $R$ in one variable. Let
+$R[x, x^{-1}]$ be the localization of $R[x]$ at the element $x$. Prove that $\dim R[x, x^{-1}] = \dim R + 1$.
+
+\end{problem}
+\begin{problemproof}
+    Assume $R$ is noetherian.
+
+    Shown in class $\dim R[x] = \dim R + 1$. Also, shown in class since $R[x,x^{-1}]$ is a localization of $R[x]$ this implies $\dim R[x,x^{-1}] \leq \dim R[x] = \dim R + 1$.
+
+    First if $\dim R = \infty$ then we can extend a chain to $R[x]$ by just changing $\p$ with $\p[x]$ which was proven prime in class.
+    Then extending $R[x,x^{-1}]$ since $x \notin \p[x]$ for any prime $\p$ this implies that this is also a chain in $R[x,x^{-1}]$ since primes in $R[x]$ s.t. $x$ is not in the prime are in bijection with primes in $R[x,x^{-1}]$.
+
+    Thus, $\dim R[x,x^{-1}] = \infty = \dim R + 1$
+
+    If $\dim R$ is finite.
+    
+    Let $\p_0 \subsetneq \p_1 \subsetneq \dots \subsetneq \p_n$ be a max chain of prime ideals in $R$ where $n = \dim R$.
+
+    First we can extend this to $\p_0[x] \subsetneq \p_1[x] \subsetneq \dots \subsetneq \p_n[x]$.
+    
+    Also consider $\p_n[x] + (x+1)$ this is also prime since $R[x] \diagup (\p_n[x] + (x+1)) \cong R \diagup \p_n$.
+
+    Thus, $\p_0[x] \subsetneq \p_1[x] \subsetneq \dots \subsetneq \p_n[x] \subsetneq \p_n[x] + (x+1)$ is a chain. Also, since $x$ is not in any of these prime ideals.
+    
+    This implies that this is also a chain in $R[x,x^{-1}]$. Thus, $\dim R[x,x^{-1}] \geq \dim R + 1$.
+
+    $\dim R[x,x^{-1}] = \dim R + 1$.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a noetherian ring.
+\end{problem}
+\begin{subproblem}{}
+    Show that if $\p \subset R$ is a prime ideal, then for any $n \geq 1$ its $n$th symbolic power $\p^{(n)}$
+is the smallest $\p$-primary ideal containing $\p^n$. That is, if $\mf{q}$ is another $\p$-primary ideal
+containing $\p^n$, then $\p^{(n)} \subset \mf{q}$.
+\end{subproblem}
+\begin{problemproof}
+    Let $\p$ be a prime ideal of $R$.
+
+    Assume $\mf{q}$ is $\p$-primary ideal s.t. $\p^n \subset \mf{q}$.
+
+    Let $x \in \p^{(n)} \implies \exists s \notin \p$ s.t. $sx \in \p^n \subset \mf{q}$.
+
+    Thus, $xs \in \mf{q}$. Since $\mf{q}$ is $\p$-primary this implies either $x \in \mf{q}$ or $s^n \in \p$, but if $s^n \in \p \implies s \in \p$ which is a contradiction.
+
+    Therefore, $x \in \mf{q}$. Thus, $\p^{(n)} \subset \mf{q}$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Show that if $\mf{m} \subset R$ is a maximal ideal, then $m^n = m^{(n)}$ for all $n \geq 1$
+\end{subproblem}
+\begin{problemproof}
+    Let $\mf{m}$ is a maximal ideal.
+
+    Consider $\mf{m}^n$. First $\mf{m}^n \subset \mf{m}^{(n)}$
+    
+    Since $\sqrt{\mf{m}^n}=\mf{m}$ is maximal this implies that $\mf{m}^n$ is $\mf{m}$-primary.
+    
+    Thus, by $(a)$ this implies that $\mf{m}^{(n)} \subset \mf{m}^n$.
+
+    Therefore, $\mf{m}^{(n)} = \mf{m}^n$
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R$ be a noetherian ring and $f \in R$.
+\end{problem}
+\begin{subproblem}{}
+    Prove that if $f$ is non-zerodivisor in $R$, then $\dim R \diagup (f) \leq \dim R -1$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $f$ is a non-zerodivisor.
+
+    Assume for contradiction that $f \in \p$ s.t. $\p$ is a minimal prime.
+
+    Thus, consider $R_\p$. Since there is only one maximal ideal in the localization this implies it is artinian.
+
+    Thus, $\p R_\p^n =0$ for some $n \in \N$. This implies that $f^n/1 =0$. Thus, there exists an $s \notin \p$ s.t. $sf^n=0$. Since $f$ is a non-zero divisor this implies $s=0$. This is a contradiction though.
+
+    Thus, $f$ is not in any minimal prime.
+
+    Therefore, the length of chains of primes that contain $f$ is at most length $\dim R - 1$ since $f$ is not in any minimal primes.
+
+    Therefore, since there is a bijection between primes in $R$ that contain $f$ and primes in $R \diagup (f)$. This implies that $\dim R \diagup (f) \leq \dim R - 1$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    If $(R, \mf{m})$ is a local ring and $f \in \mf{m}$, prove that $\dim R-1 \leq \dim R \diagup (f) \leq \dim R$.
+In particular, if $f$ is also a non-zerodivisor, then by the previous part we have
+$\dim R \diagup (f) = \dim R-1$.
+\end{subproblem}
+\begin{problemproof}
+    Assume $(R, \mf{m})$ is a local ring and $f \in \mf{m}$.
+
+    Let $\p$ be a minimal prime over $f$.
+
+    By the principle ideal theorem this implies that $\mathrm{codim}(\p) \leq 1$.
+
+    This implies a max length chain that starts at $(\p)$ is $\mathrm{codim}(\mf{m})-\mathrm{codim}(\mf{\p}) \geq \dim R - 1$.
+
+    Thus, $\dim R \diagup (f) \geq \dim R - 1$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Give an example of a local ring $(R, m)$ and $f \in \mf{m}$ such that $\dim R - 1 = \dim R \diagup (f)$,
+and give an example so that $\dim R = \dim R \diagup (f )$.
+\end{subproblem}
+\begin{problemproof}
+    \begin{itemize}
+        \item Consider $k[[x]]$ formal power series of a field $k$ in one variable. Proven in 494 $f \in k[[x]]$ is a unit if and only if $a_0 \neq 0$.
+        Thus, the set of non units is exactly $(x)$. A proper ideal in $k[[x]]$ cannot contain a unit, thus every proper ideal is contained in $(x)$. Thus, $(x)$ is the unique maximal ideal.
+
+        Let $f \in k[[x]]$ be non zero. Let $a_n$ be the first term that is non zero in $f$. This implies that $f=t^n \cdot u$ s.t. $u$ is a unit since its first term is non-zero which implies it is a unit.
+
+        Let $I \neq 0$ be an ideal. Let $f \in I$ s.t. $f=x^n \cdot u$ where $n$ is minimal amount all elements in $I$. This comes from the well ordering principle since these powers are bounded below by zero and all natural numbers.
+
+        Thus, $x^n = f \cdot u^{-1} \in I$. Thus, $(x^n) \subset I$.
+        Let $g \in I$. Write $g=x^m \cdot v$. Since $n$ is minimal we have that $n \leq m$, so $g \in (x^n)$.
+
+        Thus, $I=(x^n)$. Thus, every non-zero ideal in $k[[x]]$ is of the form $(x^n)$ for $n \geq 0$.
+
+        Lets consider prime ideals now
+       
+        Since $k[[x]]$ is a domain $(0)$ is prime.
+
+        Now let $\p \neq 0$ be prime. Let $0 \neq f \in \p$. As above we have that $f=x^n u$ since $u$ is a unit this implies $x^n \in \p \implies x \in \p$. Thus, $x \in \p$, so $\p = (x)$. Therefore,
+        the only prime ideals are $(0)$ and $(x)$. Thus, the max chain is $(0) \subsetneq (x)$. Thus, $k[[x]]$ is dimension one.
+
+        Also, $k[[x]] \diagup (x) \cong k$ which is dimension zero. Thus, $\dim k[[x]] - 1 = \dim k[[x]] \diagup (x)$.
+        \item Consider $R=\R$ then since $(0)$ is the only prime ideal thus maximal we get that $\dim \R = 0 = \dim \R \diagup (0)$
+    \end{itemize}
+\end{problemproof}
+
+\begin{problem}{}
+    
+\end{problem}
+\begin{problemproof}
+    Since $A=k[x]_{(x)}$ this implies that $\dim A \leq \dim k[x]=1$, but since we have the chain $(0) \subsetneq (x)$ in $A$ this implies $\dim A =1$.
+
+    Let $R=A[t]$. Since $A$ is noetherian this implies that $\dim R = \dim A[t] = \dim A + 1 = 2$.
+
+    Consider $A[t] \diagup (xt-1) \cong A[1/x]$.
+
+    Since $A=k[x]_{(x)}$. This implies we inverted everything that has a non zero constant term. Then in $A[1/x]$ we then localize again and invert $x$ which then inverts non-zero polynomials with zero in the constant term.
+
+    Thus, we have inverted $k[x] \setminus {0}$. Therefore, $A[1/x] \cong k(x)$. Therefore, $(xt-1)$ is a maximal ideal.
+
+    Thus, $\dim R \diagup \p = 0$.
+
+    Also, since $R$ is noetherian by the principle ideal theroem we get that $\mathrm{codim}(\p) \leq 1$. Since $R$ is a domain this implies that $(0) \subset \p$. Thus, $\p$ has codimension 1.
+\end{problemproof}
+\end{document}

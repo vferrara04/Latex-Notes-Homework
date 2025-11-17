@@ -1,0 +1,420 @@
+\documentclass[12pt, twocolumn]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\let\openbox\relax
+\usepackage{amsthm}
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=0.4in,top=0.6in,right=0.4in,bottom=0.4in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../theorems}
+
+\definecolor{thmscol}{HTML}{FFFFFF} %For Theorems
+\definecolor{defscol}{HTML}{FFFFFF} %For definitions
+\definecolor{exmscol}{HTML}{FFFFFF} %For examples
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{black}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+
+\newcommand{\skcgen}{{\sf Gen}} 
+\newcommand{\skcenc}{{\sf Enc}}
+\newcommand{\skcdec}{{\sf Dec}}
+\newcommand{\mac}{{\sf MAC}}
+\newcommand{\ver}{{\sf Vrfy}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\pagecolor{white}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{Midterm --- \thepage}
+\fancyhead[C]{EECS 475}
+
+\section{Perfect Secrecy}
+\vspace{-0.2in}
+\defn{Correctness}{
+    $\forall k \in \mathrm{Im}(\skcgen), \forall m \in \mathcal{M},$
+    \vspace{-0.2in}
+    \[\skcdec(k,\skcenc(k,m))=m\]
+}
+\vspace{-0.2in}
+\defn{Shannon \\Secrecy}{
+    An encryption scheme $(\skcgen, \skcenc, \skcdec)$ with message space $\mathcal{M}$
+    is said to be Shannon Secret if for every probability distribution over
+    $\mathcal{M}$, $\forall m \in \mathcal{M}$, and $\forall c \in \mathcal{C}$
+    for which $\P[c \in \mathcal{C}] > 0$,
+    \vspace{-0.2in}
+    \[\P[M = m \mid C =c ] = \P[M=m]\]
+}
+\vspace{-0.2in}
+\defn{Perfect Secrecy}{
+    An encryption scheme $(\skcgen, \skcenc, \skcdec)$ with message space $\mathcal{M}$
+    is said to be Perfectly Secret if $\forall m_0, m_1 \in \mathcal{M}, \forall c \in \mathcal{C}$
+    \vspace{-0.2in}
+    \[\P[C = c \mid M=m_0] = \P[C = c \mid M=m_1]\]
+}
+\vspace{-0.2in}
+\thm{}{
+    Perfect Secrecy is equivalent to Shannon Secrecy
+}
+\vspace{-0.2in}
+\thm{}{
+    If an encryption scheme $(\skcgen, \skcenc, \skcdec)$ is perfectly secret
+    with message space $\mathcal{M}$ and key space $\mathcal{K}$, then $|\mathcal{K}| \geq |\mathcal{M}|$
+}
+\vspace{-0.2in}
+\defn{One-Time Pad}{
+    $\mathcal{M}=\mathcal{C}=\mathcal{K}=\{0,1\}^\ell, \t{ where } \ell \geq 1$\\
+    $\skcgen : k \overset{\$}{\leftarrow} \mathcal{K}$, 
+    
+    $\skcenc(k,m) : c = m \oplus k$, 
+    
+    $\skcdec(k,m) : c \oplus k$
+}
+\vspace{-0.4in}
+\subsection{Flaws with perfect secrecy}
+\begin{itemize}
+    \item Can't use same key twice.
+    \item Key must be chosen uniformly at random and be at least as long as the message.
+\end{itemize}
+
+\section{Negligible Functions}
+\vspace{-0.2in}
+\defn{Negligible Function}{
+    A non-negative function $\epsilon$ is negligible if for all $c \geq 0$ there exists
+    a $N \in \N$ s.t. for all $n \geq N$
+    \vspace{-0.2in}
+    \[\epsilon(n) \leq 1/n^c\]
+}
+\vspace{-0.2in}
+\thm{}{
+    For $f,g$ polynomially bounded functions and negligible functions $\epsilon$ and $\phi$.
+    \vspace{-0.15in}
+    \begin{itemize}
+        \item $f \cdot \epsilon = \eta$
+        \vspace{-0.2in}
+        \item $f+g=h$, $f \cdot g = h'$
+        \vspace{-0.2in}
+        \item $\epsilon + \phi = \eta'$, $\epsilon \cdot \phi = \eta''$
+    \end{itemize}
+    \vspace{-0.2in}
+    For $\eta,\eta',\eta''$ negligible functions and $h,h'$ polynomially bounded functions.
+}
+\vspace{-0.45in}
+\section{Computationally Secure}
+\vspace{-0.2in}
+\defn{Computationally\\ Indistinguishable}{
+    \small Given ensembles $\{X_n^0\}_{n \in \N}$ and $\{X_n^1\}_{n \in \N}$
+    where $X_n$ are distributions over $\{0,1\}^{\ell(n)}$ where $\ell$ is some polynomial,
+    we say that $\{X_n^0\}_{n \in \N}$ and $\{X_n^1\}_{n \in \N}$ are computationally
+    Indistinguishable iff $\forall $ PPT $\mathcal{A}$, there exists a $\mathrm{negl}(\cdot)$ s.t.
+    for all $n \in \N$,
+
+    (Predictor):
+    \vspace{-0.2in}
+    \[\P[b \leftarrow \{0,1\}, x \leftarrow X^b_n \mid \mathcal{A}(x)=b] \leq 1/2 + \mathrm{negl}(n)\]
+    
+    \vspace{-0.2in}
+    (Decider):
+    \vspace{-0.2in}
+    \[|\P[x \leftarrow X_n^0 \mid \mathcal{A}(x)=1] - \P[x \leftarrow X_n^1 \mid \mathcal{A}(x)=1]|\] 
+    \vspace{-0.4in}
+    \[\leq \mathrm{negl}(n)\]
+}
+\vspace{-0.2in}
+\thm{}{
+    Computationally Indistinguishable ensembles are closed under efficient operations and transitive up to a polynomial amount.
+}
+\vspace{-0.2in}
+\defn{EAV Security}{
+    $\mathsf{EXPT}_{EAV}^{b, \mathcal{A}}(1^n)$: $\mathcal{A}$ sends two messages of the same length $(m_0,m_1)$ then the challenger chooses one of the two messages depending on the parameter $b$
+    then returns $c_b$ to the $\mathcal{A}$. Then $\mathcal{A}$ outputs its guess $b'$.
+}
+\section{Pseudorandom Generators}
+\vspace{-0.15in}
+\defn{PRG}{
+    A determ. algo $G : \{0,1\}^n \to \{0,1\}^{\ell(n)} \in \mathsf{P}$ is a PRG if
+    \vspace{-0.2in}
+    \begin{itemize}
+        \item expansion: $\forall n, \ell(n) > n$.
+        \vspace{-0.2in}
+        \item pseudoran: $\{s \leftarrow U_n \mid G(s)\}_n \approx U_{\ell(n)}$
+    \end{itemize}
+}
+\vspace{-0.2in}
+\defn{PRG One-Time Pad}{
+    Same as One-Time pad but instead of $\oplus k$ do $\oplus G(k)$.
+    Can't reuse key.
+}
+\vspace{-0.45in}
+\section{Multi-msg Security}
+\vspace{-0.2in}
+\defn{Multi-EAV Security}{
+    $\mathsf{EXPT}^{b,\mathcal{A}}_{\mathrm{Meav}}(1^n)$:
+    $\mathcal{A}$ sends two vectors of messages where $|m_{0,i}|=|m_{1,i}|$ for all $i$. 
+    The challenger chooses one of the two vectors and returns one back encrypted. $\mathcal{A}$ outputs its guess $b'$.
+}
+\vspace{-0.2in}
+\defn{Multi-CPA Security}{
+    $\mathsf{EXPT}^{b,\mathcal{A}}_{\mathrm{LRcpa}}(1^n)$:
+    $\mathcal{A}$ can query the oracle $\mathrm{LR}_k^b$ a polynomial times with $m_0^i,m_1^i$ and each time the oracle will
+    always return either the left message encryption or the right message. Then $\mathcal{A}$ outputs its guess. 
+    
+}
+\vspace{-0.2in}
+\defn{CPA Security}{
+    $\mathsf{EXPT}^{b,\mathcal{A}}_{\mathrm{cpa}}(1^n)$: This basically the Multi-CPA exp. 
+    First make queries then input actual challenge it sends back then query then guess.
+}
+\vspace{-0.2in}
+\thm{}{
+    Multi-CPA $\implies$ Multi-EAV\\
+    Multi-CPA $\iff$ CPA
+}
+\vspace{-0.2in}
+\thm{}{
+    In order for a scheme to be CPA secure, it must have randomized encryption.
+}
+\section{Pseudorandom Functions}
+\vspace{-0.15in}
+\defn{PRF}{
+    A determ. algo $F : \mathcal{K} \times \{0,1\}^n \to \{0,1\}^n \in \mathsf{P}$ is a PRF if
+    
+    $\{k \leftarrow \mathcal{K}, x \leftarrow U_n \mid F_k(x)\} \approx$ 
+    \\$\{x \leftarrow U_n \mid F(x)\} \approx U_n$ where $F$ is a uniformly random function.
+}
+\vspace{-0.2in}
+\thm{}{
+    PRG $\iff$ PRF
+}
+\vspace{-0.2in}
+\defn{CPA secure with PRF}{
+    Let $F$ be PRF. 
+    
+    $\skcgen(1^n): k \overset{\$}{\leftarrow} \{0,1\}^n$
+
+    $\skcenc(k,m): r \overset{\$}{\leftarrow} \{0,1\}^n, c = <r, F_k(r) \oplus m>$
+
+    $\skcdec(k,<r,c'>): m := F_k(r) \oplus c'$
+}
+\vspace{-0.45in}
+\section{MAC}
+\vspace{-0.15in}
+\defn{EU MAC}{
+    $\mathsf{EXPT}_{EU}^\mathcal{A}(1^n)$
+    $\mathcal{A}$ queries then guesses $(m,t)$.
+    If $\mathsf{Vrfy}(k,m,t)=1$ and $m$ not queried by $\mathcal{A}$ then output 1.
+}
+\vspace{-0.2in}
+\defn{SEU MAC}{
+    $\mathsf{EXPT}_{SEU}^\mathcal{A}(1^n)$
+    Same game but succeeds if the guess $(m,t)$ has not been seen before.
+}
+\vspace{-0.2in}
+\thm{}{
+    If a MAC with canonical verification EU then it is SEU
+
+    $\mathrm{Vrfy}(k,m,t)=1$ if $\mathrm{MAC}(k,m)=t$ this implies MAC is determinitistic
+}
+\vspace{-0.2in}
+\defn{PRF MAC}{
+    Let $F$ be a PRF.
+    
+    $\mathsf{MAC}(k,m) = F_k(m) = t$
+
+    $\mathsf{Vrfy}(k,m,t) = $ Canonical
+}
+\defn{MAC for Arb len}{
+    Let MAC' be secure for $n$-bit msg.
+    
+    $\mathsf{MAC}(k,m)$: part $m=m_1||m_2||\dots||m_d$, where $|m_i|=n/4$. Let $r \overset{\$}{\leftarrow} U_{n/4}$,
+    then let $t_i = \mathsf{MAC}'(k, r||l||i||m_i)$ then let $t=(r,t_1,\dots,t_d)$.
+}
+\vspace{-0.45in}
+\section{Hash Functions}
+\vspace{-0.15in}
+\defn{Hash Family}{
+    A determ. algo $H: \mathcal{K} \times \{0,1\}^* \to \{0,1\}^n$ s.t. $*=$Arb len.
+}
+\vspace{-0.2in}
+\defn{Collision Resistant}{
+    $\mathsf{EXPT}^\mathcal{A}(1^n)$ The challenger sends the key $s$ then the has polynomial time to send back $(x,y)$ s.t. $H^s(x)=H^s(y)$.
+    succeeds if it finds a pair.
+}
+\vspace{-0.2in}
+\defn{Hash MAC}{
+    Let MAC' be a secure $n$-bit msg.
+
+    $\mathsf{MAC}((k,s),m)=\mathsf{MAC'}(H^s(m))$
+}
+\[\begin{tikzcd}
+	&& {0,3} \\
+	& {0,1} & {2,3} \\
+	0 & 1 & 2 & 3
+	\arrow[from=2-2, to=1-3]
+	\arrow[from=2-3, to=1-3]
+	\arrow[from=3-1, to=2-2]
+	\arrow[from=3-2, to=2-2]
+	\arrow[from=3-3, to=2-3]
+	\arrow[from=3-4, to=2-3]
+\end{tikzcd}\]
+Merkle path is the nodes you needed to construct the root.
+
+User only has to store the root digest to verify all of tree. To update a block for example block 1
+all the server has to send to you is block 0 and 2,3. Also, same with verifying a block all you need is the block 1, 0, 2,3 and the user stores the root, so they can verify.
+
+To check and make more efficient first make it, so you can lose half the blocks to then lose data then use a probabilistic check to get a probability of $1/2^{-k}$ of passing if they did change one block.
+
+\section{Number Theory}
+\vspace{-0.2in}
+\thm{Fermat's Little Thm}{
+    If $p$ is prime then for $a \in \{1,\dots,p-1\}$ then $a^{p-1} \equiv 1 \mod p$
+}
+\vspace{-0.2in}
+\exm{Pick Subgroups of Prime Order}{
+    Let $p=rq+1$ where $p,q$ are primes.
+
+    Then $\mathbb{G}=\{[h^r \mod p] \mid h \in \Z_p^*\}$ is a subgroup of order $q$.
+}
+\vspace{-0.3in}
+\section{Key Exchange}
+\vspace{-0.2in}
+\defn{Dlog}{
+    $\mathsf{Dlog}^{\mathcal{A},\mathcal{G}}(1^n)$
+    Challenger sends $(\mathbb{G},q,g,h)$ where $h=g^x$ and $\mathcal{A}$ guesses $x$.
+    If correct then return 1.
+}
+\vspace{-0.2in}
+\defn{DDH}{
+    $\mathsf{DDH}_b^{\mathcal{A},\mathcal{G}}(1^n)$
+    Challenger sends $(\mathcal{G},q,g,g^x,g^y,h_b)$ s.t. $h_0=g^z$ and $h_1=g^{xy}$. Then $\mathcal{A}$ guesses if $h_b$ is random or $g^{xy}$.
+}
+\vspace{-0.15in}
+DDH is harder than Dlog.
+\vspace{-0.15in}
+\defn{DH Key Exchange}{
+    First person samples a prime order multiplicative group $(\mathbb{G}, q,g)$ and samples an $x \in \Z_q$ then they send $(\mathbb{G}, q,g),g^x$ to the second person.
+    The second person then samples $y \in \Z_q$ and then sends $g^y$ back then they both can compute $g^{xy}$.
+}
+\vspace{-0.2in}
+\defn{Key Expt}{
+    $\mathsf{KEEXPT}_b(1^n)$
+    Two parties run the key exchange protocol. Let $\Gamma$ be the transcript of the protocol and $k$ the outputted key at the end.
+    If $b=0$ output $\gamma, k$ and else $\gamma, k'$ where $k' \overset{\$}{\leftarrow} \mathcal{K}$.
+}
+\vspace{-0.45in}
+\section{Public-Key Crypt}
+\vspace{-0.15in}
+\subsection{Syntax}
+$\skcgen(1^n) \to (pk,sk)$
+$\skcenc(pk,m) \to c$
+$\skcdec(sk,c)=m$
+\defn{Correctness}{
+    Except with negligible probability over the choice of $(pk,sk)$ output by $\skcgen(1^n)$, it must
+    be that for any legal msg $m$,
+    \vspace{-0.2in}
+    \[\skcgen(sk, \skcenc(pk,m))=m\]
+}
+\vspace{-0.2in}
+\defn{EAV}{
+    $\mathsf{PKEXPT}_{eav}^{b,\mathcal{A}}(1^n)$
+    Challenger sends a public key $pk$ and then $\mathcal{A}$ sends $m_0,m_1$ and challenger picks one to encrypt and send back.
+}
+\vspace{-0.2in}
+\thm{}{
+    A public key encryption protocol is EAV-secure if and only if it is CPA-secure.
+
+    This implies it must be random.
+}
+\vspace{-0.2in}
+\defn{El Gamel Enc}{
+    Run the  group protocol to get a prime order multiplicative group $(\mathbb{G},q,g)$.
+
+    $\skcgen$: sample $x \leftarrow \Z_q$ and output $pk=(\mathbb{G},q,h=g^x)$ and $sk=(\mathbb{G},q,g,x)$.
+
+    $\skcenc(pk, m)$: choose random $y \leftarrow \Z_q$ and output $(g^y, m h^y)$
+
+    $\skcdec(sk,(c_1=g^y,c_2=mg^{xy}))$: $c_2 \cdot g^{-xy} = m$
+}
+\vspace{-0.45in}
+\section{Signature}
+\vspace{-0.2in}
+\subsection{Syntax}
+$\skcgen\to(pk,sk) \mathsf{Sign}(sk,m) \to \sigma, \mathsf{Vrfy}(pk,m,\sigma) \to b$
+\vspace{-0.15in}
+\defn{Correctness}{
+    Except with negligible probability over the choice of $(pk,sk)$ output by $\skcgen(1^n)$, it must
+    be that for any legal msg $m$,
+    \vspace{-0.2in}
+    \[\mathsf{Vrfy}(pk,m,\mathsf{Sign}(sk,m))=1\]
+}
+\vspace{-0.2in}
+\defn{Signature EU}{
+    $\mathsf{EXPT}^\mathcal{A}(1^n)$
+    Challenger sends public key. $\mathcal{A}$ makes queries. Then sends its guess $(m,\sigma)$ and
+    succeeds if $\mathsf{Vrfy}(pk,m,\sigma)=1$ and $m$ was not queried before.
+}
+\vspace{-0.2in}
+\defn{Factoring}{
+    $\mathsf{Factor}^\mathcal{A}(1^n)$
+    Sample a random $N=pq$, where $p,q$ are $n$-bit primes.
+    $\mathcal{A}$ is given $N$ and outputs two primes $p',q'$. Succeeds if $p'q'=N$.
+}
+\vspace{-0.2in}
+\defn{RSA}{
+    $\mathsf{RSA}^\mathcal{A}(1^n)$
+    Sample a random $N=pq$, where $p,q$ are $n$-bit primes.
+    Sample $e,d$ s.t. $ed=1 \mod \phi(N)=(p-1)(q-1)$
+    Sample $y \in \Z_N^*$
+    then $\mathcal{A}$ sends back an $x$ succeeds if $x^e=y \mod N$.
+}
+\vspace{-0.2in}
+\defn{Hash, RSA, and Sign}{
+    $\skcgen$ sample a random $N=pq$ s.t. $p,q$ are $n$-bit primes. Sample $e,d$ s.t. $ed=1 \mod \phi(N)=(p-1)(q-1)$.
+    $sk=(N,d)$, $pk=(N,e)$ and generate a hash function.
+
+    $\mathsf{Sign}(sk,m) = (H(m))^d \mod N = \sigma$
+
+    $\mathsf{Vrfy}(pk,m,\sigma)$ and output 1 if $H(m)=\sigma^e \mod N$.
+}
+\end{document}
