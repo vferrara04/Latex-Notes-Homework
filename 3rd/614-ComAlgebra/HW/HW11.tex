@@ -1,0 +1,201 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\codim}{\mathrm{codim}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW11 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Prove that if $R$ is a valuation ring, then $R$ is normal.
+\end{problem}
+\begin{problemproof}
+    Let $R$ be a valuation ring.
+
+    Let $x \in K=\mathrm{Frac}(R)$ be integral over $R$. This means $x$ is a root of a monic polynomial.
+
+    $x^n+a_{n-1}x^{n-1}+\dots+a_0=0$ for $a_i \in R$.
+
+    Assume for contradiction that $x \notin R$. This implies that $x^{-1} \in R$ by definition of a valuation ring.
+
+    This implies that $x^n=-(a_{n-1}x^{n-1}+\dots+a_0) \implies x=(-a_{n-1}+a_{n-1}x^{-1}+\dots+x_0x^{-(n-1)})$.
+
+    This implies that $x \in R$.
+
+    Thus, $R$ is normal.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $(R, \mf{m})$ be a noetherian local ring with residue field $k = R \diagup \mf{m}$.
+\end{problem}
+\begin{subproblem}{}
+    Prove that $\mf{m}$ is principal if and only if $\mf{m} \diagup \mf{m}^2$ has dimension $\leq 1$ as a $k$-vector space.
+\end{subproblem}
+\begin{problemproof}
+    Assume $\mf{m}=(x)$ for some $x \in \mf{m}$.
+
+    If $x = 0$ then $\mf{m}=0 \implies \mf{m} \diagup \mf{m^2} = 0 \implies$ it has dimension 0.
+
+    If $x \neq 0$ then this implies that $\bar{x}$ which is the image of $x$ onto $\mf{m} \diagup \mf{m}^2$ generates this ideal.
+
+    Let $\bar{y} \in \mf{m} \diagup \mf{m}^2 \implies \pi(y)=\bar{y}$. Thus, $y=rx$ for some $r \in R$. Thus, $\pi(y)=\pi(r)\pi(x)=\bar{r}\bar{x}$.
+
+    Therefore, $\bar{y}=\bar{r}\bar{x}$. Thus, $\mf{m} \diagup \mf{m}^2 = (\bar{x})$. Thus, this has dimension 1.
+
+    Assume $\mf{m} \diagup \mf{m}^2$ has dimension $\leq 1$ has a $k$-vector space.
+
+    If $\dim (\mf{m} \diagup \mf{m}^2) = 0$
+
+    Then $\mf{m} \diagup \mf{m}^2 = 0 \implies \mf{m} = \mf{m}^2$.
+
+    Since $\mf{m}$ is finitely generated, by Nakayama's lema we have that $\mf{m}=0=(0)$.
+
+    If $\dim (\mf{m} \diagup \mf{m}^2) = 1$
+
+    Then there exists some $x \in \mf{m}$ s.t. $\bar{x}$ generates $\mf{m} \diagup \mf{m}^2=(\bar{x})$.
+
+    Consider $(x)$
+
+    By construction, the image of $(x)$ in $\mf{m} \diagup \mf{m}^2$ generate $\mf{m} \diagup \mf{m}^2$.
+
+    Thus, $\mf{m}=(x)+\mf{m}^2$.
+
+    By Nakayama's lemma since $\mf{m}$ is finitely generated since $R$ is noetherian we get that $\mf{m}=(x)$.
+
+    Thus, $\mf{m}$ is principal in both cases.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $R$ is a DVR if and only if $R$ is a domain and $\mf{m} \diagup \mf{m}^2$ has dimension 1 as a
+$k$-vector space.
+\end{subproblem}
+\begin{problemproof}
+    Assume $R$ is a DVR. This implies $R$ is a PID from shown in class. Thus, by (a) this implies that $\dim \mf{m} \diagup \mf{m}^2 \leq 1$, but since $\mf{m} \neq 0$ since $R$ is not a field this implies that $\dim \mf{m} \diagup \mf{m}^2=1$.
+
+    Also $R$ is a domain since it is a PID.
+
+    Assume $R$ is a domain and $\mf{m} \diagup \mf{m}^2$ has dimension 1 as a $k$-vector space.
+
+    By (a) this implies that $\mf{m}=(x)$ for some $x \in R$. But since $\mf{m} \diagup \mf{m}^2$ has dimension one this implies $\mf{m} \neq 0$.
+
+    Shown in class this implies that $R$ is a DVR.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Give a counter example where $\mf{m} \diagup \mf{m}^2$ has dimension 1 as a $k$-vector space, but $R$ is not a DVR.
+\end{subproblem}
+\begin{problemproof}
+    Consider $R= k[x] \diagup (x^2)$ for field $k$.
+
+    $R$ is noetherian and local with maximal $\mf{m}=(\bar{x})$.
+
+    Consider $(\bar{x}) \diagup (\bar{x}^2) = (\bar{x}) \diagup (0) \cong (\bar{x})$. Thus, $\dim(\mf{m} \diagup \mf{m}^2)=1$.
+
+    But $R$ is not a DVR since it is not a domain.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $k$ be a field and let $f \in k[x, y]$ be an irreducible polynomial of the form $f = \ell + g$ where
+$\ell = ax + by$ is the linear part and $g \in (x, y)^2$. Let $R = k[x, y]/(f )$, let $m = (\bar{x}, \bar{y}) \subset R$ be
+the maximal ideal generated by the images of $x$ and $y$ in R. Prove that the localization $R_\mf{m}$
+is a DVR if and only if $\ell \neq 0$.
+\end{problem}
+\begin{problemproof}
+    Since $k[x,y]$ is a finite type $k$ algebra this implies that $\dim k[x,y] = \dim R + \codim (f) \implies \dim R = 1$. This is because $\dim k[x,y]=2$ and by the principal ideal theorem in a domain we have $\codim (f) = 1$.
+\end{problemproof}
+
+\begin{problem}{}
+    Prove that if $R$ is a DVR with maximal ideal $\mf{m}$, then the $\mf{m}$-adic completion $\widehat{R}$ of $R$ is a
+DVR.
+\end{problem}
+\begin{problemproof}
+    Assume $R$ is a DVR with maximal ideal $\mf{m}$. Let $\mf{m}=(\pi)$.
+\end{problemproof}
+
+\begin{problem}{}
+    In this problem, we show that normal noetherian rings decompose as products of normal
+noetherian domains.
+\end{problem}
+\begin{subproblem}{}
+    Let $R$ be a noetherian ring such that $R_\p$ is a domain for every $\p \in \Spec(R)$. Prove that
+there exist domains $R_1, \dots , R_n$ such that there is an isomorphism $R \cong R_1 \times \dots \times R_n$.
+\end{subproblem}
+\begin{problemproof}
+    Let $x \in \widehat{R}$. Thus, $x=(x_i)$ s.t. $x_i = x_{i+1} \mod \mf{m}^i$ for all $i$.
+
+    Show that $x= \sum_{i=0}^\infty a_i \pi^i$.
+
+    Base Case: $n=1$.
+
+    $x_1 \in R \diagup (\pi)$. Choose $a_0 \in R$ whoes image is $x_1$.
+
+    Inductive Step: Suppose for some $n \geq 1$ we have chosen $a_0,\dots,a_{n-1} \in R $ s.t. 
+    
+    $x_n \equiv \sum_{i=0}^{n-1} a_i \pi^i \pmod{\pi^n}$.
+
+    Consider $x_{n+1} \in R \diagup (\pi^{n+1})$. It's image in $R \diagup (\pi^n)$ is $x_n$, and the image of $\sum_{i=0}^{n-1} a_i \pi^i$ in $R \diagup (\pi^n)$ is also $x_n$.
+
+    Thus,
+    \[x_{n+1} - \sum_{i=0}^{n-1} a_i \pi^i \in (\pi^n) \diagup (\pi^{n+1})\]
+    
+\end{problemproof}
+\end{document}

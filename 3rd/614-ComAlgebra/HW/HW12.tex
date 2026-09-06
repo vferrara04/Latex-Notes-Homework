@@ -1,0 +1,778 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\codim}{\mathrm{codim}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}HW11 --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 614}
+
+\begin{problem}{}
+    Let $R$ be a Dedekind Domain. Let $I \subset R$ be a nonzero ideal. Prove that $I = \p_1^{e_1} \cap \dots \cap \p_r^{e_r}$ is a minimal primary
+    decomposition of $I$.
+\end{problem}
+\begin{problemproof}
+    Since $\p_i$ are all distinct maximal ideals this implies that $\sqrt{\p_i^{e_i}}=\p_i$ are all distinct. Thus, we have all unique primes.
+    Also, these are $\p_i$-primary since they are powers of prime ideals.
+
+    First $\p_i + \p_j = R$ for $i \neq j$ since $\p_i,\p_j$ are distinct maximal primes. Hence,
+    \[\p_i + \p_j = R\]
+    Consider $\sqrt{\p_i^{e_i} + \p_j^{e_j}}=\sqrt{\p_i + \p_j}=R \implies \p_i^{e_i} + \p_j^{e_j}=R$.
+
+    Therefore, by the Chinese remainder theorem we have $\p_i^{e_i} \cap \p_j^{e_j} = \p_i^{e_i}\p_j^{e_j}$ for $i \neq j$.
+
+    Let $J_k = \bigcap_{i \neq k}\p_i^{e_i} = \prod_{i \neq k}\p_i^{e_i}$.
+
+    If $I = J_k$, then the unique prime-power factorization of ideals would have to agree. But in the factorization of $I$, the exponent on $\p_k$, $e_k > 0$, whereas
+    in $J_k$ the exponent on $\p_k$ is zero. Thus, $I \neq J_k$. Therefore, the intersection is not redundant.
+    
+    Thus, this is a minimal primary decomposition of $I$.
+\end{problemproof}
+
+\begin{problem}{}
+    
+\end{problem}
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Since $Z= V(f)$ is irreducible this implies that $I(Z)=\sqrt{(f)}$ is prime
+
+    By assumption $\codim Z = 1$ thus, $\codim \sqrt{(f)} = 1$.
+
+    Let $\p$ any codimension-1 prime s.t. $f \in \p$. Thus, $(f) \subset \p$, so $V(\p) \subset V(f) = Z$.
+
+    Now take radicals and we get that $I(Z) \subset \p$, but since we know that $\codim \p = 1$,  but we are in a domain thus $(0) \subsetneq I(Z)$ is a valid chain. But this implies that $\p = I(Z)$ since $\p$ has codimension 1.
+
+    Thus, $I(Z)$ is the unique codimension 1 prime containing $f$.
+
+    Assume $\p$ is a codimension 1 prime s.t. $f \notin \p$.
+
+    Since prime ideals of $R_f$ are in bijection with prime ideals $\mf{q}$ that do not meet $f$ this implies that since $f \notin \p$ all the primes below $\p$ are also in $R_f$.
+
+    Thus, $\codim(\p R_f) = \codim (\p)$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    The fraction field of $R_f$ is the same $K$.
+
+    Let $g \in K^\times$
+
+    In $R$:
+    $\mathrm{div}_R(g)=\sum_{(0) \neq \p \neq I(Z)} v_\p(g)[\p]$
+
+    In $R_f$:
+    $\mathrm{div}_R(g)=\sum_{(0) \neq \mf{q}} v_\mf{q}(g)[\mf{q}]$
+
+    Now for codim-1 primes $\mf{q} \subset R_f$ are exactly $\mf{q}=\p R_f$ s.t. $\p \neq I(Z)$ and $f \notin \p$.
+
+    For such $\p$ localizing shows $(R_f)_{\mf{q}} \cong R_\p$ this is true since inverting $f$ then $R_f \setminus q$ is the same thing as inverting $R \setminus \p$ since $f$ is already in $R \setminus \p$.
+
+    This implies the valuations agree so $v_\mf{q} = v_\p$.
+
+    Thus, $\mathrm{div}_{R_f}(g) = \sum_{\p \neq 0} v_{\p}(g)[\p R_f]$.
+
+    Let $\Phi : \mathrm{Div}(R) \to \mathrm{Div}(R_f)$ be the map defined by (a).
+
+    On the other hand we have $\Phi(\mathrm{div}_{R}(g)) = \Phi(\sum_{\p \neq 0} v_\p(g)[\p]) = \sum_{\p \neq 0} v_\p(g)[\p R_f]$.
+
+    Thus, we get $\phi(\mathrm{div}_R(g))=\mathrm{div}_{R_f}(g)$.
+
+    This implies that the image on principal divsors of $R$ is a subset of principal divisors of $R_f$.
+
+    Now using the natural projection maps $\pi_R : \mathrm{Div}(R) \to \mathrm{CL}(R)$, $\pi_{R_f} : \mathrm{Div}(R_f) \to \mathrm{CL}(R_f)$
+
+    We can define $\Psi = \pi_{R_f} \circ \Phi : \mathrm{Div}(R) \to \mathrm{Cl}(R_f)$.
+
+    Since the principal divsors fact I showed above this implies that $\Psi(\mathrm{div}_R(g))=0$ for all $g \in K^\times$.
+
+    Thus using the universal property of quotients we can factor through $\mathrm{Cl}(R)$.
+
+    Thus, we get an induced map $\bar{\phi} : \mathrm{Cl}(R) \to \mathrm{Cl}(R_f)$ s.t. $\Psi = \bar{\phi} \circ \pi_R$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{problemproof}
+    Consider $\Z \to \mathrm{Cl}(R) \to \mathrm{Cl}(R_f) \to 0$
+
+    Let $\bar{\phi}$ be the map from (b).
+    Let $\Phi$ be the map defined by (a).
+
+    Let $D' \in \mathrm{Div}(R_f)$. Then $D'= \sum_{\mf{q}} n_{\mf{q}}[q]$
+
+    where $\mf{q}$ is height-1 primes of $R_f$.
+
+    Each $\mf{q}$ is of the form $\mf{q} = \p R_f$ for some unique height 1 prime $\p \subset R$ with $f \notin \p$.
+
+    Define $D = \sum_{\mf{q}} n_{\mf{q}}[\p] \in \mathrm{R}(R)$.
+
+    By definiton $\Phi(D)=\sum_{\mf{q}} n_q[\p R_f] = D$. Thus, $\phi$ is surjective.
+
+    Let $[D'] \in \mathrm{Cl}(R_f)$, we have that there exists a $D \in \mathrm{Div}(R)$ with $\Phi(D)=D'$.
+
+    Thus, $\bar{\phi}(\pi_R([D]))=\pi_{R_f}(\phi(D))=[D']$.
+
+    Thus, this implies that $\bar{\phi}$ is surjective. This probes exactness at $\mathrm{Cl}(R_f)$.
+
+    Now we will look at $\ker(\bar{\phi})$.
+
+    Let $[D] \in \ker(\bar{\phi})$.
+
+    Let $D= \sum_{\codim \p = 1} n_\p [\p] \in \mathrm{Div}(R)$.
+
+    Since $[D] \in \ker(\bar{\phi})$ this implies that $\Phi(D)$ is principal in $R_f$ so there exists a 
+    $g \in K^\times$ s.t. $\phi(D)=\mathrm{div}_{R_f}(g)$.
+
+    Thus, $\phi(D)=\sum_{0 \neq \p \neq I(Z)}n_\p [\p R_f]=\sum_{0 \neq \p \neq I(Z)} V_\p(g)[\p R_f]$.
+
+    This implies that $n_p = v_p(g)$.
+
+    Now consider the divisor of $g$ in $R$
+
+    We get $\mathrm{div}_R(g)=\sum_{\p \neq 0}v_\p(g)[p] = v_{I(Z)}[I(Z)] + \sum_{I(Z) \neq \p \neq 0} n_\p[\p]$.
+
+    Now comparing $D$ and $\mathrm{div}(g)$ we get
+
+    $D-\mathrm{div}_R(g) = (n_{I(Z)} - v_{I(Z)})[I(Z)]$.
+
+    Then passing to calss groups we get $[D-0]=[D-\mathrm{div}_R(g)]=(n_{I(Z)} - v_{I(Z)})[I(Z)] \in \mathrm{Cl}(R)$.
+
+    Thus every element of $\ker(\bar{\phi})$ is a multiple of $[I(Z)]$.
+
+    Thus, $\ker(\bar{\phi}) \subset \langle [I(Z)] \rangle$.
+
+    Also since $\Phi([I(Z)]) = 0 \implies \bar{\phi}([I(Z)]) = 0$.
+
+    Thus, $\ker(\bar{\phi}) = \langle [I(Z)] \rangle$.
+
+    Thus, define $\psi : \Z \to \mathrm{Cl}(R)$ s.t. $\psi(1)=[I(Z)]$.
+
+    Thus, $\mathrm{Im}(\psi) =\langle [I(Z)] \rangle =  \ker(\bar{\phi})$.
+
+    Therefore, this is an exact sequence.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $R = k[x,y,z] \diagup (xy-z^2)$ where $k$ is a field.
+\end{problem}
+\begin{subproblem}{}
+    Prove that $R$ is a normal noetherian domain.
+\end{subproblem}
+\begin{problemproof}
+    First $R$ is noetherian since it is a quotient of a noetherian ring $k[x,y,z]$.
+
+    Proven in a previous class 
+    we have that 
+    $R_{\bar{x}} \cong R[t] \diagup (xt-1) \cong k[x,y,z,t] \diagup (xy-z^2,xt-1)$.
+
+    Consider $\phi : k[x,x^{-1},t] \to k[x,y,z,t] \diagup (xy-z^2,xt-1)$ s.t. $\phi(x)=\bar{x}$, $\phi(x^{-1}) = \bar{t}$, $\phi(t)=\bar{z}\bar{t}$, and $\phi(a)=\bar{a}$ for $a \in k$.
+    
+    Homomorphism:
+
+    Let $f,g \in k[x,x^{-1},t]$
+    $\phi(f+g)=f(\bar{x},\bar{t},\bar{z}\bar{x})+g(\bar{x},\bar{t},\bar{z}\bar{t})=\phi(f)+\phi(g)$.
+
+    $\phi(fg)=f(\bar{x},\bar{t},\bar{z}\bar{t})g(\bar{x},\bar{t},\bar{z}\bar{t})=\phi(f)\phi(g)$.
+
+    $\phi(1)=1$.
+
+    Now we have to check the relations.
+
+    $\phi(xx^{-1})=\bar{x}\bar{t}=1$
+
+    Surjective:
+
+    We already have generators $\bar{x},\bar{t}$. Just have to get $\bar{z}$ and $\bar{y}$.
+
+    $\phi(xt)=\bar{x}\bar{z}\bar{t}=\bar{z}$.
+
+    $\phi(xt^2)=\bar{x}\bar{z}^2\bar{t}^2=\bar{z}^2\bar{t}=\bar{y}$.
+
+    Thus surjective.
+
+    Injective:
+
+    Let $f \in \ker{\phi}$
+
+    $\phi(f(x,x^{-1},t))=f(\bar{x},\bar{t},\bar{z}\bar{t})=0$.
+
+    Since $\bar{x},\bar{z}$ are algebraically independent of one another this implies the only way for $f(\bar{x},\bar{t},\bar{z}\bar{t})=0$ is if $f=0$.
+
+    Thus, injective.
+
+    Therefore, $R_{\bar{x}} \cong k[x,x^{-1},t]$.
+
+    Thus, since $k[x,x^{-1},t] \cong k[x,t]_{x}$, and $k[x,t]$ is a UFD this implies that $k[x,x^{-1},t]$ is also a UFD since it is a localization of a UFD, and we don't invert 0.
+
+    Thus, $R_{\bar{x}}$ is normal since it is a UFD. Do a similar proof for $R_{bar{y}}$.
+
+    Now consider $R_{\bar{x}} \cap R_{\bar{y}}$.
+ 
+    Let $f \in R_{\bar{x}} \cap R_{\bar{y}} \subset k(x,z)$.
+
+    Then $f=\sum_{ij}c_{ij}x^iz^j$
+
+    Since $f \in R_{\bar{x}}$ then $x^mf \in R$ for $m \in \N$. this means all have non-negative exponents which forces $j \geq 0$.
+
+    Since $f \in R_{\bar{y}}$ then $y^nf \in R$ so $z^{2n}x^{-n}f \in R$. This means that since we are multiply by $x^{-n}$ that $i \geq n$.
+
+    Thus, $f \in R$.
+    
+    Thus, $R_x \cap R_y = R$
+
+    Now let $f$ be integral over $R$ this implies it is integral over it is integral over $R_{\bar{x}} \cap R_{\bar{y}}$..
+
+    Thus it satisfies a monic polynomial with coefficients in $R_{\bar{x}} \cap R_{\bar{y}}$. Thus all the coefficients are also in $R_{\bar{x}}$ and $R_{\bar{y}}$.
+
+    So $f$ is integral over $R_{\bar{x}}$ and $R_{\bar{y}}$. This imlies that $f \in R_{\bar{x}}$ and $f \in R_{\bar{y}}$. Thus, $f \in R$.
+
+    Therefore, $R$ is normal.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $\p = (\bar{x}, \bar{z})$ be the ideal generated by the images of $x$ and $z$ in $R$. Prove that $\p$ is
+not a principal ideal.
+\end{subproblem}
+\begin{problemproof}
+    Assume for contradiction that $\p$ is principal s.t. $\p=(f)$ for some $f \in R$.
+
+    Let $R'=R \diagup \mf{m}^2$ and $\mf{m}' = \mf{m} \diagup \mf{m}^2$
+
+    Consider $R' \diagup \mf{m}' \cong R \diagup \mf{m} \cong k[x,y,z] \diagup (xy-z^2,x,y,z) \cong k$
+
+    Thus, since we have the injection form $k \to R'$ and the surjection from $\pi: R' \to k$ with kernel $m'$.
+
+    This implies that for $r \in R'$ consider $a= \pi(r) \in k$.
+
+    Since $\pi(r-a)=\pi(r)-\pi(a)=a-a=0$. This implies that $r-a \in \mf{m}'$.
+
+    Thus, all elements in $R'$ can be written as $r=a+(r-a)$ for $a \in k$ and $r-a \in \mf{m}'$.
+
+    Let $f'$ be the image of $f$ in $R'$, and $\p'$ be the image of $\p$ in $R'$.
+
+    Since $\p \subset \mf{m}$ and $\p \nsubseteq \mf{m}^2=(\bar{x}^2,\bar{y}^2,\bar{z}^2,\bar{x}\bar{y},\bar{x}\bar{z},\bar{y}\bar{z})$.
+
+    We have that $f' \in \mf{m}' \setminus \{0\}$.
+
+    Now for $r \in R'$ consider $rf' = (a+u)f'+af'+uf'$ s.t. $a \in k$ and $u \in \mf{m}'$.
+
+    But since $u \in \mf{m}'$ and $f' \in \mf{m}'$ this means $uf' \in {\mf{m}'}^2=0$ this implies $uf'=0$.
+
+    Thus, $rf'=af'$. Thus, $\p=(f')=k \cdot f'$.
+
+    This implies $\p'$ is a 1 dimensional $k$-vector space.
+
+    Now $R' \cong k[x,y,z] \diagup (xy-z^2,(x,y,z)^2) \cong k[x,y,z] \diagup \mf{m}^2$.
+
+    This implies that $R'=k \oplus kx \oplus ky \oplus kz$.
+
+    Since $x,z$ are linearly independent this implies their span is a 2 dimensional subspace.
+
+    But since $\p'$ is spanned by $x,z$ this implies it is two dimensional as a vector space.
+
+    Thus, this is a contradiction. Thus, $\p$ is not a principal ideal.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that $\mathrm{Cl}(R) \cong \Z \diagup 2$, generated by the class $[\p]$ of the prime ideal from (b).
+\end{subproblem}
+\begin{problemproof}
+    Let $f = \bar{x} \in R$.
+
+    Then $Z=V(\bar{x})$. Consider $(\bar{x})$.
+
+    This corresponds to $(x,xy-z^2)$ in $k[x,y,z]$.
+
+    Thus, $\sqrt{(x,xy-z^2)}=\sqrt{(x,z^2)}=(x,z)$. Thus, passing it down we get that $\sqrt{(\bar{x})}=(\bar{x},\bar{z})=\p$.
+
+    Thus from 2(a) it is the unique codimension-1 prime containing $\bar{x}$.
+
+    So problem 1(c) gives an exact sequence
+
+    \[\Z \to \mathrm{Cl}(R) \to \mathrm{Cl}(R_{\bar{x}}) \to 0\]
+    where $\Z \to \mathrm{Cl}(R)$ sends $1 \to [\p]$
+
+    Since we know that $\mathrm{Cl}(R_{\bar{x}})$ is a UFD we know that $\mathrm{Cl}(R_{\bar{x}})=0$.
+
+    Thus, we get an exact sequence 
+    \[\Z \to \mathrm{Cl}(R) \to 0\]
+
+    This implies the map $\Z \to \mathrm{Cl}(R)$ is surjective.
+
+    Thus, we know that $\mathrm{Cl}(R)$ is generated by $[\p]$.
+
+    $I(V(\bar{x}))=\p$ so $\p$ is the only height-1 prime ideal that contains $\bar{x}$.
+
+    Thus for $v_\mf{q}(\bar{x})$ if $\mf{q}=\p$ then it is greater than zero and otherwise it is 0.
+
+    Thus, $\mathrm{div}(\bar{x})=v_\p(\bar{x})[\p]$.
+
+    Consider $R_\p$:
+
+    Since $\bar{y} \notin \p$ this implies it is a unit.
+
+    Since $\bar{x}=\bar{z}^2 / \bar{y} \in R_\p$. This implies that $\bar{x} \in (\bar{z}^2)R_\p$.
+
+    Thus, $\p R_\p \subset (\bar{z}^2,\bar{z})R_\p=(\bar{z}R_\p)$.
+
+    Thus, $\bar{z}$ generates the maximal ideal of the DVR $R_\p$. Thus, $\bar{z}$ is the uniformizer.
+
+    Thus, $v_\p(\bar{x})=v_\p(\bar{z}^2)-v_\p(\bar{y})=2-0=2$.
+
+    Thus, $\mathrm{div}(\bar{x})=2[p]$.
+
+    Since $\bar{x} \neq 0$ this implies $\bar{x} \in K^\times$.
+
+    Thus, $[\mathrm{div}(\bar{x})]=0 \implies 2[\p] = 0$. But since we know that $\p$ is not principal we know that $[\p] \neq 0$.
+
+    Therefore, $\mathrm{Cl}(R) \cong \Z \diagup 2$.
+\end{problemproof}
+
+\begin{problem}{}
+    Compute the following tensor products:
+\end{problem}
+\begin{problemproof}
+    \begin{enumerate}
+        \item $\Q \otimes_\Z \Q$
+        
+        Since $\Q \cong S^{-1}\Z$ this implies that $S^{-1}\Z \otimes_\Z \Q \cong S^{-1}\Q \cong \Q$.
+        \item $Q \otimes_\Z \Q \diagup \Z$
+        
+        $S^{-1}\Z \otimes_\Z \Q \diagup \Z \cong S^{-1}(\Q \diagup \Z)$. Since $S= \Z \setminus \{0\}$. This implies that $S^{-1}(\Q \diagup \Z) \cong 0$.
+        \item $\Q \diagup \Z \otimes_\Z \Q \diagup \Z$.
+        
+        Let $a/b \otimes_{\Z} c/d \in \Q \diagup \Z \otimes_\Z \Q \diagup \Z$.
+
+        Then $a/b \otimes_{\Z} c/d = ad/bd \otimes_{\Z} c/d = a/bd \otimes_{\Z} cd/d = a/bd \otimes_{\Z} c/1 = a/bd \otimes_{\Z} 0 = 0(a/bd \otimes_{\Z} 0) = 0 \otimes_{\Z} 0$.
+
+        This implies every element is zero thus $\Q \diagup \Z \otimes_{\Z} \Q \diagup \Z \cong 0$.
+
+        \item $\Z[1/2] \otimes_\Z \Z[1/3]$
+        
+        Let $S=\{1/2^n \mid n \in \N\}$ then $S^{-1}\Z \otimes_{\Z} \Z[1/3] \cong S^{-1}(\Z[1/3]) \cong \Z[1/6]$.
+        \item $\Z[1/2] \otimes_\Z \Z \diagup 3$
+        $S^{-1}\Z \otimes_\Z \Z \diagup 3 \cong S^{-1} (\Z \diagup 3) \cong \Z \diagup 3$ since $\Z \diagup 3$ is a field, and it did not invert 0.
+    \end{enumerate}
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that an $R$-module $M$ is projective if and only if $M$ is a direct summand of a
+free R-module
+\end{subproblem}
+\begin{problemproof}
+    Assume $M$ is projective.
+
+    Let $F$ have one basis vector for each element of $M$.
+
+    Thus, there exists a surjective $R$-linear map $\pi : F \to M$ sending the basis vectors to its associated element.
+
+    Thus consider the short exact sequence
+
+    $0 \to \ker(\pi) \to F \to M \to 0$
+
+    Since $M$ is projective this implies that
+
+    $0 \to \mathrm{Hom}_R(M,\ker(\pi)) \to \mathrm{Hom}_R(M,F) \to \mathrm{Hom}_R(M,M) \to 0$
+
+    is also exact.
+
+    This implies $\mathrm{Hom}_R(M,F) \to \mathrm{Hom}_R(M,M)$ is surjective.
+
+    Let $f : M \to M$ be the identity.
+
+    Since $\mathrm{Hom}_R(M,F) \to \mathrm{Hom}_R(M,M)$ is surjective this implies 
+    there exists a $R$-linear $g : M \to F$ s.t. $\pi \circ s = f$.
+
+
+    Consider $s(M) + \ker(\pi)$.
+
+    Let $x \in F$. Let $m = \pi(x) \in M$.
+
+    Consider $x-s(m) \in F$.
+
+    $\pi(x-s(m))=\pi(x)-\pi(s(m))=\pi(x)-f(m)=m-m=0$. Thus, $x-s(m) \in \ker(\pi)$.
+
+    Thus, $x=s(m)+(x-s(m))$ with $s(m) \in s(M)$ and $x-s(m) \in \ker(\pi)$.
+
+    Thus, $F=s(M) + \ker(\pi)$.
+
+    Consider $s(M) \cap \ker(\pi)$.
+
+    Let $x \in s(M) \cap \ker(\pi)$.
+
+    Thus, $x=s(m)$ for some $m \in M$ and $\pi(x)=0$.
+
+    Thus, $\pi(x)=\pi(s(m))=m=0$.
+
+    Thus, $m=0 \implies s(m)=0=y$.
+
+    Thus, $s(M) \oplus \ker(\pi) = F$.
+
+    Consider $s : M \to s(M)$.
+
+    Surjective by definition.
+
+    Injective:
+
+    Let $x \in \ker(s)$ then $s(x)=0 \implies \pi(s(x))=0 \implies f(x)=0 \implies x=0$.
+
+    Thus, $s(M) \cong M$ therefore, $F \cong M \oplus \ker(\pi)$. Therefore, $M$ is a direct summand of a free $R$-module.
+
+    Assume $M$ is a direct summand of a free $R$-module.
+
+    Thus, there exists a $R$-module $Q$ s.t. $M \oplus Q \cong F$ s.t. $F$ is a free $R$-module.
+
+    Let $A,B,C$ be $R$-modules s.t.
+
+    $0 \to A \overset{f}{\to} B \overset{g}{\to} C \to 0$ is a short exact sequence.
+
+    Consider $0 \to \mathrm{Hom}_R(M, A) \overset{f*}{\to} \mathrm{Hom}_R(M, B) \overset{g*}{\to} \mathrm{Hom}_R(M, C) \to 0$.
+
+    s.t. $f*=f \circ (-)$ and so on.
+
+    Let $\phi \in \ker(f*)$ thus $f \circ \phi = 0$.
+
+    Since $f$ is injective this implies that $\phi = 0$.
+
+    Thus, $f*$ is inejctive.
+
+    Let $\phi \in \mathrm{Im}(f*)$.
+
+    Thus, $\phi=f \circ \psi$ for some $\psi \in \mathrm{Hom}_R(M,A)$.
+
+    Consider $g*(\phi)=g*(f \circ \psi) = g \circ f \circ \psi$.
+
+    Since $\mathrm{Im}(f) = \ker(g)$ this implies that $g \circ f \circ \psi = 0$.
+
+    Thus, $\mathrm{Im}(f*) \subset \ker(g*)$.
+
+    Let $\phi \in \ker(g*)$ thus, $g \circ \phi = 0$.
+
+    Thus, $\phi(M) \subset \ker(g) = \mathrm{Im}(f)$.
+
+    This means every element $\phi(m) \in B$ there exists an element $a_m \in A$ s.t. $f(a_m)=\phi(m)$.
+
+    Define $\psi : M \to A$ s.t. $\psi(m) = a_m$ defined above.
+
+    Well-Defined:
+
+    This is well-defined since $f$ is injective. If $f(a_m)=f(a_{m'})=\phi(m) \implies a_m = a_{m'}$.
+
+    Also for $m \in M$ we get $f(\psi(m))=f(a_m)=\phi(m)$.
+    
+    $R$-linear:
+
+    Let $r_1,r_2 \in R$ and $m_1,m_2 \in M$
+
+    Consider $f(\psi(r_1m_1 + r_2m_2))=\phi(r_1m_1+r_2m_2)=r_1\phi(m_1)+r_2\phi(m_2)= r_1f(\psi(m_1)) + r_2f(\psi(m_2)) = f(r_1\psi(m_1) + r_2 \psi(m_2))$.
+
+    Since $f$ is injective we get
+
+    $\psi(r_1m_1+r_2m_2)=r_1\psi(m_1)+r_2\psi(m_2)$.
+
+    Thus, $\psi$ is $R$-linear.
+
+    Thus, $f*(\psi)=f \circ \psi = \phi$.
+
+    Thus, $\phi \in \mathrm{Im}(f*)$.
+
+    Therefore, $\mathrm{Im}(f*)=\ker(g*)$.
+
+    Let $\phi \in \mathrm{Hom}_R(M,C)$
+
+    Since $F = M \oplus Q$,
+    define $\psi : F \to C$ s.t. $\phi(m)= \phi(m)$ and $\phi(q)=0$ for $m \in M$ and $q \in Q$.
+
+    This is well-defined and $R$-linear since $F= M \oplus Q$.
+
+    Since $F$ is free let $\{e_i \mid i \in I\}$ be a basis set for $F$. Now pick $b_i \in B$ s.t. $g(b_i)=\psi(e_i)$.
+
+    Now define $\varphi : F \to B$ s.t. $\varphi(e_i)=b_i$.
+
+    That's an $R$-linear map $g \circ \varphi = \psi$.
+
+    Now let $i : M \to F$ be the inclusion map.
+
+    Define $\Phi = \varphi \circ i : M \to B$.
+
+    Now consider $g \circ \Phi = g \circ \varphi \circ i = \psi \circ i = \phi$.
+
+    Thus, $g \circ \Phi = \phi$.
+
+    Thus, $g*$ is surjective.
+
+    Therefore, the sequence is short exact.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $M$ is a projective $R$-module, then $M$ is flat.
+\end{subproblem}
+\begin{problemproof}
+    Assume $M$ is a projective $R$-module.
+
+    This implies from (a) it is a direct summand of a free module.
+
+    Thus, there exists a $R$-module $N$ s.t. $M \oplus N = F$ s.t. $F$ is free.
+
+    Thus, we know that $- \otimes_R F$ is exact since $F$ is free.
+
+    Since $F$ is a direct sum this implies that $- \otimes_R F \cong (- \otimes_R M) \oplus (- \otimes_R N)$.
+
+    Let $0 \to A \to B \to C \to 0$ be a short exact sequence.
+
+    Since $F$ is free this implies that
+
+    $0 \to A \otimes F \to B \otimes F \to C \otimes F \to 0$ is exact.
+
+    Thus, $0 \to (A \otimes M) \oplus (A \otimes N) \to (B \otimes M) \oplus (B \otimes N) \to (C \otimes M) \oplus (C \otimes N) \to 0$ is also exact.
+
+    Consider $0 \to (A \otimes M) \to (B \otimes M) \to (C \otimes M) \to 0$
+
+    The only diffrence with these maps is you take the inclusion map from $A \otimes M \to A \otimes (A \otimes M) \oplus (A \otimes N)$ and then apply the function.
+
+    This will also give us an exact sequence.
+
+    Thus, $M$ is also flat.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Prove that if $M$ is a finitely generated projective $R$-module, then $M$ is finitely presented.
+\end{subproblem}
+\begin{problemproof}
+    Assume $M$ is a finitely generated projective $R$-module.
+
+    Since $M$ is finitely generated this implies that there exists a 
+    surjective $R$-linear map $\pi: R^n \twoheadrightarrow M$.
+
+    We can do the same proof as in part (a) to show that $R^n \cong M \oplus \ker(\pi)$.
+
+    Since $\ker(\pi)$ is a direct summand of a finitely generated module this implies $\ker(\pi)$ is also finitely generated.
+
+    Thus, this implies we have a surjective $R$-linear map $f : R^m \twoheadrightarrow \ker(\pi)$.
+
+    Also let $i : K \to R^n$ be the inclusion map.
+
+    Now consider $R^m \overset{i \circ f}{\to} R^n \overset{\pi}{\to} M \to 0$.
+
+    Consider $\mathrm{Im}(i \circ f) = i(\mathrm{Im}(f))=i(\ker(\pi))=\ker(\pi)$.
+
+    Also $\pi$ is surjective.
+
+    Thus, this sequence is exact.
+
+    Therefore, $M$ is finitely presented.
+\end{problemproof}
+
+\begin{problem}{}
+    Let $f_1 : A \to R_1$ and $f_2 : A \to R_2$ be ring homomorphisms. Construct an explicit bijection
+    between $\Spec(R_1 \otimes_A R_2)$ and the following set:
+    $\left\{   (\p_1, \p_2, \mf{q}, \mf{r}) \Bigg| \\
+    \begin{array}{l}
+    \p_i \in \operatorname{Spec}(R_i),\ \mf{q} \in \operatorname{Spec}(A), \\[4pt]
+    f_i^{-1}(\p_i) = \mf{q},\ \mf{r} \in \operatorname{Spec}(\kappa(\p_1)\otimes_{\kappa(\mf{q})}\kappa(\p_2))
+    \end{array}
+    \right\}$
+\end{problem}
+\begin{problemproof}
+    Call the set $B$.
+    
+    Let $\phi_1 : R_1 \to R_1 \otimes_A R_2, \quad r_1 \mapsto r_1 \otimes 1$. Define $\phi_2$ a similar way for $R_2 \to R_1 \otimes_A R_2$.
+
+    Let $P \in \Spec(R_1 \otimes_A R_2)$.
+
+    Define $\p_1 = \varphi_1^{-1}(P)$, $\p_2 =\varphi_2^{-1}(P)$.
+
+    Define $\mf{q} = f^{-1}_1(\p_1)$ and $\mf{q}' = f^{-1}_2(\p_2)$. Shown in class we have a commutative diagram s.t. $\varphi_1(f_1(a))=f_1(a) \otimes_A 1=1 \otimes_A f_2(a)=\varphi_2(f_2(a))$,
+
+    Thus, $\mf{q}=\mf{q}'$.
+
+    Let $\kappa(P)$ to be the residue field of $P$ in $R_1 \otimes_A \otimes R_2$.
+
+    Consider the maps
+
+    \[R_i \overset{\varphi_i}{\to} R_1 \otimes_A R_2 \overset{i}{\to} (R_1 \otimes R_2)_P \overset{\pi}{\to} \kappa(P)\]
+
+    Call this map $\psi_i : R_i \to \kappa(P)$.
+
+    Call $R_1 \otimes R_2 = S$.
+
+    Let $s \in P$. Then $s/1 \in PS_P$ thus $s/1 \in \ker(\pi)$ thus $s \in \ker(\pi \circ i)$.
+
+    Let $s \in \ker(\pi \circ i)$. Then $\pi \circ i(s) = 0 \implies s/1 \in PS_P$.
+
+    This implies $s \in P$. Thus, $\ker(\pi \circ i) = P$.
+
+    Therefore, $\ker(\psi_i)=\ker(\pi \circ i \circ \varphi_i) = \varphi_i^{-1}(\ker(\pi \circ i)) = \p_i$.
+
+    This implies by the universal property of quotients $\psi_i$ factors through
+    \[R_i \to R_i \diagup \p_i \to \kappa(P)\]
+
+    Then again by universal property of localization we get that it factors again through
+    \[R_i \to R_i \diagup \p_i \to \kappa(\p_i) \to \kappa(P)\]
+
+    Now consider the maps $\rho$
+    \[A \overset{f_i}{\to} R_i \overset{\phi_i}{\to} \kappa(P)\]
+
+    Let $a \in mf{q}$, then $f_i(a) \in \p_i = \ker(\psi_i)$, so $\rho(a)=\psi_i(f_i(a))=0$
+
+    Let $a \in \ker(\rho)$ then $\rho(a)=0 \implies \psi_i(f_i(a))=0 \implies f_i(a) \in \ker(\psi_i)=\p_i$. Thus, $a \in f^{-1}_i(\p_i)=\mf{q}$.
+
+    Thus, $\ker(\rho)=\mf{q}$.
+
+    Doing the same sort of thing we get it factors through the quotient then the localization
+    \[A \to A \diagup \mf{q} \to \kappa(q) \to \kappa(P)\]
+
+    Call the induced map form $\kappa(q) \to \kappa(P)$, $\tilde{\rho}$.
+
+    Now look at the composite map $A \to R_i \to \kappa(\p_i)$
+    
+    If $a \in \mf{q}$ then $f_i(a) \in \p_i$, so its image in $\kappa(\p_i)$ is 0. Thus, $\mf{q} \subset \ker(A \to \kappa(\p_i))$
+
+    If $(A \to \kappa(\p_i))(a)=0$ then $f_i(a)$'s image in $R_i \diagup \p_i$ is 0. Thus, $f_i(a) \in \p_i$. Thus, $a \in f^{-1}_i(\p_i) = \mf{q}$.
+
+    Thus, $\ker(A \to \kappa(\p_i)) = \mf{q}$. Thus, again factoring it through the same two things we get that
+
+    $A \to \kappa(\mf{q}) \to \kappa(\p_i)$.
+
+    Now putting it all together we get
+
+    $A \to \kappa(\mf{q}) \to \kappa(\p_i) \to \kappa(P)$.
+
+    Call the induced maps $\Psi_i :\kappa(\mf{q}) \to \kappa(\p_i)$ and $\Phi_i : \kappa(\p_i) \to \kappa(P)$.
+
+    First, the $\Psi_i$ make $\kappa(\p_i)$ $\kappa(\mf{q})$-algebras.
+
+    Now define
+
+    $\Phi : \kappa(\p_1) \times \kappa(\p_2) \to \kappa(P)$ s.t. $\Phi(x,y)=\Phi_1(x)\Phi_2(y)$.
+
+    Bilinear:
+
+    Let $a \in \kappa(\mf{q})$.
+
+    Consider $\Phi(ax,y)=\Phi_1(ax)\Phi_2(y)=\tilde{\rho(a)}\Phi_1(x)\Phi_2(y)$. Since both $\Phi_1(x)$ restict to the same $\tilde{\rho}$. This implies that
+
+    $\tilde{\rho(a)}\Phi_1(x)\Phi_2(y)=\Phi_1(x)\Phi_2(ay)=\Phi(x,ay)$.
+
+    Multiplicative + Additive:
+
+    $\Phi(x_1 \circ x_2, y_1 \circ y_2)=\Phi_1(x_1 \circ x_2) \circ \Phi_2(y_1 \circ y_2) = \Phi_1(x_1) \circ \Phi_2(y_1) \circ \Phi_1(x_2) \circ \Phi_2(y_2)=\Phi(x_1,y_1) \circ \Phi(x_2,y_2)$
+    
+    for $\circ \in \{\times, +\}$.
+
+    Identity:
+
+    $\Phi(1,1)=\Phi_1(1)\Phi_2(1)=1 \otimes 1$
+    
+    Thus, by universal proiperty of tensor product we get a $\kappa(\mf{q})$-algebra Homomorphism
+
+    $\tau : \kappa(\p_1) \otimes_{\kappa(\mf{q})} \kappa(\p_2) \to \kappa(P)$ s.t.
+
+    $\tau(x \otimes y) = \Phi_1(x)\Phi_2(y)$.
+
+    Now define $\mf{r} = \ker(\tau)$
+
+    Since $\kappa(P)$ is a domain we get that $(0)$ is prime. Thus, $\ker(\tau)$ is prime.
+
+    Thus, $\mf{r} \in \Spec(\kappa(\p_1) \otimes_{\kappa(\mf{q})} \kappa(\p_2))$.
+
+    Now define $\theta : \Spec(R_1 \otimes_A R_2) \to B$ s.t $\theta(P)=(\p_1,\p_2,\mf{q},\mf{r})$. This is defined from all the work before.
+
+    Now given a tuple $(\p_1,\p_2,\mf{q},\mf{r}) \in B$.
+
+    Let $k = \kappa(\mf{q})$, $k_i = \kappa(\p_i)$ and $B = k_1 \otimes_k k_2$.
+
+    Since $r \in \Spec(B)$ let $K = \mathrm{Frac}(B \diagup r)$.
+
+    We have the canonical maps
+    \[k_i \to B \to B \diagup r \to K\]
+
+    and the maps
+    \[R_i \to k_i\]
+
+    Composing we get the ring homomorphisms
+    $\psi_i : R_i \to K$
+
+    Now again using the commutative diagram of tensor products we get that
+    $\psi_1 \circ f_1 = \psi_2 \circ f_2 : A \to K$.
+
+    Thus, again like above define $\phi_{(\p_1,\p_2,\mf{q},\mf{r})} : R_1 \times R_2 \to K$
+
+    s.t. $\phi_{(\p_1,\p_2,\mf{q},\mf{r})}(x,y)=\psi_1(x)\psi_2(y)$.
+
+    Then doing the same proof as above to show this is $A$-bilinear and a ring homomorphism.
+
+    We get a map by the universal property
+
+    $\Phi_{(\p_1,\p_2,\mf{q},\mf{r})} : R_1 \otimes_A R_2 \to K$.
+
+    Define $P = \ker(\Phi_{(\p_1,\p_2,\mf{q},\mf{r})}) \in \Spec(R_1 \otimes_A R_2)$ which is again prime since $K$ is a domain thus the preimage of $(0)$ which is prime is now prime.
+
+    Now define $\alpha : B \to \Spec(R_1 \otimes_A R_2)$ by $\alpha((\p_1,\p_2,\mf{q},\mf{r}))=P$ which was shown as above.
+
+    These are inverses due to how the maps used in defining $\alpha$,$\tau$ are all the same.
+\end{problemproof}
+\end{document}

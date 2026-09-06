@@ -1,0 +1,305 @@
+\documentclass[12pt, letterpaper]{article}
+
+%-------Packages---------
+\usepackage{newpxtext,newpxmath} % Palatino-like text & math (modern)
+\usepackage{bboldx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections}
+\usepackage{tikz-cd}
+\usepackage[all,arc]{xy}
+\usepackage{graphicx}
+
+\usepackage{enumerate}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{setspace}
+
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\usepackage{xparse}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\input{../../../homework}
+\definecolor{rmkscol}{HTML}{F4565B}
+\renewcommand{\stepsub}{
+    \stepcounter{subproblemcounter}%
+    \color{\TextColor}(\arabic{subproblemcounter})
+}
+
+% Define a new command for problems
+\renewcommand{\headrule}{\color{\TextColor}\hrulefill}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\contr}{\Rightarrow \Leftarrow}
+\newcommand{\s}{\(\,\)}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Ass}{\mathrm{Ass}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\codim}{\mathrm{codim}}
+
+% Meta data
+\setstretch{1.2}
+
+\begin{document}
+\color{\TextColor}
+\pagecolor{\colormode}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LOE]{\color{\TextColor}\slshape{\textbf{Vincent Ferrara}}}
+\fancyhead[ROE]{\color{\TextColor}\jobname --- \thepage}
+\fancyhead[C]{\color{\TextColor}Math 493}
+
+\stepcounter{problemcounter}
+\begin{problem}{}
+    Let $G$ be a group and let $a$ be an element of $G$. Show that $g \mapsto aga^{-1}$ is a group homorphism $G \to G$.
+\end{problem}
+\begin{problemproof}
+    Let $\varphi : G \to G$ s.t. $\varphi(g)=aga^{-1}$
+
+    Let $g,h \in G$
+    \begin{align*}
+        \varphi(gh)=agha^{-1}=aga^{-1}aha^{-1}=\varphi(g)\varphi(h)
+    \end{align*}
+\end{problemproof}
+
+\begin{problem}{}
+    Let $G$ and $H$ be two groups and let $\alpha: G \to H$ and $\beta: G \to H$ be group homorphisms. For $g \in G$, define $(\alpha\beta)(g)=\alpha(g)*\beta(g)$.
+\end{problem}
+
+\begin{subproblem}{}
+    If $H$ is commutative, show that $\alpha\beta$ is a group homorphism.
+\end{subproblem}
+\begin{problemproof}
+    Assume $H$ is commutative.
+
+    Let $g,h \in G$.
+    \begin{align*}
+        (\alpha\beta)(gh) &= \alpha(gh) * \beta(gh)\\ 
+                          &= \alpha(g) * \alpha(h) * \beta(g) * \beta(h)\\
+                          &= \alpha(g) * \beta(g) * \alpha(h) * \beta(h) = (\alpha\beta)(g) * (\alpha\beta)(h)
+    \end{align*}
+\end{problemproof}
+\begin{subproblem}{}
+    Give an example of two groups and two homorphisms such that $\alpha\beta$ is not a homorphism.
+\end{subproblem}
+\begin{problemproof}
+    Let $G,H = S_3$ and $\alpha,\beta = \mathsf{id}$.
+
+    Let $g=(12)$ and $h=(23)$. 
+    
+    $gh=(123)$
+    \[(\alpha\beta)(gh)=(123)(123)=(132) \neq e = (12)(12)(23)(23) = (\alpha\beta)(g)(\alpha\beta)(h)\]
+\end{problemproof}
+
+\begin{problem}{}
+    Let $G$ and $H$ be two groups. We define the \textbf{product group} $G \times H$ to have, as underlying set, the Cartesian product $G \times H$, with operation
+    \[(g_1,h_1)(g_2,h_2) = (g_1g_2,h_1h_2).\]
+\end{problem}
+\stepcounter{subproblemcounter}
+\rmkb{
+    Define $\Delta : G \to G \times G$ by $\Delta(g)=(g,g)$, and define $\nabla : G \to G \times G$ by $\nabla(g,h)=gh$. 
+    }
+\begin{subproblem}{}
+    Is $\Delta$ always a group homorphism?
+\end{subproblem}
+\begin{problemproof}
+    Yes, let $g,h \in G$.
+    \begin{align*}
+        \Delta(gh) &= (gh,gh)\\
+                   &= (g,g)(h,h) = \Delta(g)\Delta(h)
+    \end{align*}
+\end{problemproof}
+\begin{subproblem}{}
+    Is $\nabla$ always a group homorphism?
+\end{subproblem}
+\begin{problemproof}
+    No, let $G=S_3$ and $g=(12)$, $h=(23)$.
+    \begin{align*}
+        \nabla((g,g)(h,h)) &= \nabla((gh,gh)) = ghgh = (132) \neq
+        e=gghh=\nabla(g,g)\nabla(h,h)
+    \end{align*}
+\end{problemproof}
+
+\begin{problem}{}
+    Let $S_n$ act on $\Q[x_1,x_2,\dots,x_n]$ in the obvious way. Let $\Delta = \prod_{1 \leq i < j \leq n}(x_i - x_j) \in \Q[x_1,x_2,\dots,x_n]$. For $\sigma \in S_n$, let $M(\sigma)$ be the corresponding permutation matrix in $\mathsf{GL}_n(\Q)$.
+\end{problem}
+\begin{subproblem}{}
+    Show that
+    \[\frac{\sigma(\Delta)}{\Delta}=(-1)^{\left\lvert \{(i,j) \mid 1 \leq i < j \leq n, \sigma(i) > \sigma(j)\} \right\rvert}=\det M(\sigma)\]
+\end{subproblem}
+\begin{problemproof}
+    \[\sigma(\Delta)=\prod_{1 \leq i < j \leq n}(x_{\sigma(i)}-x_{\sigma(j)})\]
+    \[
+    x_{\sigma(i)}-x_{\sigma(j)} = \begin{cases}
+        x_i-x_j, & \sigma(i) < \sigma(j),\\
+        -(x_i-x_j), & \sigma(i)>\sigma(j).
+    \end{cases}
+    \]
+    Therefore,
+    \[\sigma(\Delta)=(-1)^{\left\lvert \{(i,j) \mid 1 \leq i < j \leq n, \sigma(i) > \sigma(j)\} \right\rvert}\Delta \implies \frac{\sigma(\Delta)}{\Delta}=(-1)^{\left\lvert \{(i,j) \mid 1 \leq i < j \leq n, \sigma(i) > \sigma(j)\} \right\rvert}\]
+
+    A permutation matrix is made by swapping rows. The determinant is 1 if there is an even number of swaps and $-1$ if there is a odd number.
+
+    Thus, \[\det(M(\sigma))=(-1)^{\left\lvert \{(i,j) \mid 1 \leq i < j \leq n, \sigma(i) > \sigma(j)\} \right\rvert}\]
+\end{problemproof}
+\begin{subproblem}{}
+    We defined $\epsilon(\sigma)$ to be given by any of the formulas. Show that $\epsilon$ is a group homomorphism $S_n \to \{\pm 1\}$.
+\end{subproblem}
+\begin{problemproof}
+    Let $\sigma,\tau \in S_n$.
+    \[\epsilon(\sigma\tau)=\det (M(\sigma\tau))=\det(M(\sigma)M(\tau))=\det(M(\sigma))\det(M(\tau))=\epsilon(\sigma)\epsilon(\tau)\]
+\end{problemproof}
+\rmkb{
+    The \textbf{alternating group} $A_n$ is defined as the kernel of $\epsilon$.
+}
+\begin{subproblem}{}
+    Show that $S_n$ is generated by the elements $(1j)$ for $2 \leq j \leq n$.
+\end{subproblem}
+\begin{problemproof}
+    Consider $k$-cycle $\sigma=(a_1a_2\dots a_k)$.
+
+    Consider $(1a_1)(1a_k)(1a_{k-1})\dots(1a_2)(1a_1)$
+
+    Let $i \in \{1,\dots,n\}$.
+
+    If $i = a_j$ for $j \in \{1,\dots,k\}$ then
+
+    \[(1a_1)(1a_k)(1a_{k-1})\dots(1a_2)(1a_1)(a_j)=a_{j+1 \mod k}=\sigma(a_j)\]
+
+    If $i \neq a_j$ for $j \in \{1,\dots,k\}$ then
+
+    \[(1a_1)(1a_k)(1a_{k-1})\dots(1a_2)(1a_1)(i)=i=\sigma(i)\]
+
+    Thus, we can make any $k$ cycle out of $(1j)$ for $2 \leq j \leq n$. Thus, we can make any element in $S_n$.
+\end{problemproof}
+\begin{subproblem}{}
+    Show that $A_n$ is generated by the elements $(12k)$ for $3 \leq k \leq n$.
+\end{subproblem}
+\begin{problemproof}
+    Let $\sigma \in A_n$. From (3) we can write $\sigma=(1a_1)(1a_2)\dots(1a_k)$. Since we define $A_n = \ker(\epsilon)$.
+
+    \[\epsilon(\sigma)=\epsilon(1a_1)\epsilon(1a_2)\dots\epsilon(1a_k)=0\]
+    Since $\epsilon(1a_i)=-1$ this implies $k$ is even.
+    
+    This implies that $A_n$ when decomposed has an even amount of transpositions. Thus, we only need to look at $(1a)(1b)$ and generate it with $(12k)$.
+
+    
+    If $a = b$:
+    $(1a)(1b)=e$
+
+    If $a \neq b$:
+
+    If $a,b \geq 2$:
+    $(1a)(1b)=(12a)(12b)(12b)$
+
+    If $a = 2$:
+    $(12)(1b)=(12b)(12b)$
+
+    If $b = 2$:
+    $(1a)(12)=(12a)$
+
+    In every case, $(1a)(1b)$ is a product of $(12k)$ with $k \geq 3$, and since every $\sigma \in A_n$ can be written with an even amount of transpositions of the form $(1a)$. This implies that $A_n$ is generated by the elements $(12k)$ for $k \geq 3$.
+\end{problemproof}
+
+\qh
+\begin{subproblem}{}
+    Let $n$ be a positive integer and $a$ another integer. Show that there exists $x$ s.t. $ax \equiv 1 \mod n$ if and only if $\gcd(a,n) = 1$.
+\end{subproblem}
+\begin{problemproof}
+    $(\implies)$:
+
+    Assume $\exists x$ s.t. $ax \equiv 1 \mod n$.
+
+    This means there exists a $y \in \Z$ s.t.
+    \[ax - 1 = ny \implies ax-ny = 1\]
+    Let $d=\gcd(a,n)$. Since $d \mid a$ and $d \mid n$ this implies $d\mid 1$. Thus, $\gcd(a,n) = d = 1$.
+
+    $(\impliedby)$:
+
+    Assume $\gcd(a,n) = 1$.
+
+    By Bezout's Lemma there exists $x,y \in \Z$ s.t. $ax+ny = 1$. Thus $ax - 1 = ny \implies ax \equiv 1 \mod n$.
+    Thus, there exists an $x$.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $(\Z \diagup n\Z)^\times$ be the set of residue classes $\bar{a}$ modulo $n$ for which $\gcd(a,n)=1$. Show that $(\Z \diagup n \Z)^{\times}$ is a group.
+\end{subproblem}
+\begin{problemproof}
+    Associativity:
+
+    It is by definition associative.
+
+    Identity element:
+
+    $1 \in (\Z \diagup n\Z)^\times$ and for all $g \in (\Z \diagup n\Z)^\times$ $1g=g=g1$.
+
+    Inverse element:
+
+    Let $g \in (\Z \diagup n\Z)^\times$. This means that $\gcd(g,n)=1$. Thus, by (1) there exists an $x \in \Z$ s.t. $gx \equiv 1 \mod n$. Therefore, $g\bar{x}=1=\bar{x}g$.
+    
+    Thus, $(\Z \diagup n\Z)^\times$ is a group.
+\end{problemproof}
+
+\begin{subproblem}{}
+    Let $n$ have prime factorization $n=p_1^{a_1}p_2^{a_2}\dots p_r^{a_r}$. Define a map $(\Z \diagup n\Z)^\times \to \prod (\Z \diagup p_i^{a_i} \Z)^\times$ by $(m \mod \p_1^{a_1}, m \mod p_2^{a_2},\dots,m \mod p_r^{a_r})$, where the product of groups is defined in. Show that this map is an isomorphism of groups.
+\end{subproblem}
+\begin{problemproof}
+    Let $\varphi$ be that map.
+
+    Well-Defined:
+
+    Let $m \equiv m' \mod n$, then since $p_i^{a_i} \mid n$, we have
+    \[m \equiv m' \mod p_i^{a_i}\]
+    for every i. Hence, each coordinate is well-defined.
+
+    Homomorphism:
+
+    Let $g,h \in (\Z \diagup n\Z)^\times$.
+    \begin{align*}
+        \varphi(gh) &=(gh \mod p_1^{a_1}, gh \mod p_2^{a_2},\dots,gh\mod p_r^{a_r})\\
+                    &=(g \mod p_1^{a_1}, g \mod p_2^{a_2},\dots,g\mod p_r^{a_r})\\ 
+                    &\cdot (h \mod p_1^{a_1}, h \mod p_2^{a_2},\dots,h\mod p_r^{a_r})\\
+                    &=\varphi(g)\varphi(h)
+    \end{align*}
+
+    Injective:
+
+    Let $g \in \ker(\varphi)$. Then
+    \[g = 1 \mod p_i^{a_i}\] 
+    Since $p_i^{a_i}$ are pairwise coprime, the Chinese remainder theorem gives $g \equiv 1 \mod n$.
+
+    Thus, $g=1$.
+
+    Surjective:
+
+    Let $(g_1, g_2,\dots,g_r) \in \prod (\Z \diagup p_i^{a_i} \Z)^\times$
+
+    By the Chinese remainder theorem, there exists an integer $m$ s.t.
+    \[m \equiv g_i \mod \p_i^{a_i}\]
+    Thus, $\varphi(m)=(g_1,g_2,\dots,g_r)$.
+    Therefore, $\varphi$ is an isomorphism, and
+    \[(\Z \diagup n\Z)^\times \cong \prod (\Z \diagup p_i^{a_i} \Z)^\times\]
+\end{problemproof}
+\end{document}
