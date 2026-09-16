@@ -1,0 +1,28 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{perceptron}\PYG{p}{(}\PYG{n}{X}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{,} \PYG{n}{y}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{):}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Implements the Perception algorithm for binary linear classification.}
+\PYG{l+s+sd}{Args:}
+\PYG{l+s+sd}{    X: np.array, shape (n, d)}
+\PYG{l+s+sd}{    y: np.array, shape (n,)}
+
+\PYG{l+s+sd}{Returns:}
+\PYG{l+s+sd}{    theta: np.array, shape (d,)}
+\PYG{l+s+sd}{    b: float}
+\PYG{l+s+sd}{    alpha: np.array, shape (n,).}
+\PYG{l+s+sd}{        Misclassification vector, in which the i\PYGZhy{}th element is has the number of times}
+\PYG{l+s+sd}{        the i\PYGZhy{}th point has been misclassified)}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{n}\PYG{p}{,} \PYG{n}{d} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}
+\PYG{n}{theta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{((}\PYG{n}{d}\PYG{p}{,))}
+\PYG{n}{b} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{n}{alpha} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{((}\PYG{n}{n}\PYG{p}{,))}
+
+\PYG{k}{while} \PYG{o+ow}{not} \PYG{n}{all\PYGZus{}correct}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{y}\PYG{p}{,}\PYG{n}{theta}\PYG{p}{,}\PYG{n}{b}\PYG{p}{):}
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,(}\PYG{n}{Xi}\PYG{p}{,}\PYG{n}{yi}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{yi} \PYG{o}{*} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{@} \PYG{n}{Xi} \PYG{o}{+} \PYG{n}{b}\PYG{p}{)} \PYG{o}{\PYGZlt{}=} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n}{theta} \PYG{o}{+=} \PYG{n}{yi} \PYG{o}{*} \PYG{n}{Xi}
+            \PYG{n}{b} \PYG{o}{+=} \PYG{n}{yi}
+            \PYG{n}{alpha}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{+=}\PYG{l+m+mi}{1}
+\PYG{k}{return} \PYG{n}{theta}\PYG{p}{,} \PYG{n}{b}\PYG{p}{,} \PYG{n}{alpha}
+\end{MintedVerbatim}

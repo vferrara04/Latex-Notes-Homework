@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{all\PYGZus{}correct}\PYG{p}{(}\PYG{n}{X}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{,} \PYG{n}{y}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{,} \PYG{n}{theta}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{,} \PYG{n}{b}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{):}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Args:}
+\PYG{l+s+sd}{    X: np.array, shape (n, d)}
+\PYG{l+s+sd}{    y: np.array, shape (n,)}
+\PYG{l+s+sd}{    theta: np.array, shape (d,), normal vector of decision boundary}
+\PYG{l+s+sd}{    b: float, offset}
+
+\PYG{l+s+sd}{Returns true if the linear classifier specified by theta and b correctly classifies all examples}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{k}{for} \PYG{n}{Xi}\PYG{p}{,} \PYG{n}{yi} \PYG{o+ow}{in} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{y}\PYG{p}{):}
+    \PYG{k}{if} \PYG{n}{yi} \PYG{o}{*} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{@} \PYG{n}{Xi} \PYG{o}{+} \PYG{n}{b}\PYG{p}{)} \PYG{o}{\PYGZlt{}=} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{k+kc}{False}
+\PYG{k}{return} \PYG{k+kc}{True}
+\end{MintedVerbatim}
