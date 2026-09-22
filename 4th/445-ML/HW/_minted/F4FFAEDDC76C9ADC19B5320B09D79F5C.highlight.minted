@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{if} \PYG{n}{adaptive}\PYG{p}{:}
+        \PYG{n}{step} \PYG{o}{=} \PYG{l+m+mf}{0.1}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{+} \PYG{l+m+mf}{0.1} \PYG{o}{*} \PYG{n}{n\PYGZus{}iter}\PYG{p}{)}
+\end{MintedVerbatim}

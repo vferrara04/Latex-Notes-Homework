@@ -13,8 +13,7 @@ def sigmoid(z):
     Args:
         z: A scalar or numpy array of any size
     """
-    # TODO: Implement the sigmoid function
-    pass 
+    return 1 / (1 + np.exp(-z))
 
 def logistic_stochastic_gradient_descent(X, y, lr=0.0001):
     """
@@ -34,7 +33,11 @@ def logistic_stochastic_gradient_descent(X, y, lr=0.0001):
     n, d = X.shape
     theta = np.zeros(d + 1)
     
-    # TODO: Implement SGD. Train for 10,000 epochs
+    epochs = 10000
+    for epoch in range(epochs):
+        for Xt, yt in zip(X,y):
+            xt = np.insert(Xt, 0, 1.0)
+            theta = theta + lr * yt * xt * sigmoid(-yt * (xt @ theta))
     return theta
 
 def main(fname):

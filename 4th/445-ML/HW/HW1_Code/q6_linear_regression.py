@@ -18,7 +18,6 @@ def calculate_squared_loss(X, y, theta):
     Returns:
         The squared loss for the given data and parameters
     """
-    # TODO: Implement the squared loss calculation
     total = 0
     for Xi,yi in zip(X,y):
         total += ((yi - theta @ Xi)**2)/2
@@ -54,13 +53,9 @@ def ls_gradient_descent(X, y, learning_rate=0):
 
     while n_iter < max_iter and abs(new_loss - prev_loss) > eps: # Implement the correct stopping criteria
         n_iter += 1
-        grad = []
+        
+        grad = -X.T @ (y - X @ theta)
 
-        for xt, yt in zip(X, y):
-            # Append the gradient of the loss function evaluated at each point
-            grad.append(-(yt - theta @ xt) * xt)
-
-        grad = np.mean(grad, axis=0)
         theta = theta - (step * grad)
 
         prev_loss = new_loss
@@ -102,10 +97,12 @@ def ls_stochastic_gradient_descent(X, y, learning_rate=0):
     while n_iter < max_iter and abs(new_loss - prev_loss) > eps:
         epochs += 1
         if adaptive:
-            step = None # TODO: [6d] Implement adaptive learning rate update step 
+            step = 0.1/(1 + 0.1 * n_iter)
 
         for xt, yt in zip(X, y):
-            theta -= -(yt - theta @ xt) * xt
+            scale = (yt - theta @ xt) * xt
+            if scale.any():
+                theta += step * scale
             n_iter += 1
 
         prev_loss = new_loss
@@ -113,8 +110,6 @@ def ls_stochastic_gradient_descent(X, y, learning_rate=0):
 
     print("Learning rate:", learning_rate, "\t\t\tNum iterations:", n_iter)
     return theta
-
-
 
 def ls_closed_form_optimization(X, y):
     """
@@ -127,8 +122,7 @@ def ls_closed_form_optimization(X, y):
     Returns:
         theta: np.array, shape (d,)
     """
-    # TODO: Implement the closed form solution for least squares regression
-    pass
+    return np.linalg.inv(X.T @ X) @ X.T @ y
 
 def main(fname_train):
     # TODO: This function should contain all the code you implement to complete question 6.
@@ -139,10 +133,26 @@ def main(fname_train):
     # The term multiplied by theta_0 is x^0 = 1 (theta_0 is a constant), which is why the column contains only ones.
     X_train = np.hstack((np.ones((X_train.shape[0], 1)), X_train))
 
-    theta = ls_gradient_descent(X_train, y_train, 0.01)
-    print(theta)
-    print(ls_stochastic_gradient_descent(X_train, y_train, 0.01))
+    learning_rate = 0.1
+    for i in range(4):
+        start_time = time.process_time()
+        print("GD: ", ls_gradient_descent(X_train, y_train, learning_rate))
+        end_time = time.process_time()
+        print(end_time - start_time)
+        start_time = time.process_time()
+        print("SGD: ", ls_stochastic_gradient_descent(X_train, y_train, learning_rate))
+        end_time = time.process_time()
+        print(end_time - start_time)
+        learning_rate /= 10
 
+    start_time = time.process_time()
+    print("SGD ADP:", ls_stochastic_gradient_descent(X_train, y_train, 'adaptive'))
+    end_time = time.process_time()
+    print(end_time - start_time)
+    start_time = time.process_time()
+    print("Closed:", ls_closed_form_optimization(X_train, y_train))
+    end_time = time.process_time()
+    print(end_time - start_time)
     print("Done!")
 
 if __name__ == '__main__':

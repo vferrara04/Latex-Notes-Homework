@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{sigmoid}\PYG{p}{(}\PYG{n}{z}\PYG{p}{):}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Implements the sigmoid function..}
+\PYG{l+s+sd}{Args:}
+\PYG{l+s+sd}{    z: A scalar or numpy array of any size}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{k}{return} \PYG{l+m+mi}{1} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{z}\PYG{p}{))}
+\end{MintedVerbatim}

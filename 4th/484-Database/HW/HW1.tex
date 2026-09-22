@@ -14,7 +14,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{float}
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
-\usepackage{fancyhdr}
+\usepackage[nocheck]{fancyhdr}
 \usepackage{multicol}
 \usepackage{setspace}
 
@@ -302,5 +302,58 @@ concert?
 \end{subproblem}
 \begin{solution}
     No
+\end{solution}
+
+\qh
+\begin{subproblem}{}
+    The fewest number of tables that can be used to represent this ER diagram without
+redundancy is 2
+\end{subproblem}
+\begin{solution}
+    True
+\end{solution}
+
+\begin{subproblem}{}
+    In the least redundant design, 'mid' is a foreign key in the Employee table
+\end{subproblem}
+\begin{solution}
+    True
+\end{solution}
+
+\begin{subproblem}{}
+    In the least redundant design, 'mid' is a foreign key in the Employee table
+\end{subproblem}
+\begin{solution}
+    True
+\end{solution}
+
+\begin{subproblem}{}
+    In the least redundant design, ‘mid’ is a foreign key in the Employee table
+\end{subproblem}
+\begin{solution}
+    False
+\end{solution}
+
+\begin{subproblem}{}
+    In the least redundant design, ‘mid’ is a foreign key in the Employee table
+\end{subproblem}
+\begin{solution}
+    False
+\end{solution}
+
+\begin{subproblem}{}
+    Create a table for \textbf{Employee} by SQL statement, in the least redundant design, including all the
+necessary integrity constraints shown by the above ER diagram
+\end{subproblem}
+\begin{solution}
+    \begin{minted}{sql}
+        CREATE TABLE Employee (
+            eid INTEGER PRIMARY KEY,
+            name CHAR(20),
+            age INTEGER,
+            mid INTEGER,
+            FOREIGN KEY (mid) REFERENCES Manager
+        );
+    \end{minted}
 \end{solution}
 \end{document}

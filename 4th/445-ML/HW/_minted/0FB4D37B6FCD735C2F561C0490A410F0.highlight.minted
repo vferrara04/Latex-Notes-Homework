@@ -1,0 +1,26 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{logistic\PYGZus{}stochastic\PYGZus{}gradient\PYGZus{}descent}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{lr}\PYG{o}{=}\PYG{l+m+mf}{0.0001}\PYG{p}{):}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{Implements the Stochastic Gradient Descent (SGD) algorithm for logistic regression.}
+\PYG{l+s+sd}{Note:}
+\PYG{l+s+sd}{    \PYGZhy{} Please do not shuffle your data points.}
+\PYG{l+s+sd}{    \PYGZhy{} Please use the stopping criteria: number of epochs == 10,000}
+
+\PYG{l+s+sd}{Args:}
+\PYG{l+s+sd}{    X: np.array, shape (n, d)}
+\PYG{l+s+sd}{    y: np.array, shape (n,)}
+\PYG{l+s+sd}{    lr: the learning rate for the algorithm}
+
+\PYG{l+s+sd}{Returns:}
+\PYG{l+s+sd}{    theta: np.array, shape (d+1,) including the offset term.}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{n}\PYG{p}{,} \PYG{n}{d} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}
+\PYG{n}{theta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{d} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{n}{epochs} \PYG{o}{=} \PYG{l+m+mi}{10000}
+\PYG{k}{for} \PYG{n}{epoch} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{epochs}\PYG{p}{):}
+    \PYG{k}{for} \PYG{n}{Xt}\PYG{p}{,} \PYG{n}{yt} \PYG{o+ow}{in} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{y}\PYG{p}{):}
+        \PYG{n}{xt} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{Xt}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{)}
+        \PYG{n}{theta} \PYG{o}{=} \PYG{n}{theta} \PYG{o}{+} \PYG{n}{lr} \PYG{o}{*} \PYG{n}{yt} \PYG{o}{*} \PYG{n}{xt} \PYG{o}{*} \PYG{n}{sigmoid}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{yt} \PYG{o}{*} \PYG{p}{(}\PYG{n}{xt} \PYG{o}{@} \PYG{n}{theta}\PYG{p}{))}
+\PYG{k}{return} \PYG{n}{theta}
+\end{MintedVerbatim}

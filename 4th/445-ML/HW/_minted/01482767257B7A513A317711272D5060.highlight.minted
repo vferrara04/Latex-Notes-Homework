@@ -1,0 +1,42 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{ls\PYGZus{}gradient\PYGZus{}descent}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{learning\PYGZus{}rate}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Implement the Gradient Descent (GD) algorithm for least squares regression.}
+\PYG{l+s+sd}{    Note:}
+\PYG{l+s+sd}{        \PYGZhy{} Please use the following stopping criteria together: number of iterations \PYGZgt{}= 1e6 or |new\PYGZus{}loss \PYGZhy{} prev\PYGZus{}loss| \PYGZlt{}= 1e\PYGZhy{}10}
+
+\PYG{l+s+sd}{    Args:}
+\PYG{l+s+sd}{        X: np.array, shape (n, d)}
+\PYG{l+s+sd}{        y: np.array, shape (n,)}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        theta: np.array, shape (d,)}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{n}\PYG{p}{,} \PYG{n}{d} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}
+    \PYG{n}{theta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{d}\PYG{p}{)}
+
+    \PYG{n}{eps} \PYG{o}{=} \PYG{l+m+mf}{1e\PYGZhy{}10}
+    \PYG{n}{max\PYGZus{}iter} \PYG{o}{=} \PYG{l+m+mf}{1e6}
+    \PYG{n}{n\PYGZus{}iter} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+    \PYG{n}{step} \PYG{o}{=} \PYG{n}{learning\PYGZus{}rate}
+    \PYG{n}{prev\PYGZus{}loss} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}
+    \PYG{n}{new\PYGZus{}loss} \PYG{o}{=} \PYG{n}{calculate\PYGZus{}squared\PYGZus{}loss}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{theta}\PYG{p}{)}
+
+    \PYG{k}{while} \PYG{n}{n\PYGZus{}iter} \PYG{o}{\PYGZlt{}} \PYG{n}{max\PYGZus{}iter} \PYG{o+ow}{and} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{new\PYGZus{}loss} \PYG{o}{\PYGZhy{}} \PYG{n}{prev\PYGZus{}loss}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{n}{eps}\PYG{p}{:} \PYG{c+c1}{\PYGZsh{} Implement the correct stopping criteria}
+        \PYG{n}{n\PYGZus{}iter} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        \PYG{n}{grad} \PYG{o}{=} \PYG{p}{[]}
+
+        \PYG{k}{for} \PYG{n}{xt}\PYG{p}{,} \PYG{n}{yt} \PYG{o+ow}{in} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{):}
+            \PYG{c+c1}{\PYGZsh{} Append the gradient of the loss function evaluated at each point}
+            \PYG{n}{grad}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{yt} \PYG{o}{\PYGZhy{}} \PYG{n}{theta} \PYG{o}{@} \PYG{n}{xt}\PYG{p}{)} \PYG{o}{*} \PYG{n}{xt}\PYG{p}{)}
+
+        \PYG{n}{grad} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{grad}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+        \PYG{n}{theta} \PYG{o}{=} \PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{step} \PYG{o}{*} \PYG{n}{grad}\PYG{p}{)}
+
+        \PYG{n}{prev\PYGZus{}loss} \PYG{o}{=} \PYG{n}{new\PYGZus{}loss}
+        \PYG{n}{new\PYGZus{}loss} \PYG{o}{=} \PYG{n}{calculate\PYGZus{}squared\PYGZus{}loss}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{theta}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Learning rate:\PYGZdq{}}\PYG{p}{,} \PYG{n}{learning\PYGZus{}rate}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t\PYGZbs{}t\PYGZbs{}t}\PYG{l+s+s2}{Num iterations:\PYGZdq{}}\PYG{p}{,} \PYG{n}{n\PYGZus{}iter}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{theta}
+\end{MintedVerbatim}

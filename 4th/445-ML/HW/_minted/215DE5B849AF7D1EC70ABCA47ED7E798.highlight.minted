@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{ls\PYGZus{}closed\PYGZus{}form\PYGZus{}optimization}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{):}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Implement the closed form solution for least squares regression.}
+
+\PYG{l+s+sd}{    Args:}
+\PYG{l+s+sd}{        X: np.array, shape (n, d)}
+\PYG{l+s+sd}{        y: np.array, shape (n,)}
+
+\PYG{l+s+sd}{    Returns:}
+\PYG{l+s+sd}{        theta: np.array, shape (d,)}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{T} \PYG{o}{@} \PYG{n}{X}\PYG{p}{)} \PYG{o}{@} \PYG{n}{X}\PYG{o}{.}\PYG{n}{T} \PYG{o}{@} \PYG{n}{y}
+\end{MintedVerbatim}

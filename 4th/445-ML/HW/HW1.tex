@@ -14,7 +14,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{float}
 \usepackage[left=1in,top=1in,right=1in,bottom=1in]{geometry}
-\usepackage{fancyhdr}
+\usepackage[nocheck]{fancyhdr}
 \usepackage{multicol}
 \usepackage{setspace}
 
@@ -207,6 +207,15 @@ by $+1$ if $\bar{x}$ lies on the opposite side.
 
     Thus, from $(i)$ we get the signed distance is
     \[\frac{\bar{\theta} \cdot \bar{x}-\bar{x}_0}{\left\|\theta\right\|}=\frac{\bar{\theta} \cdot \bar{x} - \bar{\theta} \cdot \bar{x}_0}{\left\|\theta\right\|}=\frac{\bar{\theta} \cdot \bar{x} + b}{\left\|\theta\right\|}\]
+\end{solution}
+\begin{subsubproblem}{}
+    Let $p$ be the plane consisting of the set of points for which $-2x_1 + \sqrt{5}x_2 + 3 = 0$.
+\end{subsubproblem}
+\begin{solution}{}
+    \begin{enumerate}[i.]
+        \item $\frac{-2 * 6 + \sqrt{5} * 7 + 3}{\sqrt{4+5}}=\frac{-9+7\sqrt{5}}{3}$
+        \item $\frac{-2 * 0 + \sqrt{5} * 0 + 3}{3}=1$
+    \end{enumerate}
 \end{solution}
 
 \begin{problem}{Feature Vectors}
@@ -580,6 +589,9 @@ considered change the solution to which the algorithm converges
     Since $y^{(i)}(\bar{\theta}^{(k)} \cdot \bar{x}^{(i)}) \leq 0$\\
     Therefore, $\|\bar{\theta}^{(k+1)}\|^2 \leq \|\bar{\theta}^{(k)} \| + 1$.
 \end{problemproof}
+\begin{subsubproblem}{}
+    Now Prove that $\| \bar{\theta}^{(k+1)} \|^2 \leq k+1$
+\end{subsubproblem}
 \begin{problemproof}
     Again applying the formula recursively we get $\|\bar{\theta}^{(k+1)}\|^2 \leq (k+1)$\\ 
     since $\|\theta^{(0)}\|=0$ for the last step.
@@ -598,4 +610,267 @@ considered change the solution to which the algorithm converges
         k + 1 &\leq \frac{1}{\gamma^2}
     \end{align*}
 \end{problemproof}
+
+\qh[Linear Regression - Optimization Methods]
+\begin{subproblem}{}
+    You will now implement and use three different optimization methods to find the coefficients
+$\theta_1$ and $\theta_0$ (slope and intercept, respectively) that minimize the squared loss for a model of the form
+$\hat{y} = \theta_1x + \theta_0$. Include screenshots of your code for each function.
+\end{subproblem}
+\begin{subsubproblem}{}
+    \begin{itemize}
+        \item Implement ls gradient descent(X,y).
+        \item Implement ls stochastic gradient descent(X,y).
+        \item Implement ls closed form optimization(X,y).
+    \end{itemize}
+\end{subsubproblem}
+\begin{solution}{}
+    \begin{minted}{python3}
+        def ls_gradient_descent(X, y, learning_rate=0):
+            """
+            Implement the Gradient Descent (GD) algorithm for least squares regression.
+            Note:
+                - Please use the following stopping criteria together: number of iterations >= 1e6 or |new_loss - prev_loss| <= 1e-10
+
+            Args:
+                X: np.array, shape (n, d) 
+                y: np.array, shape (n,)
+            
+            Returns:
+                theta: np.array, shape (d,)
+            """
+            n, d = X.shape
+            theta = np.zeros(d)
+
+            eps = 1e-10
+            max_iter = 1e6
+            n_iter = 0
+
+            step = learning_rate
+            prev_loss = np.inf
+            new_loss = calculate_squared_loss(X, y, theta)
+
+            while n_iter < max_iter and abs(new_loss - prev_loss) > eps: # Implement the correct stopping criteria
+                n_iter += 1
+                grad = []
+
+                for xt, yt in zip(X, y):
+                    # Append the gradient of the loss function evaluated at each point
+                    grad.append(-(yt - theta @ xt) * xt)
+
+                grad = np.mean(grad, axis=0)
+                theta = theta - (step * grad)
+
+                prev_loss = new_loss
+                new_loss = calculate_squared_loss(X, y, theta)
+
+            print("Learning rate:", learning_rate, "\t\t\tNum iterations:", n_iter)
+            return theta
+    \end{minted}
+    \begin{minted}{python}
+
+        def ls_stochastic_gradient_descent(X, y, learning_rate=0):
+            """
+            Implement the Stochastic Gradient Descent (SGD) algorithm for least squares regression.
+            Note:
+                - Please do not shuffle your data points.
+                - Please use the following stopping criteria together: number of iterations >= 1e6 or |new_loss - prev_loss| <= 1e-10
+            
+            Args:
+                X: np.array, shape (n, d) 
+                y: np.array, shape (n,)
+                learning_rate: the learning rate for the algorithm
+            
+            Returns:
+                theta: np.array, shape (d,)
+            """
+            n, d = X.shape
+            theta = np.zeros(d)
+            adaptive = (learning_rate == 'adaptive')
+
+            eps = 1e-10
+            max_iter = 1e6
+            n_iter = 0
+            epochs = 0
+
+            step = learning_rate
+            prev_loss = np.inf
+            new_loss = calculate_squared_loss(X, y, theta)
+
+            while n_iter < max_iter and abs(new_loss - prev_loss) > eps:
+                epochs += 1
+                if adaptive:
+                    step = None # TODO: [6d] Implement adaptive learning rate update step 
+
+                for xt, yt in zip(X, y):
+                    guess = (yt - theta @ xt) * xt
+                    if guess.any():
+                        theta += learning_rate * guess
+                    n_iter += 1
+
+                prev_loss = new_loss
+                new_loss = calculate_squared_loss(X, y, theta)
+
+            print("Learning rate:", learning_rate, "\t\t\tNum iterations:", n_iter)
+            return theta
+        
+        \end{minted}
+        \phantom{text}\\
+        \begin{minted}{python}
+        def ls_closed_form_optimization(X, y):
+            """
+            Implement the closed form solution for least squares regression.
+
+            Args:
+                X: np.array, shape (n, d) 
+                y: np.array, shape (n,)
+
+            Returns:
+                theta: np.array, shape (d,)
+            """
+            return np.linalg.inv(X.T @ X) @ X.T @ y
+        \end{minted}
+\end{solution}
+
+\begin{subsubproblem}
+    
+\end{subsubproblem}
+\begin{solution}{}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            Algorithm & $\eta$ & $\theta_0$ & $\theta_1$ & \# iterations & Runtime (s)\\
+            \hline
+            GD  & $10^{-4}$ & 0.276 & 0.175 & 117057 & 5.750 \\
+            \hline
+            GD  & $10^{-3}$ & 0.275 & 0.178 & 17326 & 0.851 \\
+            \hline
+            GD  & $10^{-2}$ & 0.275 & 0.179 & 2294 & 0.115 \\
+            \hline
+            GD  & $10^{-1}$ & 0.275 & 0.180 & 284 & 0.014 \\
+            \hline
+            SGD & $10^{-4}$ & 0.275 & 0.179 & 188300 & 0.447 \\
+            \hline
+            SGD & $10^{-3}$ & 0.274 & 0.180 & 19500 & 0.048 \\
+            \hline
+            SGD & $10^{-2}$ & 0.267 & 0.186 & 5260 & 0.013 \\
+            \hline
+            SGD & $10^{-1}$ & 0.220 & 0.253 & 780 & 0.003 \\
+            \hline
+            Closed Form & -- & 0.275 & 0.180 & -- & 0.007 \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{solution}
+
+\begin{subproblem}{}
+    Compare GD vs SGD: specifically, comment on runtime, number of iterations, and resulting 
+    coefficients at convergence
+\end{subproblem}
+\begin{solution}
+    GD is more stable and needs fewer iterations, but each iteration is expensive. SGD is cheaper per iteration and much faster overall, but it is noisier and needs
+    a smaller learning rate to approach the true coefficients. For this problem, GD with $\eta = 10^{-1}$ gives the best accuracy/runtime trade-off, while SGD with $\eta = 10^{-3}$ gives a close approximation at low runtime.
+\end{solution}
+
+\begin{subproblem}{}
+    In this particular case, how does the runtime of the closed form solution compare to stochastic
+gradient descent? Which learning rate used for SGD produces the coefficients closest to the closed form
+solution?
+\end{subproblem}
+\begin{solution}
+    The closed form solution is faster than SGD for learning rate above $10^{-1}$. The learning rate
+    that produces the best results for SGD is $\eta = 10^{-3}$ or $\eta = 10^{-4}$ since these both have one coord exactly and one coord off by 0.001.
+\end{solution}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{solution}
+    \begin{minted}{python3}
+        if adaptive:
+                step = 0.1/(1 + 0.1 * n_iter)
+    \end{minted}
+    The coefficients are exactly the closed formula when rounded. It takes 38900 iterations to converge.
+\end{solution}
+
+\qh[Logistic regression - Stochastic Gradient Descent]
+\begin{subproblem}{}
+    The logistic loss with respect to a single example $(\bar{x}^{(i)}, y^{(i)})$ is defined as
+    \[J^{(i)}(\bar{\theta}) = \ln(1+e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}})\]
+    Find $\nabla_{\bar{\theta}} J^{(i)}(\bar{\theta})$.
+\end{subproblem}
+\begin{solution}
+    \begin{align*}
+        \nabla_{\bar{\theta}} J^{(i)}(\bar{\theta}) &= \frac{1}{1+e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}\left( \frac{d J^{(i)}}{d \theta} 1+e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}} \right)\\
+                                                    &= \frac{-y^{(i)}x^{(i)}e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}{1+e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}\\
+                                                    &= \frac{-y^{(i)}x^{(i)}e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}} e^{y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}{\left( 1+e^{-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}} \right) e^{y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}\\
+                                                    &= \frac{-y^{(i)}x^{(i)}}{1+e^{y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}
+    \end{align*}
+\end{solution}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{solution}
+    \begin{align*}
+        \bar{\theta}^{(k+1)} &= \bar{\theta}^{(k)} - \eta \nabla_{\bar{\theta}} J^{(i)}(\bar{\theta}^{(k)})\\
+                             &= \bar{\theta}^{(k)} + \eta \frac{y^{(i)}x^{(i)}}{1+e^{y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)}}}\\
+                             &= \bar{\theta}^{(k)} + \eta y^{(i)}x^{(i)}\sigma(-y^{(i)}\bar{\theta}\cdot \bar{x}^{(i)})
+    \end{align*}
+\end{solution}
+
+\begin{subproblem}{}
+    
+\end{subproblem}
+\begin{solution}
+    \begin{minted}{python3}
+        def sigmoid(z):
+        """ 
+        Implements the sigmoid function..
+        Args:
+            z: A scalar or numpy array of any size
+        """
+        return 1 / (1 + np.exp(-z))
+    \end{minted}
+    \begin{minted}{python3}
+        def logistic_stochastic_gradient_descent(X, y, lr=0.0001):
+        """
+        Implements the Stochastic Gradient Descent (SGD) algorithm for logistic regression.
+        Note:
+            - Please do not shuffle your data points.
+            - Please use the stopping criteria: number of epochs == 10,000
+        
+        Args:
+            X: np.array, shape (n, d) 
+            y: np.array, shape (n,)
+            lr: the learning rate for the algorithm
+        
+        Returns:
+            theta: np.array, shape (d+1,) including the offset term.
+        """
+        n, d = X.shape
+        theta = np.zeros(d + 1)
+        
+        epochs = 10000
+        for epoch in range(epochs):
+            for Xt, yt in zip(X,y):
+                xt = np.insert(Xt, 0, 1.0)
+                theta = theta + lr * yt * xt * sigmoid(-yt * (xt @ theta))
+        return theta
+    \end{minted}
+    \[\bar{\theta} = \begin{bmatrix}
+        0.180\\
+        -0.011\\
+        0.055\\
+    \end{bmatrix}\]
+\end{solution}
+
+
+\begin{subproblem}{}
+    Can you find a closed form solution for logistic regression? If so, derive it. If not, explain why.
+\end{subproblem}
+\begin{solution}
+    No you find a closed solution. This is because when we take the gradient and set it to zero we get a sum of 
+    $\nabla_{\bar{\theta}} J^{(i)}$. The problem is a sum of sigmoid functions cannot be solved algebraically.
+\end{solution}
 \end{document}
